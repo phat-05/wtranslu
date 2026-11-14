@@ -1,0 +1,103 @@
+{
+  "summary": {
+    "label": "fix-wgc-latest-frame style scenario",
+    "all": {
+      "n": 5,
+      "missing": 0,
+      "mean_ms": 1917,
+      "median_ms": 1493,
+      "min_ms": 1167,
+      "max_ms": 3229,
+      "ocr_runs": 62,
+      "translation_requests": 0,
+      "from_cache": 5,
+      "image_cache_hits": 0
+    },
+    "first_time_lines": {
+      "n": 5,
+      "missing": 0,
+      "mean_ms": 1917,
+      "median_ms": 1493,
+      "min_ms": 1167,
+      "max_ms": 3229,
+      "ocr_runs": 62,
+      "translation_requests": 0,
+      "from_cache": 5,
+      "image_cache_hits": 0
+    },
+    "repeated_lines": {
+      "n": 0
+    },
+    "per_session": {
+      "s1": {
+        "n": 5,
+        "missing": 0,
+        "mean_ms": 1917,
+        "median_ms": 1493,
+        "min_ms": 1167,
+        "max_ms": 3229,
+        "ocr_runs": 62,
+        "translation_requests": 0,
+        "from_cache": 5,
+        "image_cache_hits": 0
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "Chapter 2: The Lighthouse",
+      "latency_ms": 3229,
+      "ocr_runs": 8,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "Find the red key before the tide turns.",
+      "latency_ms": 1314,
+      "ocr_runs": 14,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Continue / Load Game / Settings / Quit",
+      "latency_ms": 2380,
+      "ocr_runs": 13,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 3,
+      "cycle": 0,
+      "text": "The blue door opens only for the green lantern.",
+      "latency_ms": 1167,
+      "ocr_runs": 14,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 4,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 1493,
+      "ocr_runs": 13,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 0
+    }
+  ]
+}
