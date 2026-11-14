@@ -112,7 +112,12 @@ jobs:
         timeout-minutes: 15
         shell: bash
         run: |
-          python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
+          # Processes started in an earlier step are gone: start the server here, for this run
+          "$RUNNER_TEMP/ollama/ollama.exe" serve > "$RUNNER_TEMP/ollama-serve2.log" 2>&1 &
+          for i in $(seq 1 30); do curl -s http://localhost:11434/api/tags > /dev/null && break; sleep 1; done
+          curl -s http://localhost:11434/api/generate -d '{"model":"qwen2.5:3b","prompt":"OK","stream":false}' > /dev/null
+          # --fresh: the earlier Google runs cached these lines; the AI must translate them itself
+          python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe --fresh \
             --script tests/e2e/scenarios/words_llm.txt --out evidence/words_llm --sessions 1 \
             --label "${GITHUB_REF_NAME} coloured words, Ollama qwen2.5:3b" --shot-delay 17000 --timeout 900 \
             --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Ollama;ollama_model=qwen2.5:3b;${STYLE_ON}"
