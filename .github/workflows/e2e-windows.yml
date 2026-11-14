@@ -5,6 +5,7 @@ on:
     branches:
       - 'claude/**'
       - 'goal*'
+      - 'fix-*'
     paths:
       - 'src/**'
       - 'tests/**'

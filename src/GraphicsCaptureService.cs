@@ -143,7 +143,11 @@ namespace RSTGameTranslation
 
             try
             {
-                using var frame = _framePool.TryGetNextFrame();
+                // The pool queues up to 2 frames and TryGetNextFrame returns the OLDEST one. While the game
+                // animates the queue is always full, so the first frame is the one captured just after the
+                // previous call (a capture tick, ~250 ms, ago): OCR would read text that is already gone.
+                // Take every queued frame and keep the newest.
+                using var frame = TakeNewestFrame();
                 if (frame == null)
                 {
                     // No new frame since last call — return a copy of the last captured frame.
@@ -176,6 +180,21 @@ namespace RSTGameTranslation
             {
                 Console.WriteLine($"WGC CaptureFrame error: {ex.Message}");
                 return null;
+            }
+        }
+
+        private Direct3D11CaptureFrame? TakeNewestFrame()
+        {
+            Direct3D11CaptureFrame? newest = _framePool!.TryGetNextFrame();
+            if (newest == null)
+                return null;
+            while (true)
+            {
+                Direct3D11CaptureFrame? next = _framePool.TryGetNextFrame();
+                if (next == null)
+                    return newest;
+                newest.Dispose();
+                newest = next;
             }
         }
 
