@@ -859,6 +859,31 @@
                                           Checked="TranslationCacheCheckBox_Changed" Unchecked="TranslationCacheCheckBox_Changed">
                                     <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Lbl_TranslationCache]}"/>
                                 </CheckBox>
+                                <CheckBox x:Name="translationCachePersistentCheckBox" Margin="20,4,0,4"
+                                          IsEnabled="{Binding IsChecked, ElementName=translationCacheCheckBox}"
+                                          Checked="TranslationCacheOptions_Changed" Unchecked="TranslationCacheOptions_Changed">
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Lbl_TranslationCachePersistent]}"/>
+                                </CheckBox>
+                                <StackPanel Orientation="Horizontal" Margin="20,4,0,4"
+                                            IsEnabled="{Binding IsChecked, ElementName=translationCacheCheckBox}">
+                                    <CheckBox x:Name="translationCacheFuzzyCheckBox" VerticalAlignment="Center"
+                                              Checked="TranslationCacheOptions_Changed" Unchecked="TranslationCacheOptions_Changed">
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Lbl_TranslationCacheFuzzy]}"/>
+                                    </CheckBox>
+                                    <TextBox x:Name="translationCacheFuzzyThresholdTextBox" Width="50" Margin="8,0,0,0" VerticalAlignment="Center"
+                                             LostFocus="TranslationCacheFuzzyThreshold_LostFocus"/>
+                                </StackPanel>
+                                <CheckBox x:Name="imageTextCacheCheckBox" Margin="20,4,0,4"
+                                          IsEnabled="{Binding IsChecked, ElementName=translationCacheCheckBox}"
+                                          Checked="TranslationCacheOptions_Changed" Unchecked="TranslationCacheOptions_Changed">
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Lbl_ImageTextCache]}"/>
+                                </CheckBox>
+                                <StackPanel Orientation="Horizontal" Margin="20,4,0,4">
+                                    <Button x:Name="clearGameCacheButton" Padding="10,3" Click="ClearGameCacheButton_Click"
+                                            Content="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Btn_ClearGameCache]}"/>
+                                    <TextBlock x:Name="gameCacheStatusText" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource MutedBrush}"/>
+                                </StackPanel>
                                 <CheckBox x:Name="translationPrefetchCheckBox" Margin="20,4,0,4"
                                           IsEnabled="{Binding IsChecked, ElementName=translationCacheCheckBox}"
                                           Checked="TranslationPrefetchCheckBox_Changed" Unchecked="TranslationPrefetchCheckBox_Changed">
