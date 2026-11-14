@@ -81,6 +81,18 @@ public class TextColorAnalyzerTests
     }
 
     [Fact]
+    public void A_heavy_black_shadow_does_not_become_the_text_colour()
+    {
+        var mauve = new Rgb(111, 91, 102);
+        var c = new Canvas(mauve);
+        Letters(c, _ => new Rgb(37, 25, 27), dx: 3, dy: 3, grow: 1);
+        Letters(c, _ => Red);
+        var s = Analyze(c);
+        Assert.True(s.Fill.DistanceTo(Red) < 40, s.Fill.ToString());
+        Assert.NotEqual(TextEffectKind.None, s.Effect);
+    }
+
+    [Fact]
     public void Low_contrast_colour_is_kept_and_an_outline_added()
     {
         var c = new Canvas(Cream);
