@@ -1,0 +1,1625 @@
+[Automation] Config override source_language
+[Automation] Config override target_language
+[Automation] Config override ocr_method
+[Automation] Config override translation_service
+ConfigManager.GetValue: Key 'dark_mode' not found, returning default value: 'false'
+Fetching version info from: https://raw.githubusercontent.com/thanhkeke97/RSTGameTranslation/refs/heads/main/media/latest_version_checker.json
+ConfigManager.GetValue: Key 'chatbox_display_mode' not found, returning default value: '0'
+Applied ChatBox styling: Font=Segoe UI, Size=15, Color=#FFFFFFFF, BG=#FF000000, Window Opacity=1, BG Opacity=0.35, Outline=#FF000000
+MainWindow constructor: Setting _isInitializing to true
+Error getting console mode: 6
+﻿Console output initialized. Toggle visibility with the Log button.
+Note: Console input is disabled to prevent application freeze.
+MonitorWindow constructor: Setting _isInitializing to true
+MonitorWindow constructor started
+MonitorWindow constructor completed
+Exclude MonitorWindow from capture success
+MonitorWindow set to be excluded from screen capture
+MonitorWindow click-through enabled
+MonitorWindow_Loaded: Starting initialization
+MonitorWindow: Got DPI scale: 1.00x
+MonitorWindow initialization complete
+Parsed hotkey for Start/Stop: ALT+G -> Modifiers: 1, VK: 71
+Parsed hotkey for Overlay: ALT+F -> Modifiers: 1, VK: 70
+Parsed hotkey for ChatBox: ALT+C -> Modifiers: 1, VK: 67
+Parsed hotkey for Setting: ALT+P -> Modifiers: 1, VK: 80
+ConfigManager.GetValue: Key 'hotkey_log' not found, returning default value: 'ALT+L'
+Parsed hotkey for Log: ALT+L -> Modifiers: 1, VK: 76
+Parsed hotkey for Select Area: ALT+Q -> Modifiers: 1, VK: 81
+Parsed hotkey for Clear Areas: ALT+R -> Modifiers: 1, VK: 82
+Parsed hotkey for Clear Selected Area: ALT+H -> Modifiers: 1, VK: 72
+Parsed hotkey for Show Area: ALT+B -> Modifiers: 1, VK: 66
+Parsed hotkey for Audio Service: ALT+K -> Modifiers: 1, VK: 75
+Parsed hotkey for Swap Languages: ALT+V -> Modifiers: 1, VK: 86
+Parsed hotkey for Retry Translation: ALT+T -> Modifiers: 1, VK: 84
+Parsed hotkey for Select Exclude Region: ALT+X -> Modifiers: 1, VK: 88
+Global keyboard hook initialized successfully
+ConfigManager.GetValue: Key 'gamepad_hotkey_start_stop' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_overlay' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_chatbox' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_Show Area' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_audio_service' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_swap_languages' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_retry_translation' not found, returning default value: ''
+ConfigManager.GetValue: Key 'exclude_regions' not found, returning default value: ''
+Loaded 0 exclude regions from config
+Gamepad polling started
+ConfigManager.GetValue: Key 'GamepadHotKeyEnable' not found, returning default value: 'false'
+ConfigManager.GetValue: Key 'show_exclude_regions' not found, returning default value: 'true'
+Loaded 0 exclude regions from config
+Received JSON: {
+    "name":"Real Time Game Translation",
+    "latest_version":6.2,
+    "message":"Download V{VERSION_STRING} now from github?"
+}
+
+Deserialized version: 6.2, name: Real Time Game Translation, message: Download V{VERSION_STRING} now from github?
+Registered Start/Stop hotkey successfully
+Registered Overlay hotkey successfully
+Registered ChatBox hotkey successfully
+Registered Setting hotkey successfully
+Registered Log hotkey successfully
+Registered Select Area hotkey successfully
+Registered Clear Areas hotkey successfully
+Registered Clear Selected Area hotkey successfully
+Registered Show Area hotkey successfully
+Registered Audio Service hotkey successfully
+Registered Swap Languages hotkey successfully
+Registered Retry Translation hotkey successfully
+Registered Select Exclude Region hotkey successfully
+SettingsWindow constructor: Setting _isInitializing to true
+SettingsWindow.TranslationServiceComboBox_SelectionChanged called (isInitializing: True)
+Skipping translation service change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Microsoft legacy signature mode set to: True
+Microsoft legacy signature mode changed: True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Skipping OCR method change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Set Overlay Background enabled: True
+Auto set overlay background color set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Show icon signal enabled: True
+Show icon signal set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Merge Overlapping Text enabled: True
+Auto merge overlapping text set to True
+Screen 0: DISPLAY1 - Generic PnP Monitor, 1024x768, Primary: True
+Loaded 1 screens
+ConfigManager.GetValue: Key 'audio_processing_provider' not found, returning default value: 'Whisper'
+ConfigManager.GetValue: Key 'tts_volume' not found, returning default value: '100'
+Found Windows UWP TTS voice: Microsoft David (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_DavidM
+Found Windows UWP TTS voice: Microsoft Zira (en-US, Female, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_ZiraM
+Found Windows UWP TTS voice: Microsoft Mark (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_MarkM
+Found SAPI TTS voice: Microsoft David Desktop (English (United States), Male, SAPI) - Microsoft David Desktop
+Found SAPI TTS voice: Microsoft Zira Desktop (English (United States), Female, SAPI) - Microsoft Zira Desktop
+Initialized 5 Windows TTS voices in total
+Selected default system voice: Microsoft David Desktop (English (United States), Male, SAPI)
+Loaded 5 Windows TTS voices
+Logic initialized
+Loaded Gemini API key: Set
+Loaded LLM prompt: Not set
+Using OneOCR (built-in)
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+MainWindow_Loaded: Loading OCR method from config: 'OneOCR'
+MainWindow.SetOcrMethod called with method: OneOCR (isInitializing: True)
+Setting OCR method during initialization: OneOCR
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+=== Configuration Test ===
+API Key: Set - <you...
+LLM Prompt: Not set
+OCR Method: OneOCR
+Translation Service: Google Translate
+=========================
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Language interface set to: en
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Added screen 0: Screen 1 (1024x768) - Primary
+Screen list loaded. Selected index: 0
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Audio service auto-translate enabled: False
+MainWindow initialization complete. Settings changes will now be saved.
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Ensuring config OCR method is preserved: OneOCR
+ConfigManager.SetOcrMethod called with method: OneOCR
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+OCR method set to OneOCR and saved to config
+Loading language settings from config: Source=en, Target=vi
+Set source language to en
+Set target language to vi
+Added screen 0: Screen 1 (1024x768) - Primary
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Selected screen index set to: 0
+Screen selection changed to index: 0
+DpiHelper: DPI cache invalidated
+Screen list loaded. Selected index: 0
+[Automation] Waiting for window 'MockGame Dialogue Test'
+Windows Graphics Capture stopped
+WGC: Yellow capture border disabled via IGraphicsCaptureSession3
+Windows Graphics Capture started successfully
+MonitorWindow set to be included in screen capture
+Selected window: MockGame Dialogue Test (Handle: 131610)
+Creating new MonitorWindow instance...
+MonitorWindow setup complete
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetValue: Key 'google_translate_use_cloud_api' not found, returning default value: 'false'
+[WarmUp] Google Translate: connected to translate.googleapis.com in 135 ms (404)
+[WarmUp] Google Translate: connected to translate.google.com.hk in 262 ms (200)
+OCR pipeline initialized successfully
+Loaded block detection scale from config: 3
+Loaded block detection settle time from config: 0.2 seconds
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:45.606 +0ms] 1. New text from OCR: OCR took 265 ms; waiting 0.20s for it to settle: '× MockGame Dialogue Test Chapter 1: The …'
+ConfigManager.GetValue: Key 'translation_prefetch' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_enabled' not found, returning default value: 'true'
+OCR processing completed in 274ms
+ConfigManager.GetValue: Key 'google_translate_api_key' not found, returning default value: ''
+[OCR timing 16:55:45.616 +9ms] 2a. Prefetch request: 5 block(s) combined
+Google Translate: 1 block(s), 5 part(s) translated together
+Google translated: '×##|||##MockGame Dialogue Test##|||##Chapter 1: The Old Harbor##|||##Captain Mira##|||##Welcome aboard. The harbor has been quiet for days.' -> '×##|||##Kiểm tra đối thoại MockGame##|||##Chương 1: Cảng Cũ##|||##Thuyền trưởng Mira##|||##Chào mừng lên tàu. Bến cảng đã yên tĩnh trong nhiều ngày.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"\u00D7##|||##MockGame Dialogue Test##|||##Chapter 1: T...
+[OCR timing 16:55:45.740 +133ms] 2b. Prefetch done: 124 ms, 5 translation(s) cached
+[Automation] Translation started
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:45.996 +0ms] 1. New text from OCR: OCR took 124 ms; still typing out, waiting for it to settle: 'MockGame Dialogue Test - X Chapter 1: Th…'
+OCR processing completed in 124ms
+[OCR timing 16:55:45.997 +0ms] 2a. Prefetch request: 1 block(s) combined
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:46.418 +421ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 64 ms
+[OCR timing 16:55:46.484 +487ms] 3a. Waiting for the prefetch of this text
+OCR processing completed in 229ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: '- X' -> '- X'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- X","translated_text":"- X"}]}...
+[OCR timing 16:55:46.670 +674ms] 2b. Prefetch done: 673 ms, 1 translation(s) cached
+[OCR timing 16:55:46.679 +682ms] 3. Translation served from cache: 5 block(s)
+Translation took 199 ms
+[OCR timing 16:55:46.683 +687ms] 5. Translation shown: translation step took 199 ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:46.843 +0ms] 1. New text from OCR: OCR took 113 ms; still typing out, waiting for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+[OCR timing 16:55:46.843 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:47.216 +373ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 18 ms
+Log files will be saved in: D:\a\wtranslu\wtranslu\app\
+[OCR timing 16:55:47.236 +393ms] 3. Translation request: Google Translate, 1 request(s), 1 chars, 4 block(s) from cache
+OCR processing completed in 146ms
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 129ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'I- MockGame Dialogue Test' -> 'I- Kiểm tra đối thoại MockGame'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"I- MockGame Dialogue Test","translated_text":"I- Ki\u1...
+[OCR timing 16:55:47.670 +827ms] 2b. Prefetch done: 826 ms, 1 translation(s) cached
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 125ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 114ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 125ms
+Google Translate has not answered after 1500 ms, translating with Microsoft meanwhile
+ConfigManager.GetValue: Key 'microsoft_api_key' not found, returning default value: ''
+ConfigManager.GetValue: Key 'microsoft_legacy_signature_key' not found, returning default value: ''
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'X' -> 'X'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"X","translated_text":"X"}]}...
+[OCR timing 16:55:48.800 +1957ms] 4. Translation received: 1565 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 1570 ms
+[OCR timing 16:55:48.803 +1960ms] 5. Translation shown: translation step took 1570 ms
+Microsoft translated: 'X' -> 'X'
+Microsoft Translate final JSON result: {"translations":[{"id":"999","original_text":"X","translated_text":"X"}]}
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:49.169 +0ms] 1. New text from OCR: OCR took 170 ms; still typing out, waiting for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+OCR processing completed in 171ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:49.548 +0ms] 1. New text from OCR: OCR took 124 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+[OCR timing 16:55:49.549 +0ms] 2a. Prefetch request: 2 block(s) combined
+OCR processing completed in 125ms
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: 'Old Fisherman##|||##Nobody sails at night anymore. The fog is too thick.' -> 'Lão Ngư##|||##Không ai đi thuyền vào ban đêm nữa. Sương mù quá dày.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Old Fisherman##|||##Nobody sails at night anymore. The...
+[OCR timing 16:55:49.666 +117ms] 2b. Prefetch done: 116 ms, 2 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:49.920 +372ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 24 ms
+[OCR timing 16:55:49.947 +398ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 16:55:49.948 +399ms] 5. Translation shown: translation step took 3 ms
+OCR processing completed in 146ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 120ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 107ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 148ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:53.369 +0ms] 1. New text from OCR: OCR took 115 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+[OCR timing 16:55:53.369 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 116ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Then we leave at dawn. Prepare the ropes and the lanterns.' -> 'Sau đó chúng tôi rời đi vào lúc bình minh. Chuẩn bị dây thừng và đèn lồng.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Then we leave at dawn. Prepare the ropes and the lante...
+[OCR timing 16:55:53.427 +58ms] 2b. Prefetch done: 58 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:53.750 +381ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 25 ms
+[OCR timing 16:55:53.778 +409ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Translation took 4 ms
+[OCR timing 16:55:53.779 +410ms] 5. Translation shown: translation step took 4 ms
+OCR processing completed in 149ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.99 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Then we lea...'
+  new:  '- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Then we leav...'
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 120ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 120ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 117ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:57.441 +0ms] 1. New text from OCR: OCR took 113 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+[OCR timing 16:55:57.441 +0ms] 2a. Prefetch request: 2 block(s) combined
+OCR processing completed in 114ms
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: 'Young Sailor##|||##Captain, the merchant wants twelve gold coins for the map.' -> 'Thủy thủ trẻ##|||##Thuyền trưởng, thương gia muốn 12 đồng vàng cho bản đồ.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Young Sailor##|||##Captain, the merchant wants twelve ...
+[OCR timing 16:55:57.486 +45ms] 2b. Prefetch done: 44 ms, 2 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:55:57.818 +377ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 14 ms
+[OCR timing 16:55:57.836 +394ms] 3. Translation served from cache: 5 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 16:55:57.836 +395ms] 5. Translation shown: translation step took 3 ms
+OCR processing completed in 132ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 164ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 126ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 122ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:01.619 +0ms] 1. New text from OCR: OCR took 126 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+[OCR timing 16:56:01.620 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 127ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Pay him. That map is worth far more than gold.' -> 'Trả tiền cho anh ta. Bản đồ đó có giá trị hơn vàng rất nhiều.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Pay him. That map is worth far more than gold.","trans...
+[OCR timing 16:56:01.661 +41ms] 2b. Prefetch done: 41 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:01.984 +365ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 8 ms
+[OCR timing 16:56:01.994 +374ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Translation took 1 ms
+[OCR timing 16:56:01.995 +375ms] 5. Translation shown: translation step took 1 ms
+OCR processing completed in 123ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.99 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Pay him. Th...'
+  new:  '- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Pay him. Tha...'
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:05.650 +0ms] 1. New text from OCR: OCR took 114 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+[OCR timing 16:56:05.650 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 115ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Beware the lighthouse. Strange voices come from it.' -> 'Hãy coi chừng ngọn hải đăng. Những giọng nói lạ phát ra từ đó.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Beware the lighthouse. Strange voices come from it.","...
+[OCR timing 16:56:05.690 +40ms] 2b. Prefetch done: 40 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:06.011 +360ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 14 ms
+[OCR timing 16:56:06.027 +376ms] 3. Translation served from cache: 5 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Translation took 2 ms
+[OCR timing 16:56:06.027 +377ms] 5. Translation shown: translation step took 2 ms
+OCR processing completed in 130ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.97 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test X Chapter 1: The Old Harbor Old Fisherman Beware the l...'
+  new:  '× I- MockGame Dialogue Test Chapter 1: The Old Harbor Old Fisherman Beware the l...'
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 117ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 117ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:09.674 +0ms] 1. New text from OCR: OCR took 110 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+[OCR timing 16:56:09.674 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 111ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'I heard the keeper vanished three winters ago.' -> 'Tôi nghe nói người canh gác đã biến mất cách đây ba mùa đông.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"I heard the keeper vanished three winters ago.","trans...
+[OCR timing 16:56:09.717 +43ms] 2b. Prefetch done: 42 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:10.043 +369ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 28 ms
+[OCR timing 16:56:10.073 +398ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Translation took 1 ms
+[OCR timing 16:56:10.073 +399ms] 5. Translation shown: translation step took 1 ms
+OCR processing completed in 151ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:10.803 +0ms] 1. New text from OCR: OCR took 108 ms; still typing out, waiting for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+[OCR timing 16:56:10.803 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 109ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: ':' -> ':'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":":","translated_text":":"}]}...
+[OCR timing 16:56:10.846 +43ms] 2b. Prefetch done: 42 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:11.164 +361ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 8 ms
+[OCR timing 16:56:11.174 +371ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 1 ms
+[OCR timing 16:56:11.174 +371ms] 5. Translation shown: translation step took 1 ms
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 108ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 108ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.97 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Young Sailor I heard the...'
+  new:  'MockGame Dialogue Test - X Chapter 1: The Old Harbor Young Sailor I heard the ke...'
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 104ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:13.689 +0ms] 1. New text from OCR: OCR took 107 ms; waiting 0.20s for it to settle: 'MockGame Dialogue Test X Chapter 1: The …'
+[OCR timing 16:56:13.690 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 108ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Stories will not stop us. Raise the anchor!' -> 'Những câu chuyện sẽ không ngăn cản chúng ta. Hãy nâng mỏ neo lên!'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Stories will not stop us. Raise the anchor!","translat...
+[OCR timing 16:56:13.738 +49ms] 2b. Prefetch done: 48 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:14.054 +364ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 7 ms
+[OCR timing 16:56:14.063 +373ms] 3. Translation served from cache: 5 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Translation took 2 ms
+[OCR timing 16:56:14.064 +374ms] 5. Translation shown: translation step took 2 ms
+OCR processing completed in 123ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:14.411 +0ms] 1. New text from OCR: OCR took 106 ms; still typing out, waiting for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+OCR processing completed in 107ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:14.774 +363ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 10 ms
+[OCR timing 16:56:14.785 +373ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 1 ms
+[OCR timing 16:56:14.785 +374ms] 5. Translation shown: translation step took 1 ms
+OCR processing completed in 120ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:15.147 +0ms] 1. New text from OCR: OCR took 119 ms; still typing out, waiting for it to settle: '- × MockGame Dialogue Test Chapter 1: Th…'
+[OCR timing 16:56:15.147 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 119ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: '- ×' -> '- ×'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- \u00D7","translated_text":"- \u00D7"}]}...
+[OCR timing 16:56:15.186 +39ms] 2b. Prefetch done: 38 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:15.521 +373ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 8 ms
+[OCR timing 16:56:15.529 +381ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:56:15.530 +382ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 125ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:16.257 +0ms] 1. New text from OCR: OCR took 111 ms; still typing out, waiting for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:16.628 +370ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 7 ms
+[OCR timing 16:56:16.636 +378ms] 3. Translation served from cache: 5 block(s)
+Skipping duplicate translation entry
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:56:16.636 +378ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 107ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:17.719 +0ms] 1. New text from OCR: OCR took 114 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:18.081 +361ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 8 ms
+[OCR timing 16:56:18.090 +370ms] 3. Translation served from cache: 5 block(s)
+Skipping duplicate translation entry
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Typed-out line completed: replacing its half-typed history entry
+Translation took 0 ms
+[OCR timing 16:56:18.090 +371ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 123ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:19.908 +0ms] 1. New text from OCR: OCR took 112 ms; still typing out, waiting for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+[OCR timing 16:56:19.908 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 113ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: '.' -> '.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":".","translated_text":"."}]}...
+[OCR timing 16:56:19.950 +42ms] 2b. Prefetch done: 41 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:20.269 +361ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 7 ms
+[OCR timing 16:56:20.276 +368ms] 3. Translation served from cache: 5 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:56:20.277 +368ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 120ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.96 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Welcome abo...'
+  new:  'MockGame Dialogue Test X Chapter 1: The Old Harbor Captain Mira Welcome aboard. ...'
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.97 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Welcome abo...'
+  new:  'MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Welcome aboard...'
+OCR processing completed in 108ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:21.751 +0ms] 1. New text from OCR: OCR took 113 ms; waiting 0.20s for it to settle: 'MockGame Dialogue Test - X Chapter 1: Th…'
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:22.110 +358ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 11 ms
+[OCR timing 16:56:22.122 +370ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Typed-out line completed: replacing its half-typed history entry
+Translation took 1 ms
+[OCR timing 16:56:22.122 +371ms] 5. Translation shown: translation step took 1 ms
+OCR processing completed in 126ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.96 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test X Chapter 1: The Old Harbor Old Fisherman Beware the l...'
+  new:  '- X MockGame Dialogue Test Chapter 1: The Old Harbor Old Fisherman Beware the li...'
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.96 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test X Chapter 1: The Old Harbor Old Fisherman Beware the l...'
+  new:  'MockGame Dialogue Test - X Chapter 1: The Old Harbor Old Fisherman Beware the li...'
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 150ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.97 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test X Chapter 1: The Old Harbor Old Fisherman Beware the l...'
+  new:  'MockGame Dialogue Test X Chapter 1: The Old Harbor Old Fisherman Beware the ligh...'
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:24.754 +0ms] 1. New text from OCR: OCR took 109 ms; still typing out, waiting for it to settle: '- × I- MockGame Dialogue Test Chapter 1:…'
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:25.113 +359ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 7 ms
+[OCR timing 16:56:25.121 +367ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:56:25.121 +367ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.95 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Old Fisherman Beware the...'
+  new:  'X I- MockGame Dialogue Test Chapter 1: The Old Harbor Old Fisherman Beware the l...'
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:25.850 +0ms] 1. New text from OCR: OCR took 108 ms; waiting 0.20s for it to settle: 'MockGame Dialogue Test - X Chapter 1: Th…'
+OCR processing completed in 108ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:26.212 +0ms] 1. New text from OCR: OCR took 108 ms; still typing out, waiting for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:26.569 +357ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 8 ms
+[OCR timing 16:56:26.578 +366ms] 3. Translation served from cache: 5 block(s)
+Skipping duplicate translation entry
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:56:26.578 +366ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 106ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.96 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Pay him. Th...'
+  new:  'MockGame Dialogue Test X Chapter 1: The Old Harbor Captain Mira Pay him. That ma...'
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:29.885 +0ms] 1. New text from OCR: OCR took 114 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:30.245 +359ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 7 ms
+[OCR timing 16:56:30.255 +369ms] 3. Translation served from cache: 5 block(s)
+Translation took 2 ms
+[OCR timing 16:56:30.255 +369ms] 5. Translation shown: translation step took 2 ms
+OCR processing completed in 123ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:30.610 +0ms] 1. New text from OCR: OCR took 117 ms; still typing out, waiting for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:30.967 +356ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 12 ms
+[OCR timing 16:56:30.980 +370ms] 3. Translation served from cache: 5 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 1 ms
+[OCR timing 16:56:30.980 +370ms] 5. Translation shown: translation step took 1 ms
+OCR processing completed in 127ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.99 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Old Fisherman Nobody sai...'
+  new:  '- MockGame Dialogue Test - X Chapter 1: The Old Harbor Old Fisherman Nobody sail...'
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.98 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Old Fisherman Nobody sai...'
+  new:  'MockGame Dialogue Test - X Chapter 1: The Old Harbor Old Fisherman Nobody sails ...'
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.98 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Old Fisherman Nobody sai...'
+  new:  'MockGame Dialogue Test - X Chapter 1: The Old Harbor Old Fisherman Nobody sails ...'
+OCR processing completed in 159ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:33.951 +0ms] 1. New text from OCR: OCR took 111 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test - X Chapter 1:…'
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:34.309 +358ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 7 ms
+[OCR timing 16:56:34.316 +365ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:56:34.317 +366ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 117ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 108ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 122ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 108ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:37.966 +0ms] 1. New text from OCR: OCR took 119 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+OCR processing completed in 120ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:38.345 +378ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 8 ms
+[OCR timing 16:56:38.353 +387ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Typed-out line completed: replacing its half-typed history entry
+Translation took 0 ms
+[OCR timing 16:56:38.353 +387ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 129ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 115ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 120ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.98 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test X Chapter 1: The Old Harbor Captain Mira Then we leave...'
+  new:  '- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Then we leav...'
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:41.686 +0ms] 1. New text from OCR: OCR took 111 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:42.046 +359ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 6 ms
+[OCR timing 16:56:42.053 +366ms] 3. Translation served from cache: 5 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:56:42.053 +367ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.95 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test X Chapter 1: The Old Harbor Captain Mira Stories will ...'
+  new:  'MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Stories will n...'
+OCR processing completed in 108ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 107ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:45.362 +0ms] 1. New text from OCR: OCR took 110 ms; still typing out, waiting for it to settle: '- × I- MockGame Dialogue Test Chapter 1:…'
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:45.733 +0ms] 1. New text from OCR: OCR took 119 ms; waiting 0.20s for it to settle: '- MockGame Dialogue Test - X Chapter 1: …'
+[OCR timing 16:56:45.733 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 119ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: '- MockGame Dialogue Test' -> '- Kiểm tra đối thoại MockGame'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- MockGame Dialogue Test","translated_text":"- Ki\u1EC...
+[OCR timing 16:56:45.777 +43ms] 2b. Prefetch done: 43 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:56:46.112 +378ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 11 ms
+[OCR timing 16:56:46.123 +390ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:56:46.123 +390ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 132ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 112ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 120ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 117ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 117ms
+GraphicsCaptureItem closed (target window gone)
+Windows Graphics Capture stopped
+Capture position changed by (-31998, -31950). Text overlays updated.
+MonitorWindow set to be excluded from screen capture
+Logic finalized
+All text objects cleared
+Monitor window force closed
+Global keyboard hook removed
+ConfigManager.GetValue: Key 'force_cursor_visible' not found, returning default value: 'true'
+MouseManager initialized. Force cursor visible: True
+Logic finalized
+All text objects cleared
+Gamepad polling stopped
+Captured window no longer exists, reverting to normal capture mode
+ChatBox window closing intercepted - hiding instead
