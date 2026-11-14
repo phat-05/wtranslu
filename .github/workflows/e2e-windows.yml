@@ -59,6 +59,18 @@ jobs:
         if: hashFiles('tests/RST.Tests/RST.Tests.csproj') != ''
         run: dotnet test tests/RST.Tests/RST.Tests.csproj -c Release --logger "console;verbosity=normal"
 
+      - name: Upload the build (for testing on a real game)
+        uses: actions/upload-artifact@v4
+        with:
+          name: rst-build
+          path: |
+            app/
+            !app/Cache/**
+            !app/config.txt
+            tests/e2e/latency_report.py
+            tests/e2e/README_vi.md
+          retention-days: 30
+
       - name: Install screenshot tools
         run: pip install mss pillow
 
