@@ -43,6 +43,10 @@ jobs:
       - name: Build RST
         run: dotnet build RST.csproj -c Release -p:CsWinRTGenerateProjection=false -p:CsWinRTIIDOptimizerOptOut=true
 
+      - name: Lay out OneOCR next to rst.exe (as MakeReleaseZip.bat does)
+        shell: bash
+        run: cp app/OneOcr/* app/
+
       - name: Build MockGame
         run: dotnet build tests/MockGame/MockGame.csproj -c Release -o mockbin
 
