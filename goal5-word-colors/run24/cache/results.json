@@ -1,0 +1,421 @@
+{
+  "summary": {
+    "label": "goal5-word-colors cache scenario",
+    "all": {
+      "n": 31,
+      "missing": 1,
+      "mean_ms": 712,
+      "median_ms": 575,
+      "min_ms": 324,
+      "max_ms": 2589,
+      "ocr_runs": 55,
+      "translation_requests": 3,
+      "from_cache": 28,
+      "image_cache_hits": 342
+    },
+    "first_time_lines": {
+      "n": 7,
+      "missing": 1,
+      "mean_ms": 1087,
+      "median_ms": 911,
+      "min_ms": 667,
+      "max_ms": 1926,
+      "ocr_runs": 17,
+      "translation_requests": 2,
+      "from_cache": 5,
+      "image_cache_hits": 67
+    },
+    "repeated_lines": {
+      "n": 24,
+      "missing": 0,
+      "mean_ms": 603,
+      "median_ms": 394,
+      "min_ms": 324,
+      "max_ms": 2589,
+      "ocr_runs": 38,
+      "translation_requests": 1,
+      "from_cache": 23,
+      "image_cache_hits": 275
+    },
+    "per_session": {
+      "s1": {
+        "n": 15,
+        "missing": 1,
+        "mean_ms": 757,
+        "median_ms": 667,
+        "min_ms": 324,
+        "max_ms": 1926,
+        "ocr_runs": 30,
+        "translation_requests": 2,
+        "from_cache": 13,
+        "image_cache_hits": 161
+      },
+      "s2": {
+        "n": 16,
+        "missing": 0,
+        "mean_ms": 671,
+        "median_ms": 402,
+        "min_ms": 335,
+        "max_ms": 2589,
+        "ocr_runs": 25,
+        "translation_requests": 1,
+        "from_cache": 15,
+        "image_cache_hits": 181
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "Welcome aboard. The harbor has been quiet for days.",
+      "latency_ms": null,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": false,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "Nobody sails at night anymore. The fog is too thick.",
+      "latency_ms": 1926,
+      "ocr_runs": 2,
+      "translation_requests": 1,
+      "served_from_cache": false,
+      "image_cache_hits": 8
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Then we leave at dawn. Prepare the ropes and the lanterns.",
+      "latency_ms": 911,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 10
+    },
+    {
+      "session": "s1",
+      "step": 3,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 667,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 10
+    },
+    {
+      "session": "s1",
+      "step": 4,
+      "cycle": 0,
+      "text": "Pay him. That map is worth far more than gold.",
+      "latency_ms": 988,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 10
+    },
+    {
+      "session": "s1",
+      "step": 5,
+      "cycle": 0,
+      "text": "Beware the lighthouse. Strange voices come from it.",
+      "latency_ms": 727,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s1",
+      "step": 6,
+      "cycle": 0,
+      "text": "I heard the keeper vanished three winters ago.",
+      "latency_ms": 1603,
+      "ocr_runs": 3,
+      "translation_requests": 1,
+      "served_from_cache": false,
+      "image_cache_hits": 7
+    },
+    {
+      "session": "s1",
+      "step": 7,
+      "cycle": 0,
+      "text": "Stories will not stop us. Raise the anchor!",
+      "latency_ms": 784,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s1",
+      "step": 8,
+      "cycle": 0,
+      "text": "Welcome aboard. The harbor has been quiet for days.",
+      "latency_ms": 528,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 10
+    },
+    {
+      "session": "s1",
+      "step": 9,
+      "cycle": 0,
+      "text": "Beware the lighthouse. Strange voices come from it.",
+      "latency_ms": 389,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 13
+    },
+    {
+      "session": "s1",
+      "step": 10,
+      "cycle": 0,
+      "text": "Pay him. That map is worth far more than gold.",
+      "latency_ms": 695,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s1",
+      "step": 11,
+      "cycle": 0,
+      "text": "Nobody sails at night anymore. The fog is too thick.",
+      "latency_ms": 388,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s1",
+      "step": 12,
+      "cycle": 0,
+      "text": "I heard the keeper vanished three winters ago.",
+      "latency_ms": 373,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 13
+    },
+    {
+      "session": "s1",
+      "step": 13,
+      "cycle": 0,
+      "text": "Then we leave at dawn. Prepare the ropes and the lanterns.",
+      "latency_ms": 657,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s1",
+      "step": 14,
+      "cycle": 0,
+      "text": "Stories will not stop us. Raise the anchor!",
+      "latency_ms": 324,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s1",
+      "step": 15,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 389,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 14
+    },
+    {
+      "session": "s2",
+      "step": 0,
+      "cycle": 0,
+      "text": "Welcome aboard. The harbor has been quiet for days.",
+      "latency_ms": 2589,
+      "ocr_runs": 0,
+      "translation_requests": 1,
+      "served_from_cache": false,
+      "image_cache_hits": 7
+    },
+    {
+      "session": "s2",
+      "step": 1,
+      "cycle": 0,
+      "text": "Nobody sails at night anymore. The fog is too thick.",
+      "latency_ms": 921,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 10
+    },
+    {
+      "session": "s2",
+      "step": 2,
+      "cycle": 0,
+      "text": "Then we leave at dawn. Prepare the ropes and the lanterns.",
+      "latency_ms": 360,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s2",
+      "step": 3,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 404,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 13
+    },
+    {
+      "session": "s2",
+      "step": 4,
+      "cycle": 0,
+      "text": "Pay him. That map is worth far more than gold.",
+      "latency_ms": 700,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s2",
+      "step": 5,
+      "cycle": 0,
+      "text": "Beware the lighthouse. Strange voices come from it.",
+      "latency_ms": 364,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s2",
+      "step": 6,
+      "cycle": 0,
+      "text": "I heard the keeper vanished three winters ago.",
+      "latency_ms": 399,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 13
+    },
+    {
+      "session": "s2",
+      "step": 7,
+      "cycle": 0,
+      "text": "Stories will not stop us. Raise the anchor!",
+      "latency_ms": 922,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s2",
+      "step": 8,
+      "cycle": 0,
+      "text": "Welcome aboard. The harbor has been quiet for days.",
+      "latency_ms": 575,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s2",
+      "step": 9,
+      "cycle": 0,
+      "text": "Beware the lighthouse. Strange voices come from it.",
+      "latency_ms": 368,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 14
+    },
+    {
+      "session": "s2",
+      "step": 10,
+      "cycle": 0,
+      "text": "Pay him. That map is worth far more than gold.",
+      "latency_ms": 876,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 10
+    },
+    {
+      "session": "s2",
+      "step": 11,
+      "cycle": 0,
+      "text": "Nobody sails at night anymore. The fog is too thick.",
+      "latency_ms": 339,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s2",
+      "step": 12,
+      "cycle": 0,
+      "text": "I heard the keeper vanished three winters ago.",
+      "latency_ms": 335,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 14
+    },
+    {
+      "session": "s2",
+      "step": 13,
+      "cycle": 0,
+      "text": "Then we leave at dawn. Prepare the ropes and the lanterns.",
+      "latency_ms": 891,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 10
+    },
+    {
+      "session": "s2",
+      "step": 14,
+      "cycle": 0,
+      "text": "Stories will not stop us. Raise the anchor!",
+      "latency_ms": 352,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s2",
+      "step": 15,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 337,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 13
+    }
+  ]
+}
