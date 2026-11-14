@@ -27,13 +27,13 @@ concurrency:
 jobs:
   e2e:
     runs-on: windows-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     env:
       OCR: ${{ github.event.inputs.ocr || 'OneOCR' }}
       # Config that turns this fork's overlay features off, for before/after screenshots
-      STYLE_OFF: 'font_size_from_line_height=false;text_style_from_game=false;game_fonts='
+      STYLE_OFF: 'font_size_from_line_height=false;text_style_from_game=false;game_fonts=;word_colors=false'
       # RST saves its config, so the run after must turn them on explicitly
-      STYLE_ON: 'font_size_from_line_height=true;text_style_from_game=true;game_fonts=MockGame=Segoe Print'
+      STYLE_ON: 'font_size_from_line_height=true;text_style_from_game=true;game_fonts=MockGame=Segoe Print;word_colors=true'
     steps:
       - uses: actions/checkout@v4
 
@@ -86,6 +86,29 @@ jobs:
             --script tests/e2e/scenarios/style.txt --out evidence/style --sessions 1 \
             --label "${GITHUB_REF_NAME} style scenario" --shot-delay 4500 \
             --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate;${STYLE_ON}"
+
+      - name: Install Ollama and a small model (AI translation for coloured-word tags)
+        id: ollama
+        continue-on-error: true
+        shell: powershell
+        run: |
+          Invoke-WebRequest -Uri https://ollama.com/download/OllamaSetup.exe -OutFile "$env:TEMP\OllamaSetup.exe"
+          Start-Process "$env:TEMP\OllamaSetup.exe" -ArgumentList '/VERYSILENT','/NORESTART','/SUPPRESSMSGBOXES' -Wait
+          $ollama = "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe"
+          Start-Process $ollama -ArgumentList 'serve' -WindowStyle Hidden
+          Start-Sleep -Seconds 8
+          & $ollama pull qwen2.5:3b
+          & $ollama list
+
+      - name: Run coloured-words scenario with the AI translator
+        if: steps.ollama.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
+            --script tests/e2e/scenarios/words_llm.txt --out evidence/words_llm --sessions 1 \
+            --label "${GITHUB_REF_NAME} coloured words, Ollama qwen2.5:3b" --shot-delay 17000 --timeout 900 \
+            --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Ollama;ollama_model=qwen2.5:3b;${STYLE_ON}"
 
       - name: Publish evidence to ci-evidence branch
         if: always()

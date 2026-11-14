@@ -526,7 +526,13 @@ namespace RSTGameTranslation
                     {
                         text = processedText,
                         confidence = 0.9, // Windows OCR doesn't provide confidence
-                        rect = box
+                        rect = box,
+                        // Word boxes: words in another colour are found from these (x, y, width, height)
+                        words = line.Words.Select(w => new
+                        {
+                            text = w.Text,
+                            box = new[] { Math.Round(w.BoundingRect.X, 1), Math.Round(w.BoundingRect.Y, 1), Math.Round(w.BoundingRect.Width, 1), Math.Round(w.BoundingRect.Height, 1) }
+                        }).ToArray()
                     });
                 }
 

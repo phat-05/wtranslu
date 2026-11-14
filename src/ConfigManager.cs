@@ -231,6 +231,7 @@ namespace RSTGameTranslation
         public const string FONT_SIZE_FROM_LINE_HEIGHT = "font_size_from_line_height";
         public const string TEXT_STYLE_FROM_GAME = "text_style_from_game";
         public const string GAME_FONTS = "game_fonts";
+        public const string WORD_COLORS = "word_colors";
         public const string CURRENT_GAME_PROFILE = "current_game_profile";
         public const string TRANSLATION_PREFETCH = "translation_prefetch";
 
@@ -3663,6 +3664,9 @@ namespace RSTGameTranslation
 
         // Keep the game's text colour (even when pale) and its outline / drop shadow (see Layout.TextColorAnalyzer)
         public bool IsTextStyleFromGameEnabled() => GetBoolValue(TEXT_STYLE_FROM_GAME, true);
+
+        // Colour single words like the game did, via colour tags kept by AI translators (see Layout.ColorMarkup)
+        public bool IsWordColorsEnabled() => GetBoolValue(WORD_COLORS, true);
 
         // Overlay font per game: "game=Font name;other game=Other font" (see GameFonts)
         public string GetGameFont(string game)

@@ -1,0 +1,5 @@
+# Coloured words with an AI translator (goal 5): long steps, a local model on CPU is slow.
+# durationMs|style|speaker|text
+20000|dialogue|Captain Mira|Find the {#FF5050:red key} before the tide turns.
+20000|dialogue|Old Fisherman|The {#60C0FF:blue door} opens only for the {#80FF80:green lantern}.
+20000|dialogue|Young Sailor|Ask {#FFC83C:Captain Mira} about the {#FF5050:Storm Crystal}.

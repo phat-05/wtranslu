@@ -48,7 +48,48 @@ namespace RSTGameTranslation
         // Properties
         public string Text { get; set; }
         public string ID { get; set; } = Guid.NewGuid().ToString();  // Initialize with a unique ID
-        public string TextTranslated { get; set; } = string.Empty;  // Initialize with empty string
+        // The translation as shown in the chat box, history, clipboard: colour tags removed. A translation
+        // with colour tags (see SetColorSpans) keeps them in TranslatedMarkup for the overlay.
+        public string TextTranslated
+        {
+            get => _textTranslated;
+            set
+            {
+                value ??= string.Empty;
+                if (RSTGameTranslation.Layout.ColorMarkup.HasTags(value))
+                {
+                    TranslatedMarkup = value;
+                    _textTranslated = RSTGameTranslation.Layout.ColorMarkup.Strip(value);
+                }
+                else
+                {
+                    _textTranslated = value;
+                    // A translator that dropped (or never got) the tags: names and numbers kept word for
+                    // word can still be coloured
+                    string tagged = ColorSpans != null && value.Length > 0
+                        ? RSTGameTranslation.Layout.ColorMarkup.TagVerbatim(value, ColorSpans)
+                        : value;
+                    TranslatedMarkup = tagged != value ? tagged : null;
+                }
+            }
+        }
+        private string _textTranslated = string.Empty;
+
+        // Source text with colour tags around words the game drew in another colour (null = none)
+        public string? TaggedText { get; private set; }
+        public IReadOnlyList<RSTGameTranslation.Layout.ColorSpan>? ColorSpans { get; private set; }
+        // Translation with colour tags, for colouring words on the overlay (null = one colour)
+        public string? TranslatedMarkup { get; private set; }
+        // What the cache keys on and what is sent to the translator: the tagged text when there is one
+        public string CacheKey => TaggedText ?? Text;
+        // What the cache stores: the tagged translation when there is one, so colours come back from it
+        public string TranslationForCache => TranslatedMarkup ?? _textTranslated;
+
+        public void SetColorSpans(string taggedText, IReadOnlyList<RSTGameTranslation.Layout.ColorSpan> spans)
+        {
+            TaggedText = taggedText;
+            ColorSpans = spans;
+        }
         public double X { get; set; }
         public double Y { get; set; }
         public double Width { get; set; }
@@ -228,8 +269,11 @@ namespace RSTGameTranslation
             {
                 if (this.TextTranslated != null && this.TextTranslated.Length > 0)
                 {
-                    // Use translated text if available
-                    TextBlock.Text = this.TextTranslated;
+                    // Use translated text if available; tagged words in the colours the game used
+                    if (TranslatedMarkup != null && ColorSpans != null)
+                        SetColouredText(TextBlock, TranslatedMarkup, ColorSpans);
+                    else
+                        TextBlock.Text = this.TextTranslated;
                     TextBlock.FlowDirection = FlowDirection;
                 }
                 // else
@@ -379,6 +423,20 @@ namespace RSTGameTranslation
             MinSourceSizeRatio = minSourceSizeRatio;
             ApplyBoxConstraints();
             AdjustFontSize(Border, TextBlock);
+        }
+
+        // Pieces of the translation as runs: tagged pieces in their span's colour, the rest in the text colour
+        private static void SetColouredText(TextBlock textBlock, string markup, IReadOnlyList<RSTGameTranslation.Layout.ColorSpan> spans)
+        {
+            textBlock.Inlines.Clear();
+            foreach (var (piece, span) in RSTGameTranslation.Layout.ColorMarkup.Parse(markup))
+            {
+                var run = new System.Windows.Documents.Run(piece);
+                var colour = span == null ? null : spans.FirstOrDefault(s => s.Number == span.Value);
+                if (colour != null)
+                    run.Foreground = new SolidColorBrush(Color.FromRgb(colour.Color.R, colour.Color.G, colour.Color.B));
+                textBlock.Inlines.Add(run);
+            }
         }
 
         // Static cache for font size calculations
