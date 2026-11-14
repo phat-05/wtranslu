@@ -24,6 +24,13 @@ namespace RSTGameTranslation
             Metrics.Write("ocr_start", "");
         }
 
+        // The frame was recognised by the image cache: its stored OCR result is used instead of OCR
+        public static void MarkImageCacheHit(int lines)
+        {
+            _sinceCapture.Restart();
+            Metrics.Write("0. Image cache hit", $"{lines} line(s)");
+        }
+
         // OCR returned text that differs from what is on screen; starts the per-text timeline
         public static void NewTextDetected(string detail)
         {

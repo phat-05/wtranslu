@@ -224,6 +224,11 @@ namespace RSTGameTranslation
         public const string GAMEPAD_HOT_KEY_ENABLE = "GamepadHotKeyEnable";
         public const string LLM_PREFER_SPEED = "llm_prefer_speed";
         public const string TRANSLATION_CACHE_ENABLED = "translation_cache_enabled";
+        public const string TRANSLATION_CACHE_PERSISTENT = "translation_cache_persistent";
+        public const string TRANSLATION_CACHE_FUZZY = "translation_cache_fuzzy";
+        public const string TRANSLATION_CACHE_FUZZY_THRESHOLD = "translation_cache_fuzzy_threshold";
+        public const string IMAGE_TEXT_CACHE_ENABLED = "image_text_cache_enabled";
+        public const string CURRENT_GAME_PROFILE = "current_game_profile";
         public const string TRANSLATION_PREFETCH = "translation_prefetch";
 
         // Default prompts
@@ -3607,6 +3612,56 @@ namespace RSTGameTranslation
             SaveConfig();
             if (!enabled)
                 TranslationCache.Instance.Clear();
+        }
+
+        // Keep the translation cache in a file per game, so it survives restarts
+        public bool IsTranslationCachePersistent() => GetBoolValue(TRANSLATION_CACHE_PERSISTENT, true);
+
+        public void SetTranslationCachePersistent(bool enabled)
+        {
+            _configValues[TRANSLATION_CACHE_PERSISTENT] = enabled.ToString().ToLower();
+            SaveConfig();
+        }
+
+        // Reuse the translation of a sentence OCR'd slightly differently (see Cache.FuzzyTextIndex)
+        public bool IsTranslationCacheFuzzyEnabled() => GetBoolValue(TRANSLATION_CACHE_FUZZY, true);
+
+        public void SetTranslationCacheFuzzyEnabled(bool enabled)
+        {
+            _configValues[TRANSLATION_CACHE_FUZZY] = enabled.ToString().ToLower();
+            SaveConfig();
+        }
+
+        // Minimum similarity (0.80 - 0.99) for a fuzzy match
+        public double GetTranslationCacheFuzzyThreshold()
+        {
+            if (double.TryParse(GetValue(TRANSLATION_CACHE_FUZZY_THRESHOLD, "0.90"), NumberStyles.Float, CultureInfo.InvariantCulture, out double value))
+                return Math.Clamp(value, 0.80, 0.99);
+            return 0.90;
+        }
+
+        public void SetTranslationCacheFuzzyThreshold(double value)
+        {
+            _configValues[TRANSLATION_CACHE_FUZZY_THRESHOLD] = Math.Clamp(value, 0.80, 0.99).ToString("F2", CultureInfo.InvariantCulture);
+            SaveConfig();
+        }
+
+        // Recognise text already OCR'd from its pixels and skip OCR (see Cache.ImageTextCache)
+        public bool IsImageTextCacheEnabled() => IsTranslationCacheEnabled() && GetBoolValue(IMAGE_TEXT_CACHE_ENABLED, true);
+
+        public void SetImageTextCacheEnabled(bool enabled)
+        {
+            _configValues[IMAGE_TEXT_CACHE_ENABLED] = enabled.ToString().ToLower();
+            SaveConfig();
+        }
+
+        // Name of the game profile last loaded or created; names the per-game cache files (see GameIdentity)
+        public string GetCurrentGameProfile() => GetValue(CURRENT_GAME_PROFILE, "");
+
+        public void SetCurrentGameProfile(string profileName)
+        {
+            _configValues[CURRENT_GAME_PROFILE] = profileName ?? "";
+            SaveConfig();
         }
 
         // Start translating new text while waiting for it to settle (see Logic.StartTranslationPrefetch)

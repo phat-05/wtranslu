@@ -130,6 +130,8 @@ namespace RSTGameTranslation
 
         public bool isCapturingWindow = false;
         private IntPtr capturedWindowHandle = IntPtr.Zero;
+        // The selected game window (IntPtr.Zero when capturing a screen area); names the per-game cache
+        public IntPtr CapturedWindowHandle => capturedWindowHandle;
         private string capturedWindowTitle = string.Empty;
         private GraphicsCaptureService? _graphicsCaptureService;
         // private System.Windows.Controls.Button? selectWindowButton;
@@ -692,6 +694,18 @@ namespace RSTGameTranslation
             _lastOcrStartTime = DateTime.UtcNow;
 
             Stopwatch stopwatch = Stopwatch.StartNew();
+            string sourceLanguage = (sourceLanguageComboBox?.SelectedItem as ComboBoxItem)?.Content?.ToString()!;
+
+            // Image tier of the cache: text already OCR'd is recognised from its pixels, and its stored
+            // OCR result goes down the usual path (block detection, text cache, overlay) without OCR
+            string? cachedOcr = ImageCacheController.TryServe(image, sourceLanguage ?? "", GetSelectedOcrMethod());
+            if (cachedOcr != null)
+            {
+                Logic.Instance.SetOcrSourceFrame(ConfigManager.Instance.IsAutoSetOverlayBackground() ? (Bitmap)image.Clone() : null);
+                Logic.Instance.ProcessReceivedTextJsonData(cachedOcr, fromImageCache: true);
+                return;
+            }
+
             SetOCRCheckIsWanted(false);
             OcrTiming.MarkCaptureSent();
 
@@ -699,7 +713,6 @@ namespace RSTGameTranslation
             // Clone() copies lazily, so this costs almost nothing unless the frame is sampled.
             Logic.Instance.SetOcrSourceFrame(ConfigManager.Instance.IsAutoSetOverlayBackground() ? (Bitmap)image.Clone() : null);
 
-            string sourceLanguage = (sourceLanguageComboBox?.SelectedItem as ComboBoxItem)?.Content?.ToString()!;
             if (GetSelectedOcrMethod() == "Windows OCR")
             {
                 Logic.Instance.ProcessWithWindowsOCR(image, sourceLanguage);

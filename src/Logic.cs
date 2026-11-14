@@ -403,9 +403,14 @@ namespace RSTGameTranslation
         }
 
         //! Process the OCR text data, this is before it's been translated
-        public void ProcessReceivedTextJsonData(string data)
+        public void ProcessReceivedTextJsonData(string data, bool fromImageCache = false)
         {
             _ocrProcessingStopwatch.Restart();
+            // A real OCR result: let the image cache remember which pixels read as which text
+            if (!fromImageCache)
+            {
+                ImageCacheController.OnOcrResult(data);
+            }
             MainWindow.Instance.SetOCRCheckIsWanted(true);
 
             // An OCR translation in flight is still checked against the screen below, and dropped if the text moved on
@@ -1818,6 +1823,9 @@ namespace RSTGameTranslation
 
                 SetOcrSourceFrame(null);
 
+                // Translations still queued for the cache file
+                TranslationCache.Instance.Flush();
+
                 // Clear all text objects
                 ClearAllTextObjects();
             }
@@ -2462,9 +2470,11 @@ namespace RSTGameTranslation
             AddTranslationsToChatBox(translated.Select(t => (t.Block.Y, t.Block.Text, t.Text)));
         }
 
-        // Settings that change a translation: a cached one is only reused under the same settings
+        // The cache is kept per game and language pair, and remembers which service made each translation
+        // (the one in use is preferred). Model, prompt and game info no longer empty it: a translation
+        // memory that survives restarts is worth more; "Retry translation" replaces a bad entry.
         private string BuildTranslationCacheContext(string service, string model, string prompt, string gameInfo) =>
-            string.Join("\u001F", service, model, GetSourceLanguage(), GetTargetLanguage(), prompt, gameInfo);
+            TranslationCache.BuildContext(GameIdentity.Current, GetSourceLanguage(), GetTargetLanguage(), service);
 
         // ----- Prefetch: translate new text while waiting for it to settle -----
         // When OCR sees new text the pipeline waits for the next OCR pass to confirm it (the settle time,
@@ -2659,8 +2669,10 @@ namespace RSTGameTranslation
             var found = new HashSet<TextObject>();
             foreach (var textObject in _textObjects)
             {
-                if (TranslationCache.Instance.TryGet(textObject.Text, out string translation))
+                if (TranslationCache.Instance.TryGet(textObject.Text, out string translation, out var match, out double similarity))
                 {
+                    if (match == RSTGameTranslation.Cache.CacheMatch.Fuzzy)
+                        OcrTiming.Log("3c. Fuzzy cache match", $"{similarity:P0} similar: '{OcrTiming.Preview(textObject.Text)}'");
                     // Cached RTL translations keep the right-to-left mark added when they were first shown.
                     // The char overload is ordinal: StartsWith(string) is culture-sensitive and ignores the
                     // zero-width mark, so it matched every translation and turned all of them right-to-left.
