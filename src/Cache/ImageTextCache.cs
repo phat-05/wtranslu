@@ -136,9 +136,7 @@ namespace RSTGameTranslation.Cache
             {
                 if (_verifying != null)
                 {
-                    string expected = Signature(_verifying.Lines);
-                    string actual = Signature(lines);
-                    if (expected != actual)
+                    if (!SameText(Signature(_verifying.Lines), Signature(lines)))
                     {
                         RemoveEntry(_verifying);
                         verifiedOk = false;
@@ -211,7 +209,7 @@ namespace RSTGameTranslation.Cache
             bool isNew = true;
             if (same >= 0)
             {
-                isNew = Signature(layout.Entries[same].Lines) != Signature(entry.Lines);
+                isNew = !SameText(Signature(layout.Entries[same].Lines), Signature(entry.Lines));
                 layout.Entries[same] = entry;
             }
             else
@@ -253,6 +251,16 @@ namespace RSTGameTranslation.Cache
             foreach (var l in lines)
                 sb.Append('|').Append(l.X / 4).Append(',').Append(l.Y / 4).Append(',').Append(l.W / 4).Append(',').Append(l.H / 4);
             return sb.ToString();
+        }
+
+        // OCR of the same picture varies a little between runs ("X" / "×"): 90% similar is the same text
+        private static bool SameText(string a, string b)
+        {
+            if (a == b)
+                return true;
+            int maxLen = Math.Max(a.Length, b.Length);
+            int limit = maxLen / 10;
+            return FuzzyTextIndex.BoundedLevenshtein(a, b, limit) <= limit;
         }
 
         private static string Signature(IEnumerable<Line> lines) =>
