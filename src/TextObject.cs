@@ -191,6 +191,7 @@ namespace RSTGameTranslation
             };
             var layers = new Grid();
             layers.Children.Add(_softBackground);
+            layers.Children.Add(CreateOutlineLayer());
             layers.Children.Add(TextBlock);
             Border.Child = layers;
             ApplyBackground();
@@ -230,6 +231,7 @@ namespace RSTGameTranslation
                 {
                     // Use translated text if available
                     TextBlock.Text = this.TextTranslated;
+                    SyncOutlineText();
                     TextBlock.FlowDirection = FlowDirection;
                 }
                 // else
@@ -297,6 +299,9 @@ namespace RSTGameTranslation
                 _softBackground.Visibility = soft ? Visibility.Visible : Visibility.Collapsed;
             }
 
+            ShowOutline(_gameTextStyle?.Effect == RSTGameTranslation.Layout.TextEffectKind.Outline
+                ? System.Windows.Media.Color.FromRgb(_gameTextStyle.EffectColor.R, _gameTextStyle.EffectColor.G, _gameTextStyle.EffectColor.B)
+                : null);
             var gameEffect = GameTextEffect();
             TextBlock.Effect = gameEffect != null
                 ? gameEffect
@@ -322,13 +327,8 @@ namespace RSTGameTranslation
             switch (style.Effect)
             {
                 case RSTGameTranslation.Layout.TextEffectKind.Outline:
-                    return new System.Windows.Media.Effects.DropShadowEffect
-                    {
-                        Color = color,
-                        ShadowDepth = 0,
-                        BlurRadius = 4,
-                        Opacity = 1
-                    };
+                    // Drawn by the outline layer (copies of the text around it), not as an effect
+                    return null;
                 case RSTGameTranslation.Layout.TextEffectKind.Shadow:
                     double depth = Math.Sqrt(style.ShadowDx * style.ShadowDx + style.ShadowDy * style.ShadowDy);
                     // WPF measures the direction counter-clockwise from "right"; screen y grows downward
@@ -344,6 +344,63 @@ namespace RSTGameTranslation
                 default:
                     return null;
             }
+        }
+
+        // ---- Outline: WPF text has no stroke, so the text is drawn 8 times in the outline colour, shifted
+        // around the real text, under it. The copies follow the real text's size and wrapping by binding.
+        private Grid? _outlineLayer;
+        private const double OutlineWidth = 1.5;
+
+        private Grid CreateOutlineLayer()
+        {
+            _outlineLayer = new Grid { IsHitTestVisible = false, Visibility = Visibility.Collapsed };
+            for (int i = 0; i < 8; i++)
+            {
+                double angle = i * Math.PI / 4;
+                var copy = new TextBlock
+                {
+                    RenderTransform = new TranslateTransform(Math.Round(Math.Cos(angle) * OutlineWidth, 2), Math.Round(Math.Sin(angle) * OutlineWidth, 2))
+                };
+                foreach (var property in new DependencyProperty[]
+                {
+                    TextBlock.FontSizeProperty, TextBlock.FontFamilyProperty, TextBlock.FontWeightProperty,
+                    TextBlock.FontStyleProperty, TextBlock.FontStretchProperty, TextBlock.LineHeightProperty,
+                    TextBlock.LineStackingStrategyProperty, TextBlock.TextWrappingProperty, TextBlock.TextAlignmentProperty,
+                    FrameworkElement.MaxWidthProperty, FrameworkElement.WidthProperty, FrameworkElement.MarginProperty,
+                    FrameworkElement.FlowDirectionProperty, FrameworkElement.VerticalAlignmentProperty,
+                    FrameworkElement.HorizontalAlignmentProperty, TextBlock.PaddingProperty
+                })
+                {
+                    copy.SetBinding(property, new System.Windows.Data.Binding(property.Name) { Source = TextBlock, Mode = System.Windows.Data.BindingMode.OneWay });
+                }
+                _outlineLayer.Children.Add(copy);
+            }
+            return _outlineLayer;
+        }
+
+        private void SyncOutlineText()
+        {
+            if (_outlineLayer == null)
+                return;
+            string text = TextTranslated.Length > 0 ? TextTranslated : TextBlock?.Text ?? "";
+            foreach (TextBlock copy in _outlineLayer.Children)
+                copy.Text = text;
+        }
+
+        private void ShowOutline(System.Windows.Media.Color? color)
+        {
+            if (_outlineLayer == null)
+                return;
+            if (color == null)
+            {
+                _outlineLayer.Visibility = Visibility.Collapsed;
+                return;
+            }
+            var brush = new SolidColorBrush(color.Value);
+            foreach (TextBlock copy in _outlineLayer.Children)
+                copy.Foreground = brush;
+            SyncOutlineText();
+            _outlineLayer.Visibility = Visibility.Visible;
         }
 
         private void ResetLayout()
