@@ -1,0 +1,7 @@
+utc_ms,step,cycle,style,speaker,text
+1794675976180,0,0,title,"","Chapter 2: The Lighthouse"
+1794675981189,1,0,dialogue,"Captain Mira","Find the red key before the tide turns."
+1794675987188,2,0,menu,"","Continue / Load Game / Settings / Quit"
+1794675993231,3,0,dialogue,"Old Fisherman","The blue door opens only for the green lantern."
+1794675999275,4,0,dialogue,"Young Sailor","Captain, the merchant wants twelve gold coins for the map."
+1794676005314,-1,1,end,"",""
