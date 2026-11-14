@@ -1,0 +1,76 @@
+{
+  "summary": {
+    "label": "claude/amazing-hamilton-lddsx3 style scenario",
+    "all": {
+      "n": 0
+    },
+    "first_time_lines": {
+      "n": 0
+    },
+    "repeated_lines": {
+      "n": 0
+    },
+    "per_session": {
+      "s1": {
+        "n": 0
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "Chapter 2: The Lighthouse",
+      "latency_ms": null,
+      "ocr_runs": 12,
+      "translation_requests": 0,
+      "served_from_cache": false,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "Find the red key before the tide turns.",
+      "latency_ms": null,
+      "ocr_runs": 23,
+      "translation_requests": 0,
+      "served_from_cache": false,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Continue / Load Game / Settings / Quit",
+      "latency_ms": null,
+      "ocr_runs": 23,
+      "translation_requests": 0,
+      "served_from_cache": false,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 3,
+      "cycle": 0,
+      "text": "The blue door opens only for the green lantern.",
+      "latency_ms": null,
+      "ocr_runs": 23,
+      "translation_requests": 0,
+      "served_from_cache": false,
+      "image_cache_hits": 0
+    },
+    {
+      "session": "s1",
+      "step": 4,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": null,
+      "ocr_runs": 23,
+      "translation_requests": 0,
+      "served_from_cache": false,
+      "image_cache_hits": 0
+    }
+  ]
+}
