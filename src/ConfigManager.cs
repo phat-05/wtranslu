@@ -228,6 +228,7 @@ namespace RSTGameTranslation
         public const string TRANSLATION_CACHE_FUZZY = "translation_cache_fuzzy";
         public const string TRANSLATION_CACHE_FUZZY_THRESHOLD = "translation_cache_fuzzy_threshold";
         public const string IMAGE_TEXT_CACHE_ENABLED = "image_text_cache_enabled";
+        public const string FONT_SIZE_FROM_LINE_HEIGHT = "font_size_from_line_height";
         public const string CURRENT_GAME_PROFILE = "current_game_profile";
         public const string TRANSLATION_PREFETCH = "translation_prefetch";
 
@@ -3654,6 +3655,9 @@ namespace RSTGameTranslation
             _configValues[IMAGE_TEXT_CACHE_ENABLED] = enabled.ToString().ToLower();
             SaveConfig();
         }
+
+        // Size translations from the height of the game's text lines (see Layout.FontSizeEstimator)
+        public bool IsFontSizeFromLineHeightEnabled() => GetBoolValue(FONT_SIZE_FROM_LINE_HEIGHT, true);
 
         // Name of the game profile last loaded or created; names the per-game cache files (see GameIdentity)
         public string GetCurrentGameProfile() => GetValue(CURRENT_GAME_PROFILE, "");

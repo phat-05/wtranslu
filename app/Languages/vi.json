@@ -109,6 +109,7 @@
   "Btn_ClearGameCache": "Xoá cache của game này",
   "Lbl_GameCacheStatus": "Game: {0} - {1} bản dịch, {2} ảnh chữ",
   "Msg_ClearGameCacheConfirm": "Xoá toàn bộ bản dịch và ảnh chữ đã lưu của \"{0}\"?",
+  "OverlayOptions_Lbl_FontSizeFromLines": "Cỡ chữ bản dịch theo chiều cao dòng chữ của game (tự co lại khi bản dịch dài hơn)",
   "Lbl_TranslationPrefetch": "Bắt đầu dịch ngay trong lúc chờ chữ mới ổn định (nhanh hơn khoảng một lượt OCR; với dịch vụ AI trả phí, chữ hiện dần từng ký tự có thể tốn thêm vài request)",
   "Lbl_TranslationSpeedHint": "\"Thử lại bản dịch\" luôn gửi lại cho dịch vụ và thay bản dịch trong cache. Thời gian của từng bước với chữ mới được ghi vào log, ở các dòng bắt đầu bằng \"[OCR timing\".",
   "Lbl_TranslationService": "Dịch vụ dịch:",

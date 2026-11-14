@@ -30,6 +30,8 @@ jobs:
     timeout-minutes: 40
     env:
       OCR: ${{ github.event.inputs.ocr || 'OneOCR' }}
+      # Config that turns this fork's overlay features off, for before/after screenshots
+      STYLE_OFF: 'font_size_from_line_height=false'
     steps:
       - uses: actions/checkout@v4
 
@@ -66,6 +68,14 @@ jobs:
             --script tests/e2e/scenarios/cache.txt --out "$OUT" --sessions 2 --fresh \
             --label "${GITHUB_REF_NAME} cache scenario" \
             --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate"
+
+      - name: Run style scenario (new overlay features off = upstream behaviour)
+        shell: bash
+        run: |
+          python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
+            --script tests/e2e/scenarios/style.txt --out evidence/style_before --sessions 1 \
+            --label "${GITHUB_REF_NAME} style scenario, features off" --shot-delay 4500 \
+            --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate;${STYLE_OFF}"
 
       - name: Run style scenario
         shell: bash

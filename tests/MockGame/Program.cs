@@ -175,6 +175,8 @@ internal sealed class GameForm : Form
             return;
         if (step.Style == "menu")
             DrawMenu(g, step);
+        else if (step.Style == "banner")
+            DrawBanner(g, step);
         else if (step.Style == "dialogue")
             DrawDialogue(g, step);
     }
@@ -212,6 +214,16 @@ internal sealed class GameForm : Form
 
         using var textFont = new Font("Segoe UI", 26, FontStyle.Regular, GraphicsUnit.Pixel);
         DrawRichText(g, step.Text, textFont, Color.White, new RectangleF(box.X + 24, box.Y + 58, box.Width - 48, box.Height - 70));
+    }
+
+    // Big text in a condensed font (narrower letters than Arial at the same height), as game banners use
+    private static void DrawBanner(Graphics g, Step step)
+    {
+        using var font = new Font("Bahnschrift Condensed", 44, FontStyle.Bold, GraphicsUnit.Pixel);
+        using var shadow = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
+        using var fill = new SolidBrush(Color.FromArgb(255, 90, 70));
+        g.DrawString(step.Text, font, shadow, 63, 203);
+        g.DrawString(step.Text, font, fill, 60, 200);
     }
 
     private void DrawMenu(Graphics g, Step step)

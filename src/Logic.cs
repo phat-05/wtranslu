@@ -1062,19 +1062,23 @@ namespace RSTGameTranslation
 
                             double confidence = confElement.GetDouble();
                             var (x, y, width, height) = ReadRect(item);
+                            // Game font size estimated from the line heights (capture pixels), 0 when unknown
+                            double fontPx = item.TryGetProperty("font_px", out JsonElement fontElement) && fontElement.ValueKind == JsonValueKind.Number
+                                ? fontElement.GetDouble()
+                                : 0;
 
                             if (autoMergeEnabled)
                             {
                                 int? bubbleId = item.TryGetProperty("bubble_id", out JsonElement bubbleElement) && bubbleElement.ValueKind == JsonValueKind.Number
                                     ? bubbleElement.GetInt32()
                                     : null;
-                                tempBlocks.Add(new TempTextBlock { Text = text, X = x, Y = y, Width = width, Height = height, Confidence = confidence, BubbleId = bubbleId });
+                                tempBlocks.Add(new TempTextBlock { Text = text, X = x, Y = y, Width = width, Height = height, Confidence = confidence, BubbleId = bubbleId, FontPx = fontPx });
                             }
                             else
                             {
                                 // OCR boxes are in capture pixels; the overlay canvas is in MonitorWindow DIPs
                                 DpiHelper.GetWindowRenderDpi(MonitorWindow.Instance, out double dpiScaleX, out double dpiScaleY);
-                                CreateTextObjectAtPosition(text, x / dpiScaleX, y / dpiScaleY, width / dpiScaleX, height / dpiScaleY, confidence, sourceBitmap);
+                                CreateTextObjectAtPosition(text, x / dpiScaleX, y / dpiScaleY, width / dpiScaleX, height / dpiScaleY, confidence, sourceBitmap, fontPx / dpiScaleY);
                             }
                         }
                     }
@@ -1097,7 +1101,7 @@ namespace RSTGameTranslation
                             double originalHeight = bounds.MaxY - bounds.MinY;
 
                             CreateTextObjectAtPosition(block.Text, originalX / dpiScaleX, originalY / dpiScaleY,
-                                originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap);
+                                originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap, block.FontPx / dpiScaleY);
                         }
                     }
                 }
@@ -1199,7 +1203,8 @@ namespace RSTGameTranslation
         }
 
         // Create a text object at the specified position with confidence info
-        private void CreateTextObjectAtPosition(string text, double x, double y, double width, double height, double confidence, Bitmap? sourceBitmap)
+        // sourceFontSize: the game's font size in DIPs, estimated from the OCR line heights (0 = unknown)
+        private void CreateTextObjectAtPosition(string text, double x, double y, double width, double height, double confidence, Bitmap? sourceBitmap, double sourceFontSize = 0)
         {
             try
             {
@@ -1208,7 +1213,7 @@ namespace RSTGameTranslation
                 {
                     // Run on UI thread to ensure STA compliance
                     Application.Current.Dispatcher.Invoke(() =>
-                        CreateTextObjectAtPosition(text, x, y, width, height, confidence, sourceBitmap));
+                        CreateTextObjectAtPosition(text, x, y, width, height, confidence, sourceBitmap, sourceFontSize));
                     return;
                 }
 
@@ -1288,6 +1293,10 @@ namespace RSTGameTranslation
                     captureX, captureY  // Store original capture coordinates
                 );
                 textObject.ID = "text_" + GetNextTextID();
+                if (ConfigManager.Instance.IsFontSizeFromLineHeightEnabled())
+                {
+                    textObject.SourceFontSize = sourceFontSize;
+                }
                 if (erasedPatch != null)
                 {
                     textObject.SetErasedBackground(erasedPatch, erasedBounds);
@@ -3084,6 +3093,8 @@ namespace RSTGameTranslation
             public double Confidence { get; set; }
             // Manga speech bubble the block sits in, null when unknown
             public int? BubbleId { get; set; }
+            // Game font size from the line heights, capture pixels (0 = unknown)
+            public double FontPx { get; set; }
         }
 
         /// <summary>
@@ -3296,6 +3307,15 @@ namespace RSTGameTranslation
         /// <summary>
         /// Merges two text blocks into one
         /// </summary>
+        // Font size of two merged blocks: weighted by how much text each brings; unknown sizes are ignored
+        private static double MergeFontPx(TempTextBlock a, TempTextBlock b)
+        {
+            if (a.FontPx <= 0) return b.FontPx;
+            if (b.FontPx <= 0) return a.FontPx;
+            double wa = Math.Max(1, a.Text.Length), wb = Math.Max(1, b.Text.Length);
+            return (a.FontPx * wa + b.FontPx * wb) / (wa + wb);
+        }
+
         private TempTextBlock MergeTwoBlocks(TempTextBlock a, TempTextBlock b)
         {
             // Determine merge order based on vertical center position.
@@ -3318,7 +3338,8 @@ namespace RSTGameTranslation
                 Width = Math.Max(a.X + a.Width, b.X + b.Width) - Math.Min(a.X, b.X),
                 Height = Math.Max(a.Y + a.Height, b.Y + b.Height) - Math.Min(a.Y, b.Y),
                 Confidence = Math.Min(a.Confidence, b.Confidence),
-                BubbleId = a.BubbleId ?? b.BubbleId
+                BubbleId = a.BubbleId ?? b.BubbleId,
+                FontPx = MergeFontPx(a, b)
             };
         }
 

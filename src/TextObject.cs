@@ -69,6 +69,9 @@ namespace RSTGameTranslation
         public double MinSourceSizeRatio { get; private set; } = DefaultMinSourceSizeRatio;
         // Whether the text fit the original box height at the chosen font size
         public bool TextFitsBox { get; private set; } = true;
+        // The game's font size (DIPs) estimated from the OCR line heights; 0 = unknown, then it is
+        // estimated from what fits in the box
+        public double SourceFontSize { get; set; }
 
         // Feather width (DIPs) of the background edge when overlay colors are sampled automatically
         private const double SoftEdgeRadius = 6;
@@ -410,7 +413,7 @@ namespace RSTGameTranslation
                 if (configMin > configMax) (configMin, configMax) = (configMax, configMin);
 
                 // Same length doesn't mean same rendered size, so key on the actual text and font
-                string cacheKey = $"{textBlock.FontFamily.Source}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{Text}_{textBlock.Text}";
+                string cacheKey = $"{textBlock.FontFamily.Source}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{textBlock.Text}";
                 
                 // Check cache
                 if (_fontSizeCache.TryGetValue(cacheKey, out var cached))
@@ -420,19 +423,28 @@ namespace RSTGameTranslation
                     return;
                 }
 
-                // Estimate the game's font size: the largest size at which the source text fills its own box
-                var sourceProbe = new TextBlock
+                // The game's font size: from the height of its lines when known (independent of the
+                // font's width), otherwise the largest size at which the source text fills its own box
+                double sourceSize;
+                if (SourceFontSize > 0)
                 {
-                    Text = Text,
-                    FontFamily = textBlock.FontFamily,
-                    FontWeight = textBlock.FontWeight,
-                    TextWrapping = TextWrapping.Wrap
-                };
-                // The source filled the original box, so measure it at the original width
-                double layoutWidth = LayoutWidth;
-                LayoutWidth = Width;
-                double sourceSize = FindLargestFittingSize(sourceProbe, 1, configMax);
-                LayoutWidth = layoutWidth;
+                    sourceSize = Math.Min(SourceFontSize, configMax);
+                }
+                else
+                {
+                    var sourceProbe = new TextBlock
+                    {
+                        Text = Text,
+                        FontFamily = textBlock.FontFamily,
+                        FontWeight = textBlock.FontWeight,
+                        TextWrapping = TextWrapping.Wrap
+                    };
+                    // The source filled the original box, so measure it at the original width
+                    double layoutWidth = LayoutWidth;
+                    LayoutWidth = Width;
+                    sourceSize = FindLargestFittingSize(sourceProbe, 1, configMax);
+                    LayoutWidth = layoutWidth;
+                }
 
                 // Keep the translation readable relative to the source and no larger than it
                 double minSize = Math.Min(configMax, Math.Max(configMin, sourceSize * MinSourceSizeRatio));
@@ -443,6 +455,7 @@ namespace RSTGameTranslation
                 TextFitsBox = FitsAt(textBlock, finalSize);
                 textBlock.VerticalAlignment = VerticalAlignment.Stretch;
                 ApplyFontSize(textBlock, finalSize);
+                OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{textBlock.Text}");
                 
                 // Cache result
                 if (_fontSizeCache.Count > 100) _fontSizeCache.Clear();
