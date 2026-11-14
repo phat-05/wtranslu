@@ -129,9 +129,20 @@ namespace RSTGameTranslation.Layout
 
             bool twoColours = a.DistanceTo(b) >= MinClusterDistance &&
                               Math.Min(countA, countB) >= ink.Count * MinClusterShare;
+            // Anti-aliased letter edges blend the text colour into the background: a group of colours
+            // lying between the two is the edge of the letters, not an outline or a shadow
+            bool edgeBlend = false;
+            if (twoColours && (IsBetween(a, b, background) || IsBetween(b, a, background)))
+            {
+                twoColours = false;
+                edgeBlend = true;
+            }
             if (!twoColours)
             {
-                fill = countA >= countB ? a : b;
+                // With a blend, the text colour is the end farther from the background
+                fill = edgeBlend
+                    ? (a.DistanceTo(background) >= b.DistanceTo(background) ? a : b)
+                    : (countA >= countB ? a : b);
             }
             else
             {
@@ -180,8 +191,12 @@ namespace RSTGameTranslation.Layout
                 }
                 else
                 {
-                    // Words in two colours: the colour of most of the text
-                    fillIdx = countA >= countB ? 0 : 1;
+                    // Words in two colours: the colour of most of the text; when both are about as common,
+                    // the plainer one (games highlight words in strong colours over white/neutral text)
+                    double ratio = (double)Math.Min(countA, countB) / Math.Max(countA, countB);
+                    fillIdx = ratio >= 0.5
+                        ? (Saturation(a) <= Saturation(b) ? 0 : 1)
+                        : (countA >= countB ? 0 : 1);
                     effectIdx = -1;
                 }
                 fill = fillIdx == 0 ? a : b;
@@ -278,6 +293,16 @@ namespace RSTGameTranslation.Layout
             if (total < 20 || dark == 0)
                 return (0, default);
             return ((double)dark / total, new Rgb((byte)(r / dark), (byte)(g / dark), (byte)(b / dark)));
+        }
+
+        // Whether c lies (about) on the way from a to b in colour space: a mix of the two
+        private static bool IsBetween(Rgb c, Rgb a, Rgb b) =>
+            c.DistanceTo(a) + c.DistanceTo(b) <= a.DistanceTo(b) * 1.15;
+
+        private static double Saturation(Rgb c)
+        {
+            int max = Math.Max(c.R, Math.Max(c.G, c.B)), min = Math.Min(c.R, Math.Min(c.G, c.B));
+            return max == 0 ? 0 : (double)(max - min) / max;
         }
 
         private static bool IsInkAt(bool[] isInk, int w, int h, int x, int y) =>
