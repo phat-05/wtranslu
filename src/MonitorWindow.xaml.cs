@@ -646,7 +646,12 @@ namespace RSTGameTranslation
                 // Widen: let an overflowing box grow until the next box on the same rows or the overlay edge
                 foreach (var item in items)
                 {
-                    item.Relayout(item.Width, TextObject.DefaultMinSourceSizeRatio);
+                    // With the game's font size known (from its line heights), first try to stay close to it
+                    // and use free space to the side; only shrink further when there is none
+                    double preferredRatio = item.SourceFontSize > 0
+                        ? TextObject.PreferredMinSourceSizeRatio
+                        : TextObject.DefaultMinSourceSizeRatio;
+                    item.Relayout(item.Width, preferredRatio);
                     if (item.TextFitsBox) continue;
 
                     bool isRtl = item.FlowDirection == System.Windows.FlowDirection.RightToLeft;
@@ -670,7 +675,13 @@ namespace RSTGameTranslation
                     double availableWidth = isRtl ? right - (left + OverlayGap) : right - OverlayGap - left;
                     if (!double.IsInfinity(availableWidth) && availableWidth > item.Width)
                     {
-                        item.Relayout(availableWidth, TextObject.DefaultMinSourceSizeRatio);
+                        item.Relayout(availableWidth, preferredRatio);
+                        if (!item.TextFitsBox && preferredRatio > TextObject.DefaultMinSourceSizeRatio)
+                            item.Relayout(availableWidth, TextObject.DefaultMinSourceSizeRatio);
+                    }
+                    else if (preferredRatio > TextObject.DefaultMinSourceSizeRatio)
+                    {
+                        item.Relayout(item.Width, TextObject.DefaultMinSourceSizeRatio);
                     }
                 }
 
