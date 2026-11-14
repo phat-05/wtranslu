@@ -573,7 +573,9 @@ namespace RSTGameTranslation
                 if (configMin > configMax) (configMin, configMax) = (configMax, configMin);
 
                 // Same length doesn't mean same rendered size, so key on the actual text and font
-                string cacheKey = $"{textBlock.FontFamily.Source}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{textBlock.Text}";
+                // With coloured words the text is in Inlines and TextBlock.Text still holds the old string
+                string shownText = TranslatedMarkup ?? textBlock.Text;
+                string cacheKey = $"{textBlock.FontFamily.Source}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{shownText}";
                 
                 // Check cache
                 if (_fontSizeCache.TryGetValue(cacheKey, out var cached))
@@ -615,7 +617,7 @@ namespace RSTGameTranslation
                 TextFitsBox = FitsAt(textBlock, finalSize);
                 textBlock.VerticalAlignment = VerticalAlignment.Stretch;
                 ApplyFontSize(textBlock, finalSize);
-                OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{textBlock.Text}|{textBlock.FontFamily.Source.Split(',')[0]}");
+                OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}");
                 
                 // Cache result
                 if (_fontSizeCache.Count > 100) _fontSizeCache.Clear();

@@ -2,7 +2,7 @@
 
 ## 1. Lấy bản build
 
-- **Cách nhanh:** vào tab *Actions* của repo, mở lần chạy mới nhất của nhánh `goal5-word-colors`, tải artifact `rst-build`. Giải nén ra một thư mục rồi chạy `rst.exe`.
+- **Cách nhanh:** vào tab *Actions* của repo, mở lần chạy mới nhất của nhánh `goal5-word-colors`, tải artifact `rst-build`. Giải nén ra một thư mục rồi chạy `app\rst.exe`.
 - **Tự build** (Windows, cài .NET 9 SDK):
 
 ```bat
