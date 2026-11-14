@@ -122,6 +122,7 @@ namespace RSTGameTranslation
                 languageFontSizeMaxTextBox.Text = _currentFontSizeMax.ToString(CultureInfo.InvariantCulture);
 
                 fontSizeFromLineHeightCheckBox.IsChecked = ConfigManager.Instance.IsFontSizeFromLineHeightEnabled();
+                textStyleFromGameCheckBox.IsChecked = ConfigManager.Instance.IsTextStyleFromGameEnabled();
             }
             catch (Exception ex)
             {
@@ -230,6 +231,8 @@ namespace RSTGameTranslation
                 ConfigManager.Instance.SetValue(ConfigManager.LANGUAGE_FONT_SIZE_MAX, maxSize.ToString(CultureInfo.InvariantCulture));
                 ConfigManager.Instance.SetValue(ConfigManager.FONT_SIZE_FROM_LINE_HEIGHT,
                     fontSizeFromLineHeightCheckBox.IsChecked == true ? "true" : "false");
+                ConfigManager.Instance.SetValue(ConfigManager.TEXT_STYLE_FROM_GAME,
+                    textStyleFromGameCheckBox.IsChecked == true ? "true" : "false");
 
                 // Save config to file
                 ConfigManager.Instance.SaveConfig();

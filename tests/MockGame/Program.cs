@@ -177,6 +177,10 @@ internal sealed class GameForm : Form
             DrawMenu(g, step);
         else if (step.Style == "banner")
             DrawBanner(g, step);
+        else if (step.Style == "subtitle")
+            DrawSubtitle(g, step);
+        else if (step.Style == "hint")
+            DrawHint(g, step);
         else if (step.Style == "dialogue")
             DrawDialogue(g, step);
     }
@@ -224,6 +228,28 @@ internal sealed class GameForm : Form
         using var fill = new SolidBrush(Color.FromArgb(255, 90, 70));
         g.DrawString(step.Text, font, shadow, 63, 203);
         g.DrawString(step.Text, font, fill, 60, 200);
+    }
+
+    // White subtitle with a black outline over the bright sky, as cutscene subtitles are drawn
+    private static void DrawSubtitle(Graphics g, Step step)
+    {
+        using var path = new GraphicsPath();
+        using var family = new FontFamily("Segoe UI");
+        path.AddString(step.Text, family, (int)FontStyle.Bold, 30, new PointF(60, 250), StringFormat.GenericTypographic);
+        using var outline = new Pen(Color.Black, 5) { LineJoin = LineJoin.Round };
+        g.DrawPath(outline, path);
+        g.FillPath(Brushes.White, path);
+    }
+
+    // Pale hint text on a cream panel: low contrast, as greyed-out tips are
+    private static void DrawHint(Graphics g, Step step)
+    {
+        var panel = new Rectangle(60, 230, 700, 50);
+        using (var fill = new SolidBrush(Color.FromArgb(240, 232, 214)))
+            g.FillRectangle(fill, panel);
+        using var font = new Font("Segoe UI", 22, FontStyle.Italic, GraphicsUnit.Pixel);
+        using var brush = new SolidBrush(Color.FromArgb(176, 150, 110));
+        g.DrawString(step.Text, font, brush, panel.X + 14, panel.Y + 10);
     }
 
     private void DrawMenu(Graphics g, Step step)

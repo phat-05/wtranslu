@@ -78,6 +78,10 @@ namespace RSTGameTranslation
         // Glow around translated text drawn directly on the erased background
         private const double TextHaloRadius = 6;
         private System.Windows.Shapes.Rectangle? _softBackground;
+        // The game's outline or drop shadow, drawn around the translation like the original (null = none)
+        private RSTGameTranslation.Layout.TextStyle? _gameTextStyle;
+
+        public void SetTextEffect(RSTGameTranslation.Layout.TextStyle style) => _gameTextStyle = style;
 
         // Fallback chain used when no language font override is set
         private const string DefaultFontFamily = "Arial, Noto Sans SC, Noto Sans JP, Noto Sans, Noto Sans KR, Noto Sans Devanagari, MS Gothic, Malgun Gothic, Yu Gothic, Microsoft YaHei, Arial Unicode MS";
@@ -296,7 +300,10 @@ namespace RSTGameTranslation
                 _softBackground.Visibility = soft ? Visibility.Visible : Visibility.Collapsed;
             }
 
-            TextBlock.Effect = erased
+            var gameEffect = GameTextEffect();
+            TextBlock.Effect = gameEffect != null
+                ? gameEffect
+                : erased
                 ? new System.Windows.Media.Effects.DropShadowEffect
                 {
                     Color = BackgroundColor.Color,
@@ -305,6 +312,41 @@ namespace RSTGameTranslation
                     Opacity = 1
                 }
                 : null;
+        }
+
+        // The game text's outline (a thin glow of the outline colour all around) or drop shadow (an
+        // offset copy in the shadow colour); WPF text has no stroke, a tight blur-free shadow reads alike
+        private System.Windows.Media.Effects.Effect? GameTextEffect()
+        {
+            var style = _gameTextStyle;
+            if (style == null)
+                return null;
+            var color = System.Windows.Media.Color.FromRgb(style.EffectColor.R, style.EffectColor.G, style.EffectColor.B);
+            switch (style.Effect)
+            {
+                case RSTGameTranslation.Layout.TextEffectKind.Outline:
+                    return new System.Windows.Media.Effects.DropShadowEffect
+                    {
+                        Color = color,
+                        ShadowDepth = 0,
+                        BlurRadius = 4,
+                        Opacity = 1
+                    };
+                case RSTGameTranslation.Layout.TextEffectKind.Shadow:
+                    double depth = Math.Sqrt(style.ShadowDx * style.ShadowDx + style.ShadowDy * style.ShadowDy);
+                    // WPF measures the direction counter-clockwise from "right"; screen y grows downward
+                    double direction = Math.Atan2(-style.ShadowDy, style.ShadowDx) * 180 / Math.PI;
+                    return new System.Windows.Media.Effects.DropShadowEffect
+                    {
+                        Color = color,
+                        ShadowDepth = Math.Max(1, depth),
+                        Direction = (direction + 360) % 360,
+                        BlurRadius = 1,
+                        Opacity = 1
+                    };
+                default:
+                    return null;
+            }
         }
 
         private void ResetLayout()

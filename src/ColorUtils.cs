@@ -115,6 +115,36 @@ namespace RSTGameTranslation
         }
 
         /// <summary>
+        /// Fill colour, background and outline/shadow of the game text in the box (see
+        /// Layout.TextColorAnalyzer). Null when the box is unusable.
+        /// </summary>
+        public static RSTGameTranslation.Layout.TextStyle? AnalyzeTextStyle(Bitmap bitmap, Rectangle textBox)
+        {
+            var image = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            int margin = Math.Clamp(Math.Min(textBox.Width, textBox.Height) / 4, 3, 12);
+            Rectangle area = Rectangle.Intersect(Rectangle.Inflate(textBox, margin, margin), image);
+            if (area.Width <= 0 || area.Height <= 0)
+                return null;
+
+            var data = bitmap.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            try
+            {
+                int stride = data.Stride;
+                byte[] pixels = new byte[stride * area.Height];
+                System.Runtime.InteropServices.Marshal.Copy(data.Scan0, pixels, 0, pixels.Length);
+                // Box position relative to the copied area
+                return RSTGameTranslation.Layout.TextColorAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
+                    textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height);
+            }
+            finally
+            {
+                bitmap.UnlockBits(data);
+            }
+        }
+
+        public static MediaColor ToMediaColor(this RSTGameTranslation.Layout.Rgb c) => MediaColor.FromRgb(c.R, c.G, c.B);
+
+        /// <summary>
         /// Determines if a color is light or dark
         /// </summary>
         public static bool IsLightColor(Color color)
