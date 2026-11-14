@@ -23,7 +23,8 @@ namespace RSTGameTranslation.Layout
         // Windows OCR builds line boxes from word boxes, which hug the ink more closely
         public const double WindowsOcrPaddingEm = 0.1;
 
-        private const string Descenders = "gjpqy,;()[]{}|/QJ";
+        // Q and J only dip below the line in some fonts, by a hair: not counted
+        private const string Descenders = "gjpqy,;()[]{}|/";
         private const string Ascenders = "bdfhiklt0123456789'\"!?";
 
         /// <summary>Font size (same unit as boxHeight) of one horizontal line of text.</summary>
