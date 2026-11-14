@@ -95,6 +95,29 @@ public class TextColorAnalyzerTests
     }
 
     [Fact]
+    public void Anti_aliased_edges_are_not_an_outline()
+    {
+        var c = new Canvas(Navy);
+        // A 1-2 px fringe halfway between the text colour and the background, as smoothed text has
+        var fringe = new Rgb((byte)((Gold.R + Navy.R) / 2), (byte)((Gold.G + Navy.G) / 2), (byte)((Gold.B + Navy.B) / 2));
+        Letters(c, _ => fringe, grow: 2);
+        Letters(c, _ => Gold);
+        var s = Analyze(c);
+        Assert.Equal(TextEffectKind.None, s.Effect);
+        Assert.True(s.Fill.DistanceTo(Gold) < 30, s.Fill.ToString());
+    }
+
+    [Fact]
+    public void Mostly_coloured_words_keep_the_plain_main_colour()
+    {
+        var c = new Canvas(Navy);
+        var Blue = new Rgb(96, 192, 255);
+        Letters(c, n => n is >= 2 and <= 6 ? Blue : White);
+        var s = Analyze(c);
+        Assert.True(s.Fill.DistanceTo(White) < 30, s.Fill.ToString());
+    }
+
+    [Fact]
     public void A_coloured_word_does_not_become_an_outline()
     {
         var c = new Canvas(Navy);
