@@ -1,0 +1,114 @@
+{
+  "summary": {
+    "label": "goal2-font-size style scenario, features off",
+    "all": {
+      "n": 6,
+      "missing": 0,
+      "mean_ms": 987,
+      "median_ms": 718,
+      "min_ms": 512,
+      "max_ms": 1955,
+      "ocr_runs": 18,
+      "translation_requests": 0,
+      "from_cache": 6,
+      "image_cache_hits": 99
+    },
+    "first_time_lines": {
+      "n": 6,
+      "missing": 0,
+      "mean_ms": 987,
+      "median_ms": 718,
+      "min_ms": 512,
+      "max_ms": 1955,
+      "ocr_runs": 18,
+      "translation_requests": 0,
+      "from_cache": 6,
+      "image_cache_hits": 99
+    },
+    "repeated_lines": {
+      "n": 0
+    },
+    "per_session": {
+      "s1": {
+        "n": 6,
+        "missing": 0,
+        "mean_ms": 987,
+        "median_ms": 718,
+        "min_ms": 512,
+        "max_ms": 1955,
+        "ocr_runs": 18,
+        "translation_requests": 0,
+        "from_cache": 6,
+        "image_cache_hits": 99
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "Chapter 2: The Lighthouse",
+      "latency_ms": 1955,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "Find the red key before the tide turns.",
+      "latency_ms": 1494,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 18
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Continue / Load Game / Settings / Quit",
+      "latency_ms": 512,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 20
+    },
+    {
+      "session": "s1",
+      "step": 3,
+      "cycle": 0,
+      "text": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER",
+      "latency_ms": 884,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16
+    },
+    {
+      "session": "s1",
+      "step": 4,
+      "cycle": 0,
+      "text": "The blue door opens only for the green lantern.",
+      "latency_ms": 552,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 18
+    },
+    {
+      "session": "s1",
+      "step": 5,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 524,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16
+    }
+  ]
+}
