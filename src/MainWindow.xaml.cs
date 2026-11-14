@@ -3464,6 +3464,19 @@ namespace RSTGameTranslation
         public void SelectGameWindow(IntPtr windowHandle, string windowTitle) =>
             OnWindowSelected(windowHandle, windowTitle, showConfirmation: false);
 
+        // Used by TestAutomation: show the overlay / start translating, as the toolbar buttons do
+        public void AutomationShowOverlay()
+        {
+            if (!IsOverlayShown)
+                ToggleMonitorWindow();
+        }
+
+        public void AutomationStart()
+        {
+            if (!isStarted)
+                OnStartButtonToggleClicked(toggleButton, new RoutedEventArgs());
+        }
+
         private bool IsOverlayShown =>
             MonitorWindow.Instance.imageScrollViewer.Visibility == Visibility.Visible && MonitorWindow.Instance.IsVisible;
 
@@ -3823,6 +3836,12 @@ namespace RSTGameTranslation
         private void CheckAndShowWelcome()
         {
             _welcomePending = false;
+            // Automated test run: no dialogs, select the test window and start (see TestAutomation)
+            if (TestAutomation.IsEnabled)
+            {
+                Dispatcher.BeginInvoke(() => TestAutomation.Run(this), DispatcherPriority.ApplicationIdle);
+                return;
+            }
             if (ConfigManager.Instance.IsNeedShowQuickStart())
             {
                 // Select Area pressed during the splash screen: the window opens minimized

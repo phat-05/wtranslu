@@ -1,0 +1,92 @@
+name: E2E Windows (MockGame + RST, screenshots and latency)
+
+on:
+  push:
+    branches:
+      - 'claude/**'
+      - 'goal*'
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'RST.csproj'
+      - '.github/workflows/e2e-windows.yml'
+  workflow_dispatch:
+    inputs:
+      ocr:
+        description: 'OCR method (OneOCR or Windows OCR)'
+        default: 'OneOCR'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    env:
+      OCR: ${{ github.event.inputs.ocr || 'OneOCR' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build RST
+        run: dotnet build RST.csproj -c Release -p:CsWinRTGenerateProjection=false -p:CsWinRTIIDOptimizerOptOut=true
+
+      - name: Build MockGame
+        run: dotnet build tests/MockGame/MockGame.csproj -c Release -o mockbin
+
+      - name: Unit tests
+        if: hashFiles('tests/RST.Tests/RST.Tests.csproj') != ''
+        run: dotnet test tests/RST.Tests/RST.Tests.csproj -c Release --logger "console;verbosity=normal"
+
+      - name: Install screenshot tools
+        run: pip install mss pillow
+
+      - name: Run cache scenario (2 sessions = restart in between)
+        shell: bash
+        run: |
+          OUT="evidence/cache"
+          python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
+            --script tests/e2e/scenarios/cache.txt --out "$OUT" --sessions 2 --fresh \
+            --label "${GITHUB_REF_NAME} cache scenario" \
+            --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate"
+
+      - name: Run style scenario
+        shell: bash
+        run: |
+          python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
+            --script tests/e2e/scenarios/style.txt --out evidence/style --sessions 1 \
+            --label "${GITHUB_REF_NAME} style scenario" --shot-delay 4500 \
+            --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate"
+
+      - name: Publish evidence to ci-evidence branch
+        if: always()
+        shell: bash
+        run: |
+          set -e
+          DEST="${GITHUB_REF_NAME//\//_}/run${GITHUB_RUN_NUMBER}"
+          mkdir -p "$RUNNER_TEMP/ev" && cp -r evidence/. "$RUNNER_TEMP/ev/" || true
+          cp app/Cache/* "$RUNNER_TEMP/ev/" 2>/dev/null || true
+          git config user.name "ci-bot"
+          git config user.email "ci-bot@users.noreply.github.com"
+          for attempt in 1 2 3 4; do
+            git fetch origin ci-evidence && git checkout -f -B ci-evidence origin/ci-evidence
+            git clean -fdq
+            mkdir -p "$DEST" && cp -r "$RUNNER_TEMP/ev/." "$DEST/"
+            echo "${GITHUB_SHA}" > "$DEST/commit.txt"
+            git add "$DEST" && git commit -qm "Evidence ${DEST} (${GITHUB_SHA::7})" || true
+            if git push origin ci-evidence; then exit 0; fi
+            sleep $((attempt * 5))
+          done
+          exit 1

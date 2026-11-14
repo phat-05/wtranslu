@@ -1,0 +1,7 @@
+# Style scenario (goals 2, 3, 5): big title, small menu, coloured words.
+# durationMs|style|speaker|text
+5000|title||Chapter 2: The Lighthouse
+6000|dialogue|Captain Mira|Find the {#FF5050:red key} before the tide turns.
+6000|menu||Continue / Load Game / Settings / Quit
+6000|dialogue|Old Fisherman|The {#60C0FF:blue door} opens only for the {#80FF80:green lantern}.
+6000|dialogue|Young Sailor|Captain, the merchant wants twelve gold coins for the map.
