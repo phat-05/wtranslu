@@ -1,0 +1,136 @@
+{
+  "summary": {
+    "label": "goal5-word-colors style scenario",
+    "all": {
+      "n": 8,
+      "missing": 0,
+      "mean_ms": 731,
+      "median_ms": 554,
+      "min_ms": 414,
+      "max_ms": 1639,
+      "ocr_runs": 20,
+      "translation_requests": 3,
+      "from_cache": 7,
+      "image_cache_hits": 144
+    },
+    "first_time_lines": {
+      "n": 8,
+      "missing": 0,
+      "mean_ms": 731,
+      "median_ms": 554,
+      "min_ms": 414,
+      "max_ms": 1639,
+      "ocr_runs": 20,
+      "translation_requests": 3,
+      "from_cache": 7,
+      "image_cache_hits": 144
+    },
+    "repeated_lines": {
+      "n": 0
+    },
+    "per_session": {
+      "s1": {
+        "n": 8,
+        "missing": 0,
+        "mean_ms": 731,
+        "median_ms": 554,
+        "min_ms": 414,
+        "max_ms": 1639,
+        "ocr_runs": 20,
+        "translation_requests": 3,
+        "from_cache": 7,
+        "image_cache_hits": 144
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "Chapter 2: The Lighthouse",
+      "latency_ms": 1639,
+      "ocr_runs": 1,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 12
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "Find the red key before the tide turns.",
+      "latency_ms": 1088,
+      "ocr_runs": 3,
+      "translation_requests": 1,
+      "served_from_cache": true,
+      "image_cache_hits": 18
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Continue / Load Game / Settings / Quit",
+      "latency_ms": 540,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 19
+    },
+    {
+      "session": "s1",
+      "step": 3,
+      "cycle": 0,
+      "text": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER",
+      "latency_ms": 414,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 20
+    },
+    {
+      "session": "s1",
+      "step": 4,
+      "cycle": 0,
+      "text": "The storm is coming. Hold on to the mast!",
+      "latency_ms": 567,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 19
+    },
+    {
+      "session": "s1",
+      "step": 5,
+      "cycle": 0,
+      "text": "Tip: press Space to skip the cutscene.",
+      "latency_ms": 525,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 18
+    },
+    {
+      "session": "s1",
+      "step": 6,
+      "cycle": 0,
+      "text": "The blue door opens only for the green lantern.",
+      "latency_ms": 468,
+      "ocr_runs": 2,
+      "translation_requests": 2,
+      "served_from_cache": false,
+      "image_cache_hits": 20
+    },
+    {
+      "session": "s1",
+      "step": 7,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 606,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 18
+    }
+  ]
+}
