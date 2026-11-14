@@ -30,37 +30,32 @@ namespace RSTGameTranslation.Cache
 
         private sealed class Entry
         {
-            public string LayoutKey = "";
             public int FrameW, FrameH;
+            // Lines large enough to fingerprint (a lone "X" or "." is too small to tell apart reliably);
+            // the OCR result below still has all lines
             public Line[] Lines = Array.Empty<Line>();
             public TextFingerprint[] Prints = Array.Empty<TextFingerprint>();
             public string OcrJson = "";
-            public long LastUsed;
-        }
-
-        private sealed class Layout
-        {
-            public string Key = "";
-            public int FrameW, FrameH;
-            public Line[] Lines = Array.Empty<Line>();
-            public readonly List<Entry> Entries = new();
+            public LinkedListNode<Entry>? Node;
         }
 
         public const int VerifyEvery = 8;
-        private const int MaxLayoutsChecked = 8;
+        // Entries tried per frame, most recently used first. Fingerprints are computed once per box
+        // and frame, and entries of the same scene share boxes, so this stays cheap.
+        private const int MaxEntriesChecked = 64;
         private const int MaxEntries = 3000;
         private const int BoxPadding = 2;
+        private const int MinBoxWidth = 16, MinBoxHeight = 10;
+        // Boxes of two OCR runs of the same picture differ by a pixel or two
+        private const int SameBoxTolerance = 4;
 
-        private readonly Dictionary<string, Layout> _layouts = new();
-        private readonly LinkedList<string> _recentLayouts = new(); // most recent first
+        private readonly LinkedList<Entry> _entries = new(); // most recently used first
         private readonly object _lock = new();
         private readonly string? _path;
-        private int _entryCount;
-        private long _clock;
         private int _hitsSinceVerify;
         private Entry? _verifying;
 
-        public int Count { get { lock (_lock) return _entryCount; } }
+        public int Count { get { lock (_lock) return _entries.Count; } }
 
         public ImageTextCache(string? path)
         {
@@ -79,46 +74,40 @@ namespace RSTGameTranslation.Cache
             lock (_lock)
             {
                 _verifying = null;
-                int checkedLayouts = 0;
-                foreach (string key in _recentLayouts)
+                var memo = new Dictionary<(int, int, int, int), TextFingerprint?>();
+                int tried = 0;
+                for (var node = _entries.First; node != null && tried < MaxEntriesChecked; node = node.Next)
                 {
-                    if (++checkedLayouts > MaxLayoutsChecked)
-                        break;
-                    var layout = _layouts[key];
-                    if (layout.FrameW != width || layout.FrameH != height || layout.Entries.Count == 0)
+                    var entry = node.Value;
+                    if (entry.FrameW != width || entry.FrameH != height || entry.Lines.Length == 0)
                         continue;
+                    tried++;
 
-                    var prints = new TextFingerprint?[layout.Lines.Length];
-                    bool readable = true;
-                    for (int i = 0; i < layout.Lines.Length && readable; i++)
+                    bool all = true;
+                    for (int i = 0; i < entry.Lines.Length && all; i++)
                     {
-                        var l = layout.Lines[i];
-                        prints[i] = TextFingerprint.Compute(bgra, width, height, stride,
-                            l.X - BoxPadding, l.Y - BoxPadding, l.W + 2 * BoxPadding, l.H + 2 * BoxPadding);
-                        readable = prints[i] != null;
-                    }
-                    if (!readable)
-                        continue;
-
-                    foreach (var entry in layout.Entries)
-                    {
-                        bool all = true;
-                        for (int i = 0; i < prints.Length && all; i++)
-                            all = entry.Prints[i].Matches(prints[i]!);
-                        if (!all)
-                            continue;
-
-                        Touch(layout.Key);
-                        entry.LastUsed = ++_clock;
-                        if (++_hitsSinceVerify >= VerifyEvery)
+                        var l = entry.Lines[i];
+                        var box = (l.X, l.Y, l.W, l.H);
+                        if (!memo.TryGetValue(box, out var print))
                         {
-                            _hitsSinceVerify = 0;
-                            _verifying = entry;
-                            return null;
+                            print = TextFingerprint.Compute(bgra, width, height, stride,
+                                l.X - BoxPadding, l.Y - BoxPadding, l.W + 2 * BoxPadding, l.H + 2 * BoxPadding);
+                            memo[box] = print;
                         }
-                        linesMatched = prints.Length;
-                        return entry.OcrJson;
+                        all = print != null && entry.Prints[i].Matches(print);
                     }
+                    if (!all)
+                        continue;
+
+                    MoveToFront(entry);
+                    if (++_hitsSinceVerify >= VerifyEvery)
+                    {
+                        _hitsSinceVerify = 0;
+                        _verifying = entry;
+                        return null;
+                    }
+                    linesMatched = entry.Lines.Length;
+                    return entry.OcrJson;
                 }
             }
             return null;
@@ -130,7 +119,7 @@ namespace RSTGameTranslation.Cache
         /// </summary>
         public bool OnOcrResult(string ocrJson, ReadOnlySpan<byte> bgra, int width, int height, int stride)
         {
-            var lines = ParseLines(ocrJson);
+            var lines = ParseLines(ocrJson).Where(IsLargeEnough).ToList();
             bool verifiedOk = true;
             lock (_lock)
             {
@@ -138,7 +127,7 @@ namespace RSTGameTranslation.Cache
                 {
                     if (!SameText(Signature(_verifying.Lines), Signature(lines)))
                     {
-                        RemoveEntry(_verifying);
+                        Remove(_verifying);
                         verifiedOk = false;
                     }
                     _verifying = null;
@@ -180,9 +169,7 @@ namespace RSTGameTranslation.Cache
         {
             lock (_lock)
             {
-                _layouts.Clear();
-                _recentLayouts.Clear();
-                _entryCount = 0;
+                _entries.Clear();
                 _verifying = null;
             }
             if (_path != null)
@@ -193,64 +180,62 @@ namespace RSTGameTranslation.Cache
 
         // ---- internals ----
 
+        private static bool IsLargeEnough(Line l) => l.W >= MinBoxWidth && l.H >= MinBoxHeight;
+
         // Returns false when the same picture with the same text was already stored
         private bool Add(Entry entry)
         {
-            entry.LayoutKey = LayoutKey(entry.FrameW, entry.FrameH, entry.Lines);
-            entry.LastUsed = ++_clock;
-            if (!_layouts.TryGetValue(entry.LayoutKey, out var layout))
+            // Same picture already stored (same boxes give or take a pixel, matching fingerprints):
+            // keep the newer OCR result instead of a duplicate
+            int tried = 0;
+            for (var node = _entries.First; node != null && tried < MaxEntriesChecked; node = node.Next, tried++)
             {
-                layout = new Layout { Key = entry.LayoutKey, FrameW = entry.FrameW, FrameH = entry.FrameH, Lines = entry.Lines };
-                _layouts[layout.Key] = layout;
+                var old = node.Value;
+                if (!SamePicture(old, entry))
+                    continue;
+                bool changed = !SameText(Signature(old.Lines), Signature(entry.Lines));
+                Remove(old);
+                entry.Node = _entries.AddFirst(entry);
+                return changed;
             }
 
-            // Same picture already stored: keep the newer OCR result instead of a duplicate
-            int same = layout.Entries.FindIndex(e => e.Prints.Zip(entry.Prints).All(p => p.First.Matches(p.Second)));
-            bool isNew = true;
-            if (same >= 0)
-            {
-                isNew = !SameText(Signature(layout.Entries[same].Lines), Signature(entry.Lines));
-                layout.Entries[same] = entry;
-            }
-            else
-            {
-                layout.Entries.Add(entry);
-                _entryCount++;
-            }
-            Touch(layout.Key);
-
-            if (_entryCount > MaxEntries)
-                RemoveEntry(_layouts.Values.SelectMany(l => l.Entries).OrderBy(e => e.LastUsed).First());
-            return isNew;
+            entry.Node = _entries.AddFirst(entry);
+            if (_entries.Count > MaxEntries)
+                Remove(_entries.Last!.Value);
+            return true;
         }
 
-        private void RemoveEntry(Entry entry)
+        private static bool SamePicture(Entry a, Entry b)
         {
-            if (_layouts.TryGetValue(entry.LayoutKey, out var layout) && layout.Entries.Remove(entry))
+            if (a.FrameW != b.FrameW || a.FrameH != b.FrameH || a.Lines.Length != b.Lines.Length)
+                return false;
+            for (int i = 0; i < a.Lines.Length; i++)
             {
-                _entryCount--;
-                if (layout.Entries.Count == 0)
-                {
-                    _layouts.Remove(layout.Key);
-                    _recentLayouts.Remove(layout.Key);
-                }
+                Line x = a.Lines[i], y = b.Lines[i];
+                if (Math.Abs(x.X - y.X) > SameBoxTolerance || Math.Abs(x.Y - y.Y) > SameBoxTolerance ||
+                    Math.Abs(x.W - y.W) > SameBoxTolerance || Math.Abs(x.H - y.H) > SameBoxTolerance)
+                    return false;
+                // Boxes differ by a pixel, so the fingerprints may differ in width: compare the old
+                // box's picture only when the widths agree, otherwise the boxes decide
+                if (a.Prints[i].Width == b.Prints[i].Width && !a.Prints[i].Matches(b.Prints[i]))
+                    return false;
             }
+            return true;
         }
 
-        private void Touch(string layoutKey)
+        private void Remove(Entry entry)
         {
-            _recentLayouts.Remove(layoutKey);
-            _recentLayouts.AddFirst(layoutKey);
+            if (entry.Node != null && entry.Node.List == _entries)
+                _entries.Remove(entry.Node);
+            entry.Node = null;
         }
 
-        // Boxes rounded to 4 px, so the same layout read with a pixel of jitter is still one layout
-        private static string LayoutKey(int frameW, int frameH, Line[] lines)
+        private void MoveToFront(Entry entry)
         {
-            var sb = new StringBuilder();
-            sb.Append(frameW).Append('x').Append(frameH);
-            foreach (var l in lines)
-                sb.Append('|').Append(l.X / 4).Append(',').Append(l.Y / 4).Append(',').Append(l.W / 4).Append(',').Append(l.H / 4);
-            return sb.ToString();
+            if (entry.Node == null || entry.Node == _entries.First)
+                return;
+            _entries.Remove(entry.Node);
+            _entries.AddFirst(entry.Node);
         }
 
         // OCR of the same picture varies a little between runs ("X" / "×"): 90% similar is the same text
@@ -370,7 +355,8 @@ namespace RSTGameTranslation.Cache
                         Prints = s.p.Select((p, i) => TextFingerprint.FromBase64(s.pw[i], p)).ToArray(),
                         OcrJson = s.j,
                     };
-                    Add(entry);
+                    if (entry.Lines.All(IsLargeEnough))
+                        Add(entry);
                 }
             }
             catch (Exception ex)
@@ -379,13 +365,14 @@ namespace RSTGameTranslation.Cache
             }
 
             // Rewrite without the replaced duplicates when they dominate
-            if (lines > 100 && lines > _entryCount * 2)
+            if (lines > 100 && lines > _entries.Count * 2)
             {
                 try
                 {
                     string tmp = _path + ".tmp";
                     File.WriteAllText(tmp, "");
-                    var all = _layouts.Values.SelectMany(l => l.Entries).OrderBy(e => e.LastUsed).ToList();
+                    // Oldest first, so that loading puts the most recently used in front again
+                    var all = _entries.Reverse().ToList();
                     string realPath = _path;
                     foreach (var e in all)
                     {
