@@ -194,9 +194,13 @@ namespace RSTGameTranslation.Layout
                     // Words in two colours: the colour of most of the text; when both are about as common,
                     // the plainer one (games highlight words in strong colours over white/neutral text)
                     double ratio = (double)Math.Min(countA, countB) / Math.Max(countA, countB);
-                    fillIdx = ratio >= 0.5
-                        ? (Saturation(a) <= Saturation(b) ? 0 : 1)
-                        : (countA >= countB ? 0 : 1);
+                    bool aDark = a.Luminance < 0.03, bDark = b.Luminance < 0.03;
+                    if (aDark != bDark)
+                        fillIdx = aDark ? 1 : 0; // a near-black group beside coloured text is its shadow or outline
+                    else
+                        fillIdx = ratio >= 0.5
+                            ? (Saturation(a) <= Saturation(b) ? 0 : 1)
+                            : (countA >= countB ? 0 : 1);
                     effectIdx = -1;
                 }
                 fill = fillIdx == 0 ? a : b;
