@@ -1,0 +1,60 @@
+name: CI Windows probe (build + launch + screenshot)
+
+on:
+  push:
+    branches:
+      - 'claude/**'
+    paths:
+      - '.github/workflows/ci-windows-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Build
+        run: dotnet build RST.csproj -c Release
+
+      - name: Launch app and take screenshot
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path evidence | Out-Null
+          Get-ChildItem app -Filter *.exe | Format-Table Name, Length
+          $p = Start-Process -FilePath "app\rst.exe" -WorkingDirectory "app" -PassThru
+          Start-Sleep -Seconds 25
+          Add-Type -AssemblyName System.Windows.Forms, System.Drawing
+          $b = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+          "Screen: $($b.Width)x$($b.Height)" | Tee-Object evidence\probe.txt
+          "Process alive: $(-not $p.HasExited)" | Tee-Object -Append evidence\probe.txt
+          (Get-CimInstance Win32_OperatingSystem).Caption | Tee-Object -Append evidence\probe.txt
+          [Windows.Media.Ocr.OcrEngine, Windows.Foundation, ContentType = WindowsRuntime] | Out-Null
+          "OCR languages: " + (([Windows.Media.Ocr.OcrEngine]::AvailableRecognizerLanguages | % { $_.LanguageTag }) -join ',') | Tee-Object -Append evidence\probe.txt
+          $bmp = New-Object System.Drawing.Bitmap $b.Width, $b.Height
+          $g = [System.Drawing.Graphics]::FromImage($bmp)
+          $g.CopyFromScreen($b.Location, [System.Drawing.Point]::Empty, $b.Size)
+          $bmp.Save("evidence\probe.png", [System.Drawing.Imaging.ImageFormat]::Png)
+          if (-not $p.HasExited) { Stop-Process -Id $p.Id -Force }
+
+      - name: Publish evidence to ci-evidence branch
+        shell: bash
+        run: |
+          git config user.name "ci-bot"
+          git config user.email "ci-bot@users.noreply.github.com"
+          mkdir -p /tmp/ev && cp -r evidence/* /tmp/ev/
+          git fetch origin ci-evidence || true
+          if git rev-parse --verify origin/ci-evidence >/dev/null 2>&1; then
+            git checkout -B ci-evidence origin/ci-evidence
+          else
+            git checkout --orphan ci-evidence && git rm -rf --cached . >/dev/null && git clean -fdq -e /tmp
+          fi
+          mkdir -p probe && cp -r /tmp/ev/* probe/
+          git add probe && git commit -m "Probe evidence ${GITHUB_SHA}" && git push origin ci-evidence
