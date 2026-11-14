@@ -1,0 +1,634 @@
+[Automation] Config override source_language
+[Automation] Config override target_language
+[Automation] Config override ocr_method
+[Automation] Config override translation_service
+ConfigManager.GetValue: Key 'dark_mode' not found, returning default value: 'false'
+Fetching version info from: https://raw.githubusercontent.com/thanhkeke97/RSTGameTranslation/refs/heads/main/media/latest_version_checker.json
+ConfigManager.GetValue: Key 'chatbox_display_mode' not found, returning default value: '0'
+Applied ChatBox styling: Font=Segoe UI, Size=15, Color=#FFFFFFFF, BG=#FF000000, Window Opacity=1, BG Opacity=0.35, Outline=#FF000000
+MainWindow constructor: Setting _isInitializing to true
+Error getting console mode: 6
+﻿Console output initialized. Toggle visibility with the Log button.
+Note: Console input is disabled to prevent application freeze.
+MonitorWindow constructor: Setting _isInitializing to true
+MonitorWindow constructor started
+MonitorWindow constructor completed
+Exclude MonitorWindow from capture success
+MonitorWindow set to be excluded from screen capture
+MonitorWindow click-through enabled
+MonitorWindow_Loaded: Starting initialization
+MonitorWindow: Got DPI scale: 1.00x
+MonitorWindow initialization complete
+Parsed hotkey for Start/Stop: ALT+G -> Modifiers: 1, VK: 71
+Parsed hotkey for Overlay: ALT+F -> Modifiers: 1, VK: 70
+Parsed hotkey for ChatBox: ALT+C -> Modifiers: 1, VK: 67
+Parsed hotkey for Setting: ALT+P -> Modifiers: 1, VK: 80
+ConfigManager.GetValue: Key 'hotkey_log' not found, returning default value: 'ALT+L'
+Parsed hotkey for Log: ALT+L -> Modifiers: 1, VK: 76
+Parsed hotkey for Select Area: ALT+Q -> Modifiers: 1, VK: 81
+Parsed hotkey for Clear Areas: ALT+R -> Modifiers: 1, VK: 82
+Parsed hotkey for Clear Selected Area: ALT+H -> Modifiers: 1, VK: 72
+Parsed hotkey for Show Area: ALT+B -> Modifiers: 1, VK: 66
+Parsed hotkey for Audio Service: ALT+K -> Modifiers: 1, VK: 75
+Parsed hotkey for Swap Languages: ALT+V -> Modifiers: 1, VK: 86
+Parsed hotkey for Retry Translation: ALT+T -> Modifiers: 1, VK: 84
+Parsed hotkey for Select Exclude Region: ALT+X -> Modifiers: 1, VK: 88
+Global keyboard hook initialized successfully
+ConfigManager.GetValue: Key 'gamepad_hotkey_start_stop' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_overlay' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_chatbox' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_Show Area' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_audio_service' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_swap_languages' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_retry_translation' not found, returning default value: ''
+ConfigManager.GetValue: Key 'exclude_regions' not found, returning default value: ''
+Loaded 0 exclude regions from config
+Gamepad polling started
+ConfigManager.GetValue: Key 'GamepadHotKeyEnable' not found, returning default value: 'false'
+ConfigManager.GetValue: Key 'show_exclude_regions' not found, returning default value: 'true'
+Loaded 0 exclude regions from config
+Received JSON: {
+    "name":"Real Time Game Translation",
+    "latest_version":6.2,
+    "message":"Download V{VERSION_STRING} now from github?"
+}
+
+Deserialized version: 6.2, name: Real Time Game Translation, message: Download V{VERSION_STRING} now from github?
+Registered Start/Stop hotkey successfully
+Registered Overlay hotkey successfully
+Registered ChatBox hotkey successfully
+Registered Setting hotkey successfully
+Registered Log hotkey successfully
+Registered Select Area hotkey successfully
+Registered Clear Areas hotkey successfully
+Registered Clear Selected Area hotkey successfully
+Registered Show Area hotkey successfully
+Registered Audio Service hotkey successfully
+Registered Swap Languages hotkey successfully
+Registered Retry Translation hotkey successfully
+Registered Select Exclude Region hotkey successfully
+SettingsWindow constructor: Setting _isInitializing to true
+SettingsWindow.TranslationServiceComboBox_SelectionChanged called (isInitializing: True)
+Skipping translation service change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Microsoft legacy signature mode set to: True
+Microsoft legacy signature mode changed: True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Skipping OCR method change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Set Overlay Background enabled: True
+Auto set overlay background color set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Show icon signal enabled: True
+Show icon signal set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Merge Overlapping Text enabled: True
+Auto merge overlapping text set to True
+Screen 0: DISPLAY1 - Generic PnP Monitor, 1024x768, Primary: True
+Loaded 1 screens
+ConfigManager.GetValue: Key 'audio_processing_provider' not found, returning default value: 'Whisper'
+ConfigManager.GetValue: Key 'tts_volume' not found, returning default value: '100'
+Found Windows UWP TTS voice: Microsoft David (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_DavidM
+Found Windows UWP TTS voice: Microsoft Zira (en-US, Female, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_ZiraM
+Found Windows UWP TTS voice: Microsoft Mark (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_MarkM
+Found SAPI TTS voice: Microsoft David Desktop (English (United States), Male, SAPI) - Microsoft David Desktop
+Found SAPI TTS voice: Microsoft Zira Desktop (English (United States), Female, SAPI) - Microsoft Zira Desktop
+Initialized 5 Windows TTS voices in total
+Selected default system voice: Microsoft David Desktop (English (United States), Male, SAPI)
+Loaded 5 Windows TTS voices
+Logic initialized
+Loaded Gemini API key: Set
+Loaded LLM prompt: Not set
+Using OneOCR (built-in)
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+MainWindow_Loaded: Loading OCR method from config: 'OneOCR'
+MainWindow.SetOcrMethod called with method: OneOCR (isInitializing: True)
+Setting OCR method during initialization: OneOCR
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+=== Configuration Test ===
+API Key: Set - <you...
+LLM Prompt: Not set
+OCR Method: OneOCR
+Translation Service: Google Translate
+=========================
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Language interface set to: en
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Added screen 0: Screen 1 (1024x768) - Primary
+Screen list loaded. Selected index: 0
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Audio service auto-translate enabled: False
+MainWindow initialization complete. Settings changes will now be saved.
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Ensuring config OCR method is preserved: OneOCR
+ConfigManager.SetOcrMethod called with method: OneOCR
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+OCR method set to OneOCR and saved to config
+Loading language settings from config: Source=en, Target=vi
+Set source language to en
+Set target language to vi
+Added screen 0: Screen 1 (1024x768) - Primary
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Selected screen index set to: 0
+Screen selection changed to index: 0
+DpiHelper: DPI cache invalidated
+Screen list loaded. Selected index: 0
+[Automation] Waiting for window 'MockGame Dialogue Test'
+Windows Graphics Capture stopped
+WGC: Yellow capture border disabled via IGraphicsCaptureSession3
+Windows Graphics Capture started successfully
+MonitorWindow set to be included in screen capture
+Selected window: MockGame Dialogue Test (Handle: 786904)
+Creating new MonitorWindow instance...
+MonitorWindow setup complete
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetValue: Key 'google_translate_use_cloud_api' not found, returning default value: 'false'
+[WarmUp] Google Translate: connected to translate.googleapis.com in 72 ms (404)
+[Automation] Translation started
+[WarmUp] Google Translate: connected to translate.google.com.hk in 205 ms (200)
+OCR pipeline initialized successfully
+Loaded block detection scale from config: 3
+Loaded block detection settle time from config: 0.2 seconds
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:06.227 +0ms] 1. New text from OCR: OCR took 537 ms; waiting 0.20s for it to settle: 'MockGame Dialogue Test - X Chapter 2: Th…'
+ConfigManager.GetValue: Key 'translation_prefetch' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_enabled' not found, returning default value: 'true'
+OCR processing completed in 550ms
+ConfigManager.GetValue: Key 'google_translate_api_key' not found, returning default value: ''
+[OCR timing 16:45:06.241 +14ms] 2a. Prefetch request: 3 block(s) combined
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+[OCR timing 16:45:06.828 +0ms] 1. New text from OCR: OCR took 330 ms; waiting 0.20s for it to settle: '- X MockGame Dialogue Test Chapter 2: Th…'
+OCR processing completed in 330ms
+Google Translate: 1 block(s), 3 part(s) translated together
+Google translated: '- X##|||##MockGame Dialogue Test##|||##Chapter 2: The Lighthouse' -> '- X##|||##Kiểm tra đối thoại MockGame##|||##Chương 2: Ngọn hải đăng'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- X##|||##MockGame Dialogue Test##|||##Chapter 2: The ...
+[OCR timing 16:45:07.359 +531ms] 2b. Prefetch done: 1119 ms, 3 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:07.404 +575ms] 2. Text settled
+Character-level processing (scale=3.00): 4 characters → 3 blocks
+All text objects cleared
+OCR JSON processing took 83 ms
+[OCR timing 16:45:07.499 +670ms] 3. Translation served from cache: 3 block(s)
+Translation took 17 ms
+[OCR timing 16:45:07.507 +678ms] 5. Translation shown: translation step took 17 ms
+OCR processing completed in 428ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:08.086 +0ms] 1. New text from OCR: OCR took 324 ms; waiting 0.20s for it to settle: 'MockGame Dialogue Test X Chapter 2: The …'
+[OCR timing 16:45:08.086 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 325ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'X' -> 'X'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"X","translated_text":"X"}]}...
+[OCR timing 16:45:08.118 +32ms] 2b. Prefetch done: 32 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:08.669 +583ms] 2. Text settled
+Character-level processing (scale=3.00): 3 characters → 3 blocks
+All text objects cleared
+OCR JSON processing took 20 ms
+[OCR timing 16:45:08.692 +605ms] 3. Translation served from cache: 3 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 16:45:08.692 +606ms] 5. Translation shown: translation step took 3 ms
+OCR processing completed in 346ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 352ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 334ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:10.494 +0ms] 1. New text from OCR: OCR took 354 ms; still typing out, waiting for it to settle: 'MockGame Dialogue Test - X Chapter 2: Th…'
+[OCR timing 16:45:10.494 +0ms] 2a. Prefetch request: 2 block(s) combined
+OCR processing completed in 355ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:11.088 +594ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 31 ms
+[OCR timing 16:45:11.119 +625ms] 3a. Waiting for the prefetch of this text
+OCR processing completed in 380ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 341ms
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: 'Captain Mira##|||##Find the red key before the tide turns.' -> 'Thuyền trưởng Mira##|||##Tìm chìa khóa màu đỏ trước khi thủy triều đổi chiều.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Captain Mira##|||##Find the red key before the tide tu...
+[OCR timing 16:45:11.748 +1254ms] 2b. Prefetch done: 1254 ms, 2 translation(s) cached
+[OCR timing 16:45:11.754 +1260ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Typed-out line completed: replacing its half-typed history entry
+Translation took 635 ms
+[OCR timing 16:45:11.755 +1261ms] 5. Translation shown: translation step took 635 ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 352ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 340ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 331ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 328ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 331ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:15.264 +0ms] 1. New text from OCR: OCR took 335 ms; waiting 0.20s for it to settle: '- × I- MockGame Dialogue Test Chapter 2:…'
+[OCR timing 16:45:15.265 +0ms] 2a. Prefetch request: 2 block(s) combined
+OCR processing completed in 336ms
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: '- ×##|||##I- MockGame Dialogue Test' -> '- ×##|||##I- Kiểm tra đối thoại MockGame'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- \u00D7##|||##I- MockGame Dialogue Test","translated_...
+[OCR timing 16:45:15.300 +35ms] 2b. Prefetch done: 34 ms, 2 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:15.850 +585ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 33 ms
+Log files will be saved in: D:\a\wtranslu\wtranslu\app\
+[OCR timing 16:45:15.886 +621ms] 3. Translation request: Google Translate, 1 request(s), 1 chars, 4 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+OCR processing completed in 372ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 316ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'x' -> 'x'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"x","translated_text":"x"}]}...
+[OCR timing 16:45:16.497 +1232ms] 4. Translation received: 612 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 616 ms
+[OCR timing 16:45:16.500 +1235ms] 5. Translation shown: translation step took 616 ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Joining unfinished sentence: 'Continue' + 'Load Game'
+Joining unfinished sentence: 'Continue Load Game' + 'Settings'
+Joining unfinished sentence: 'Continue Load Game Settings' + 'Quit'
+[OCR timing 16:45:17.026 +0ms] 1. New text from OCR: OCR took 323 ms; waiting 0.20s for it to settle: '- x MockGame Dialogue Test Chapter 2: Th…'
+[OCR timing 16:45:17.027 +0ms] 2a. Prefetch request: 2 block(s) combined
+OCR processing completed in 323ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Joining unfinished sentence: 'Continue' + 'Load Game'
+Joining unfinished sentence: 'Continue Load Game' + 'Settings'
+Joining unfinished sentence: 'Continue Load Game Settings' + 'Quit'
+[OCR timing 16:45:17.586 +559ms] 2. Text settled
+Character-level processing (scale=3.00): 8 characters → 4 blocks
+All text objects cleared
+OCR JSON processing took 21 ms
+[OCR timing 16:45:17.610 +583ms] 3. Translation request: Google Translate, 1 request(s), 32 chars, 3 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+OCR processing completed in 336ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 320ms
+Google Translate has not answered after 1500 ms, translating with Microsoft meanwhile
+ConfigManager.GetValue: Key 'microsoft_api_key' not found, returning default value: ''
+ConfigManager.GetValue: Key 'microsoft_legacy_signature_key' not found, returning default value: ''
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: '- x##|||##Continue
+Load Game
+Settings
+Quit' -> '- x##|||##Tiếp tục tải Cài đặt trò chơi Thoát'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- x##|||##Continue\nLoad Game\nSettings\nQuit","transl...
+[OCR timing 16:45:18.655 +1628ms] 2b. Prefetch done: 1628 ms, 2 translation(s) cached
+Microsoft preserved separator across 2 block(s)
+Microsoft translated: '- x##|||##Continue
+Load Game
+Settings
+Quit' -> '- x##|||##Tiếp tục Tải Cài đặt Trò chơi Thoát'
+Microsoft Translate final JSON result: {"translations":[{"id":"999","original_text":"- x##|||##Continue\nLoad Game\nSettings\nQuit","transl...
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 318ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 322ms
+Google Translate has not answered after 1500 ms, translating with Microsoft meanwhile
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Continue
+Load Game
+Settings
+Quit' -> 'Tiếp tục tải Cài đặt trò chơi Thoát'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Continue\nLoad Game\nSettings\nQuit","translated_text"...
+[OCR timing 16:45:19.503 +2476ms] 4. Translation received: 1894 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 1898 ms
+[OCR timing 16:45:19.505 +2479ms] 5. Translation shown: translation step took 1898 ms
+Microsoft translated: 'Continue
+Load Game
+Settings
+Quit' -> 'Tiếp tục Tải Cài đặt Trò chơi Thoát'
+Microsoft Translate final JSON result: {"translations":[{"id":"999","original_text":"Continue\nLoad Game\nSettings\nQuit","translated_text"...
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Joining unfinished sentence: 'Continue' + 'Load Game'
+Joining unfinished sentence: 'Continue Load Game' + 'Settings'
+Joining unfinished sentence: 'Continue Load Game Settings' + 'Quit'
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 324ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Joining unfinished sentence: 'Continue' + 'Load Game'
+Joining unfinished sentence: 'Continue Load Game' + 'Settings'
+Joining unfinished sentence: 'Continue Load Game Settings' + 'Quit'
+OCR processing completed in 322ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Joining unfinished sentence: 'Continue' + 'Load Game'
+Joining unfinished sentence: 'Continue Load Game' + 'Settings'
+Joining unfinished sentence: 'Continue Load Game Settings' + 'Quit'
+OCR processing completed in 314ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Joining unfinished sentence: 'Continue' + 'Load Game'
+Joining unfinished sentence: 'Continue Load Game' + 'Settings'
+Joining unfinished sentence: 'Continue Load Game Settings' + 'Quit'
+OCR processing completed in 314ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Joining unfinished sentence: 'Continue' + 'Load Game'
+Joining unfinished sentence: 'Continue Load Game' + 'Settings'
+Joining unfinished sentence: 'Continue Load Game Settings' + 'Quit'
+OCR processing completed in 323ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:22.817 +0ms] 1. New text from OCR: OCR took 338 ms; waiting 0.20s for it to settle: 'MockGame Dialogue Test - X Chapter 2: Th…'
+[OCR timing 16:45:22.818 +0ms] 2a. Prefetch request: 2 block(s) combined
+OCR processing completed in 339ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:23.404 +587ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 22 ms
+[OCR timing 16:45:23.427 +609ms] 3a. Waiting for the prefetch of this text
+OCR processing completed in 363ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 340ms
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: 'Old Fisherman##|||##The blue door opens only for the green lantern .' -> 'Lão Ngư##|||##Cánh cửa màu xanh chỉ mở cho chiếc đèn lồng màu xanh lá cây.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Old Fisherman##|||##The blue door opens only for the g...
+[OCR timing 16:45:24.037 +1220ms] 2b. Prefetch done: 1219 ms, 2 translation(s) cached
+[OCR timing 16:45:24.040 +1223ms] 3. Translation served from cache: 5 block(s)
+Translation took 614 ms
+[OCR timing 16:45:24.041 +1223ms] 5. Translation shown: translation step took 614 ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.95 >= threshold=0.90)
+  prev: 'MockGame Dialogue Test - X Chapter 2: The Lighthouse Old Fisherman The blue door...'
+  new:  'X MockGame Dialogue Test Chapter 2: The Lighthouse Old Fisherman The blue door o...'
+OCR processing completed in 349ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:25.208 +0ms] 1. New text from OCR: OCR took 341 ms; waiting 0.20s for it to settle: '- X I- MockGame Dialogue Test Chapter 2:…'
+[OCR timing 16:45:25.208 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 342ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:25.801 +593ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 17 ms
+[OCR timing 16:45:25.820 +611ms] 3. Translation request: Google Translate, 1 request(s), 47 chars, 4 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+OCR processing completed in 354ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 347ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'The blue door opens only for the green lantern.' -> 'Cánh cửa màu xanh chỉ mở cho đèn lồng màu xanh lá cây.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"The blue door opens only for the green lantern.","tran...
+[OCR timing 16:45:26.528 +1320ms] 2b. Prefetch done: 1319 ms, 1 translation(s) cached
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 342ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 334ms
+Google Translate has not answered after 1500 ms, translating with Microsoft meanwhile
+Microsoft translated: 'The blue door opens only for the green lantern.' -> 'Cánh cửa xanh chỉ mở ra cho chiếc đèn lồng xanh.'
+Microsoft Translate final JSON result: {"translations":[{"id":"999","original_text":"The blue door opens only for the green lantern.","tran...
+Google Translate: fallback answered first
+[OCR timing 16:45:27.685 +2477ms] 4. Translation received: 1866 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 1869 ms
+[OCR timing 16:45:27.687 +2479ms] 5. Translation shown: translation step took 1869 ms
+Google Translate free translation budget exhausted.
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'The blue door opens only for the green lantern.' -> 'The blue door opens only for the green lantern.'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.93 >= threshold=0.90)
+  prev: 'MockGame Dialogue Test - X Chapter 2: The Lighthouse Old Fisherman The blue door...'
+  new:  '- X MockGame Dialogue Test Chapter 2: The Lighthouse Old Fisherman The blue door...'
+OCR processing completed in 344ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:28.773 +0ms] 1. New text from OCR: OCR took 349 ms; waiting 0.20s for it to settle: 'X MockGame Dialogue Test Chapter 2: The …'
+[OCR timing 16:45:28.773 +0ms] 2a. Prefetch request: 2 block(s) combined
+OCR processing completed in 350ms
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: 'Young Sailor##|||##Captain, the merchant wants twelve gold coins for the map.' -> 'Thủy thủ trẻ##|||##Thuyền trưởng, thương gia muốn 12 đồng vàng cho bản đồ.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Young Sailor##|||##Captain, the merchant wants twelve ...
+[OCR timing 16:45:28.807 +34ms] 2b. Prefetch done: 34 ms, 2 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:29.372 +599ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 19 ms
+[OCR timing 16:45:29.395 +622ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Typed-out line completed: replacing its half-typed history entry
+Translation took 4 ms
+[OCR timing 16:45:29.395 +622ms] 5. Translation shown: translation step took 4 ms
+OCR processing completed in 372ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:30.001 +0ms] 1. New text from OCR: OCR took 361 ms; still typing out, waiting for it to settle: '- X MockGame Dialogue Test Chapter 2: Th…'
+OCR processing completed in 362ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+[OCR timing 16:45:30.610 +608ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 39 ms
+[OCR timing 16:45:30.650 +648ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 0 ms
+[OCR timing 16:45:30.650 +648ms] 5. Translation shown: translation step took 0 ms
+OCR processing completed in 392ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 353ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 348ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 355ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (similarity=0.94 >= threshold=0.90)
+  prev: 'MockGame Dialogue Test - X Chapter 2: The Lighthouse Young Sailor Captain, the m...'
+  new:  '- X MockGame Dialogue Test Chapter 2: The Lighthouse Young Sailor Captain, the m...'
+OCR processing completed in 358ms
+GraphicsCaptureItem closed (target window gone)
+Windows Graphics Capture stopped
+Capture position changed by (106, 154). Text overlays updated.
+MonitorWindow set to be excluded from screen capture
+Logic finalized
+All text objects cleared
+Monitor window force closed
+Global keyboard hook removed
+ConfigManager.GetValue: Key 'force_cursor_visible' not found, returning default value: 'true'
+Gamepad polling stopped
+MouseManager initialized. Force cursor visible: True
+Logic finalized
+All text objects cleared
+Captured window no longer exists, reverting to normal capture mode
+ChatBox window closing intercepted - hiding instead
