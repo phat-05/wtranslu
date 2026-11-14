@@ -71,6 +71,9 @@ namespace RSTGameTranslation
                 await Task.Delay(500);
                 mainWindow.WindowState = System.Windows.WindowState.Minimized;
                 Console.WriteLine("[Automation] Translation started");
+                var vietnameseFonts = GameFonts.VietnameseFontNames();
+                Console.WriteLine($"[Automation] {vietnameseFonts.Count} fonts with Vietnamese letters: {string.Join(", ", vietnameseFonts)}");
+                OcrTiming.Metrics.Write("game_font", $"{GameIdentity.Current}|{GameFonts.Resolve().Source.Split(',')[0]}|{vietnameseFonts.Count} Vietnamese fonts");
                 OcrTiming.Metrics.Write("automation_started", WindowTitle!);
             }
             catch (Exception ex)

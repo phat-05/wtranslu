@@ -132,6 +132,13 @@
                                      Margin="5,0,0,0"/>
                         </DockPanel>
                         <!-- Font size from the height of the game's text lines -->
+                        <!-- Font for the current game, only fonts with all Vietnamese letters -->
+                        <TextBlock x:Name="gameFontLabel" Margin="0,8,0,2" TextWrapping="Wrap"/>
+                        <ComboBox x:Name="gameFontComboBox" Margin="0,2"/>
+                        <CheckBox x:Name="showAllFontsCheckBox" Margin="0,2,0,5"
+                                  Checked="ShowAllFontsCheckBox_Changed" Unchecked="ShowAllFontsCheckBox_Changed">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[OverlayOptions_Lbl_ShowAllFonts]}"/>
+                        </CheckBox>
                         <CheckBox x:Name="textStyleFromGameCheckBox" Margin="0,5">
                             <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[OverlayOptions_Lbl_TextStyleFromGame]}"/>
                         </CheckBox>

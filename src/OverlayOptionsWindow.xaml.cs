@@ -123,6 +123,7 @@ namespace RSTGameTranslation
 
                 fontSizeFromLineHeightCheckBox.IsChecked = ConfigManager.Instance.IsFontSizeFromLineHeightEnabled();
                 textStyleFromGameCheckBox.IsChecked = ConfigManager.Instance.IsTextStyleFromGameEnabled();
+                LoadGameFonts(ConfigManager.Instance.GetGameFont(GameIdentity.Current));
             }
             catch (Exception ex)
             {
@@ -234,6 +235,17 @@ namespace RSTGameTranslation
                 ConfigManager.Instance.SetValue(ConfigManager.TEXT_STYLE_FROM_GAME,
                     textStyleFromGameCheckBox.IsChecked == true ? "true" : "false");
 
+                // Font of this game: none selected = the general font settings above
+                string gameFont = gameFontComboBox.SelectedIndex > 0 ? gameFontComboBox.SelectedItem?.ToString() ?? "" : "";
+                if (gameFont.Length > 0 && !GameFonts.SupportsVietnamese(gameFont))
+                {
+                    var answer = MessageBox.Show(string.Format(LocalizationManager.Instance.Strings["OverlayOptions_Msg_FontNoVietnamese"], gameFont),
+                        "RST", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (answer != MessageBoxResult.Yes)
+                        return;
+                }
+                ConfigManager.Instance.SetGameFont(GameIdentity.Current, gameFont);
+
                 // Save config to file
                 ConfigManager.Instance.SaveConfig();
                 TextObject.ClearCache();
@@ -279,6 +291,38 @@ namespace RSTGameTranslation
             {
                 Console.WriteLine($"Error setting defaults: {ex.Message}");
             }
+        }
+
+        // Fonts for the current game: Vietnamese-capable ones (or all), first item = none
+        private void LoadGameFonts(string selected)
+        {
+            try
+            {
+                gameFontLabel.Text = string.Format(LocalizationManager.Instance.Strings["OverlayOptions_Lbl_GameFont"], GameIdentity.Current);
+                var names = showAllFontsCheckBox.IsChecked == true ? GameFonts.AllFontNames() : GameFonts.VietnameseFontNames();
+                gameFontComboBox.Items.Clear();
+                gameFontComboBox.Items.Add(LocalizationManager.Instance.Strings["OverlayOptions_Item_NoGameFont"]);
+                foreach (string name in names)
+                    gameFontComboBox.Items.Add(name);
+                int index = names.FindIndex(n => n.Equals(selected, StringComparison.OrdinalIgnoreCase));
+                if (index < 0 && !string.IsNullOrEmpty(selected))
+                {
+                    // A saved font that is not in the list (not installed any more, or filtered out)
+                    gameFontComboBox.Items.Add(selected);
+                    index = names.Count;
+                }
+                gameFontComboBox.SelectedIndex = index + 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error listing game fonts: {ex.Message}");
+            }
+        }
+
+        private void ShowAllFontsCheckBox_Changed(object sender, RoutedEventArgs e)
+        {
+            string current = gameFontComboBox.SelectedIndex > 0 ? gameFontComboBox.SelectedItem?.ToString() ?? "" : "";
+            LoadGameFonts(current);
         }
 
         private void LoadFontSettings()
