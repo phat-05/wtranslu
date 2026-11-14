@@ -72,6 +72,9 @@ namespace RSTGameTranslation
         // The game's font size (DIPs) estimated from the OCR line heights; 0 = unknown, then it is
         // estimated from what fits in the box
         public double SourceFontSize { get; set; }
+        // Lines the game text had: the translation may use as many lines of its own line height, even
+        // when the OCR boxes (which hug the letters) are a little shorter than that
+        public int SourceLineCount { get; set; } = 1;
 
         // Feather width (DIPs) of the background edge when overlay colors are sampled automatically
         private const double SoftEdgeRadius = 6;
@@ -367,7 +370,10 @@ namespace RSTGameTranslation
         {
             ApplyFontSize(textBlock, fontSize);
             textBlock.Measure(new Size(LayoutWidth, double.PositiveInfinity));
-            return textBlock.DesiredSize.Height <= Height && textBlock.DesiredSize.Width <= LayoutWidth;
+            double allowedHeight = SourceFontSize > 0
+                ? Math.Max(Height, SourceLineCount * fontSize * LineHeightRatio + 0.5)
+                : Height;
+            return textBlock.DesiredSize.Height <= allowedHeight && textBlock.DesiredSize.Width <= LayoutWidth;
         }
 
         // Binary search for the largest font size in [minSize, maxSize] that fits; minSize if none does

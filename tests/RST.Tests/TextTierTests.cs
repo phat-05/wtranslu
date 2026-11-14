@@ -157,6 +157,7 @@ public class FontSizeEstimatorTests
     [InlineData(26.5, "Captain Mira", 24)]
     [InlineData(22.5, "Old Fisherman", 24)]
     [InlineData(34, "Chapter 1: The Old Harbor", 30)]
+    [InlineData(31.2, "QUEST COMPLETE: THE LIGHTHOUSE KEEPER", 44)]
     public void Estimates_the_game_font_size_within_10_percent(double boxHeight, string text, double fontPx)
     {
         double estimate = RSTGameTranslation.Layout.FontSizeEstimator.FromLine(boxHeight, text);

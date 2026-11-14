@@ -31,7 +31,13 @@ namespace RSTGameTranslation.Layout
         {
             if (boxHeight <= 0)
                 return 0;
-            return boxHeight / (InkHeightEm(text) + paddingEm);
+            // Measured: OneOCR pads boxes of lines with lowercase letters by ~0.2 em, while a line of
+            // capitals only (a banner, "QUEST COMPLETE") gets a box that hugs the capitals
+            bool hasLowercase = false;
+            foreach (char c in text)
+                if (char.IsLower(c)) { hasLowercase = true; break; }
+            double padding = hasLowercase ? paddingEm : paddingEm * 0.15;
+            return boxHeight / (InkHeightEm(text) + padding);
         }
 
         /// <summary>
