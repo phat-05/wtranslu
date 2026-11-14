@@ -67,6 +67,9 @@ namespace RSTGameTranslation
                 mainWindow.AutomationShowOverlay();
                 await Task.Delay(500);
                 mainWindow.AutomationStart();
+                // Out of the way of the game, so screenshots show the game with the overlay
+                await Task.Delay(500);
+                mainWindow.WindowState = System.Windows.WindowState.Minimized;
                 Console.WriteLine("[Automation] Translation started");
                 OcrTiming.Metrics.Write("automation_started", WindowTitle!);
             }
