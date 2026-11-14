@@ -22,7 +22,7 @@ jobs:
           dotnet-version: 9.0.x
 
       - name: Build
-        run: dotnet build RST.csproj -c Release
+        run: dotnet build RST.csproj -c Release -p:CsWinRTGenerateProjection=false -p:CsWinRTIIDOptimizerOptOut=true
 
       - name: Launch app and take screenshot
         shell: powershell
