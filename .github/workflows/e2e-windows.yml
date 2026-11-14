@@ -90,19 +90,26 @@ jobs:
       - name: Install Ollama and a small model (AI translation for coloured-word tags)
         id: ollama
         continue-on-error: true
+        timeout-minutes: 15
         shell: powershell
         run: |
-          Invoke-WebRequest -Uri https://ollama.com/download/OllamaSetup.exe -OutFile "$env:TEMP\OllamaSetup.exe"
-          Start-Process "$env:TEMP\OllamaSetup.exe" -ArgumentList '/VERYSILENT','/NORESTART','/SUPPRESSMSGBOXES' -Wait
-          $ollama = "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe"
-          Start-Process $ollama -ArgumentList 'serve' -WindowStyle Hidden
+          # The portable zip, not the installer: the installer starts the Ollama tray app, and
+          # Start-Process -Wait then waits for it forever
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest -Uri https://github.com/ollama/ollama/releases/latest/download/ollama-windows-amd64.zip -OutFile "$env:RUNNER_TEMP\ollama.zip"
+          Expand-Archive "$env:RUNNER_TEMP\ollama.zip" -DestinationPath "$env:RUNNER_TEMP\ollama"
+          $ollama = "$env:RUNNER_TEMP\ollama\ollama.exe"
+          Start-Process $ollama -ArgumentList 'serve' -WindowStyle Hidden -RedirectStandardOutput "$env:RUNNER_TEMP\ollama-serve.log" -RedirectStandardError "$env:RUNNER_TEMP\ollama-serve.err"
           Start-Sleep -Seconds 8
           & $ollama pull qwen2.5:3b
           & $ollama list
+          # Warm up so the first translation is not slowed by loading the model
+          & $ollama run qwen2.5:3b "Say OK" | Out-Host
 
       - name: Run coloured-words scenario with the AI translator
         if: steps.ollama.outcome == 'success'
         continue-on-error: true
+        timeout-minutes: 15
         shell: bash
         run: |
           python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
