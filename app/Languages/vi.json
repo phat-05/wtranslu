@@ -115,6 +115,7 @@
   "OverlayOptions_Item_NoGameFont": "(không đặt - dùng cài đặt phía trên)",
   "OverlayOptions_Lbl_ShowAllFonts": "Hiện cả font không có dấu tiếng Việt",
   "OverlayOptions_Msg_FontNoVietnamese": "\"{0}\" thiếu một số chữ có dấu tiếng Việt: các chữ đó sẽ hiện bằng font khác hoặc thành ô vuông. Vẫn dùng?",
+  "OverlayOptions_Lbl_WordColors": "Tô màu từng từ như game (ví dụ tên vật phẩm): dịch bằng AI sẽ giữ thẻ màu; dịch vụ khác chỉ tô được tên riêng và số giữ nguyên",
   "Lbl_TranslationPrefetch": "Bắt đầu dịch ngay trong lúc chờ chữ mới ổn định (nhanh hơn khoảng một lượt OCR; với dịch vụ AI trả phí, chữ hiện dần từng ký tự có thể tốn thêm vài request)",
   "Lbl_TranslationSpeedHint": "\"Thử lại bản dịch\" luôn gửi lại cho dịch vụ và thay bản dịch trong cache. Thời gian của từng bước với chữ mới được ghi vào log, ở các dòng bắt đầu bằng \"[OCR timing\".",
   "Lbl_TranslationService": "Dịch vụ dịch:",

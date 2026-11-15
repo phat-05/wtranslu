@@ -160,3 +160,41 @@ public class VietnameseCoverageTests
         Assert.DoesNotContain('à', missing);
     }
 }
+
+public class ColorMarkupTests
+{
+    private static readonly Rgb White = new(255, 255, 255), Red = new(255, 80, 80), Blue = new(96, 192, 255), Green = new(128, 255, 128);
+
+    [Fact]
+    public void Tags_runs_of_coloured_words()
+    {
+        var words = new (string, Rgb?)[] { ("The", White), ("blue", Blue), ("door", Blue), ("opens", White), ("for", White), ("the", White), ("green", Green), ("lantern.", Green) };
+        string? tagged = ColorMarkup.BuildTagged(words, White, out var spans);
+        Assert.Equal("The <c1>blue door</c1> opens for the <c2>green lantern.</c2>", tagged);
+        Assert.Equal(2, spans.Count);
+        Assert.Equal("blue door", spans[0].SourceText);
+    }
+
+    [Fact]
+    public void Nothing_to_tag_when_all_words_share_the_colour()
+    {
+        var words = new (string, Rgb?)[] { ("Raise", White), ("the", new Rgb(240, 240, 240)), ("anchor!", White) };
+        Assert.Null(ColorMarkup.BuildTagged(words, White, out _));
+    }
+
+    [Fact]
+    public void Parses_a_translation_and_tolerates_a_missing_closing_tag()
+    {
+        var parts = ColorMarkup.Parse("Tìm <c1>chìa khóa đỏ</c1> trước <c2>bình minh");
+        Assert.Equal(new (string, int?)[] { ("Tìm ", null), ("chìa khóa đỏ", 1), (" trước ", null), ("bình minh", 2) }, parts);
+        Assert.Equal("Tìm chìa khóa đỏ trước bình minh", ColorMarkup.Strip("Tìm <c1>chìa khóa đỏ</c1> trước <c2>bình minh"));
+    }
+
+    [Fact]
+    public void Verbatim_spans_are_found_in_a_translation_without_tags()
+    {
+        var spans = new[] { new ColorSpan(1, Red, "Mira"), new ColorSpan(2, Red, "12") };
+        Assert.Equal("Thuyền trưởng <c1>Mira</c1> trả <c2>12</c2> đồng vàng",
+            ColorMarkup.TagVerbatim("Thuyền trưởng Mira trả 12 đồng vàng", spans));
+    }
+}

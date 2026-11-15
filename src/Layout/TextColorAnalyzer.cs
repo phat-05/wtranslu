@@ -244,6 +244,36 @@ namespace RSTGameTranslation.Layout
         }
 
         /// <summary>
+        /// Main ink colour of one word: the most common colour among the pixels of its box that are
+        /// clearly different from the line's background and from its outline/shadow colour.
+        /// Null when the box holds too little ink to tell.
+        /// </summary>
+        public static Rgb? InkColor(ReadOnlySpan<byte> bgra, int imageWidth, int imageHeight, int stride,
+                                    int boxX, int boxY, int boxW, int boxH, Rgb background, Rgb? effectColor)
+        {
+            int x0 = Math.Max(0, boxX), y0 = Math.Max(0, boxY);
+            int x1 = Math.Min(imageWidth, boxX + boxW), y1 = Math.Min(imageHeight, boxY + boxH);
+            if (x1 - x0 < 2 || y1 - y0 < 2)
+                return null;
+            var ink = new List<Rgb>();
+            int total = 0;
+            for (int y = y0; y < y1; y++)
+                for (int x = x0; x < x1; x++)
+                {
+                    total++;
+                    var p = Pixel(bgra, stride, x, y);
+                    if (p.DistanceTo(background) <= 60)
+                        continue;
+                    if (effectColor != null && p.DistanceTo(effectColor.Value) <= 50)
+                        continue;
+                    ink.Add(p);
+                }
+            if (ink.Count < Math.Max(4, total * 0.02))
+                return null;
+            return Dominant(ink);
+        }
+
+        /// <summary>
         /// A drop shadow is the text's shape repeated a few pixels down/right in a darker colour. For
         /// each candidate offset, look at the pixels where the shifted fill lands outside the fill:
         /// with a shadow they are consistently darker than the background, while on the opposite side

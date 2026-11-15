@@ -651,7 +651,16 @@ namespace RSTGameTranslation
                         text = processedText,
                         confidence = line.Confidence,
                         rect = box,
-                        bubble_id = bubbleIds[lineIndex]
+                        bubble_id = bubbleIds[lineIndex],
+                        // Word boxes: words in another colour are found from these (x, y, width, height)
+                        words = line.Words.Where(w => !string.IsNullOrEmpty(w.Text)).Select(w =>
+                        {
+                            float minX = Math.Min(Math.Min(w.X1, w.X2), Math.Min(w.X3, w.X4));
+                            float minY = Math.Min(Math.Min(w.Y1, w.Y2), Math.Min(w.Y3, w.Y4));
+                            float maxX = Math.Max(Math.Max(w.X1, w.X2), Math.Max(w.X3, w.X4));
+                            float maxY = Math.Max(Math.Max(w.Y1, w.Y2), Math.Max(w.Y3, w.Y4));
+                            return new { text = w.Text, box = new[] { minX, minY, maxX - minX, maxY - minY } };
+                        }).ToArray()
                     });
                 }
 

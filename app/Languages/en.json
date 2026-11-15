@@ -115,6 +115,7 @@
   "OverlayOptions_Item_NoGameFont": "(none - use the settings above)",
   "OverlayOptions_Lbl_ShowAllFonts": "Show fonts without Vietnamese letters too",
   "OverlayOptions_Msg_FontNoVietnamese": "\"{0}\" lacks some Vietnamese letters: they will show in another font or as boxes. Use it anyway?",
+  "OverlayOptions_Lbl_WordColors": "Colour single words like the game (e.g. item names): AI translators keep colour tags; other services colour names and numbers kept as is",
   "Lbl_TranslationPrefetch": "Start translating while waiting for new text to settle (saves about one OCR cycle; with paid AI services, text that appears letter by letter can cost a few extra requests)",
   "Lbl_TranslationSpeedHint": "Retry Translation always asks the service again and replaces the cached translation. The time taken by each step for new text is written to the log, in lines starting with \"[OCR timing\".",
   "Lbl_TranslationService": "Translation Service:",

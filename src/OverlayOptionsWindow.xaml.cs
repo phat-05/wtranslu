@@ -123,6 +123,7 @@ namespace RSTGameTranslation
 
                 fontSizeFromLineHeightCheckBox.IsChecked = ConfigManager.Instance.IsFontSizeFromLineHeightEnabled();
                 textStyleFromGameCheckBox.IsChecked = ConfigManager.Instance.IsTextStyleFromGameEnabled();
+                wordColorsCheckBox.IsChecked = ConfigManager.Instance.IsWordColorsEnabled();
                 LoadGameFonts(ConfigManager.Instance.GetGameFont(GameIdentity.Current));
             }
             catch (Exception ex)
@@ -234,6 +235,8 @@ namespace RSTGameTranslation
                     fontSizeFromLineHeightCheckBox.IsChecked == true ? "true" : "false");
                 ConfigManager.Instance.SetValue(ConfigManager.TEXT_STYLE_FROM_GAME,
                     textStyleFromGameCheckBox.IsChecked == true ? "true" : "false");
+                ConfigManager.Instance.SetValue(ConfigManager.WORD_COLORS,
+                    wordColorsCheckBox.IsChecked == true ? "true" : "false");
 
                 // Font of this game: none selected = the general font settings above
                 string gameFont = gameFontComboBox.SelectedIndex > 0 ? gameFontComboBox.SelectedItem?.ToString() ?? "" : "";

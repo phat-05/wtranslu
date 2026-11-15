@@ -139,6 +139,9 @@
                                   Checked="ShowAllFontsCheckBox_Changed" Unchecked="ShowAllFontsCheckBox_Changed">
                             <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[OverlayOptions_Lbl_ShowAllFonts]}"/>
                         </CheckBox>
+                        <CheckBox x:Name="wordColorsCheckBox" Margin="0,5">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[OverlayOptions_Lbl_WordColors]}"/>
+                        </CheckBox>
                         <CheckBox x:Name="textStyleFromGameCheckBox" Margin="0,5">
                             <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[OverlayOptions_Lbl_TextStyleFromGame]}"/>
                         </CheckBox>

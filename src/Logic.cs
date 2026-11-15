@@ -406,6 +406,8 @@ namespace RSTGameTranslation
         public void ProcessReceivedTextJsonData(string data, bool fromImageCache = false)
         {
             _ocrProcessingStopwatch.Restart();
+            // Word boxes of this frame, to find words drawn in another colour (see TagColouredWords)
+            _frameWords = ConfigManager.Instance.IsWordColorsEnabled() ? ReadWordBoxes(data) : new List<WordBox>();
             // A real OCR result: let the image cache remember which pixels read as which text
             if (!fromImageCache)
             {
@@ -1324,6 +1326,24 @@ namespace RSTGameTranslation
                 if (textStyle != null)
                 {
                     textObject.SetTextEffect(textStyle);
+                }
+                if (textStyle != null && sourceBitmap != null && ConfigManager.Instance.IsWordColorsEnabled())
+                {
+                    try
+                    {
+                        DpiHelper.GetWindowRenderDpi(MonitorWindow.Instance, out double sx, out double sy);
+                        var box = new System.Drawing.Rectangle((int)(x * sx), (int)(y * sy), Math.Max(1, (int)(width * sx)), Math.Max(1, (int)(height * sy)));
+                        var (tagged, spans) = TagColouredWords(sourceBitmap, box, text, textStyle);
+                        if (tagged != null && spans != null)
+                        {
+                            textObject.SetColorSpans(tagged, spans);
+                            OcrTiming.Metrics.Write("word_colors", $"{tagged}|{string.Join(",", spans.Select(s => $"c{s.Number}={s.Color}"))}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error finding coloured words: {ex.Message}");
+                    }
                 }
 
                 // Add to our collection
@@ -2303,11 +2323,15 @@ namespace RSTGameTranslation
                         await concurrency.WaitAsync();
                         try
                         {
-                            var payload = batch.Select(t => (object)new { id = t.ID, text = t.Text }).ToList();
+                            // Blocks with coloured words go with their colour tags, and the AI is told to keep them
+                            var payload = batch.Select(t => (object)new { id = t.ID, text = t.CacheKey }).ToList();
+                            string batchPrompt = batch.Any(t => t.TaggedText != null)
+                                ? prompt + RSTGameTranslation.Layout.ColorMarkup.PromptRule
+                                : prompt;
                             string jsonToTranslate = BuildTranslationRequestJson(payload, previousContext, gameInfo);
-                            LogManager.Instance.LogLlmRequest(prompt, jsonToTranslate);
+                            LogManager.Instance.LogLlmRequest(batchPrompt, jsonToTranslate);
 
-                            string? translationResponse = await translationService.TranslateAsync(jsonToTranslate, prompt);
+                            string? translationResponse = await translationService.TranslateAsync(jsonToTranslate, batchPrompt);
                             if (string.IsNullOrEmpty(translationResponse))
                             {
                                 Console.WriteLine($"Translation failed with {currentService} for {batch.Count} block(s) - empty response");
@@ -2422,7 +2446,7 @@ namespace RSTGameTranslation
                 {
                     foreach (var textObject in _textObjects)
                     {
-                        TranslationCache.Instance.Set(textObject.Text, textObject.TextTranslated);
+                        TranslationCache.Instance.Set(textObject.CacheKey, textObject.TranslationForCache);
                     }
                 }
 
@@ -2702,7 +2726,7 @@ namespace RSTGameTranslation
             var found = new HashSet<TextObject>();
             foreach (var textObject in _textObjects)
             {
-                if (TranslationCache.Instance.TryGet(textObject.Text, out string translation, out var match, out double similarity))
+                if (TranslationCache.Instance.TryGet(textObject.CacheKey, out string translation, out var match, out double similarity))
                 {
                     if (match == RSTGameTranslation.Cache.CacheMatch.Fuzzy)
                         OcrTiming.Log("3c. Fuzzy cache match", $"{similarity:P0} similar: '{OcrTiming.Preview(textObject.Text)}'");
@@ -3107,6 +3131,105 @@ namespace RSTGameTranslation
         /// <summary>
         /// Temporary class to hold text block data for merging
         /// </summary>
+        // A word as OCR boxed it, in capture pixels
+        private sealed record WordBox(string Text, double X, double Y, double W, double H)
+        {
+            public double CenterX => X + W / 2;
+            public double CenterY => Y + H / 2;
+        }
+
+        private List<WordBox> _frameWords = new();
+
+        private static List<WordBox> ReadWordBoxes(string ocrJson)
+        {
+            var words = new List<WordBox>();
+            try
+            {
+                using var doc = JsonDocument.Parse(ocrJson);
+                if (!doc.RootElement.TryGetProperty("results", out var results) || results.ValueKind != JsonValueKind.Array)
+                    return words;
+                foreach (var line in results.EnumerateArray())
+                {
+                    if (!line.TryGetProperty("words", out var list) || list.ValueKind != JsonValueKind.Array)
+                        continue;
+                    foreach (var w in list.EnumerateArray())
+                    {
+                        string text = w.TryGetProperty("text", out var t) ? t.GetString() ?? "" : "";
+                        if (text.Length == 0 || !w.TryGetProperty("box", out var b) || b.GetArrayLength() < 4)
+                            continue;
+                        words.Add(new WordBox(text, b[0].GetDouble(), b[1].GetDouble(), b[2].GetDouble(), b[3].GetDouble()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not read word boxes: {ex.Message}");
+            }
+            return words;
+        }
+
+        /// <summary>
+        /// Words of the block drawn in another colour than its main text get colour tags
+        /// ("Find the &lt;c1&gt;red key&lt;/c1&gt;"), so an AI translation can keep them coloured. Returns the
+        /// tagged text, or null when no word stands out or the words do not add up to the block's text.
+        /// </summary>
+        private (string? Tagged, List<RSTGameTranslation.Layout.ColorSpan>? Spans) TagColouredWords(
+            Bitmap bitmap, System.Drawing.Rectangle box, string blockText, RSTGameTranslation.Layout.TextStyle style)
+        {
+            var inBox = _frameWords
+                .Where(w => w.CenterX >= box.Left - 3 && w.CenterX <= box.Right + 3 && w.CenterY >= box.Top - 3 && w.CenterY <= box.Bottom + 3)
+                .ToList();
+            if (inBox.Count < 2)
+                return (null, null);
+
+            // Reading order: by line (words whose centres are within half a word height), then left to right
+            double lineTolerance = inBox.Average(w => w.H) / 2;
+            var ordered = inBox.OrderBy(w => w.CenterY).ToList();
+            var lines = new List<List<WordBox>>();
+            foreach (var w in ordered)
+            {
+                if (lines.Count > 0 && Math.Abs(lines[^1].Average(x => x.CenterY) - w.CenterY) <= lineTolerance)
+                    lines[^1].Add(w);
+                else
+                    lines.Add(new List<WordBox> { w });
+            }
+            var words = lines.SelectMany(l => l.OrderBy(w => w.X)).ToList();
+
+            var image = new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height);
+            var area = System.Drawing.Rectangle.Intersect(System.Drawing.Rectangle.Inflate(box, 4, 4), image);
+            if (area.Width <= 0 || area.Height <= 0)
+                return (null, null);
+            var data = bitmap.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            byte[] pixels;
+            int stride = data.Stride;
+            try
+            {
+                pixels = new byte[stride * area.Height];
+                System.Runtime.InteropServices.Marshal.Copy(data.Scan0, pixels, 0, pixels.Length);
+            }
+            finally
+            {
+                bitmap.UnlockBits(data);
+            }
+
+            RSTGameTranslation.Layout.Rgb? effect = style.Effect == RSTGameTranslation.Layout.TextEffectKind.None ? null : style.EffectColor;
+            var coloured = words.Select(w => (w.Text, RSTGameTranslation.Layout.TextColorAnalyzer.InkColor(pixels, area.Width, area.Height, stride,
+                (int)Math.Round(w.X) - area.X, (int)Math.Round(w.Y) - area.Y, (int)Math.Round(w.W), (int)Math.Round(w.H),
+                style.Background, effect))).ToList();
+
+            string? tagged = RSTGameTranslation.Layout.ColorMarkup.BuildTagged(coloured, style.Fill, out var spans);
+            if (tagged == null)
+                return (null, null);
+
+            // Block detection may have joined or cleaned the text: only tag when the words still spell it
+            string a = RSTGameTranslation.Cache.TextKey.Normalize(RSTGameTranslation.Layout.ColorMarkup.Strip(tagged));
+            string b = RSTGameTranslation.Cache.TextKey.Normalize(blockText);
+            int limit = Math.Max(2, Math.Max(a.Length, b.Length) * 15 / 100);
+            if (RSTGameTranslation.Cache.FuzzyTextIndex.BoundedLevenshtein(a, b, limit) > limit)
+                return (null, null);
+            return (tagged, spans);
+        }
+
         private class TempTextBlock
         {
             public string Text { get; set; } = "";
