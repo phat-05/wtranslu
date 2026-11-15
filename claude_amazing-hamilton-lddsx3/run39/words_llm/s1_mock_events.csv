@@ -1,0 +1,5 @@
+utc_ms,step,cycle,style,speaker,text
+1794725090540,0,0,dialogue,"Captain Mira","Find the red key before the tide turns."
+1794725110560,1,0,dialogue,"Old Fisherman","The blue door opens only for the green lantern."
+1794725130595,2,0,dialogue,"Young Sailor","Ask Captain Mira about the Storm Crystal."
+1794725150606,-1,1,end,"",""
