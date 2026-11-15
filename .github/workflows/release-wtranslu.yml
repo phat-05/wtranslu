@@ -1,0 +1,134 @@
+name: Release wtranslu (zip + installer)
+
+# A tag "V<version>" (e.g. V6.3) builds, tests and publishes a GitHub release.
+# A push to a claude/** branch that touches the release files does a dry run (no release).
+on:
+  push:
+    tags:
+      - 'V*'
+    branches:
+      - 'claude/**'
+    paths:
+      - '.github/workflows/release-wtranslu.yml'
+      - 'installer/**'
+      - 'release-notes/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Version
+        shell: bash
+        run: |
+          VER=$(python -c "import json;print(json.load(open('media/latest_version_checker.json'))['latest_version'])")
+          echo "VER=$VER" >> "$GITHUB_ENV"
+          echo "TAG=V$VER" >> "$GITHUB_ENV"
+          if [ "${GITHUB_REF_TYPE}" = "tag" ] && [ "${GITHUB_REF_NAME}" != "V$VER" ]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match latest_version $VER in media/latest_version_checker.json"; exit 1
+          fi
+
+      - name: Unit tests
+        run: dotnet test tests/RST.Tests/RST.Tests.csproj -c Release
+
+      - name: Publish (self-contained, multi-file like MakeReleaseZip.bat)
+        run: dotnet publish RST.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -p:CsWinRTGenerateProjection=false -p:CsWinRTIIDOptimizerOptOut=true -o publish_out
+
+      - name: Assemble the release folder
+        shell: pwsh
+        run: |
+          $root = "dist\RSTGameTranslation"
+          New-Item -ItemType Directory -Force -Path $root, "$root\AudioModel", "$root\Languages", "$root\tools" | Out-Null
+          Copy-Item publish_out\* $root -Recurse -Force
+          Copy-Item app\OneOcr\* $root -Force
+          Copy-Item app\AudioModel\ggml-tiny.bin "$root\AudioModel" -Force
+          Copy-Item app\Languages\* "$root\Languages" -Recurse -Force
+          Copy-Item README.md, README_vi.md, LICENSE.md $root -Force
+          Copy-Item tests\e2e\latency_report.py, tests\e2e\README_vi.md "$root\tools" -Force
+          Get-ChildItem $root -Filter *.lib | Remove-Item
+          # Leftovers of a local run must never ship
+          Remove-Item "$root\Cache", "$root\config.txt" -Recurse -Force -ErrorAction SilentlyContinue
+          "Files: $((Get-ChildItem $root -Recurse -File).Count), size: {0:N0} MB" -f ((Get-ChildItem $root -Recurse -File | Measure-Object Length -Sum).Sum / 1MB)
+          if (-not (Test-Path "$root\rst.exe")) { throw "rst.exe missing" }
+
+      - name: Smoke test the packaged app with MockGame (on a copy)
+        shell: bash
+        run: |
+          dotnet build tests/MockGame/MockGame.csproj -c Release -o mockbin
+          pip install mss pillow
+          cp -r dist/RSTGameTranslation smoke_app
+          python tests/e2e/run_e2e.py --rst smoke_app/rst.exe --mock mockbin/MockGame.exe \
+            --script tests/e2e/scenarios/cache.txt --out smoke --sessions 1 --fresh --label "release smoke test"
+          python - <<'EOF'
+          import json, sys
+          lines = json.load(open('smoke/results.json'))['lines']
+          shown = [l for l in lines if l['latency_ms'] is not None]
+          print(f"{len(shown)}/{len(lines)} lines translated on screen")
+          sys.exit(0 if len(shown) >= len(lines) * 0.75 else 1)
+          EOF
+
+      - name: Zip (portable)
+        shell: pwsh
+        run: |
+          Push-Location dist
+          7z a -tzip "RSTGameTranslation_v$env:VER.zip" RSTGameTranslation | Select-Object -Last 3
+          Pop-Location
+
+      - name: Installer (Inno Setup)
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) {
+            choco install innosetup -y --no-progress | Out-Null
+          }
+          & $iscc /Q "/DAppVersion=$env:VER" "/DSourceDir=$PWD\dist\RSTGameTranslation" installer\wtranslu.iss
+          if ($LASTEXITCODE -ne 0) { throw "ISCC failed" }
+          Get-ChildItem dist -File | Format-Table Name, Length
+
+      - name: Check the installer installs and uninstalls
+        shell: pwsh
+        run: |
+          $dir = "$env:RUNNER_TEMP\wtranslu-install-test"
+          Start-Process "dist\wtranslu-setup-$env:VER.exe" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', "/DIR=$dir" -Wait
+          if (-not (Test-Path "$dir\rst.exe")) { throw "Installer did not install rst.exe" }
+          if (-not (Test-Path "$dir\oneocr.dll")) { throw "Installer did not install oneocr.dll" }
+          Start-Process "$dir\unins000.exe" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES' -Wait
+          Start-Sleep -Seconds 3
+          if (Test-Path "$dir\rst.exe") { throw "Uninstaller left rst.exe" }
+          "Install / uninstall OK"
+
+      - name: Upload build (also for dry runs)
+        uses: actions/upload-artifact@v4
+        with:
+          name: wtranslu-release-${{ env.VER }}
+          path: |
+            dist/*.zip
+            dist/*.exe
+            smoke/summary.md
+          retention-days: 30
+
+      - name: Publish the GitHub release
+        if: github.ref_type == 'tag'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$TAG" \
+            "dist/RSTGameTranslation_v$VER.zip" \
+            "dist/wtranslu-setup-$VER.exe" \
+            --title "wtranslu $VER" \
+            --notes-file "release-notes/$TAG.md"

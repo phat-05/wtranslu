@@ -23,7 +23,7 @@ namespace RSTGameTranslation
     /// </summary>
     public static class Changelog
     {
-        public const string ReleasesPageUrl = "https://github.com/thanhkeke97/RSTGameTranslation/releases";
+        public const string ReleasesPageUrl = "https://github.com/phat-05/wtranslu/releases";
 
         public static string Tag => "V" + SplashManager.FormatVersion(SplashManager.CurrentVersion);
         public static string ReleasePageUrl => $"{ReleasesPageUrl}/tag/{Tag}";
@@ -51,7 +51,7 @@ namespace RSTGameTranslation
         {
             try
             {
-                string url = $"https://api.github.com/repos/thanhkeke97/RSTGameTranslation/releases/tags/{Tag}";
+                string url = $"https://api.github.com/repos/phat-05/wtranslu/releases/tags/{Tag}";
                 using var response = await _http.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
