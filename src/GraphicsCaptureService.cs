@@ -23,9 +23,11 @@ namespace RSTGameTranslation
         private bool _itemClosed;
         private Bitmap? _lastFrame;
 
-        // Newest frame delivered by WGC, not converted yet (see OnFrameArrived)
+        // Newest frame taken from the pool, not converted yet (see PumpFrames)
         private Direct3D11CaptureFrame? _newestFrame;
-        private readonly object _frameLock = new object();
+        private System.Windows.Threading.DispatcherTimer? _pumpTimer;
+        // Take frames out of the pool this often, so it never sits full (see PumpFrames)
+        private static readonly TimeSpan PumpInterval = TimeSpan.FromMilliseconds(15);
 
         /// <summary>
         /// Check whether Windows Graphics Capture is available on this system.
@@ -76,9 +78,14 @@ namespace RSTGameTranslation
 
                 // The pool holds 2 frames and drops NEW frames while it is full. Polled only on the capture
                 // tick (~250 ms), it filled up right after each tick and the frame read on the next tick was
-                // already ~200 ms old: OCR read text that had changed. Taking each frame as it arrives (no
-                // pixel copy, only the newest one is kept) keeps a slot free for the next one.
-                _framePool.FrameArrived += OnFrameArrived;
+                // already ~200 ms old: OCR read text that had changed. A short timer on this (UI) thread
+                // takes frames out as they come and keeps only the newest (no pixel copy), so a slot is
+                // always free. Everything stays on one thread: the D3D device is not multithread-protected,
+                // and taking frames on a thread-pool thread (FrameArrived) is the likely cause of a runtime crash
+                // (0xc0000005 in coreclr) seen on a laptop with a real GPU right after Start.
+                _pumpTimer = new System.Windows.Threading.DispatcherTimer { Interval = PumpInterval };
+                _pumpTimer.Tick += (_, _) => PumpFrames();
+                _pumpTimer.Start();
 
                 _session = _framePool.CreateCaptureSession(_captureItem);
 
@@ -153,12 +160,9 @@ namespace RSTGameTranslation
 
             try
             {
-                Direct3D11CaptureFrame? newest;
-                lock (_frameLock)
-                {
-                    newest = _newestFrame ?? _framePool.TryGetNextFrame();
-                    _newestFrame = null;
-                }
+                PumpFrames();
+                Direct3D11CaptureFrame? newest = _newestFrame;
+                _newestFrame = null;
                 using var frame = newest;
                 if (frame == null)
                 {
@@ -173,14 +177,11 @@ namespace RSTGameTranslation
                 if (contentSize.Width != _lastSize.Width || contentSize.Height != _lastSize.Height)
                 {
                     _lastSize = contentSize;
-                    lock (_frameLock)
-                    {
-                        _framePool.Recreate(
-                            _d3dHelper.WinRTDevice,
-                            DirectXPixelFormat.B8G8R8A8UIntNormalized,
-                            2,
-                            contentSize);
-                    }
+                    _framePool.Recreate(
+                        _d3dHelper.WinRTDevice,
+                        DirectXPixelFormat.B8G8R8A8UIntNormalized,
+                        2,
+                        contentSize);
                 }
 
                 var bitmap = _d3dHelper.SurfaceToBitmap(frame.Surface, contentSize.Width, contentSize.Height);
@@ -198,16 +199,16 @@ namespace RSTGameTranslation
             }
         }
 
-        // Runs on a thread-pool thread for every frame the window presents
-        private void OnFrameArrived(Direct3D11CaptureFramePool sender, object args)
+        // Takes every queued frame out of the pool, keeping only the newest. UI thread only.
+        private void PumpFrames()
         {
+            if (_disposed || _framePool == null)
+                return;
             try
             {
-                lock (_frameLock)
+                while (true)
                 {
-                    if (_framePool != sender)
-                        return;
-                    Direct3D11CaptureFrame? frame = sender.TryGetNextFrame();
+                    Direct3D11CaptureFrame? frame = _framePool.TryGetNextFrame();
                     if (frame == null)
                         return;
                     _newestFrame?.Dispose();
@@ -216,7 +217,7 @@ namespace RSTGameTranslation
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"WGC FrameArrived error: {ex.Message}");
+                Console.WriteLine($"WGC frame pump error: {ex.Message}");
             }
         }
 
@@ -230,15 +231,12 @@ namespace RSTGameTranslation
             try { _session?.Dispose(); } catch { }
             _session = null;
 
-            lock (_frameLock)
-            {
-                if (_framePool != null)
-                    _framePool.FrameArrived -= OnFrameArrived;
-                try { _newestFrame?.Dispose(); } catch { }
-                _newestFrame = null;
-                try { _framePool?.Dispose(); } catch { }
-                _framePool = null;
-            }
+            _pumpTimer?.Stop();
+            _pumpTimer = null;
+            try { _newestFrame?.Dispose(); } catch { }
+            _newestFrame = null;
+            try { _framePool?.Dispose(); } catch { }
+            _framePool = null;
 
             _captureItem = null;
 
