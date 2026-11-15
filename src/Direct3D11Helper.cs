@@ -47,6 +47,8 @@ namespace RSTGameTranslation
             if (hr != 0)
                 throw new COMException("Failed to create D3D11 device", hr);
 
+            EnableMultithreadProtection(d3dDevice);
+
             try
             {
                 Guid dxgiGuid = IID_IDXGIDevice;
@@ -215,6 +217,44 @@ namespace RSTGameTranslation
             if (_d3dContext != IntPtr.Zero) { Marshal.Release(_d3dContext); _d3dContext = IntPtr.Zero; }
             if (_d3dDevice != IntPtr.Zero) { Marshal.Release(_d3dDevice); _d3dDevice = IntPtr.Zero; }
         }
+
+        // Windows Graphics Capture uses this device on its own worker threads (copying captured frames
+        // into the pool) while RST maps textures on the UI thread. A D3D11 device is not safe to use from
+        // two threads at once unless its multithread protection is on; such a race can corrupt memory and is
+        // the suspected cause of a crash (0xc0000005 in coreclr) on a laptop GPU once a game's 3D map loaded.
+        private static void EnableMultithreadProtection(IntPtr d3dDevice)
+        {
+            try
+            {
+                Guid iid = IID_ID3D10Multithread;
+                if (Marshal.QueryInterface(d3dDevice, ref iid, out IntPtr multithread) != 0 || multithread == IntPtr.Zero)
+                {
+                    Console.WriteLine("D3D11: multithread protection not available");
+                    return;
+                }
+                try
+                {
+                    var setProtected = VTable<SetMultithreadProtectedDelegate>(multithread, SLOT_Multithread_SetMultithreadProtected);
+                    setProtected(multithread, 1);
+                    Console.WriteLine("D3D11: multithread protection enabled");
+                }
+                finally
+                {
+                    Marshal.Release(multithread);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"D3D11: could not enable multithread protection: {ex.Message}");
+            }
+        }
+
+        // ID3D10Multithread : IUnknown(3) → Enter=3, Leave=4, SetMultithreadProtected=5
+        private static readonly Guid IID_ID3D10Multithread = new Guid("9B7E4E00-342C-4106-A19F-4F2704F689F0");
+        private const int SLOT_Multithread_SetMultithreadProtected = 5;
+
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        private delegate int SetMultithreadProtectedDelegate(IntPtr self, int protect);
 
         // ───────── COM vtable helper ─────────
 
