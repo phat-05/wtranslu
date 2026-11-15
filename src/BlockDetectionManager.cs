@@ -1268,6 +1268,19 @@ namespace RSTGameTranslation
         /// <summary>
         /// Create JSON output from processed paragraphs
         /// </summary>
+        // Font size of a paragraph from its horizontal lines (0 when unknown, e.g. vertical text)
+        private static double EstimateFontPx(TextElement paragraph)
+        {
+            var lines = paragraph.Children.Count > 0 ? paragraph.Children : new List<TextElement> { paragraph };
+            double paddingEm = ConfigManager.Instance.GetOcrMethod() == "Windows OCR"
+                ? RSTGameTranslation.Layout.FontSizeEstimator.WindowsOcrPaddingEm
+                : RSTGameTranslation.Layout.FontSizeEstimator.DefaultPaddingEm;
+            return RSTGameTranslation.Layout.FontSizeEstimator.FromLines(
+                lines.Where(l => l.Bounds.Height <= l.Bounds.Width * 1.2)
+                     .Select(l => (l.Bounds.Height, l.Text)),
+                paddingEm);
+        }
+
         private JsonElement CreateJsonOutput(List<TextElement> paragraphs, List<TextElement> nonCharacters)
         {
             // Get minimum text fragment size from config
@@ -1326,6 +1339,13 @@ namespace RSTGameTranslation
                         // Add metadata
                         writer.WriteNumber("line_count", paragraph.Children.Count);
                         writer.WriteString("element_type", "paragraph");
+
+                        // The game's font size, from the height of each line (see Layout.FontSizeEstimator)
+                        double fontPx = EstimateFontPx(paragraph);
+                        if (fontPx > 0)
+                        {
+                            writer.WriteNumber("font_px", Math.Round(fontPx, 1));
+                        }
 
                         // Lets later merging keep text from different speech bubbles apart
                         int? bubbleId = GetBubbleId(paragraph);

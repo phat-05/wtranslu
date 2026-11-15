@@ -148,3 +148,32 @@ public class TranslationStoreTests
         }
     }
 }
+
+public class FontSizeEstimatorTests
+{
+    // Box heights measured from OneOCR on MockGame (Segoe UI 26 px / 24 px bold, Georgia 30 px)
+    [Theory]
+    [InlineData(29.5, "Welcome aboard. The harbor has been quiet for days.", 26)]
+    [InlineData(26.5, "Captain Mira", 24)]
+    [InlineData(22.5, "Old Fisherman", 24)]
+    [InlineData(34, "Chapter 1: The Old Harbor", 30)]
+    // OneOCR boxed the 44 px condensed capitals 38-43 px tall in CI runs
+    [InlineData(40, "QUEST COMPLETE: THE LIGHTHOUSE KEEPER", 44)]
+    public void Estimates_the_game_font_size_within_10_percent(double boxHeight, string text, double fontPx)
+    {
+        double estimate = RSTGameTranslation.Layout.FontSizeEstimator.FromLine(boxHeight, text);
+        Assert.InRange(estimate, fontPx * 0.9, fontPx * 1.1);
+    }
+
+    [Fact]
+    public void Uses_the_median_line()
+    {
+        double size = RSTGameTranslation.Layout.FontSizeEstimator.FromLines(new[]
+        {
+            (29.5, "Welcome aboard. The harbor has been quiet for days."),
+            (29.0, "Nobody sails at night anymore, the fog is too thick."),
+            (80.0, "a line OCR boxed badly"),
+        });
+        Assert.InRange(size, 24, 28);
+    }
+}

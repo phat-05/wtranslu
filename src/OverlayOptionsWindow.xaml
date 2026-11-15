@@ -131,6 +131,10 @@
                                      Text="68" 
                                      Margin="5,0,0,0"/>
                         </DockPanel>
+                        <!-- Font size from the height of the game's text lines -->
+                        <CheckBox x:Name="fontSizeFromLineHeightCheckBox" Margin="0,5">
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[OverlayOptions_Lbl_FontSizeFromLines]}"/>
+                        </CheckBox>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>

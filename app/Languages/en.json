@@ -109,6 +109,7 @@
   "Btn_ClearGameCache": "Clear this game's cache",
   "Lbl_GameCacheStatus": "Game: {0} - {1} translations, {2} text pictures",
   "Msg_ClearGameCacheConfirm": "Delete all cached translations and text pictures of \"{0}\"?",
+  "OverlayOptions_Lbl_FontSizeFromLines": "Size the translation like the game's text, from the height of its lines (shrinks when the translation is longer)",
   "Lbl_TranslationPrefetch": "Start translating while waiting for new text to settle (saves about one OCR cycle; with paid AI services, text that appears letter by letter can cost a few extra requests)",
   "Lbl_TranslationSpeedHint": "Retry Translation always asks the service again and replaces the cached translation. The time taken by each step for new text is written to the log, in lines starting with \"[OCR timing\".",
   "Lbl_TranslationService": "Translation Service:",

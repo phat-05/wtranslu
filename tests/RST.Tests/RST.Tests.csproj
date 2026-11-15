@@ -9,7 +9,8 @@
 
   <ItemGroup>
     <!-- The platform-independent parts of RST under test (no WPF, no Windows APIs) -->
-    <Compile Include="..\..\src\Cache\**\*.cs" Link="src\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\..\src\Cache\**\*.cs" Link="src\Cache\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\..\src\Layout\**\*.cs" Link="src\Layout\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>
