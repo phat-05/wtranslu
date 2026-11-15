@@ -126,20 +126,39 @@ namespace RSTGameTranslation
             if (area.Width <= 0 || area.Height <= 0)
                 return null;
 
+            byte[] pixels = CopyRegion(bitmap, area, out int stride);
+            // Box position relative to the copied area
+            return RSTGameTranslation.Layout.TextColorAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
+                textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height);
+        }
+
+        /// <summary>
+        /// Copies the pixels of <paramref name="area"/> as 32-bit BGRA, row after row, into a compact
+        /// buffer (stride = area width * 4).
+        ///
+        /// Row by row on purpose: when the bitmap already is 32-bit, LockBits on a part of it returns a
+        /// pointer into the bitmap itself whose rows are the full image width apart. Copying
+        /// "stride * height" bytes from there reads past the end of the image for an area at the bottom
+        /// edge (by its X offset * 4 bytes) and crashed the process (0xc0000005 in coreclr) on
+        /// HUD text in the bottom-right corner of a game.
+        /// </summary>
+        public static byte[] CopyRegion(Bitmap bitmap, Rectangle area, out int stride)
+        {
+            stride = area.Width * 4;
+            var pixels = new byte[stride * area.Height];
             var data = bitmap.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             try
             {
-                int stride = data.Stride;
-                byte[] pixels = new byte[stride * area.Height];
-                System.Runtime.InteropServices.Marshal.Copy(data.Scan0, pixels, 0, pixels.Length);
-                // Box position relative to the copied area
-                return RSTGameTranslation.Layout.TextColorAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
-                    textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height);
+                for (int y = 0; y < area.Height; y++)
+                {
+                    System.Runtime.InteropServices.Marshal.Copy(data.Scan0 + y * data.Stride, pixels, y * stride, stride);
+                }
             }
             finally
             {
                 bitmap.UnlockBits(data);
             }
+            return pixels;
         }
 
         public static MediaColor ToMediaColor(this RSTGameTranslation.Layout.Rgb c) => MediaColor.FromRgb(c.R, c.G, c.B);

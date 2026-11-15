@@ -181,6 +181,8 @@ internal sealed class GameForm : Form
             DrawSubtitle(g, step);
         else if (step.Style == "hint")
             DrawHint(g, step);
+        else if (step.Style == "hud")
+            DrawHud(g, step);
         else if (step.Style == "dialogue")
             DrawDialogue(g, step);
     }
@@ -250,6 +252,16 @@ internal sealed class GameForm : Form
         using var font = new Font("Segoe UI", 22, FontStyle.Italic, GraphicsUnit.Pixel);
         using var brush = new SolidBrush(Color.FromArgb(176, 150, 110));
         g.DrawString(step.Text, font, brush, panel.X + 14, panel.Y + 10);
+    }
+
+    // HUD text in the bottom-right corner, touching the bottom edge of the window, as games show
+    // level, coordinates or a clock there (reading pixels at that edge once crashed the overlay)
+    private void DrawHud(Graphics g, Step step)
+    {
+        using var font = new Font("Consolas", 18, FontStyle.Bold, GraphicsUnit.Pixel);
+        SizeF size = g.MeasureString(step.Text, font);
+        float x = ClientSize.Width - size.Width - 2, y = ClientSize.Height - size.Height + 2;
+        g.DrawString(step.Text, font, Brushes.White, x, y);
     }
 
     private void DrawMenu(Graphics g, Step step)
