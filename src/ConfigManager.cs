@@ -410,6 +410,8 @@ namespace RSTGameTranslation
 
             // Load main config values
             LoadConfig();
+            // Automated test runs set some values from the environment (see TestAutomation)
+            TestAutomation.ApplyConfigOverrides(_configValues);
 
             // Load translation service from config
             if (_configValues.TryGetValue(TRANSLATION_SERVICE, out string? service))
