@@ -37,13 +37,14 @@ namespace RSTGameTranslation
         // Event to notify when splash screen is closed
         public event EventHandler? SplashClosed;
         
-        public const double CurrentVersion = 6.2;
+        public const double CurrentVersion = 6.3;
 
         // "F1" rounded a hotfix version like 5.85 to "5.8": shown as the old version and, worse, the
         // update downloaded the old release again. Keeps a second decimal when there is one.
         public static string FormatVersion(double version) =>
             version.ToString("0.0#", System.Globalization.CultureInfo.InvariantCulture);
-        private const string VersionCheckerUrl = "https://raw.githubusercontent.com/thanhkeke97/RSTGameTranslation/refs/heads/main/media/latest_version_checker.json";
+        // This fork (wtranslu) checks and downloads its own releases, so an update never replaces it with upstream RST
+        private const string VersionCheckerUrl = "https://raw.githubusercontent.com/phat-05/wtranslu/refs/heads/main/media/latest_version_checker.json";
 
         private class VersionInfo
         {
@@ -428,7 +429,7 @@ namespace RSTGameTranslation
         private async Task DownloadAndInstallUpdate(double version)
         {
             string versionStr = FormatVersion(version);
-            string downloadUrl = $"https://github.com/thanhkeke97/RSTGameTranslation/releases/download/V{versionStr}/RSTGameTranslation_v{versionStr}.zip";
+            string downloadUrl = $"https://github.com/phat-05/wtranslu/releases/download/V{versionStr}/RSTGameTranslation_v{versionStr}.zip";
             string tempDir = Path.Combine(Path.GetTempPath(), "RSTUpdate");
             string zipPath = Path.Combine(tempDir, $"RSTGameTranslation_v{versionStr}.zip");
             string extractDir = Path.Combine(tempDir, "extracted");
