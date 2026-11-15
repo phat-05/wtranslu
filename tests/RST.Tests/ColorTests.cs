@@ -139,3 +139,24 @@ public class TextColorAnalyzerTests
         Assert.True(s.Fill.DistanceTo(White) < 30, s.Fill.ToString());
     }
 }
+
+public class VietnameseCoverageTests
+{
+    [Fact]
+    public void A_font_with_all_letters_is_accepted()
+    {
+        Assert.True(VietnameseCoverage.IsSupported(_ => true));
+    }
+
+    [Fact]
+    public void Missing_tone_marks_are_reported()
+    {
+        // A Latin-1 font: has à á â ã è é ê ì í ò ó ô õ ù ú ý but none of ă đ ơ ư or the dot-below forms
+        string latin1 = "aàáâãeèéêiìíoòóôõuùúyýAÀÁÂÃEÈÉÊIÌÍOÒÓÔÕUÙÚYÝ";
+        string missing = VietnameseCoverage.Missing(c => latin1.Contains(c));
+        Assert.Contains('ă', missing);
+        Assert.Contains('đ', missing);
+        Assert.Contains('ữ', missing);
+        Assert.DoesNotContain('à', missing);
+    }
+}

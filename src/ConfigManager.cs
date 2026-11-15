@@ -230,6 +230,7 @@ namespace RSTGameTranslation
         public const string IMAGE_TEXT_CACHE_ENABLED = "image_text_cache_enabled";
         public const string FONT_SIZE_FROM_LINE_HEIGHT = "font_size_from_line_height";
         public const string TEXT_STYLE_FROM_GAME = "text_style_from_game";
+        public const string GAME_FONTS = "game_fonts";
         public const string CURRENT_GAME_PROFILE = "current_game_profile";
         public const string TRANSLATION_PREFETCH = "translation_prefetch";
 
@@ -3662,6 +3663,36 @@ namespace RSTGameTranslation
 
         // Keep the game's text colour (even when pale) and its outline / drop shadow (see Layout.TextColorAnalyzer)
         public bool IsTextStyleFromGameEnabled() => GetBoolValue(TEXT_STYLE_FROM_GAME, true);
+
+        // Overlay font per game: "game=Font name;other game=Other font" (see GameFonts)
+        public string GetGameFont(string game)
+        {
+            foreach (var (name, font) in ParseGameFonts())
+                if (name.Equals(game, StringComparison.OrdinalIgnoreCase))
+                    return font;
+            return "";
+        }
+
+        public void SetGameFont(string game, string font)
+        {
+            var fonts = ParseGameFonts().Where(p => !p.Game.Equals(game, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!string.IsNullOrWhiteSpace(font))
+                fonts.Add((game, font.Trim()));
+            _configValues[GAME_FONTS] = string.Join(";", fonts.Select(p => $"{p.Game.Replace(";", "").Replace("=", "")}={p.Font.Replace(";", "")}"));
+            SaveConfig();
+        }
+
+        private List<(string Game, string Font)> ParseGameFonts()
+        {
+            var list = new List<(string, string)>();
+            foreach (string pair in GetValue(GAME_FONTS, "").Split(';', StringSplitOptions.RemoveEmptyEntries))
+            {
+                int eq = pair.IndexOf('=');
+                if (eq > 0)
+                    list.Add((pair.Substring(0, eq).Trim(), pair.Substring(eq + 1).Trim()));
+            }
+            return list;
+        }
 
         // Name of the game profile last loaded or created; names the per-game cache files (see GameIdentity)
         public string GetCurrentGameProfile() => GetValue(CURRENT_GAME_PROFILE, "");

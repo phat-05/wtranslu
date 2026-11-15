@@ -154,7 +154,7 @@ namespace RSTGameTranslation
                     TextWrapping = TextWrapping.Wrap,
                     TextAlignment = TextAlignment.Left, // Changed from Justify for better readability of merged blocks
                     FontStretch = FontStretches.Normal, // Changed from Expanded for better readability
-                    FontFamily = new FontFamily(ConfigManager.Instance.GetLanguageFontFamily()),
+                    FontFamily = GameFonts.Resolve(),
                     Margin = new Thickness(0), // Increased margin for better text display
                     TextTrimming = TextTrimming.None
                 };
@@ -171,7 +171,7 @@ namespace RSTGameTranslation
                     TextWrapping = TextWrapping.Wrap,
                     TextAlignment = TextAlignment.Left, // Changed from Justify for better readability of merged blocks
                     FontStretch = FontStretches.Normal, // Changed from Expanded for better readability
-                    FontFamily = new FontFamily(DefaultFontFamily),
+                    FontFamily = GameFonts.Resolve(),
                     Margin = new Thickness(0), // Increased margin for better text display
                     TextTrimming = TextTrimming.None
                 };
@@ -249,14 +249,8 @@ namespace RSTGameTranslation
                 // New text: start again from the original box; the overlay layout pass re-widens if needed
                 ResetLayout();
                 ApplyBoxConstraints();
-                if(ConfigManager.Instance.IsLanguageFontOverrideEnabled())
-                {
-                    TextBlock.FontFamily = new FontFamily(ConfigManager.Instance.GetLanguageFontFamily());
-                }
-                else 
-                {
-                    TextBlock.FontFamily = new FontFamily(DefaultFontFamily);
-                }
+                // The current game's font, else the language override, else the default chain
+                TextBlock.FontFamily = GameFonts.Resolve();
 
                 // Reset font size to default and then adjust if needed
                 TextBlock.FontSize = 24; // Increased from 18 to 24 for better initial size
@@ -563,7 +557,7 @@ namespace RSTGameTranslation
                 TextFitsBox = FitsAt(textBlock, finalSize);
                 textBlock.VerticalAlignment = VerticalAlignment.Stretch;
                 ApplyFontSize(textBlock, finalSize);
-                OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{textBlock.Text}");
+                OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{textBlock.Text}|{textBlock.FontFamily.Source.Split(',')[0]}");
                 
                 // Cache result
                 if (_fontSizeCache.Count > 100) _fontSizeCache.Clear();
