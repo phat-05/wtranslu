@@ -23,6 +23,10 @@ namespace RSTGameTranslation
         private bool _itemClosed;
         private Bitmap? _lastFrame;
 
+        // Newest frame delivered by WGC, not converted yet (see OnFrameArrived)
+        private Direct3D11CaptureFrame? _newestFrame;
+        private readonly object _frameLock = new object();
+
         /// <summary>
         /// Check whether Windows Graphics Capture is available on this system.
         /// </summary>
@@ -69,6 +73,12 @@ namespace RSTGameTranslation
                     DirectXPixelFormat.B8G8R8A8UIntNormalized,
                     2,
                     _captureItem.Size);
+
+                // The pool holds 2 frames and drops NEW frames while it is full. Polled only on the capture
+                // tick (~250 ms), it filled up right after each tick and the frame read on the next tick was
+                // already ~200 ms old: OCR read text that had changed. Taking each frame as it arrives (no
+                // pixel copy, only the newest one is kept) keeps a slot free for the next one.
+                _framePool.FrameArrived += OnFrameArrived;
 
                 _session = _framePool.CreateCaptureSession(_captureItem);
 
@@ -143,7 +153,13 @@ namespace RSTGameTranslation
 
             try
             {
-                using var frame = _framePool.TryGetNextFrame();
+                Direct3D11CaptureFrame? newest;
+                lock (_frameLock)
+                {
+                    newest = _newestFrame ?? _framePool.TryGetNextFrame();
+                    _newestFrame = null;
+                }
+                using var frame = newest;
                 if (frame == null)
                 {
                     // No new frame since last call — return a copy of the last captured frame.
@@ -157,11 +173,14 @@ namespace RSTGameTranslation
                 if (contentSize.Width != _lastSize.Width || contentSize.Height != _lastSize.Height)
                 {
                     _lastSize = contentSize;
-                    _framePool.Recreate(
-                        _d3dHelper.WinRTDevice,
-                        DirectXPixelFormat.B8G8R8A8UIntNormalized,
-                        2,
-                        contentSize);
+                    lock (_frameLock)
+                    {
+                        _framePool.Recreate(
+                            _d3dHelper.WinRTDevice,
+                            DirectXPixelFormat.B8G8R8A8UIntNormalized,
+                            2,
+                            contentSize);
+                    }
                 }
 
                 var bitmap = _d3dHelper.SurfaceToBitmap(frame.Surface, contentSize.Width, contentSize.Height);
@@ -179,6 +198,28 @@ namespace RSTGameTranslation
             }
         }
 
+        // Runs on a thread-pool thread for every frame the window presents
+        private void OnFrameArrived(Direct3D11CaptureFramePool sender, object args)
+        {
+            try
+            {
+                lock (_frameLock)
+                {
+                    if (_framePool != sender)
+                        return;
+                    Direct3D11CaptureFrame? frame = sender.TryGetNextFrame();
+                    if (frame == null)
+                        return;
+                    _newestFrame?.Dispose();
+                    _newestFrame = frame;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"WGC FrameArrived error: {ex.Message}");
+            }
+        }
+
         /// <summary>
         /// Stop the current capture session and release resources.
         /// </summary>
@@ -189,8 +230,15 @@ namespace RSTGameTranslation
             try { _session?.Dispose(); } catch { }
             _session = null;
 
-            try { _framePool?.Dispose(); } catch { }
-            _framePool = null;
+            lock (_frameLock)
+            {
+                if (_framePool != null)
+                    _framePool.FrameArrived -= OnFrameArrived;
+                try { _newestFrame?.Dispose(); } catch { }
+                _newestFrame = null;
+                try { _framePool?.Dispose(); } catch { }
+                _framePool = null;
+            }
 
             _captureItem = null;
 
