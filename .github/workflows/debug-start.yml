@@ -1,0 +1,111 @@
+name: Debug - press Start in the released build like a user
+
+# Installs the published release, starts it without any test automation, closes the startup
+# dialogs and clicks Start through UI Automation, then reports whether the app is still running,
+# with crash_log.txt, the Windows Application event log and screenshots. Runs the same steps on
+# upstream RST 6.2 for comparison.
+on:
+  push:
+    branches:
+      - 'claude/**'
+    paths:
+      - '.github/workflows/debug-start.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  start:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        build: [wtranslu, upstream]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get the build
+        shell: pwsh
+        run: |
+          $ProgressPreference = 'SilentlyContinue'
+          if ('${{ matrix.build }}' -eq 'wtranslu') {
+            Invoke-WebRequest https://github.com/phat-05/wtranslu/releases/download/V6.3/wtranslu-setup-6.3.exe -OutFile setup.exe
+            Start-Process .\setup.exe -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART' -Wait
+            $dir = "$env:LOCALAPPDATA\Programs\wtranslu"
+          } else {
+            Invoke-WebRequest https://github.com/thanhkeke97/RSTGameTranslation/releases/download/V6.2/RSTGameTranslation_v6.2.zip -OutFile up.zip
+            Expand-Archive up.zip -DestinationPath upstream
+            $exe = Get-ChildItem upstream -Recurse -Filter rst.exe | Select-Object -First 1
+            $dir = $exe.DirectoryName
+          }
+          "APPDIR=$dir" | Out-File -Append $env:GITHUB_ENV
+          Get-ChildItem $dir | Select-Object -First 5
+
+      - name: Start the app and press Start
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force ev | Out-Null
+          Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Windows.Forms, System.Drawing
+          function Shot($name) {
+            $b = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+            $bmp = New-Object System.Drawing.Bitmap $b.Width, $b.Height
+            [System.Drawing.Graphics]::FromImage($bmp).CopyFromScreen($b.Location, [System.Drawing.Point]::Empty, $b.Size)
+            $bmp.Save("ev\$name.png")
+          }
+          function Windows($procId) {
+            $cond = New-Object Windows.Automation.PropertyCondition([Windows.Automation.AutomationElement]::ProcessIdProperty, $procId)
+            [Windows.Automation.AutomationElement]::RootElement.FindAll([Windows.Automation.TreeScope]::Children, $cond)
+          }
+          $start = Get-Date
+          $p = Start-Process "$env:APPDIR\rst.exe" -WorkingDirectory $env:APPDIR -PassThru `
+                 -RedirectStandardOutput ev\stdout.txt -RedirectStandardError ev\stderr.txt
+          Start-Sleep 20
+          Shot "1_after_launch"
+          # Close every window of the app except the main one (welcome, window picker, tips)
+          foreach ($w in (Windows $p.Id)) {
+            "window: '$($w.Current.Name)' automationId='$($w.Current.AutomationId)'"
+            if ($w.Current.Name -notlike 'RSTGameTranslation*') {
+              try { ($w.GetCurrentPattern([Windows.Automation.WindowPattern]::Pattern)).Close() } catch { "close failed: $_" }
+            }
+          }
+          Start-Sleep 3
+          Shot "2_dialogs_closed"
+          $idCond = New-Object Windows.Automation.PropertyCondition([Windows.Automation.AutomationElement]::AutomationIdProperty, 'toggleButton')
+          $btn = $null
+          foreach ($w in (Windows $p.Id)) { if (-not $btn) { $btn = $w.FindFirst([Windows.Automation.TreeScope]::Descendants, $idCond) } }
+          if (-not $btn) { "Start button not found"; Shot "3_no_button" }
+          else {
+            "Clicking Start"
+            ($btn.GetCurrentPattern([Windows.Automation.InvokePattern]::Pattern)).Invoke()
+          }
+          for ($i = 0; $i -lt 30; $i++) {
+            Start-Sleep 1
+            if ($p.HasExited) { break }
+          }
+          Shot "4_after_start"
+          if ($p.HasExited) { "APP EXITED after Start, exit code $($p.ExitCode)" | Tee-Object -Append ev\result.txt }
+          else { "App still running 30 s after Start" | Tee-Object -Append ev\result.txt; Stop-Process -Id $p.Id -Force }
+          Copy-Item "$env:APPDIR\crash_log.txt" ev\ -ErrorAction SilentlyContinue
+          Get-WinEvent -FilterHashtable @{ LogName = 'Application'; StartTime = $start } -ErrorAction SilentlyContinue |
+            Where-Object { $_.ProviderName -in '.NET Runtime', 'Application Error', 'Windows Error Reporting' } |
+            ForEach-Object { "==== $($_.TimeCreated) $($_.ProviderName) $($_.Id)`n$($_.Message)" } | Out-File ev\eventlog.txt
+          Get-Content ev\result.txt, ev\eventlog.txt -ErrorAction SilentlyContinue
+          Get-Content ev\crash_log.txt -ErrorAction SilentlyContinue | Select-Object -Last 60
+          Get-Content ev\stdout.txt -Tail 40 -ErrorAction SilentlyContinue
+
+      - name: Publish evidence
+        if: always()
+        shell: bash
+        run: |
+          DEST="debug-start/${{ matrix.build }}-run${GITHUB_RUN_NUMBER}"
+          mkdir -p "$RUNNER_TEMP/ev" && cp -r ev/. "$RUNNER_TEMP/ev/" || true
+          git config user.name "ci-bot"; git config user.email "ci-bot@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin ci-evidence && git checkout -f -B ci-evidence origin/ci-evidence && git clean -fdq
+            mkdir -p "$DEST" && cp -r "$RUNNER_TEMP/ev/." "$DEST/"
+            git add "$DEST" && git commit -qm "Debug evidence $DEST" || true
+            if git push origin ci-evidence; then exit 0; fi
+            sleep $((attempt * 7))
+          done

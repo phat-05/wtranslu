@@ -2539,7 +2539,8 @@ namespace RSTGameTranslation
             {
                 AutoFlush = true
             };
-            Console.SetOut(standardOutput);
+            // Also to logs\rst_log.txt, so a crash that kills the process still leaves the last lines
+            Console.SetOut(FileLog.Wrap(standardOutput));
 
             // Write initial message
             Console.WriteLine("Console output initialized. Toggle visibility with the Log button.");
