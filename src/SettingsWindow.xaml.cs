@@ -1025,6 +1025,11 @@ namespace RSTGameTranslation
             llmPreferSpeedCheckBox.IsChecked = ConfigManager.Instance.IsLlmPreferSpeedEnabled();
             translationCacheCheckBox.IsChecked = ConfigManager.Instance.IsTranslationCacheEnabled();
             translationPrefetchCheckBox.IsChecked = ConfigManager.Instance.IsTranslationPrefetchEnabled();
+            translationCachePersistentCheckBox.IsChecked = ConfigManager.Instance.IsTranslationCachePersistent();
+            translationCacheFuzzyCheckBox.IsChecked = ConfigManager.Instance.IsTranslationCacheFuzzyEnabled();
+            translationCacheFuzzyThresholdTextBox.Text = ConfigManager.Instance.GetTranslationCacheFuzzyThreshold().ToString("F2", CultureInfo.InvariantCulture);
+            imageTextCacheCheckBox.IsChecked = ConfigManager.Instance.GetBoolValue(ConfigManager.IMAGE_TEXT_CACHE_ENABLED, true);
+            UpdateGameCacheStatus();
 
             // Set audio option
             silenceThresholdTextBox.Text = ConfigManager.Instance.GetSilenceThreshold().ToString(CultureInfo.InvariantCulture);
@@ -4598,6 +4603,8 @@ namespace RSTGameTranslation
                 {
                     // Create profile with current config
                     ConfigManager.Instance.SaveTranslationAreas(MainWindow.Instance.savedTranslationAreas, profileName);
+                    // The profile names this game's translation cache from now on
+                    ConfigManager.Instance.SetCurrentGameProfile(profileName);
                     // Add to combo box
                     bool exists = false;
                     foreach (var item in profileComboBox.Items)
@@ -4780,6 +4787,8 @@ namespace RSTGameTranslation
                 {
                     // Get saved areas from config (this loads the whole profile config)
                     List<TranslationAreaInfo> areas = ConfigManager.Instance.GetTranslationAreas(filePath);
+                    // The profile names this game's translation cache from now on
+                    ConfigManager.Instance.SetCurrentGameProfile(selectedText ?? "");
                     MainWindow.Instance.ReloadExcludeRegionsFromConfig();
                     if (areas.Count > 0)
                     {
@@ -5661,6 +5670,50 @@ namespace RSTGameTranslation
         {
             if (_isInitializing) return;
             ConfigManager.Instance.SetTranslationCacheEnabled(translationCacheCheckBox.IsChecked == true);
+        }
+
+        private void TranslationCacheOptions_Changed(object sender, RoutedEventArgs e)
+        {
+            if (_isInitializing) return;
+            ConfigManager.Instance.SetTranslationCachePersistent(translationCachePersistentCheckBox.IsChecked == true);
+            ConfigManager.Instance.SetTranslationCacheFuzzyEnabled(translationCacheFuzzyCheckBox.IsChecked == true);
+            ConfigManager.Instance.SetImageTextCacheEnabled(imageTextCacheCheckBox.IsChecked == true);
+            UpdateGameCacheStatus();
+        }
+
+        private void TranslationCacheFuzzyThreshold_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (_isInitializing) return;
+            if (double.TryParse(translationCacheFuzzyThresholdTextBox.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double value))
+                ConfigManager.Instance.SetTranslationCacheFuzzyThreshold(value);
+            translationCacheFuzzyThresholdTextBox.Text = ConfigManager.Instance.GetTranslationCacheFuzzyThreshold().ToString("F2", CultureInfo.InvariantCulture);
+        }
+
+        private void ClearGameCacheButton_Click(object sender, RoutedEventArgs e)
+        {
+            string game = GameIdentity.Current;
+            var answer = MessageBox.Show(
+                string.Format(LocalizationManager.Instance.Strings["Msg_ClearGameCacheConfirm"], game),
+                LocalizationManager.Instance.Strings["Btn_ClearGameCache"], MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer != MessageBoxResult.Yes)
+                return;
+            TranslationCache.Instance.DeleteCurrent();
+            ImageCacheController.DeleteCurrent();
+            UpdateGameCacheStatus();
+        }
+
+        // "Game: X - N translations, M pictures"
+        private void UpdateGameCacheStatus()
+        {
+            try
+            {
+                gameCacheStatusText.Text = string.Format(LocalizationManager.Instance.Strings["Lbl_GameCacheStatus"],
+                    GameIdentity.Current, TranslationCache.Instance.Count, ImageCacheController.Count);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not show cache status: {ex.Message}");
+            }
         }
 
         private void SetHotKeyEnableCheckBox_CheckChange(object sender, RoutedEventArgs e)
