@@ -1258,6 +1258,7 @@ namespace RSTGameTranslation
                 Color bgColor = ConfigManager.Instance.GetOverlayBackgroundColor();
                 System.Windows.Media.Imaging.BitmapSource? erasedPatch = null;
                 Rect erasedBounds = Rect.Empty;
+                RSTGameTranslation.Layout.TextStyle? textStyle = null;
                 if (ConfigManager.Instance.IsAutoSetOverlayBackground() && sourceBitmap != null)
                 {
                     try
@@ -1271,7 +1272,22 @@ namespace RSTGameTranslation
                         int bitmapHeight = Math.Max(1, (int)(height * dpiScaleY));
                         var textBox = new System.Drawing.Rectangle(bitmapX, bitmapY, bitmapWidth, bitmapHeight);
 
-                        (bgColor, textColor) = ColorUtils.SampleOverlayColors(sourceBitmap, textBox);
+                        if (ConfigManager.Instance.IsTextStyleFromGameEnabled())
+                        {
+                            // Fill, background and outline/shadow read from the game's pixels
+                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox);
+                        }
+                        if (textStyle != null)
+                        {
+                            bgColor = textStyle.Background.ToMediaColor();
+                            textColor = textStyle.Fill.ToMediaColor();
+                            OcrTiming.Metrics.Write("text_style", $"{textStyle.Fill}|{textStyle.Background}|{textStyle.Effect}|{textStyle.EffectColor}|{textStyle.ShadowDx},{textStyle.ShadowDy}|{text}");
+                        }
+                        else
+                        {
+                            (bgColor, textColor) = ColorUtils.SampleOverlayColors(sourceBitmap, textBox);
+                            OcrTiming.Metrics.Write("text_style", $"#{textColor.R:X2}{textColor.G:X2}{textColor.B:X2}|#{bgColor.R:X2}{bgColor.G:X2}{bgColor.B:X2}|None||0,0|{text}");
+                        }
 
                         // Original text removed from its own background, shown under the translation
                         erasedPatch = TextEraser.CreateErasedPatch(sourceBitmap, textBox, bgColor, out var patchPixels);
@@ -1304,6 +1320,10 @@ namespace RSTGameTranslation
                 if (erasedPatch != null)
                 {
                     textObject.SetErasedBackground(erasedPatch, erasedBounds);
+                }
+                if (textStyle != null)
+                {
+                    textObject.SetTextEffect(textStyle);
                 }
 
                 // Add to our collection
