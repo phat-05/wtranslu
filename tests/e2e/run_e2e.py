@@ -96,13 +96,19 @@ def run_session(args, index):
         time.sleep(4)  # let RST finish writing (cache files, metrics)
         stop.set()
         shooter.join(timeout=5)
+        crashed = rst.poll() is not None
+        if crashed:
+            print(f"RST EXITED during the session (exit code {rst.returncode})", flush=True)
         # Ask RST to close like a user would, then make sure it is gone
         subprocess.run(["taskkill", "/PID", str(rst.pid)], capture_output=True)
         try:
             rst.wait(timeout=8)
         except subprocess.TimeoutExpired:
             kill(rst)
-    return analyse(events, metrics, prefix)
+    results = analyse(events, metrics, prefix)
+    for r in results:
+        r["rst_crashed"] = crashed
+    return results
 
 
 def analyse(events_path, metrics_path, prefix):
@@ -201,6 +207,10 @@ def main():
                     f"{'yes' if r['served_from_cache'] else ''} | {r['image_cache_hits']} | {r['text'][:50]} |\n")
         f.write("\n```json\n" + json.dumps(summary, indent=2) + "\n```\n")
     print(json.dumps(summary, indent=2))
+    if any(r.get("rst_crashed") for r in results):
+        print("FAIL: RST exited before the end of a session")
+        return 1
+    return 0
 
 
 if __name__ == "__main__":

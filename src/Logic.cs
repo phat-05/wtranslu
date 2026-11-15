@@ -3199,18 +3199,8 @@ namespace RSTGameTranslation
             var area = System.Drawing.Rectangle.Intersect(System.Drawing.Rectangle.Inflate(box, 4, 4), image);
             if (area.Width <= 0 || area.Height <= 0)
                 return (null, null);
-            var data = bitmap.LockBits(area, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            byte[] pixels;
-            int stride = data.Stride;
-            try
-            {
-                pixels = new byte[stride * area.Height];
-                System.Runtime.InteropServices.Marshal.Copy(data.Scan0, pixels, 0, pixels.Length);
-            }
-            finally
-            {
-                bitmap.UnlockBits(data);
-            }
+            // Row by row into a compact buffer (see ColorUtils.CopyRegion: a single copy read past the image)
+            byte[] pixels = ColorUtils.CopyRegion(bitmap, area, out int stride);
 
             RSTGameTranslation.Layout.Rgb? effect = style.Effect == RSTGameTranslation.Layout.TextEffectKind.None ? null : style.EffectColor;
             var coloured = words.Select(w => (w.Text, RSTGameTranslation.Layout.TextColorAnalyzer.InkColor(pixels, area.Width, area.Height, stride,
