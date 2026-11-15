@@ -1,0 +1,156 @@
+{
+  "summary": {
+    "label": "claude/amazing-hamilton-lddsx3 style scenario, features off",
+    "all": {
+      "n": 9,
+      "missing": 0,
+      "mean_ms": 1114,
+      "median_ms": 1009,
+      "min_ms": 659,
+      "max_ms": 1841,
+      "ocr_runs": 28,
+      "translation_requests": 0,
+      "from_cache": 9,
+      "image_cache_hits": 140
+    },
+    "first_time_lines": {
+      "n": 9,
+      "missing": 0,
+      "mean_ms": 1114,
+      "median_ms": 1009,
+      "min_ms": 659,
+      "max_ms": 1841,
+      "ocr_runs": 28,
+      "translation_requests": 0,
+      "from_cache": 9,
+      "image_cache_hits": 140
+    },
+    "repeated_lines": {
+      "n": 0
+    },
+    "per_session": {
+      "s1": {
+        "n": 9,
+        "missing": 0,
+        "mean_ms": 1114,
+        "median_ms": 1009,
+        "min_ms": 659,
+        "max_ms": 1841,
+        "ocr_runs": 28,
+        "translation_requests": 0,
+        "from_cache": 9,
+        "image_cache_hits": 140
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "Chapter 2: The Lighthouse",
+      "latency_ms": 1841,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "Find the red key before the tide turns.",
+      "latency_ms": 1626,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 17,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Continue / Load Game / Settings / Quit",
+      "latency_ms": 1009,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 3,
+      "cycle": 0,
+      "text": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER",
+      "latency_ms": 830,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 4,
+      "cycle": 0,
+      "text": "The storm is coming. Hold on to the mast!",
+      "latency_ms": 659,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 17,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 5,
+      "cycle": 0,
+      "text": "Tip: press Space to skip the cutscene.",
+      "latency_ms": 1360,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 15,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 6,
+      "cycle": 0,
+      "text": "Lv.70  776,256  2026-11-15 14:39:01 HD",
+      "latency_ms": 1258,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 7,
+      "cycle": 0,
+      "text": "The blue door opens only for the green lantern.",
+      "latency_ms": 753,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 8,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 691,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16,
+      "rst_crashed": false
+    }
+  ]
+}
