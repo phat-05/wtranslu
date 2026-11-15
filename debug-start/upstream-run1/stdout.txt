@@ -1,0 +1,441 @@
+Configuration file not found. Creating default configuration.
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Default configuration created and saved.
+ConfigManager.GetValue: Key 'dark_mode' not found, returning default value: 'false'
+Fetching version info from: https://raw.githubusercontent.com/thanhkeke97/RSTGameTranslation/refs/heads/main/media/latest_version_checker.json
+ConfigManager.GetValue: Key 'chatbox_display_mode' not found, returning default value: '0'
+Applied ChatBox styling: Font=Segoe UI, Size=15, Color=#FFFFFFFF, BG=#FF000000, Window Opacity=1, BG Opacity=0.35, Outline=#FF000000
+MainWindow constructor: Setting _isInitializing to true
+Console input disabled successfully
+﻿Console output initialized. Toggle visibility with the Log button.
+Note: Console input is disabled to prevent application freeze.
+Saved Gemini prompt (1628 chars)
+Prompt saved for Gemini
+Saved ChatGPT prompt (1628 chars)
+Prompt saved for ChatGPT
+Saved Mistral prompt (1628 chars)
+Prompt saved for Mistral
+Saved Groq prompt (1628 chars)
+Prompt saved for Groq
+Saved Custom API prompt (1628 chars)
+Prompt saved for Custom API
+Saved Ollama prompt (1628 chars)
+Prompt saved for Ollama
+Saved LM Studio prompt (1628 chars)
+Prompt saved for LM Studio
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Force update prompt set to: 8
+MonitorWindow constructor: Setting _isInitializing to true
+MonitorWindow constructor started
+MonitorWindow constructor completed
+Exclude MonitorWindow from capture success
+MonitorWindow set to be excluded from screen capture
+MonitorWindow click-through enabled
+MonitorWindow_Loaded: Starting initialization
+MonitorWindow: Got DPI scale: 1.00x
+MonitorWindow initialization complete
+Parsed hotkey for Start/Stop: ALT+G -> Modifiers: 1, VK: 71
+Parsed hotkey for Overlay: ALT+F -> Modifiers: 1, VK: 70
+Parsed hotkey for ChatBox: ALT+C -> Modifiers: 1, VK: 67
+Parsed hotkey for Setting: ALT+P -> Modifiers: 1, VK: 80
+ConfigManager.GetValue: Key 'hotkey_log' not found, returning default value: 'ALT+L'
+Parsed hotkey for Log: ALT+L -> Modifiers: 1, VK: 76
+Parsed hotkey for Select Area: ALT+Q -> Modifiers: 1, VK: 81
+Parsed hotkey for Clear Areas: ALT+R -> Modifiers: 1, VK: 82
+Parsed hotkey for Clear Selected Area: ALT+H -> Modifiers: 1, VK: 72
+Parsed hotkey for Show Area: ALT+B -> Modifiers: 1, VK: 66
+Parsed hotkey for Audio Service: ALT+K -> Modifiers: 1, VK: 75
+Parsed hotkey for Swap Languages: ALT+V -> Modifiers: 1, VK: 86
+Parsed hotkey for Retry Translation: ALT+T -> Modifiers: 1, VK: 84
+Parsed hotkey for Select Exclude Region: ALT+X -> Modifiers: 1, VK: 88
+Global keyboard hook initialized successfully
+ConfigManager.GetValue: Key 'gamepad_hotkey_start_stop' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_overlay' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_chatbox' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_Show Area' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_audio_service' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_swap_languages' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_retry_translation' not found, returning default value: ''
+ConfigManager.GetValue: Key 'exclude_regions' not found, returning default value: ''
+Gamepad polling started
+ConfigManager.GetValue: Key 'GamepadHotKeyEnable' not found, returning default value: 'false'
+Loaded 0 exclude regions from config
+ConfigManager.GetValue: Key 'show_exclude_regions' not found, returning default value: 'true'
+Loaded 0 exclude regions from config
+Received JSON: {
+    "name":"Real Time Game Translation",
+    "latest_version":6.2,
+    "message":"Download V{VERSION_STRING} now from github?"
+}
+
+Deserialized version: 6.2, name: Real Time Game Translation, message: Download V{VERSION_STRING} now from github?
+Registered Start/Stop hotkey successfully
+Registered Overlay hotkey successfully
+Registered ChatBox hotkey successfully
+Registered Setting hotkey successfully
+Registered Log hotkey successfully
+Registered Select Area hotkey successfully
+Registered Clear Areas hotkey successfully
+Registered Clear Selected Area hotkey successfully
+Registered Show Area hotkey successfully
+Registered Audio Service hotkey successfully
+Registered Swap Languages hotkey successfully
+Registered Retry Translation hotkey successfully
+Registered Select Exclude Region hotkey successfully
+SettingsWindow constructor: Setting _isInitializing to true
+SettingsWindow.TranslationServiceComboBox_SelectionChanged called (isInitializing: True)
+Skipping translation service change during initialization
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Microsoft legacy signature mode set to: True
+Microsoft legacy signature mode changed: True
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Skipping OCR method change during initialization
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Auto Set Overlay Background enabled: True
+Auto set overlay background color set to True
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Show icon signal enabled: True
+Show icon signal set to True
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Auto Merge Overlapping Text enabled: True
+Auto merge overlapping text set to True
+Screen 0: DISPLAY1 - Generic PnP Monitor, 1024x768, Primary: True
+Loaded 1 screens
+ConfigManager.GetValue: Key 'audio_processing_provider' not found, returning default value: 'Whisper'
+ConfigManager.GetValue: Key 'tts_volume' not found, returning default value: '100'
+Found Windows UWP TTS voice: Microsoft David (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_DavidM
+Found Windows UWP TTS voice: Microsoft Zira (en-US, Female, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_ZiraM
+Found Windows UWP TTS voice: Microsoft Mark (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_MarkM
+Found SAPI TTS voice: Microsoft David Desktop (English (United States), Male, SAPI) - Microsoft David Desktop
+Found SAPI TTS voice: Microsoft Zira Desktop (English (United States), Female, SAPI) - Microsoft Zira Desktop
+Initialized 5 Windows TTS voices in total
+Selected default system voice: Microsoft David Desktop (English (United States), Male, SAPI)
+Loaded 5 Windows TTS voices
+Logic initialized
+Loaded Gemini API key: Set
+Loaded LLM prompt: Not set
+Using OneOCR (built-in)
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+MainWindow_Loaded: Loading OCR method from config: 'OneOCR'
+MainWindow.SetOcrMethod called with method: OneOCR (isInitializing: True)
+Setting OCR method during initialization: OneOCR
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+=== Configuration Test ===
+API Key: Set - <you...
+LLM Prompt: Not set
+OCR Method: OneOCR
+Translation Service: Google Translate
+=========================
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Language interface set to: en
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Added screen 0: Screen 1 (1024x768) - Primary
+ConfigManager.GetValue: Key 'SelectedScreenIndex' not found, returning default value: '0'
+Screen list loaded. Selected index: 0
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Audio service auto-translate enabled: False
+MainWindow initialization complete. Settings changes will now be saved.
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Ensuring config OCR method is preserved: OneOCR
+ConfigManager.SetOcrMethod called with method: OneOCR
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+OCR method set to OneOCR and saved to config
+Loading language settings from config: Source=en, Target=vi
+Set source language to en
+Set target language to vi
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetValue: Key 'google_translate_use_cloud_api' not found, returning default value: 'false'
+ConfigManager.GetValue: Key 'onboarding_tips_shown' not found, returning default value: ''
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+[WarmUp] Google Translate: connected to translate.googleapis.com in 146 ms (404)
+[WarmUp] Google Translate: connected to translate.google.com.hk in 267 ms (200)
+OCR pipeline initialized successfully
+Loaded block detection scale from config: 3
+Loaded block detection settle time from config: 0.2 seconds
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+[OCR timing 06:28:21.367 +0ms] 1. New text from OCR: OCR took 868 ms; waiting 0.20s for it to settle: '- Translate intoVietnamese - Tiếng Việt …'
+ConfigManager.GetValue: Key 'translation_prefetch' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_enabled' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'google_translate_api_key' not found, returning default value: ''
+OCR processing completed in 883ms
+[OCR timing 06:28:21.381 +14ms] 2a. Prefetch request: 24 block(s) combined
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+[OCR timing 06:28:22.340 +0ms] 1. New text from OCR: OCR took 677 ms; still typing out, waiting for it to settle: '- Translate intoVietnamese - Tiếng Việt …'
+OCR processing completed in 678ms
+Google Translate: 1 block(s), 24 part(s) translated together
+Google translated: '- Translate intoVietnamese - Tiếng Việt (vi)##|||##1 Game languageEnglish (en)##|||##Display Results##|||##Overlay oO ChatBox##|||##C Quick pick:##|||##Sc Japanese - English Japanese - Vietnamese Korean - English##|||##0 TTS##|||##Chinese (Simplified) - English Chinese (Simplified) - Vietnamese##|||##Syste English - Vietnamese##|||##Game window##|||##Select the game window to translate. RST then captures only that window. You can skip this and
+choose later with the "Select Application" button.##|||##Select Application No window selected yet##|||##Ready to go##|||##luthor##|||##R use Al translation (ChatGPT, Gemini, local models ... ) at any time in "Settings".Text recognition: OneOCR. Translation service: Google Translate. You can switch the OCR method or##|||##and would like to support developmnk you!##|||##*##|||##FEE##|||##Next steps##|||##nese banks):##|||##1. (Optional) Click "Select Application" to pick the game window.##|||##11/15/20266:28 AM##|||##Q Search##|||##L' -> '- Dịch sang tiếng Việt - Tiếng Việt (vi)##|||##1 Ngôn ngữ trò chơiTiếng Anh (en)##|||##Hiển thị kết quả##|||##Lớp phủ oO ChatBox##|||##C Chọn nhanh:##|||##Sc Tiếng Nhật - Tiếng Anh Tiếng Nhật - Tiếng Việt Tiếng Hàn - Tiếng Anh##|||##0 TTS##|||##Tiếng Trung (Giản thể) - Tiếng Anh Tiếng Trung (Giản thể) - Tiếng Việt##|||##Hệ thống Anh - Việt##|||##Cửa sổ trò chơi##|||##Chọn cửa sổ trò chơi để dịch. RST sau đó chỉ chụp cửa sổ đó. Bạn có thể bỏ qua phần này và chọn sau bằng nút "Chọn ứng dụng".##|||##Chọn Ứng dụng Chưa có cửa sổ nào được chọn##|||##Sẵn sàng để đi##|||##luthor##|||##R sử dụng bản dịch Al (ChatGPT, Gemini, mô hình địa phương ...) bất cứ lúc nào trong "Cài đặt". Nhận dạng văn bản: OneOCR. Dịch vụ dịch thuật: Google Translate. Bạn có thể chuyển đổi phương pháp OCR hoặc##|||##và muốn hỗ trợ phát triển bạn!##|||##*##|||##PHÍ##|||##Các bước tiếp theo##|||##các ngân hàng của Nhật):##|||##1. (Tùy chọn) Nhấp vào "Chọn ứng dụng" để chọn cửa sổ trò chơi.##|||##15/11/20266:28 Sáng##|||##Q Tìm kiếm##|||##L'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- Translate intoVietnamese - Ti\u1EBFng Vi\u1EC7t (vi)...
+[OCR timing 06:28:22.893 +552ms] 2b. Prefetch done: 1512 ms, 24 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+[OCR timing 06:28:23.286 +946ms] 2. Text settled
+Character-level processing (scale=3.00): 45 characters → 25 blocks
+All text objects cleared
+OCR JSON processing took 169 ms
+Log files will be saved in: D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\
+[OCR timing 06:28:23.526 +1186ms] 3. Translation request: Google Translate, 1 request(s), 436 chars, 17 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\last_llm_request_sent.txt
+OCR processing completed in 914ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 600ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'R use Al translation (ChatGPT, Gemini, local models ... ) at any time in "Settings".Text recognition: OneOCR. Translation service: Google Translate. You can switch the OCR method or and would like to support developmnk you! No area selected * You haven't selected a translation area yet. Click "Select Area" and drag a box around the game's
+text. nese banks): Next steps 1. (Optional) Click "Select Application" to pick the game window.' -> 'R sử dụng bản dịch Al (ChatGPT, Gemini, mô hình địa phương ...) bất cứ lúc nào trong "Cài đặt". Nhận dạng văn bản: OneOCR. Dịch vụ dịch thuật: Google Translate. Bạn có thể chuyển đổi phương thức OCR hoặc muốn hỗ trợ bạn phát triển! Chưa chọn vùng * Bạn chưa chọn vùng dịch. Nhấp vào "Chọn khu vực" và kéo hộp xung quanh văn bản của trò chơi. ngân hàng Trung Quốc): Các bước tiếp theo 1. (Tùy chọn) Nhấp vào "Chọn Ứng dụng" để chọn cửa sổ trò chơi.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"R use Al translation (ChatGPT, Gemini, local models .....
+[OCR timing 06:28:24.972 +2632ms] 4. Translation received: 1449 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Saved config to D:\a\wtranslu\wtranslu\upstream\RSTGameTranslation\config.txt
+Translation took 1539 ms
+[OCR timing 06:28:24.992 +2652ms] 5. Translation shown: translation step took 1539 ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+[OCR timing 06:28:25.950 +0ms] 1. New text from OCR: OCR took 705 ms; waiting 0.20s for it to settle: '- Translate intoVietnamese - Tiếng Việt …'
+[OCR timing 06:28:25.951 +1ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 707ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+[OCR timing 06:28:26.931 +981ms] 2. Text settled
+Character-level processing (scale=3.00): 44 characters → 25 blocks
+All text objects cleared
+OCR JSON processing took 100 ms
+[OCR timing 06:28:27.020 +1069ms] 3a. Waiting for the prefetch of this text
+OCR processing completed in 794ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'R use Al translation (ChatGPT, Gemini, local models ... ) at any time in "Settings".Text recognition: OneOCR. Translation service: Google Translate. You can switch the OCR method or and would like to support developmnk you! Translation is working! * Shortcuts: ALT+G start/stop, ALT+F show/hide the overlay, ALT+C open the ChatBox (history).
+Change them in "Settings" - "HotKeys". Next steps 1. (Optional) Click "Select Application" to pick the game window.' -> 'R sử dụng bản dịch Al (ChatGPT, Gemini, mô hình địa phương ...) bất cứ lúc nào trong "Cài đặt". Nhận dạng văn bản: OneOCR. Dịch vụ dịch thuật: Google Translate. Bạn có thể chuyển đổi phương thức OCR hoặc muốn hỗ trợ bạn phát triển! Bản dịch đang hoạt động! * Phím tắt: ALT+G bắt đầu/dừng, ALT+F hiển thị/ẩn lớp phủ, ALT+C mở ChatBox (lịch sử). Thay đổi chúng trong "Cài đặt" - "Phím nóng". Các bước tiếp theo 1. (Tùy chọn) Nhấp vào "Chọn ứng dụng" để chọn cửa sổ trò chơi.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"R use Al translation (ChatGPT, Gemini, local models .....
+[OCR timing 06:28:27.240 +1289ms] 2b. Prefetch done: 1289 ms, 1 translation(s) cached
+[OCR timing 06:28:27.248 +1297ms] 3. Translation served from cache: 18 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Translation took 230 ms
+[OCR timing 06:28:27.251 +1300ms] 5. Translation shown: translation step took 230 ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 660ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 658ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+[OCR timing 06:28:33.084 +0ms] 1. New text from OCR: OCR took 605 ms; waiting 0.20s for it to settle: '- Translate intoVietnamese - Tiếng Việt …'
+OCR processing completed in 606ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+[OCR timing 06:28:33.958 +874ms] 2. Text settled
+Character-level processing (scale=3.00): 42 characters → 24 blocks
+All text objects cleared
+OCR JSON processing took 76 ms
+[OCR timing 06:28:34.041 +957ms] 3. Translation served from cache: 24 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Translation took 13 ms
+[OCR timing 06:28:34.045 +961ms] 5. Translation shown: translation step took 13 ms
+OCR processing completed in 693ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 632ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 603ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 600ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 600ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 600ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 602ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+OCR processing completed in 604ms
