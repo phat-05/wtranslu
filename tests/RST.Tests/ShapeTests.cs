@@ -53,6 +53,25 @@ public class TextShapeAnalyzerTests
         Assert.Equal(spec.GetProperty("gradient").GetBoolean(), shape.GradientTop != null);
     }
 
+    [Theory]
+    [MemberData(nameof(Names))]
+    public void Font_size_from_the_letters_is_within_12_percent(string name)
+    {
+        var (px, w, h, spec) = Load(name);
+        if (spec.GetProperty("lines").GetInt32() != 1)
+            return;
+        var box = spec.GetProperty("box").EnumerateArray().Select(v => v.GetInt32()).ToArray();
+        var style = TextColorAnalyzer.Analyze(px, w, h, w * 4, box[0], box[1], box[2], box[3])!;
+        // A wrong size given on purpose: the letters must win
+        var shape = TextShapeAnalyzer.Analyze(px, w, h, w * 4, box[0], box[1], box[2], box[3], style, 40, 1,
+            spec.GetProperty("text").GetString())!;
+        double truth = spec.GetProperty("font_px").GetDouble();
+        _out.WriteLine($"{name}: {shape.FontPxFromInk:F1} px (game {truth})");
+        // Small monospaced text is the worst case (short capitals): -11% at 16 px
+        Assert.InRange(shape.FontPxFromInk, truth * 0.88, truth * 1.12);
+        Assert.Equal(spec.GetProperty("bold").GetBoolean(), shape.Bold);
+    }
+
     [Fact]
     public void Gradient_colours_are_close_to_the_game()
     {

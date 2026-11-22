@@ -120,7 +120,8 @@ namespace RSTGameTranslation
         /// </summary>
         /// <param name="fontPx">The game's font size in bitmap pixels (0 = unknown), for bold detection.</param>
         /// <param name="lineCount">Lines of text in the box, for gradient detection.</param>
-        public static RSTGameTranslation.Layout.TextStyle? AnalyzeTextStyle(Bitmap bitmap, Rectangle textBox, double fontPx = 0, int lineCount = 1)
+        /// <param name="text">OCR text of the box: with one line, its font size is measured on the letters.</param>
+        public static RSTGameTranslation.Layout.TextStyle? AnalyzeTextStyle(Bitmap bitmap, Rectangle textBox, double fontPx = 0, int lineCount = 1, string? text = null)
         {
             var image = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
             int margin = Math.Clamp(Math.Min(textBox.Width, textBox.Height) / 4, 3, 12);
@@ -136,7 +137,7 @@ namespace RSTGameTranslation
             {
                 // Bold, italic and gradient fill, read from the same pixels
                 style.Shape = RSTGameTranslation.Layout.TextShapeAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
-                    textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height, style, fontPx, lineCount);
+                    textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height, style, fontPx, lineCount, text);
             }
             return style;
         }

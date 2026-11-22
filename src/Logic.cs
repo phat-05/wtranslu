@@ -1285,7 +1285,15 @@ namespace RSTGameTranslation
                             styleFontPx = sourceFontSize > 0
                                 ? sourceFontSize * dpiScaleY
                                 : RSTGameTranslation.Layout.FontSizeEstimator.FromLine(bitmapHeight / (double)styleLines, text);
-                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox, styleFontPx, styleLines);
+                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox, styleFontPx, styleLines, text);
+                            // One line: the height of its letters gives the font size more exactly than the
+                            // OCR box, whose margins vary
+                            if (textStyle?.Shape?.FontPxFromInk > 0)
+                            {
+                                OcrTiming.Metrics.Write("font_px_from_ink", $"{textStyle.Shape.FontPxFromInk:F1}|{styleFontPx:F1}|{text}");
+                                styleFontPx = textStyle.Shape.FontPxFromInk;
+                                sourceFontSize = styleFontPx / dpiScaleY;
+                            }
                         }
                         if (textStyle != null)
                         {

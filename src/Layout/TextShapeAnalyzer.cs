@@ -22,6 +22,8 @@ namespace RSTGameTranslation.Layout
         public float[]? Coverage { get; set; }
         public int CoverageWidth { get; init; }
         public int CoverageHeight { get; init; }
+        // Font size measured on the letters of a single line (pixels; 0 = not measured)
+        public double FontPxFromInk { get; init; }
 
         public override string ToString() =>
             $"{(Bold ? "bold" : "regular")} {(Italic ? "italic" : "upright")} stroke={StrokeEm:F3} slant={SlantScore:F2}" +
@@ -55,8 +57,11 @@ namespace RSTGameTranslation.Layout
 
         /// <param name="fontPx">Font size of the text in pixels of this image (0 = unknown: no bold).</param>
         /// <param name="lineCount">Lines of text in the box, for the gradient (measured per line).</param>
+        /// <param name="text">The OCR text: with one line, the font size is measured on the letters
+        /// themselves (see FontPxFromInk) and used instead of fontPx.</param>
         public static TextShape? Analyze(ReadOnlySpan<byte> bgra, int imageWidth, int imageHeight, int stride,
-                                         int boxX, int boxY, int boxW, int boxH, TextStyle style, double fontPx, int lineCount = 1)
+                                         int boxX, int boxY, int boxW, int boxH, TextStyle style, double fontPx, int lineCount = 1,
+                                         string? text = null)
         {
             int x0 = Math.Max(0, boxX), y0 = Math.Max(0, boxY);
             int x1 = Math.Min(imageWidth, boxX + boxW), y1 = Math.Min(imageHeight, boxY + boxH);
@@ -84,6 +89,15 @@ namespace RSTGameTranslation.Layout
             for (int y = 0; y < h; y++)
                 rowFill[y] = top == null ? style.Fill : GradientAt(top.Value, bottom!.Value, y, h, Math.Max(1, lineCount));
 
+            // Font size from the height of the letters themselves, when the box holds one whole line
+            double inkPx = 0;
+            if (text != null && lineCount <= 1)
+            {
+                inkPx = FontPxFromInk(pixels, w, h, rowBackground, style.Fill, effect, text);
+                if (inkPx > 0)
+                    fontPx = inkPx;
+            }
+
             var coverage = Coverage(pixels, w, h, rowFill, rowBackground, effect);
             double strokePx = StrokeWidth(coverage, w, h);
             double strokeEm = fontPx > 0 ? strokePx / fontPx : 0;
@@ -101,7 +115,45 @@ namespace RSTGameTranslation.Layout
                 Coverage = Array.ConvertAll(coverage, v => (float)v),
                 CoverageWidth = w,
                 CoverageHeight = h,
+                FontPxFromInk = inkPx,
             };
+        }
+
+        /// <summary>
+        /// Font size (pixels) of one line of text from the rows its letters cover: from the top of
+        /// the tallest letter to the bottom of the lowest, divided by how tall these letters are in
+        /// em (FontSizeEstimator.InkHeightEm). Independent of how much room the OCR engine leaves
+        /// around the line, which varies (a 24 px name got a 28 px box, so the box said 30 px).
+        /// Letters are pixels clearly unlike the background and unlike the outline/shadow colour, in
+        /// any colour (a word in another colour can hold the only descender). 0 when the letters touch
+        /// the top or bottom of the box (cut off) or are too few pixels tall.
+        /// </summary>
+        public static double FontPxFromInk(Rgb[] pixels, int w, int h, Rgb[] rowBackground, Rgb fill, Rgb? effect, string text)
+        {
+            int top = -1, bottom = -1;
+            for (int y = 0; y < h; y++)
+            {
+                var bg = rowBackground[y];
+                double inkDistance = Math.Max(40, fill.DistanceTo(bg) * 0.35);
+                int count = 0;
+                for (int x = 0; x < w && count < 2; x++)
+                {
+                    var p = pixels[y * w + x];
+                    if (p.DistanceTo(bg) <= inkDistance)
+                        continue;
+                    if (effect != null && p.DistanceTo(effect.Value) < 60)
+                        continue;
+                    count++;
+                }
+                if (count >= 2)
+                {
+                    if (top < 0) top = y;
+                    bottom = y;
+                }
+            }
+            if (top <= 0 || bottom >= h - 1 || bottom - top + 1 < 6)
+                return 0;
+            return (bottom - top + 1) / FontSizeEstimator.InkHeightEm(text);
         }
 
         /// <summary>

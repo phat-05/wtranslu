@@ -42,7 +42,7 @@ def canvas(f, lines, bg):
     return Image.fromarray(arr.astype(np.uint8))
 
 
-def save(name, im, bg, px, lines, expect, fill_mask=None):
+def save(name, im, bg, px, lines, expect, text=""):
     arr = np.asarray(im).astype(np.int32)
     bgarr = np.asarray(canvas_like(im, bg)).astype(np.int32)
     ink = np.abs(arr - bgarr).sum(2) > 30
@@ -55,7 +55,7 @@ def save(name, im, bg, px, lines, expect, fill_mask=None):
     with gzip.GzipFile(os.path.join(OUT, name + ".bgra.gz"), "wb", mtime=0) as fz:
         fz.write(struct.pack("<ii", w, h) + bgra.tobytes())
     im.save(os.path.join(OUT, "preview", name + ".png"))
-    return {"name": name, "box": box, "font_px": px, "lines": lines, **expect}
+    return {"name": name, "box": box, "font_px": px, "lines": lines, "text": text, **expect}
 
 
 _bg_cache = {}
@@ -86,7 +86,7 @@ def plain(name, path, px, fg, bg, expect, text=LINE, stroke=0, stroke_fill=None,
         ImageDraw.Draw(layer).text((20 + dx, 15 + dy), text, font=f, fill=alpha)
         im = Image.composite(Image.new("RGB", im.size, colour), im, layer)
     ImageDraw.Draw(im).text((20 + stroke, 15), text, font=f, fill=fg, stroke_width=stroke, stroke_fill=stroke_fill)
-    return save(name, im, bg, px, 1, expect)
+    return save(name, im, bg, px, 1, expect, text)
 
 
 def gradient(name, path, px, top, bottom, bg, expect, text="The Lighthouse Awakens"):
@@ -102,7 +102,7 @@ def gradient(name, path, px, top, bottom, bg, expect, text="The Lighthouse Awake
         t = min(1, max(0, (y - y0) / (y1 - y0)))
         grad[y, :, :] = np.array(top) + (np.array(bottom) - np.array(top)) * t
     im = Image.composite(Image.fromarray(grad.astype(np.uint8)), im, mask)
-    return save(name, im, bg, px, 1, expect)
+    return save(name, im, bg, px, 1, expect, text)
 
 
 def two_lines(name, path, px, colours, bg, expect):
@@ -112,7 +112,7 @@ def two_lines(name, path, px, colours, bg, expect):
     d = ImageDraw.Draw(im)
     for i, (t, c) in enumerate(zip(texts, colours)):
         d.text((20, 15 + i * px * 1.25), t, font=f, fill=c)
-    return save(name, im, bg, px, 2, expect)
+    return save(name, im, bg, px, 2, expect, " ".join(texts))
 
 
 def red_word(name, path, px, bg, expect):
@@ -124,7 +124,7 @@ def red_word(name, path, px, bg, expect):
     for t, c in parts:
         d.text((x, 15), t, font=f, fill=c)
         x += f.getlength(t)
-    return save(name, im, bg, px, 1, expect)
+    return save(name, im, bg, px, 1, expect, "".join(p for p, _ in parts))
 
 
 def main():
