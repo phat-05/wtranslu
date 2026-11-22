@@ -51,6 +51,8 @@ namespace RSTGameTranslation.Layout
         // True when the game's text had no outline but its colour is too close to the background to read
         // without one, so an outline was added
         public bool EffectAdded { get; init; }
+        // Background of each row of the box when it changes from top to bottom (null = Background everywhere)
+        public Rgb[]? RowBackground { get; init; }
         // Bold / italic / gradient fill of the letters (TextShapeAnalyzer), null when not measured
         public TextShape? Shape { get; set; }
     }
@@ -81,6 +83,9 @@ namespace RSTGameTranslation.Layout
         private const double MinClusterShare = 0.12;
         private const double ReadableContrast = 2.0;
 
+        // Diagnostics for tuning (tests / tools only)
+        public static Action<string>? Trace;
+
         public static TextStyle? Analyze(ReadOnlySpan<byte> bgra, int imageWidth, int imageHeight, int stride,
                                          int boxX, int boxY, int boxW, int boxH)
         {
@@ -107,8 +112,14 @@ namespace RSTGameTranslation.Layout
 
             Rgb background = Dominant(ring.Count > 0 ? ring : inside.ToList());
 
+            // A background that changes from top to bottom (sky, gradient panel): compare each row with
+            // the background at its height, read above and below the box, not with one colour
+            var rowBackground = VerticalBackground(bgra, stride, rx0, rx1, ry0, ry1, y0, y1, background);
+
             // 2. ink: far enough from the background (threshold adapts to the strongest contrast)
-            var distances = inside.Select(p => p.DistanceTo(background)).ToArray();
+            var distances = new double[inside.Length];
+            for (int i = 0; i < inside.Length; i++)
+                distances[i] = inside[i].DistanceTo(rowBackground[i / w]);
             double strongest = distances.OrderBy(d => d).ElementAt((int)((distances.Length - 1) * 0.98));
             double threshold = Math.Max(MinInkDistance, strongest * InkContrastShare);
             var isInk = distances.Select(d => d > threshold).ToArray();
@@ -134,6 +145,7 @@ namespace RSTGameTranslation.Layout
             // Anti-aliased letter edges blend the text colour into the background: a group of colours
             // lying between the two is the edge of the letters, not an outline or a shadow
             bool edgeBlend = false;
+            Trace?.Invoke($"bg {background} ink {ink.Count}/{inside.Length} thr {threshold:F0} a {a} n={countA} b {b} n={countB} two={twoColours}");
             if (twoColours && (IsBetween(a, b, background) || IsBetween(b, a, background)))
             {
                 twoColours = false;
@@ -170,26 +182,32 @@ namespace RSTGameTranslation.Layout
                 double offX = stats[1].Cx - stats[0].Cx, offY = stats[1].Cy - stats[0].Cy;
                 double offset = Math.Sqrt(offX * offX + offY * offY);
                 double maxEffectOffset = Math.Max(3, h * 0.15);
+                Trace?.Invoke($"bg {background} a {a} n={countA} enc={stats[0].Enclosed:F2} | b {b} n={countB} enc={stats[1].Enclosed:F2} | off {offX:F2},{offY:F2}");
                 int fillIdx, effectIdx;
 
-                if (Math.Abs(stats[0].Enclosed - stats[1].Enclosed) > 0.25 && offset <= maxEffectOffset)
+                // A shadow is the fill's shape shifted by a few pixels: some shift of one group lands
+                // on (nearly) all pixels of the other. No shift explains an outline (it surrounds the
+                // letters on every side) or a word in another colour. Centres are no help on long
+                // lines: letters of different shapes move the centre of an outline by several pixels
+                var shiftA = ShadowShift(ink, label, w, h, fillIdx: 0);
+                var shiftB = ShadowShift(ink, label, w, h, fillIdx: 1);
+                var shift = shiftA.Score >= shiftB.Score ? shiftA : shiftB;
+                int shadowFill = shiftA.Score >= shiftB.Score ? 0 : 1;
+                Trace?.Invoke($"shadow shift {shift.Dx},{shift.Dy} score {shift.Score:F2} (fill {shadowFill}); other {(shadowFill == 0 ? shiftB : shiftA).Score:F2}");
+                if (shift.Score >= 0.35)
+                {
+                    fillIdx = shadowFill;
+                    effectIdx = 1 - fillIdx;
+                    effect = TextEffectKind.Shadow;
+                    dx = shift.Dx;
+                    dy = shift.Dy;
+                }
+                else if (Math.Abs(stats[0].Enclosed - stats[1].Enclosed) > 0.25)
                 {
                     // Outline: the fill is the group enclosed by ink
                     fillIdx = stats[0].Enclosed > stats[1].Enclosed ? 0 : 1;
                     effectIdx = 1 - fillIdx;
                     effect = TextEffectKind.Outline;
-                }
-                else if (offset > 0.6 && offset <= maxEffectOffset)
-                {
-                    // Shadow: the shifted copy; the fill is the brighter-contrasting, on-top group
-                    // (the shadow is partly hidden behind the fill, so it is usually the smaller one)
-                    fillIdx = countA >= countB ? 0 : 1;
-                    effectIdx = 1 - fillIdx;
-                    effect = TextEffectKind.Shadow;
-                    double sx = fillIdx == 0 ? offX : -offX, sy = fillIdx == 0 ? offY : -offY;
-                    // The centroid shift of a partly hidden shadow is about half the real offset
-                    dx = Math.Clamp(sx * 2, -4, 4);
-                    dy = Math.Clamp(sy * 2, -4, 4);
                 }
                 else
                 {
@@ -236,6 +254,7 @@ namespace RSTGameTranslation.Layout
             return new TextStyle
             {
                 Background = background,
+                RowBackground = rowBackground.Any(r => r != background) ? rowBackground : null,
                 Fill = fill,
                 Effect = effect,
                 EffectColor = effectColor,
@@ -329,6 +348,82 @@ namespace RSTGameTranslation.Layout
             if (total < 20 || dark == 0)
                 return (0, default);
             return ((double)dark / total, new Rgb((byte)(r / dark), (byte)(g / dark), (byte)(b / dark)));
+        }
+
+        /// <summary>
+        /// Offset of a drop shadow: the shift that best turns the fill's pixels into the shadow's, and
+        /// how well it does: (shadow pixels on the shifted fill - the others) / shadow pixels, so 1 when
+        /// the shadow is exactly the shifted fill, below 0 when no shift explains it.
+        /// </summary>
+        private static (int Dx, int Dy, double Score) ShadowShift(List<int> ink, int[] label, int w, int h, int fillIdx)
+        {
+            var isFill = new bool[w * h];
+            var isShadow = new bool[w * h];
+            int shadows = 0;
+            for (int k = 0; k < ink.Count; k++)
+            {
+                if (label[k] == fillIdx) isFill[ink[k]] = true;
+                else { isShadow[ink[k]] = true; shadows++; }
+            }
+            if (shadows < 10)
+                return (0, 0, -1);
+            (int, int) best = (0, 0);
+            double bestScore = -1;
+            for (int dy = -5; dy <= 5; dy++)
+                for (int dx = -5; dx <= 5; dx++)
+                {
+                    if (dx == 0 && dy == 0)
+                        continue;
+                    int hit = 0, miss = 0;
+                    for (int i = 0; i < isShadow.Length; i++)
+                    {
+                        if (!isShadow[i])
+                            continue;
+                        int x = i % w - dx, y = i / w - dy;
+                        if (x >= 0 && y >= 0 && x < w && y < h && isFill[y * w + x]) hit++;
+                        else miss++;
+                    }
+                    // Prefer the smaller shift on ties (a 2 px shadow also overlaps a 4 px shift)
+                    double score = (hit - miss) / (double)shadows - 0.01 * Math.Sqrt(dx * dx + dy * dy);
+                    if (score > bestScore)
+                    {
+                        bestScore = score;
+                        best = (dx, dy);
+                    }
+                }
+            return (best.Item1, best.Item2, bestScore);
+        }
+
+        /// <summary>
+        /// Background colour of every row of the box: one colour, unless the strips above and below
+        /// the box differ clearly (a vertical gradient); then the colour at each height between them.
+        /// </summary>
+        private static Rgb[] VerticalBackground(ReadOnlySpan<byte> bgra, int stride, int rx0, int rx1, int ry0, int ry1,
+                                                int y0, int y1, Rgb background)
+        {
+            var rows = new Rgb[y1 - y0];
+            Array.Fill(rows, background);
+            if (y0 - ry0 < 2 || ry1 - y1 < 2)
+                return rows;
+            var above = new List<Rgb>();
+            var below = new List<Rgb>();
+            for (int x = rx0; x < rx1; x++)
+            {
+                for (int y = ry0; y < y0; y++) above.Add(Pixel(bgra, stride, x, y));
+                for (int y = y1; y < ry1; y++) below.Add(Pixel(bgra, stride, x, y));
+            }
+            Rgb top = Dominant(above), bottom = Dominant(below);
+            if (top.DistanceTo(bottom) < 40)
+                return rows;
+            double yTop = (ry0 + y0) / 2.0, yBottom = (y1 + ry1) / 2.0;
+            for (int y = y0; y < y1; y++)
+            {
+                double t = Math.Clamp((y - yTop) / (yBottom - yTop), 0, 1);
+                rows[y - y0] = new Rgb((byte)Math.Round(top.R + (bottom.R - top.R) * t),
+                                       (byte)Math.Round(top.G + (bottom.G - top.G) * t),
+                                       (byte)Math.Round(top.B + (bottom.B - top.B) * t));
+            }
+            return rows;
         }
 
         // Whether c lies (about) on the way from a to b in colour space: a mix of the two

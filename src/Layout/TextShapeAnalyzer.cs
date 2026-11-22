@@ -73,14 +73,18 @@ namespace RSTGameTranslation.Layout
                 }
 
             Rgb? effect = style.Effect != TextEffectKind.None && !style.EffectAdded ? style.EffectColor : null;
-            var (top, bottom) = FindGradient(pixels, w, h, style.Fill, style.Background, effect, Math.Max(1, lineCount));
+            // Background per row: the analyser's when it varies down the box (same box), else one colour
+            var rowBackground = new Rgb[h];
+            for (int y = 0; y < h; y++)
+                rowBackground[y] = style.RowBackground != null && style.RowBackground.Length == h ? style.RowBackground[y] : style.Background;
+            var (top, bottom) = FindGradient(pixels, w, h, style.Fill, rowBackground, effect, Math.Max(1, lineCount));
 
             // Fill colour of every row: the gradient's colour at that height, else the plain fill
             var rowFill = new Rgb[h];
             for (int y = 0; y < h; y++)
                 rowFill[y] = top == null ? style.Fill : GradientAt(top.Value, bottom!.Value, y, h, Math.Max(1, lineCount));
 
-            var coverage = Coverage(pixels, w, h, rowFill, style.Background, effect);
+            var coverage = Coverage(pixels, w, h, rowFill, rowBackground, effect);
             double strokePx = StrokeWidth(coverage, w, h);
             double strokeEm = fontPx > 0 ? strokePx / fontPx : 0;
             double slant = SlantScore(coverage, w, h, out int edgePixels);
@@ -104,12 +108,12 @@ namespace RSTGameTranslation.Layout
         /// How much of every pixel is the fill colour (0..1): its position on the way from the
         /// background (and from the outline/shadow colour, when there is one) to the fill colour of its row.
         /// </summary>
-        public static double[] Coverage(Rgb[] pixels, int w, int h, Rgb[] rowFill, Rgb background, Rgb? effect)
+        public static double[] Coverage(Rgb[] pixels, int w, int h, Rgb[] rowFill, Rgb[] rowBackground, Rgb? effect)
         {
             var c = new double[w * h];
             for (int y = 0; y < h; y++)
             {
-                Rgb fill = rowFill[y];
+                Rgb fill = rowFill[y], background = rowBackground[y];
                 for (int x = 0; x < w; x++)
                 {
                     var p = pixels[y * w + x];
@@ -202,9 +206,8 @@ namespace RSTGameTranslation.Layout
         /// the core of the letters (the ink pixels farthest from the background); then a straight-line
         /// fit of that colour against the height within the line.
         /// </summary>
-        public static (Rgb? Top, Rgb? Bottom) FindGradient(Rgb[] pixels, int w, int h, Rgb fill, Rgb background, Rgb? effect, int lineCount)
+        public static (Rgb? Top, Rgb? Bottom) FindGradient(Rgb[] pixels, int w, int h, Rgb fill, Rgb[] rowBackground, Rgb? effect, int lineCount)
         {
-            double inkDistance = Math.Max(40, fill.DistanceTo(background) * 0.35);
             var samples = new List<(double Pos, Rgb Colour, int Weight)>();
             double band = h / (double)lineCount;
             for (int line = 0; line < lineCount; line++)
@@ -213,6 +216,8 @@ namespace RSTGameTranslation.Layout
                 var rows = new List<(int Y, Rgb Colour, int N)>();
                 for (int y = top; y < bottom; y++)
                 {
+                    var background = rowBackground[y];
+                    double inkDistance = Math.Max(40, fill.DistanceTo(background) * 0.35);
                     var ink = new List<(double D, Rgb P)>();
                     for (int x = 0; x < w; x++)
                     {

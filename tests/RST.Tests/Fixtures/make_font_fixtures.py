@@ -32,7 +32,7 @@ def save(name, path):
     w, h = int(f.getlength(TEXT)) + 16, int(PX * 1.6)
     im = Image.new("L", (w, h), 0)
     ImageDraw.Draw(im).text((8, int(PX * 0.2)), TEXT, font=f, fill=255)
-    with gzip.open(os.path.join(OUT, name + ".cov.gz"), "wb") as fz:
+    with gzip.GzipFile(os.path.join(OUT, name + ".cov.gz"), "wb", mtime=0) as fz:
         fz.write(struct.pack("<ii", w, h) + np.asarray(im, np.uint8).tobytes())
 
 

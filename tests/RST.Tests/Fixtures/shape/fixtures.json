@@ -137,7 +137,25 @@
   "lines": 1,
   "bold": true,
   "italic": false,
-  "gradient": false
+  "gradient": false,
+  "effect": "Outline",
+  "fill": "#FFFFFF"
+ },
+ {
+  "name": "title_shadow",
+  "box": [
+   18,
+   17,
+   354,
+   37
+  ],
+  "font_px": 30,
+  "lines": 1,
+  "bold": true,
+  "italic": false,
+  "gradient": false,
+  "effect": "Shadow",
+  "fill": "#FFD678"
  },
  {
   "name": "gradient_serif_bold",

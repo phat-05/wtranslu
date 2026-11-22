@@ -52,7 +52,7 @@ def save(name, im, bg, px, lines, expect, fill_mask=None):
     h, w = arr.shape[:2]
     bgra = np.zeros((h, w, 4), np.uint8)
     bgra[:, :, 0], bgra[:, :, 1], bgra[:, :, 2], bgra[:, :, 3] = arr[:, :, 2], arr[:, :, 1], arr[:, :, 0], 255
-    with gzip.open(os.path.join(OUT, name + ".bgra.gz"), "wb") as fz:
+    with gzip.GzipFile(os.path.join(OUT, name + ".bgra.gz"), "wb", mtime=0) as fz:
         fz.write(struct.pack("<ii", w, h) + bgra.tobytes())
     im.save(os.path.join(OUT, "preview", name + ".png"))
     return {"name": name, "box": box, "font_px": px, "lines": lines, **expect}
@@ -76,9 +76,15 @@ def canvas_sized(size, bg):
     return Image.fromarray(arr.astype(np.uint8))
 
 
-def plain(name, path, px, fg, bg, expect, text=LINE, stroke=0, stroke_fill=None):
+def plain(name, path, px, fg, bg, expect, text=LINE, stroke=0, stroke_fill=None, shadow=None):
     f = font(path, px)
     im = canvas(f, [text], bg)
+    if shadow:
+        # (dx, dy, colour, alpha) drawn under the text, as GDI+ games draw a drop shadow
+        dx, dy, colour, alpha = shadow
+        layer = Image.new("L", im.size, 0)
+        ImageDraw.Draw(layer).text((20 + dx, 15 + dy), text, font=f, fill=alpha)
+        im = Image.composite(Image.new("RGB", im.size, colour), im, layer)
     ImageDraw.Draw(im).text((20 + stroke, 15), text, font=f, fill=fg, stroke_width=stroke, stroke_fill=stroke_fill)
     return save(name, im, bg, px, 1, expect)
 
@@ -134,8 +140,12 @@ def main():
         plain("carlito_bold_italic", "crosextra/Carlito-BoldItalic.ttf", 30, (255, 200, 60), NAVY, {**N, "bold": True, "italic": True}),
         plain("mono_regular_small", "liberation/LiberationMono-Regular.ttf", 16, WHITE, NAVY, N, text="Lv.70  776,256  2026-11-15 14:39:01 HD"),
         plain("mono_bold_small", "liberation/LiberationMono-Bold.ttf", 18, WHITE, NAVY, {**N, "bold": True}, text="Lv.70  776,256  2026-11-15 14:39:01 HD"),
-        plain("outlined_bold", "liberation/LiberationSans-Bold.ttf", 30, WHITE, ((40, 60, 110), (220, 140, 90)), {**N, "bold": True},
+        plain("outlined_bold", "liberation/LiberationSans-Bold.ttf", 30, WHITE, ((40, 60, 110), (220, 140, 90)),
+              {**N, "bold": True, "effect": "Outline", "fill": "#FFFFFF"},
               text="Hold on to the mast, the storm is here!", stroke=2, stroke_fill=(0, 0, 0)),
+        plain("title_shadow", "liberation/LiberationSerif-Bold.ttf", 30, (255, 214, 120), (56, 67, 108),
+              {**N, "bold": True, "effect": "Shadow", "fill": "#FFD678"},
+              text="Chapter 2: The Lighthouse", shadow=(3, 3, (0, 0, 0), 200)),
         gradient("gradient_serif_bold", "liberation/LiberationSerif-Bold.ttf", 36, (255, 244, 170), (225, 110, 25), NAVY,
                  {**N, "bold": True, "gradient": True, "top": "#FFF4AA", "bottom": "#E16E19"}),
         two_lines("two_lines_two_colours", "liberation/LiberationSans-Regular.ttf", 24, [(255, 200, 60), WHITE], NAVY, N),
