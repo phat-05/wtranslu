@@ -1,0 +1,8 @@
+# A screen laid out like Wuthering Waves (MockGame --layout wuwa): lines type out letter by letter at
+# the bottom centre, answer choices on the right, UID and a minimap place name always on screen.
+# RST must find the "game" by itself (no window chosen) and translate only dialogue and choices.
+5000|wuwa|Yangyang|The Resonators gathered at the edge of Jinzhou before dawn.
+5000|wuwa|Rover|I can hear an echo of something old beneath the city.
+5000|wuwa_choices||Let's go together. / I'll go alone. / Tell me more about the Tacet Discord.
+5000|wuwa|Yangyang|Then we leave now. Stay close to me.
+5000|wuwa|Rover|I can hear an echo of something old beneath the city.

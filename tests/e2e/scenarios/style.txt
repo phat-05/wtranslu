@@ -7,5 +7,7 @@
 6000|subtitle||The storm is coming. Hold on to the mast!
 6000|hint||Tip: press Space to skip the cutscene.
 6000|hud||Lv.70  776,256  2026-11-15 14:39:01 HD
+6000|gradient||The Lighthouse Awakens
+6000|centered||The tide rises with the moon. / Every sailor knows its song.
 6000|dialogue|Old Fisherman|The {#60C0FF:blue door} opens only for the {#80FF80:green lantern}.
 6000|dialogue|Young Sailor|Captain, the merchant wants twelve gold coins for the map.

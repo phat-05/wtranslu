@@ -25,6 +25,8 @@ namespace RSTGameTranslation
         public static event EventHandler? ClearAreasRequested;
         public static event EventHandler? RetryTranslationRequested;
         public static event EventHandler? ToggleExcludeRegionsRequested;
+        // A known game (Wuthering Waves): switch between its dialogue areas and the full screen
+        public static event EventHandler? GameModeToggleRequested;
         
         #endregion
         
@@ -92,6 +94,7 @@ namespace RSTGameTranslation
             ("Swap Languages", () => SwapLanguagesRequested?.Invoke(null, EventArgs.Empty)),
             ("Retry Translation", () => RetryTranslationRequested?.Invoke(null, EventArgs.Empty)),
             ("Select Exclude Region", () => ToggleExcludeRegionsRequested?.Invoke(null, EventArgs.Empty)),
+            ("Game Mode", () => GameModeToggleRequested?.Invoke(null, EventArgs.Empty)),
         };
 
         private static readonly Dictionary<string, int> _keyCodeMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);

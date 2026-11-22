@@ -14,6 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Real anti-aliased text lines (see Fixtures/make_shape_fixtures.py) -->
+    <None Include="Fixtures\shape\*.bgra.gz;Fixtures\shape\fixtures.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\fonts\*.cov.gz;Fixtures\fonts\fixtures.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\windows\*.bgra.gz;Fixtures\windows\fixtures.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />

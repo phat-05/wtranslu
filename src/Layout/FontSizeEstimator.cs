@@ -24,7 +24,9 @@ namespace RSTGameTranslation.Layout
         public const double WindowsOcrPaddingEm = 0.1;
 
         // Q and J only dip below the line in some fonts, by a hair: not counted
-        private const string Descenders = "gjpqy,;()[]{}|/";
+        private const string Descenders = "gjpqy()[]{}|/";
+        // Commas and semicolons dip below the line about half as far as g, p, y
+        private const string ShortDescenders = ",;";
         private const string Ascenders = "bdfhiklt0123456789'\"!?";
 
         /// <summary>Font size (same unit as boxHeight) of one horizontal line of text.</summary>
@@ -54,21 +56,42 @@ namespace RSTGameTranslation.Layout
         /// <summary>Height of the ink of these letters, as a fraction of the font size.</summary>
         public static double InkHeightEm(string text)
         {
-            bool descender = false, tall = false;
+            bool descender = false, shortDescender = false, tall = false;
             foreach (char c in text)
             {
                 if (IsCjk(c))
                     return 0.92; // CJK glyphs fill most of the em square
                 if (Descenders.IndexOf(c) >= 0)
                     descender = true;
+                if (ShortDescenders.IndexOf(c) >= 0)
+                    shortDescender = true;
                 if (char.IsUpper(c) || Ascenders.IndexOf(c) >= 0 || IsAccented(c))
                     tall = true;
             }
             if (descender)
                 return 0.93;   // ascender/cap top down to descender bottom
+            if (shortDescender)
+                return tall ? 0.84 : 0.62; // down to the tail of a comma
             if (tall)
                 return 0.73;   // cap/ascender height down to the baseline
             return 0.52;       // x-height only ("use", "nor")
+        }
+
+        /// <summary>
+        /// Height of the ink of these letters as a fraction of the font size, for measuring the letters
+        /// themselves on screen. Real fonts reach a little further than the box-based figures above:
+        /// on Windows-rendered Segoe UI, Georgia and Bahnschrift text, ascender top to descender
+        /// bottom is about 0.97 em and capital/ascender height about 0.745 em.
+        /// </summary>
+        public static double LetterHeightEm(string text)
+        {
+            double em = InkHeightEm(text);
+            return em switch
+            {
+                0.93 => 0.97,
+                0.73 => 0.745,
+                _ => em,
+            };
         }
 
         // Lowercase letters with marks above (é, ô, ữ) reach ascender height

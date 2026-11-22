@@ -853,6 +853,10 @@ namespace RSTGameTranslation
             if (string.IsNullOrWhiteSpace(text))
                 return (true, string.Empty);
 
+            // A known game's character name on its own line: the game's own text stays visible
+            if (RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true)
+                return (true, string.Empty);
+
             var ignoreSet = ConfigManager.Instance.GetIgnorePhraseSet();
             if (ignoreSet.Phrases.Count == 0)
                 return (false, text); // No phrases to check, keep the text as is
@@ -1071,19 +1075,24 @@ namespace RSTGameTranslation
                             int lineCount = item.TryGetProperty("line_count", out JsonElement lineCountElement) && lineCountElement.ValueKind == JsonValueKind.Number
                                 ? Math.Max(1, lineCountElement.GetInt32())
                                 : 1;
+                            string? align = item.TryGetProperty("align", out JsonElement alignElement) && alignElement.ValueKind == JsonValueKind.String
+                                ? alignElement.GetString()
+                                : null;
+                            bool listItem = item.TryGetProperty("list_item", out JsonElement listElement) && listElement.ValueKind == JsonValueKind.True;
 
                             if (autoMergeEnabled)
                             {
                                 int? bubbleId = item.TryGetProperty("bubble_id", out JsonElement bubbleElement) && bubbleElement.ValueKind == JsonValueKind.Number
                                     ? bubbleElement.GetInt32()
                                     : null;
-                                tempBlocks.Add(new TempTextBlock { Text = text, X = x, Y = y, Width = width, Height = height, Confidence = confidence, BubbleId = bubbleId, FontPx = fontPx, LineCount = lineCount });
+                                tempBlocks.Add(new TempTextBlock { Text = text, X = x, Y = y, Width = width, Height = height, Confidence = confidence, BubbleId = bubbleId, FontPx = fontPx, LineCount = lineCount, Align = align, ListItem = listItem });
                             }
                             else
                             {
                                 // OCR boxes are in capture pixels; the overlay canvas is in MonitorWindow DIPs
                                 DpiHelper.GetWindowRenderDpi(MonitorWindow.Instance, out double dpiScaleX, out double dpiScaleY);
-                                CreateTextObjectAtPosition(text, x / dpiScaleX, y / dpiScaleY, width / dpiScaleX, height / dpiScaleY, confidence, sourceBitmap, fontPx / dpiScaleY, lineCount);
+                                CreateTextObjectAtPosition(text, x / dpiScaleX, y / dpiScaleY, width / dpiScaleX, height / dpiScaleY, confidence, sourceBitmap, fontPx / dpiScaleY, lineCount,
+                                    align == "center", align == "right");
                             }
                         }
                     }
@@ -1105,8 +1114,16 @@ namespace RSTGameTranslation
                             double originalWidth = bounds.MaxX - bounds.MinX;
                             double originalHeight = bounds.MaxY - bounds.MinY;
 
+                            // Lines with a common middle but different left edges: the game centres this text
+                            // One OCR paragraph: as the OCR's line boxes said; several merged: from their boxes
+                            bool centered = block.Lines.Count > 0
+                                ? RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(block.LineBoxes, block.FontPx)
+                                : block.Align == "center";
+                            bool rightAligned = !centered && (block.Lines.Count > 0
+                                ? RSTGameTranslation.Layout.AlignmentDetector.LinesRightAligned(block.LineBoxes, block.FontPx)
+                                : block.Align == "right");
                             CreateTextObjectAtPosition(block.Text, originalX / dpiScaleX, originalY / dpiScaleY,
-                                originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap, block.FontPx / dpiScaleY, block.LineCount);
+                                originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap, block.FontPx / dpiScaleY, block.LineCount, centered, rightAligned);
                         }
                     }
                 }
@@ -1209,7 +1226,7 @@ namespace RSTGameTranslation
 
         // Create a text object at the specified position with confidence info
         // sourceFontSize: the game's font size in DIPs, estimated from the OCR line heights (0 = unknown)
-        private void CreateTextObjectAtPosition(string text, double x, double y, double width, double height, double confidence, Bitmap? sourceBitmap, double sourceFontSize = 0, int sourceLineCount = 1)
+        private void CreateTextObjectAtPosition(string text, double x, double y, double width, double height, double confidence, Bitmap? sourceBitmap, double sourceFontSize = 0, int sourceLineCount = 1, bool centered = false, bool rightAligned = false)
         {
             try
             {
@@ -1218,7 +1235,7 @@ namespace RSTGameTranslation
                 {
                     // Run on UI thread to ensure STA compliance
                     Application.Current.Dispatcher.Invoke(() =>
-                        CreateTextObjectAtPosition(text, x, y, width, height, confidence, sourceBitmap, sourceFontSize, sourceLineCount));
+                        CreateTextObjectAtPosition(text, x, y, width, height, confidence, sourceBitmap, sourceFontSize, sourceLineCount, centered, rightAligned));
                     return;
                 }
 
@@ -1261,6 +1278,8 @@ namespace RSTGameTranslation
                 System.Windows.Media.Imaging.BitmapSource? erasedPatch = null;
                 Rect erasedBounds = Rect.Empty;
                 RSTGameTranslation.Layout.TextStyle? textStyle = null;
+                double styleFontPx = 0;
+                int styleLines = Math.Max(1, sourceLineCount);
                 if (ConfigManager.Instance.IsAutoSetOverlayBackground() && sourceBitmap != null)
                 {
                     try
@@ -1276,14 +1295,26 @@ namespace RSTGameTranslation
 
                         if (ConfigManager.Instance.IsTextStyleFromGameEnabled())
                         {
-                            // Fill, background and outline/shadow read from the game's pixels
-                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox);
+                            // Fill, background, outline/shadow, bold/italic and gradient read from the game's pixels.
+                            // Font size in capture pixels: from the OCR line heights, else from this box
+                            styleFontPx = sourceFontSize > 0
+                                ? sourceFontSize * dpiScaleY
+                                : RSTGameTranslation.Layout.FontSizeEstimator.FromLine(bitmapHeight / (double)styleLines, text);
+                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox, styleFontPx, styleLines, text);
+                            // One line: the height of its letters gives the font size more exactly than the
+                            // OCR box, whose margins vary
+                            if (textStyle?.Shape?.FontPxFromInk > 0)
+                            {
+                                OcrTiming.Metrics.Write("font_px_from_ink", $"{textStyle.Shape.FontPxFromInk:F1}|{styleFontPx:F1}|{text}");
+                                styleFontPx = textStyle.Shape.FontPxFromInk;
+                                sourceFontSize = styleFontPx / dpiScaleY;
+                            }
                         }
                         if (textStyle != null)
                         {
                             bgColor = textStyle.Background.ToMediaColor();
                             textColor = textStyle.Fill.ToMediaColor();
-                            OcrTiming.Metrics.Write("text_style", $"{textStyle.Fill}|{textStyle.Background}|{textStyle.Effect}|{textStyle.EffectColor}|{textStyle.ShadowDx},{textStyle.ShadowDy}|{text}");
+                            OcrTiming.Metrics.Write("text_style", $"{textStyle.Fill}|{textStyle.Background}|{textStyle.Effect}|{textStyle.EffectColor}|{textStyle.ShadowDx},{textStyle.ShadowDy}|{text}|{textStyle.Shape}");
                         }
                         else
                         {
@@ -1292,7 +1323,12 @@ namespace RSTGameTranslation
                         }
 
                         // Original text removed from its own background, shown under the translation
-                        erasedPatch = TextEraser.CreateErasedPatch(sourceBitmap, textBox, bgColor, out var patchPixels);
+                        // The game's outline/shadow is erased too where it sticks out of the box
+                        System.Windows.Media.Color? effectColor = textStyle != null && textStyle.Effect != RSTGameTranslation.Layout.TextEffectKind.None && !textStyle.EffectAdded
+                            ? textStyle.EffectColor.ToMediaColor()
+                            : null;
+                        var rowBackground = textStyle?.RowBackground?.Select(c => c.ToMediaColor()).ToList();
+                        erasedPatch = TextEraser.CreateErasedPatch(sourceBitmap, textBox, bgColor, out var patchPixels, effectColor, rowBackground);
                         erasedBounds = new Rect(patchPixels.X / dpiScaleX, patchPixels.Y / dpiScaleY,
                                                 patchPixels.Width / dpiScaleX, patchPixels.Height / dpiScaleY);
                     }
@@ -1314,6 +1350,13 @@ namespace RSTGameTranslation
                     captureX, captureY  // Store original capture coordinates
                 );
                 textObject.ID = "text_" + GetNextTextID();
+                if (centered)
+                    textObject.SourceAlignment = System.Windows.TextAlignment.Center;
+                else if (rightAligned)
+                {
+                    textObject.SourceAlignment = System.Windows.TextAlignment.Right;
+                    Console.WriteLine($"Right-aligned block (OCR line boxes): '{text}'");
+                }
                 if (ConfigManager.Instance.IsFontSizeFromLineHeightEnabled())
                 {
                     textObject.SourceFontSize = sourceFontSize;
@@ -1326,6 +1369,15 @@ namespace RSTGameTranslation
                 if (textStyle != null)
                 {
                     textObject.SetTextEffect(textStyle);
+                    // No font chosen for the game: the installed font most like the game's
+                    if (textStyle.Shape != null && FontMatching.Active)
+                    {
+                        var (font, scaleX) = FontMatching.Match(text, textStyle, styleFontPx, styleLines);
+                        textObject.MatchedScaleX = scaleX;
+                        textObject.MatchedFont = font;
+                    }
+                    if (textStyle.Shape != null)
+                        textStyle.Shape.Coverage = null;
                 }
                 if (textStyle != null && sourceBitmap != null && ConfigManager.Instance.IsWordColorsEnabled())
                 {
@@ -3234,6 +3286,13 @@ namespace RSTGameTranslation
             public double FontPx { get; set; }
             // Lines of game text in the block
             public int LineCount { get; set; } = 1;
+            // One item of a menu or list: stays apart from its neighbours
+            public bool ListItem { get; set; }
+            // How the game aligned the block's lines ("center", "right"; null = left / unknown)
+            public string? Align { get; set; }
+            // Left edge and width of each OCR line merged into the block (empty = just this box)
+            public List<(double Left, double Width)> Lines { get; set; } = new();
+            public IReadOnlyList<(double Left, double Width)> LineBoxes => Lines.Count > 0 ? Lines : new List<(double, double)> { (X, Width) };
         }
 
         /// <summary>
@@ -3422,6 +3481,10 @@ namespace RSTGameTranslation
             if (a.BubbleId != null && b.BubbleId != null && a.BubbleId != b.BubbleId)
                 return false;
 
+            // Menu items stay one per line, as the game shows them
+            if (a.ListItem || b.ListItem)
+                return false;
+
             // Larger threshold to better detect adjacent/overlapping text blocks
             double overlapThreshold = 5.0; // pixels
 
@@ -3479,7 +3542,8 @@ namespace RSTGameTranslation
                 Confidence = Math.Min(a.Confidence, b.Confidence),
                 BubbleId = a.BubbleId ?? b.BubbleId,
                 FontPx = MergeFontPx(a, b),
-                LineCount = a.LineCount + b.LineCount
+                LineCount = a.LineCount + b.LineCount,
+                Lines = a.LineBoxes.Concat(b.LineBoxes).ToList()
             };
         }
 

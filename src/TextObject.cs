@@ -116,6 +116,22 @@ namespace RSTGameTranslation
         // Lines the game text had: the translation may use as many lines of its own line height, even
         // when the OCR boxes (which hug the letters) are a little shorter than that
         public int SourceLineCount { get; set; } = 1;
+        // How the game aligned this text: centred (lines sharing their middle) or right-aligned (sharing
+        // their right edge, or against the right side of the screen). The translation keeps the same
+        // middle or right edge. Set from the OCR lines of a block; the overlay layout pass may also set it.
+        private TextAlignment _sourceAlignment = TextAlignment.Left;
+        public TextAlignment SourceAlignment
+        {
+            get => _sourceAlignment;
+            set
+            {
+                _sourceAlignment = value;
+                if (TextBlock != null)
+                    TextBlock.TextAlignment = value;
+            }
+        }
+        public bool SourceCentered => _sourceAlignment == TextAlignment.Center;
+        public bool SourceRightAligned => _sourceAlignment == TextAlignment.Right;
 
         // Feather width (DIPs) of the background edge when overlay colors are sampled automatically
         private const double SoftEdgeRadius = 6;
@@ -125,7 +141,57 @@ namespace RSTGameTranslation
         // The game's outline or drop shadow, drawn around the translation like the original (null = none)
         private RSTGameTranslation.Layout.TextStyle? _gameTextStyle;
 
-        public void SetTextEffect(RSTGameTranslation.Layout.TextStyle style) => _gameTextStyle = style;
+        // The installed font that looks most like the game's (FontMatching), null = the usual font
+        private string? _matchedFont;
+        public string? MatchedFont
+        {
+            get => _matchedFont;
+            set
+            {
+                _matchedFont = value;
+                if (TextBlock != null)
+                    TextBlock.FontFamily = ResolveFontFamily();
+            }
+        }
+
+        // Horizontal scale of the text (below 1: condensed like the game's font, see FontMatching)
+        public double MatchedScaleX { get; set; } = 1;
+
+        private FontFamily ResolveFontFamily() =>
+            _matchedFont != null ? FontMatching.Family(_matchedFont) : GameFonts.Resolve();
+
+        public void SetTextEffect(RSTGameTranslation.Layout.TextStyle style)
+        {
+            _gameTextStyle = style;
+            if (TextBlock != null)
+                ApplyGameShape(TextBlock);
+        }
+
+        // Bold, italic and a vertical gradient fill like the game's letters (read from its pixels)
+        private void ApplyGameShape(TextBlock textBlock)
+        {
+            var shape = _gameTextStyle?.Shape;
+            textBlock.FontWeight = shape?.Bold == true ? FontWeights.Bold : FontWeights.Normal;
+            textBlock.FontStyle = shape?.Italic == true ? FontStyles.Italic : FontStyles.Normal;
+            if (shape?.GradientTop is RSTGameTranslation.Layout.Rgb top && shape.GradientBottom is RSTGameTranslation.Layout.Rgb bottom)
+                textBlock.Foreground = LineGradient(top, bottom, textBlock.FontSize * LineHeightRatio);
+        }
+
+        // A gradient repeated on every line (a block of several lines is coloured line by line, as the
+        // game colours each of its lines): top colour at the top of the letters, bottom colour at the bottom
+        private static LinearGradientBrush LineGradient(RSTGameTranslation.Layout.Rgb top, RSTGameTranslation.Layout.Rgb bottom, double lineHeight)
+        {
+            var brush = new LinearGradientBrush
+            {
+                MappingMode = BrushMappingMode.Absolute,
+                SpreadMethod = GradientSpreadMethod.Repeat,
+                StartPoint = new Point(0, 0),
+                EndPoint = new Point(0, Math.Max(1, lineHeight)),
+            };
+            brush.GradientStops.Add(new GradientStop(Color.FromRgb(top.R, top.G, top.B), 0.15));
+            brush.GradientStops.Add(new GradientStop(Color.FromRgb(bottom.R, bottom.G, bottom.B), 0.9));
+            return brush;
+        }
 
         // Fallback chain used when no language font override is set
         private const string DefaultFontFamily = "Arial, Noto Sans SC, Noto Sans JP, Noto Sans, Noto Sans KR, Noto Sans Devanagari, MS Gothic, Malgun Gothic, Yu Gothic, Microsoft YaHei, Arial Unicode MS";
@@ -195,7 +261,7 @@ namespace RSTGameTranslation
                     TextWrapping = TextWrapping.Wrap,
                     TextAlignment = TextAlignment.Left, // Changed from Justify for better readability of merged blocks
                     FontStretch = FontStretches.Normal, // Changed from Expanded for better readability
-                    FontFamily = GameFonts.Resolve(),
+                    FontFamily = ResolveFontFamily(),
                     Margin = new Thickness(0), // Increased margin for better text display
                     TextTrimming = TextTrimming.None
                 };
@@ -212,7 +278,7 @@ namespace RSTGameTranslation
                     TextWrapping = TextWrapping.Wrap,
                     TextAlignment = TextAlignment.Left, // Changed from Justify for better readability of merged blocks
                     FontStretch = FontStretches.Normal, // Changed from Expanded for better readability
-                    FontFamily = GameFonts.Resolve(),
+                    FontFamily = ResolveFontFamily(),
                     Margin = new Thickness(0), // Increased margin for better text display
                     TextTrimming = TextTrimming.None
                 };
@@ -272,9 +338,9 @@ namespace RSTGameTranslation
                 {
                     // Use translated text if available; tagged words in the colours the game used
                     if (TranslatedMarkup != null && ColorSpans != null)
-                        SetColouredText(TextBlock, TranslatedMarkup, ColorSpans);
+                        SetColouredText(TextBlock, TranslatedMarkup, ColorSpans, Shown);
                     else
-                        TextBlock.Text = this.TextTranslated;
+                        TextBlock.Text = Shown(this.TextTranslated);
                     SyncOutlineText();
                     TextBlock.FlowDirection = FlowDirection;
                 }
@@ -284,6 +350,8 @@ namespace RSTGameTranslation
                 //     TextBlock.Text = this.Text;
                 // }
                 TextBlock.Foreground = this.TextColor;
+                TextBlock.TextAlignment = _sourceAlignment;
+                ApplyGameShape(TextBlock);
                 ApplyBackground();
                 // The overlay positions borders with Canvas.Left/Top; a margin would add the offset twice
                 Border.Margin = new Thickness(0);
@@ -294,7 +362,7 @@ namespace RSTGameTranslation
                 ResetLayout();
                 ApplyBoxConstraints();
                 // The current game's font, else the language override, else the default chain
-                TextBlock.FontFamily = GameFonts.Resolve();
+                TextBlock.FontFamily = ResolveFontFamily();
 
                 // Reset font size to default and then adjust if needed
                 TextBlock.FontSize = 24; // Increased from 18 to 24 for better initial size
@@ -393,6 +461,7 @@ namespace RSTGameTranslation
         // ---- Outline: WPF text has no stroke, so the text is drawn 8 times in the outline colour, shifted
         // around the real text, under it. The copies follow the real text's size and wrapping by binding.
         private Grid? _outlineLayer;
+        // Default outline thickness (DIPs) when the game's is unknown or the outline was added for contrast
         private const double OutlineWidth = 1.5;
 
         private Grid CreateOutlineLayer()
@@ -412,7 +481,8 @@ namespace RSTGameTranslation
                     TextBlock.LineStackingStrategyProperty, TextBlock.TextWrappingProperty, TextBlock.TextAlignmentProperty,
                     FrameworkElement.MaxWidthProperty, FrameworkElement.WidthProperty, FrameworkElement.MarginProperty,
                     FrameworkElement.FlowDirectionProperty, FrameworkElement.VerticalAlignmentProperty,
-                    FrameworkElement.HorizontalAlignmentProperty, TextBlock.PaddingProperty
+                    FrameworkElement.HorizontalAlignmentProperty, TextBlock.PaddingProperty,
+                    FrameworkElement.LayoutTransformProperty
                 })
                 {
                     copy.SetBinding(property, new System.Windows.Data.Binding(property.Name) { Source = TextBlock, Mode = System.Windows.Data.BindingMode.OneWay });
@@ -426,7 +496,7 @@ namespace RSTGameTranslation
         {
             if (_outlineLayer == null)
                 return;
-            string text = TextTranslated.Length > 0 ? TextTranslated : TextBlock?.Text ?? "";
+            string text = TextTranslated.Length > 0 ? Shown(TextTranslated) : TextBlock?.Text ?? "";
             foreach (TextBlock copy in _outlineLayer.Children)
                 copy.Text = text;
         }
@@ -441,8 +511,18 @@ namespace RSTGameTranslation
                 return;
             }
             var brush = new SolidColorBrush(color.Value);
+            // As thick as the game's outline, within reason. The measure counts the outline's smoothed
+            // edge and its rounded corners too: a 2 px outline measures about 3
+            double width = _gameTextStyle is { OutlineWidth: > 0, EffectAdded: false } style
+                ? Math.Clamp(style.OutlineWidth * 0.65, 1, 4)
+                : OutlineWidth;
+            int n = 0;
             foreach (TextBlock copy in _outlineLayer.Children)
+            {
                 copy.Foreground = brush;
+                double angle = n++ * Math.PI / 4;
+                copy.RenderTransform = new TranslateTransform(Math.Round(Math.Cos(angle) * width, 2), Math.Round(Math.Sin(angle) * width, 2));
+            }
             SyncOutlineText();
             _outlineLayer.Visibility = Visibility.Visible;
         }
@@ -460,7 +540,8 @@ namespace RSTGameTranslation
                 // Cover at least the original text; wrap at the (possibly widened) layout width
                 Border.MinWidth = Width;
                 Border.MaxWidth = LayoutWidth + 20;
-                TextBlock.MaxWidth = LayoutWidth;
+                // In the text's own (unscaled) units: a condensed text fits more per line
+                TextBlock.MaxWidth = LayoutWidth / Math.Clamp(MatchedScaleX, 0.5, 1);
             }
 
             if (Height > 0)
@@ -483,18 +564,33 @@ namespace RSTGameTranslation
         }
 
         // Pieces of the translation as runs: tagged pieces in their span's colour, the rest in the text colour
-        private static void SetColouredText(TextBlock textBlock, string markup, IReadOnlyList<RSTGameTranslation.Layout.ColorSpan> spans)
+        // The translation as shown: in capitals when the game wrote its text in capitals
+        private string Shown(string translation) =>
+            ConfigManager.Instance.IsTextStyleFromGameEnabled() ? RSTGameTranslation.Layout.TextCase.Match(Text, translation) : translation;
+
+        private static void SetColouredText(TextBlock textBlock, string markup, IReadOnlyList<RSTGameTranslation.Layout.ColorSpan> spans,
+                                            Func<string, string> shown)
         {
             textBlock.Inlines.Clear();
             foreach (var (piece, span) in RSTGameTranslation.Layout.ColorMarkup.Parse(markup))
             {
-                var run = new System.Windows.Documents.Run(piece);
+                var run = new System.Windows.Documents.Run(shown(piece));
                 var colour = span == null ? null : spans.FirstOrDefault(s => s.Number == span.Value);
                 if (colour != null)
                     run.Foreground = new SolidColorBrush(Color.FromRgb(colour.Color.R, colour.Color.G, colour.Color.B));
                 textBlock.Inlines.Add(run);
             }
         }
+
+        // "#RRGGBB" for a plain colour, "#top>#bottom" for a vertical gradient (for measurements)
+        private static string DescribeBrush(System.Windows.Media.Brush? brush) => brush switch
+        {
+            SolidColorBrush solid => $"#{solid.Color.R:X2}{solid.Color.G:X2}{solid.Color.B:X2}",
+            LinearGradientBrush gradient when gradient.GradientStops.Count >= 2 =>
+                $"#{gradient.GradientStops[0].Color.R:X2}{gradient.GradientStops[0].Color.G:X2}{gradient.GradientStops[0].Color.B:X2}>" +
+                $"#{gradient.GradientStops[^1].Color.R:X2}{gradient.GradientStops[^1].Color.G:X2}{gradient.GradientStops[^1].Color.B:X2}",
+            _ => "?"
+        };
 
         // Static cache for font size calculations
         private static readonly Dictionary<string, (double Size, bool Fits)> _fontSizeCache = new Dictionary<string, (double Size, bool Fits)>();
@@ -511,12 +607,16 @@ namespace RSTGameTranslation
         // widening into free space, before shrinking down to DefaultMinSourceSizeRatio
         public const double PreferredMinSourceSizeRatio = 0.85;
 
-        private static void ApplyFontSize(TextBlock textBlock, double fontSize)
+        private void ApplyFontSize(TextBlock textBlock, double fontSize)
         {
             textBlock.FontSize = fontSize;
             textBlock.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
             textBlock.LineHeight = fontSize * LineHeightRatio;
-            textBlock.LayoutTransform = Transform.Identity;
+            // Squeezed like a condensed game font; layout (wrapping, fitting) follows the transform
+            textBlock.LayoutTransform = MatchedScaleX < 0.99 ? new ScaleTransform(MatchedScaleX, 1) : Transform.Identity;
+            // A per-line gradient follows the line height
+            if (textBlock.Foreground is LinearGradientBrush { MappingMode: BrushMappingMode.Absolute, IsFrozen: false } gradient)
+                gradient.EndPoint = new Point(0, Math.Max(1, fontSize * LineHeightRatio));
         }
 
         // Whether the text, wrapped at the box width, fits inside the box at this font size
@@ -575,7 +675,7 @@ namespace RSTGameTranslation
                 // Same length doesn't mean same rendered size, so key on the actual text and font
                 // With coloured words the text is in Inlines and TextBlock.Text still holds the old string
                 string shownText = TranslatedMarkup ?? textBlock.Text;
-                string cacheKey = $"{textBlock.FontFamily.Source}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{shownText}";
+                string cacheKey = $"{textBlock.FontFamily.Source}_{textBlock.FontWeight}_{textBlock.FontStyle}_{MatchedScaleX:F2}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{shownText}";
                 
                 // Check cache
                 if (_fontSizeCache.TryGetValue(cacheKey, out var cached))
@@ -617,7 +717,11 @@ namespace RSTGameTranslation
                 TextFitsBox = FitsAt(textBlock, finalSize);
                 textBlock.VerticalAlignment = VerticalAlignment.Stretch;
                 ApplyFontSize(textBlock, finalSize);
-                OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}");
+                if (OcrTiming.Metrics.Enabled)
+                {
+                    OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}{(MatchedScaleX < 0.99 ? $" Condensed {MatchedScaleX:F2}" : "")}" +
+                        $"|{textBlock.FontWeight}|{textBlock.FontStyle}|{DescribeBrush(textBlock.Foreground)}|{_gameTextStyle?.Effect.ToString() ?? "None"}|{textBlock.TextAlignment}");
+                }
                 
                 // Cache result
                 if (_fontSizeCache.Count > 100) _fontSizeCache.Clear();

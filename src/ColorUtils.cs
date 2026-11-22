@@ -118,7 +118,10 @@ namespace RSTGameTranslation
         /// Fill colour, background and outline/shadow of the game text in the box (see
         /// Layout.TextColorAnalyzer). Null when the box is unusable.
         /// </summary>
-        public static RSTGameTranslation.Layout.TextStyle? AnalyzeTextStyle(Bitmap bitmap, Rectangle textBox)
+        /// <param name="fontPx">The game's font size in bitmap pixels (0 = unknown), for bold detection.</param>
+        /// <param name="lineCount">Lines of text in the box, for gradient detection.</param>
+        /// <param name="text">OCR text of the box: with one line, its font size is measured on the letters.</param>
+        public static RSTGameTranslation.Layout.TextStyle? AnalyzeTextStyle(Bitmap bitmap, Rectangle textBox, double fontPx = 0, int lineCount = 1, string? text = null)
         {
             var image = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
             int margin = Math.Clamp(Math.Min(textBox.Width, textBox.Height) / 4, 3, 12);
@@ -128,8 +131,69 @@ namespace RSTGameTranslation
 
             byte[] pixels = CopyRegion(bitmap, area, out int stride);
             // Box position relative to the copied area
-            return RSTGameTranslation.Layout.TextColorAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
+            var style = RSTGameTranslation.Layout.TextColorAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
                 textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height);
+            if (style != null)
+            {
+                // Bold, italic and gradient fill, read from the same pixels
+                style.Shape = RSTGameTranslation.Layout.TextShapeAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
+                    textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height, style, fontPx, lineCount, text);
+            }
+            DumpForTuning(pixels, area, textBox, fontPx, lineCount, text, style);
+            return style;
+        }
+
+        // Test runs only (RST_STYLE_DUMP_DIR set): the pixels each style analysis saw, with its result,
+        // so the analysers can be tuned on real game rendering offline (tests/RST.Tests fixtures format)
+        private static readonly string? _dumpDir = Environment.GetEnvironmentVariable("RST_STYLE_DUMP_DIR");
+        private static readonly Dictionary<string, int> _dumpedTexts = new();
+        private static int _dumpCount;
+
+        private static void DumpForTuning(byte[] pixels, Rectangle area, Rectangle textBox, double fontPx, int lineCount, string? text,
+                                          RSTGameTranslation.Layout.TextStyle? style)
+        {
+            if (string.IsNullOrEmpty(_dumpDir))
+                return;
+            try
+            {
+                lock (_dumpedTexts)
+                {
+                    string key = text ?? "";
+                    int seen = _dumpedTexts.GetValueOrDefault(key);
+                    if (seen >= 2 || _dumpCount >= 300)
+                        return;
+                    _dumpedTexts[key] = seen + 1;
+                    int n = ++_dumpCount;
+                    System.IO.Directory.CreateDirectory(_dumpDir);
+                    string file = $"{n:D3}.bgra.gz";
+                    using (var fs = System.IO.File.Create(System.IO.Path.Combine(_dumpDir, file)))
+                    using (var gz = new System.IO.Compression.GZipStream(fs, System.IO.Compression.CompressionLevel.Optimal))
+                    {
+                        gz.Write(BitConverter.GetBytes(area.Width));
+                        gz.Write(BitConverter.GetBytes(area.Height));
+                        gz.Write(pixels);
+                    }
+                    var entry = new Dictionary<string, object?>
+                    {
+                        ["file"] = file,
+                        ["box"] = new[] { textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height },
+                        ["font_px"] = Math.Round(fontPx, 2),
+                        ["lines"] = lineCount,
+                        ["text"] = text,
+                        ["fill"] = style?.Fill.ToString(),
+                        ["background"] = style?.Background.ToString(),
+                        ["effect"] = style?.Effect.ToString(),
+                        ["shape"] = style?.Shape?.ToString(),
+                        ["font_px_from_ink"] = style?.Shape?.FontPxFromInk,
+                    };
+                    System.IO.File.AppendAllText(System.IO.Path.Combine(_dumpDir, "index.jsonl"),
+                        System.Text.Json.JsonSerializer.Serialize(entry) + "\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Style dump failed: {ex.Message}");
+            }
         }
 
         /// <summary>

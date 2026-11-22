@@ -198,3 +198,178 @@ public class ColorMarkupTests
             ColorMarkup.TagVerbatim("Thuyền trưởng Mira trả 12 đồng vàng", spans));
     }
 }
+
+public class AlignmentDetectorTests
+{
+    [Fact]
+    public void Centred_lines_share_their_middle()
+    {
+        // "The tide rises with the moon." / "Every sailor knows its song." centred at x = 490
+        Assert.True(AlignmentDetector.LinesCentered(new[] { (325.0, 330.0), (343.0, 294.0) }, 26));
+    }
+
+    [Fact]
+    public void Left_aligned_lines_are_not_centred()
+    {
+        Assert.False(AlignmentDetector.LinesCentered(new[] { (60.0, 330.0), (60.0, 294.0) }, 26));
+        // Same length, same left edge: nothing tells, keep left
+        Assert.False(AlignmentDetector.LinesCentered(new[] { (60.0, 300.0), (61.0, 299.0) }, 26));
+        Assert.False(AlignmentDetector.LinesCentered(new[] { (60.0, 300.0) }, 26));
+    }
+
+    [Fact]
+    public void A_line_in_the_middle_of_the_screen_is_centred()
+    {
+        Assert.True(AlignmentDetector.LineCenteredInArea(340, 300, 0, 980));
+        Assert.False(AlignmentDetector.LineCenteredInArea(60, 300, 0, 980));
+        Assert.False(AlignmentDetector.LineCenteredInArea(20, 940, 0, 980));
+    }
+}
+
+public class TextCaseTests
+{
+    [Theory]
+    [InlineData("QUEST COMPLETE: THE LIGHTHOUSE KEEPER", true)]
+    [InlineData("GAME OVER", true)]
+    [InlineData("HP 70/100", false)]
+    [InlineData("Chapter 2: The Lighthouse", false)]
+    [InlineData("OK", false)]
+    [InlineData("ゲームオーバー", false)]
+    public void Detects_text_in_capitals(string text, bool caps) => Assert.Equal(caps, TextCase.IsAllCaps(text));
+
+    [Fact]
+    public void Vietnamese_letters_become_capitals()
+    {
+        Assert.Equal("NHIỆM VỤ HOÀN THÀNH: NGƯỜI GIỮ HẢI ĐĂNG",
+            TextCase.Match("QUEST COMPLETE: THE LIGHTHOUSE KEEPER", "Nhiệm vụ hoàn thành: Người giữ hải đăng"));
+        Assert.Equal("Người giữ hải đăng", TextCase.Match("The keeper", "Người giữ hải đăng"));
+    }
+}
+
+public class RightAlignmentTests
+{
+    [Fact]
+    public void Lines_sharing_their_right_edge_are_right_aligned()
+    {
+        Assert.True(AlignmentDetector.LinesRightAligned(new[] { (600.0, 370.0), (700.0, 270.0) }, 18));
+        Assert.False(AlignmentDetector.LinesRightAligned(new[] { (600.0, 370.0), (600.0, 270.0) }, 18));
+    }
+
+    [Fact]
+    public void Hud_text_in_the_bottom_right_corner_is_right_aligned()
+    {
+        // MockGame's HUD: Consolas 18 bold drawn 2 px from the right edge of a 964 px wide client
+        Assert.True(AlignmentDetector.LineAtRightOfArea(570, 390, 0, 964));
+        Assert.False(AlignmentDetector.LineAtRightOfArea(60, 890, 0, 964));   // a full-width line
+        Assert.False(AlignmentDetector.LineAtRightOfArea(570, 300, 0, 964));  // ends far from the edge
+    }
+}
+
+public class ListDetectorTests
+{
+    [Fact]
+    public void A_menu_is_a_list()
+    {
+        var lines = new (string, double, double, double, double)[]
+        {
+            ("Continue", 674, 124, 90, 24), ("Load Game", 674, 158, 110, 24),
+            ("Settings", 674, 192, 88, 24), ("Quit", 674, 226, 46, 24),
+        };
+        Assert.Equal(4, ListDetector.ListLines(lines).Count);
+    }
+
+    [Fact]
+    public void Wrapped_dialogue_is_not_a_list()
+    {
+        var lines = new (string, double, double, double, double)[]
+        {
+            ("Welcome aboard. The harbor has been", 60, 400, 500, 26),
+            ("quiet for days, and the fog", 60, 430, 380, 26),
+            ("is too thick.", 60, 460, 150, 26),
+        };
+        Assert.Empty(ListDetector.ListLines(lines));
+    }
+
+    [Fact]
+    public void Two_short_lines_are_not_enough()
+    {
+        var lines = new (string, double, double, double, double)[] { ("Chapter 2", 60, 50, 120, 30), ("The Lighthouse", 60, 85, 190, 30) };
+        Assert.Empty(ListDetector.ListLines(lines));
+    }
+
+    [Theory]
+    [InlineData("Load Game", true)]
+    [InlineData("2 Players", true)]
+    [InlineData("quiet for days", false)]
+    [InlineData("Hello there,", false)]
+    [InlineData("This line has far too many words", false)]
+    public void Items_are_short_and_start_with_a_capital(string text, bool item) => Assert.Equal(item, ListDetector.IsItem(text));
+}
+
+public class GamePresetTests
+{
+    [Theory]
+    [InlineData("Wuthering Waves  ", "Client-Win64-Shipping", true)]
+    [InlineData("鸣潮", "Client-Win64-Shipping.exe", true)]
+    [InlineData("Wuthering Waves", "launcher", false)]                    // the launcher, not the game
+    [InlineData("Wuthering Waves 3.0 trailer - YouTube", "chrome", false)] // a browser tab
+    [InlineData("Some Unreal Game", "Client-Win64-Shipping", false)]
+    public void Recognises_the_Wuthering_Waves_window(string title, string process, bool match) =>
+        Assert.Equal(match, GamePresets.Find(title, process) == GamePresets.WutheringWaves);
+
+    [Fact]
+    public void Dialogue_band_sits_at_the_bottom_centre_of_a_1080p_window()
+    {
+        var band = GamePresets.WutheringWaves.DialogueAreas[0];
+        var (x, y, w, h) = GamePresets.ToScreen(band, 0, 0, 1920, 1080);
+        Assert.InRange(x + w / 2, 955, 965);         // centred
+        Assert.InRange(y, 780, 800);                 // speaker name row
+        Assert.InRange(y + h, 1010, 1030);           // above the UID line at the very bottom
+    }
+
+    [Fact]
+    public void Ultrawide_and_16_by_10_keep_the_16_by_9_interface_box()
+    {
+        var band = GamePresets.WutheringWaves.DialogueAreas[0];
+        // 3440x1440: the 16:9 box is 2560 wide, centred (440 px of scenery each side)
+        var (x, _, w, _) = GamePresets.ToScreen(band, 0, 0, 3440, 1440);
+        Assert.InRange(x, 440 + 0.13 * 2560 - 1, 440 + 0.13 * 2560 + 1);
+        Assert.InRange(w, 0.74 * 2560 - 1, 0.74 * 2560 + 1);
+        // 1920x1200: the box is 1080 high, 60 px above and below
+        var (_, y, _, h) = GamePresets.ToScreen(band, 100, 50, 1920, 1200);
+        Assert.InRange(y, 50 + 60 + 0.735 * 1080 - 1, 50 + 60 + 0.735 * 1080 + 1);
+        Assert.InRange(h, 0.215 * 1080 - 1, 0.215 * 1080 + 1);
+    }
+
+    [Fact]
+    public void Full_mode_leaves_out_the_uid_line()
+    {
+        var (_, y, _, h) = GamePresets.ToScreen(GamePresets.WutheringWaves.FullAreas[0], 0, 0, 1920, 1080);
+        Assert.True(y + h < 1080 * 0.97, $"full area ends at {y + h}");
+    }
+}
+
+public class SpeakerNameDetectorTests
+{
+    [Theory]
+    [InlineData("Yangyang", 90, "Then we leave now. Stay close to me.", 380, true)]
+    [InlineData("Captain Mira:", 140, "Find the red key before the tide turns.", 420, true)]
+    [InlineData("Then we leave", 150, "now. Stay close to me.", 260, false)]   // a wrapped sentence
+    [InlineData("Hello there,", 120, "Captain, the map is ready.", 300, false)]
+    [InlineData("Chapter Two", 200, "The Lighthouse", 210, false)]             // two-line heading
+    [InlineData("Rover", 60, "and the others left.", 250, false)]             // the next line continues
+    public void Finds_a_name_above_its_line(string first, double firstWidth, string next, double nextWidth, bool name) =>
+        Assert.Equal(name, SpeakerNameDetector.IsNameAbove(first, firstWidth, next, nextWidth));
+}
+
+public class KeepAsIsTests
+{
+    [Theory]
+    [InlineData("Rover", true)]
+    [InlineData("Yangyang:", true)]
+    [InlineData(" The Shorekeeper ", true)]
+    [InlineData("Rover and Yangyang left the city.", false)]  // a sentence is translated
+    [InlineData("Captain Mira", false)]
+    public void Character_names_on_their_own_stay_as_the_game_shows_them(string text, bool kept) =>
+        Assert.Equal(kept, GamePresets.WutheringWaves.IsKeptAsIs(text));
+}

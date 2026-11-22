@@ -1046,6 +1046,8 @@ namespace RSTGameTranslation
             }
 
             SetTranslationAreas(areas);
+            // Drawn by the user: a known game's preset no longer moves or replaces them
+            _presetAreasActive = false;
             ShowAreaBordersAfterSelection();
 
             Console.WriteLine($"The translation area has been selected: X={areaInfo.X}, Y={areaInfo.Y}, Width={areaInfo.Width}, Height={areaInfo.Height}, Screen={areaInfo.ScreenIndex}, DPI={areaInfo.DpiScaleX:F2}x/{areaInfo.DpiScaleY:F2}y");
@@ -1213,6 +1215,19 @@ namespace RSTGameTranslation
                 bounds = bounds.IsEmpty ? rect : System.Drawing.Rectangle.Union(bounds, rect);
             }
             return bounds;
+        }
+
+        /// <summary>The active translation areas in overlay coordinates (DIPs from its top-left); empty
+        /// when the whole window or screen area is captured.</summary>
+        public List<Rect> GetTranslationAreasOnOverlay()
+        {
+            var list = new List<Rect>();
+            if (!hasSelectedTranslationArea)
+                return list;
+            DpiHelper.GetWindowRenderDpi(MonitorWindow.Instance, out double sx, out double sy);
+            foreach (var a in GetActiveAreas())
+                list.Add(new Rect((a.X - captureRect.Left) / sx, (a.Y - captureRect.Top) / sy, a.Width / sx, a.Height / sy));
+            return list;
         }
 
         // Set capture area to selected region
@@ -3678,6 +3693,8 @@ namespace RSTGameTranslation
                 ToolbarButton.SetState(selectWindowButton, ToolbarState.On);
 
                 Console.WriteLine($"Selected window: {capturedWindowTitle} (Handle: {capturedWindowHandle})");
+                // A game the app knows: its areas and settings (see MainWindow.KnownGames.cs)
+                OnGameWindowSelected(windowHandle, windowTitle);
 
                 if (showConfirmation)
                 {
@@ -3850,6 +3867,8 @@ namespace RSTGameTranslation
         private void CheckAndShowWelcome()
         {
             _welcomePending = false;
+            // Watch for games the app knows (Wuthering Waves) for the rest of the session
+            StartKnownGameWatcher();
             // Automated test run: no dialogs, select the test window and start (see TestAutomation)
             if (TestAutomation.IsEnabled)
             {
@@ -3878,8 +3897,13 @@ namespace RSTGameTranslation
             }
             else
             {
-                // Once the main window is on screen
-                Dispatcher.BeginInvoke(PromptForGameWindowAtStartup, DispatcherPriority.ApplicationIdle);
+                // Once the main window is on screen: a known game already running starts right away,
+                // with no window picker; otherwise ask for the game window as before
+                Dispatcher.BeginInvoke(() =>
+                {
+                    if (!TryAutoStartKnownGame())
+                        PromptForGameWindowAtStartup();
+                }, DispatcherPriority.ApplicationIdle);
             }
         }
 
