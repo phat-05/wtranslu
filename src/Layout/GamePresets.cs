@@ -76,7 +76,9 @@ namespace RSTGameTranslation.Layout
             TitleKeywords = new[] { "Wuthering Waves", "鸣潮", "鳴潮", "명조" },
             DialogueAreas = new[]
             {
-                new RelRect(0.13, 0.735, 0.74, 0.215), // speaker name + dialogue lines
+                // Speaker name + dialogue lines, and cutscene subtitles (lower, over the letterbox bar);
+                // generous, as the exact layout varies, but above the UID line
+                new RelRect(0.12, 0.70, 0.76, 0.265),
                 new RelRect(0.58, 0.34, 0.39, 0.42),   // answer choices
             },
             FullAreas = new[]

@@ -323,8 +323,8 @@ public class GamePresetTests
         var band = GamePresets.WutheringWaves.DialogueAreas[0];
         var (x, y, w, h) = GamePresets.ToScreen(band, 0, 0, 1920, 1080);
         Assert.InRange(x + w / 2, 955, 965);         // centred
-        Assert.InRange(y, 780, 800);                 // speaker name row
-        Assert.InRange(y + h, 1010, 1030);           // above the UID line at the very bottom
+        Assert.InRange(y, 745, 770);                 // above the speaker name row
+        Assert.InRange(y + h, 1035, 1048);           // above the UID line at the very bottom (~1055)
     }
 
     [Fact]
@@ -333,12 +333,12 @@ public class GamePresetTests
         var band = GamePresets.WutheringWaves.DialogueAreas[0];
         // 3440x1440: the 16:9 box is 2560 wide, centred (440 px of scenery each side)
         var (x, _, w, _) = GamePresets.ToScreen(band, 0, 0, 3440, 1440);
-        Assert.InRange(x, 440 + 0.13 * 2560 - 1, 440 + 0.13 * 2560 + 1);
-        Assert.InRange(w, 0.74 * 2560 - 1, 0.74 * 2560 + 1);
+        Assert.InRange(x, 440 + 0.12 * 2560 - 1, 440 + 0.12 * 2560 + 1);
+        Assert.InRange(w, 0.76 * 2560 - 1, 0.76 * 2560 + 1);
         // 1920x1200: the box is 1080 high, 60 px above and below
         var (_, y, _, h) = GamePresets.ToScreen(band, 100, 50, 1920, 1200);
-        Assert.InRange(y, 50 + 60 + 0.735 * 1080 - 1, 50 + 60 + 0.735 * 1080 + 1);
-        Assert.InRange(h, 0.215 * 1080 - 1, 0.215 * 1080 + 1);
+        Assert.InRange(y, 50 + 60 + 0.70 * 1080 - 1, 50 + 60 + 0.70 * 1080 + 1);
+        Assert.InRange(h, 0.265 * 1080 - 1, 0.265 * 1080 + 1);
     }
 
     [Fact]
