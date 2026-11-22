@@ -232,6 +232,7 @@ namespace RSTGameTranslation
         public const string TEXT_STYLE_FROM_GAME = "text_style_from_game";
         public const string GAME_FONTS = "game_fonts";
         public const string WORD_COLORS = "word_colors";
+        public const string AUTO_MATCH_FONT = "auto_match_font";
         public const string CURRENT_GAME_PROFILE = "current_game_profile";
         public const string TRANSLATION_PREFETCH = "translation_prefetch";
 
@@ -3667,6 +3668,9 @@ namespace RSTGameTranslation
 
         // Colour single words like the game did, via colour tags kept by AI translators (see Layout.ColorMarkup)
         public bool IsWordColorsEnabled() => GetBoolValue(WORD_COLORS, true);
+
+        // No font chosen for the game: use the installed font that looks most like the game's (see FontMatching)
+        public bool IsAutoMatchFontEnabled() => GetBoolValue(AUTO_MATCH_FONT, true);
 
         // Overlay font per game: "game=Font name;other game=Other font" (see GameFonts)
         public string GetGameFont(string game)

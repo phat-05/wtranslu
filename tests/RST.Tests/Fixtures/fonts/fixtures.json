@@ -1,0 +1,30 @@
+[
+ {
+  "name": "game_FreeSerif",
+  "kind": "serif"
+ },
+ {
+  "name": "game_Caladea-Regular",
+  "kind": "serif"
+ },
+ {
+  "name": "game_DejaVuSans",
+  "kind": "sans"
+ },
+ {
+  "name": "game_FreeSans",
+  "kind": "sans"
+ },
+ {
+  "name": "game_Carlito-Regular",
+  "kind": "sans"
+ },
+ {
+  "name": "game_DejaVuSansMono",
+  "kind": "mono"
+ },
+ {
+  "name": "game_JetBrainsMono-Regular",
+  "kind": "mono"
+ }
+]

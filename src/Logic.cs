@@ -1261,6 +1261,8 @@ namespace RSTGameTranslation
                 System.Windows.Media.Imaging.BitmapSource? erasedPatch = null;
                 Rect erasedBounds = Rect.Empty;
                 RSTGameTranslation.Layout.TextStyle? textStyle = null;
+                double styleFontPx = 0;
+                int styleLines = Math.Max(1, sourceLineCount);
                 if (ConfigManager.Instance.IsAutoSetOverlayBackground() && sourceBitmap != null)
                 {
                     try
@@ -1278,11 +1280,10 @@ namespace RSTGameTranslation
                         {
                             // Fill, background, outline/shadow, bold/italic and gradient read from the game's pixels.
                             // Font size in capture pixels: from the OCR line heights, else from this box
-                            int lines = Math.Max(1, sourceLineCount);
-                            double fontPx = sourceFontSize > 0
+                            styleFontPx = sourceFontSize > 0
                                 ? sourceFontSize * dpiScaleY
-                                : RSTGameTranslation.Layout.FontSizeEstimator.FromLine(bitmapHeight / (double)lines, text);
-                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox, fontPx, lines);
+                                : RSTGameTranslation.Layout.FontSizeEstimator.FromLine(bitmapHeight / (double)styleLines, text);
+                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox, styleFontPx, styleLines);
                         }
                         if (textStyle != null)
                         {
@@ -1331,6 +1332,11 @@ namespace RSTGameTranslation
                 if (textStyle != null)
                 {
                     textObject.SetTextEffect(textStyle);
+                    // No font chosen for the game: the installed font most like the game's
+                    if (textStyle.Shape != null && FontMatching.Active)
+                        textObject.MatchedFont = FontMatching.Match(text, textStyle, styleFontPx, styleLines);
+                    if (textStyle.Shape != null)
+                        textStyle.Shape.Coverage = null;
                 }
                 if (textStyle != null && sourceBitmap != null && ConfigManager.Instance.IsWordColorsEnabled())
                 {

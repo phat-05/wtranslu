@@ -17,6 +17,11 @@ namespace RSTGameTranslation.Layout
         // gradient; null for a plain fill
         public Rgb? GradientTop { get; init; }
         public Rgb? GradientBottom { get; init; }
+        // How much of every pixel of the box is the fill colour (row by row), for font matching;
+        // dropped (null) once used
+        public float[]? Coverage { get; set; }
+        public int CoverageWidth { get; init; }
+        public int CoverageHeight { get; init; }
 
         public override string ToString() =>
             $"{(Bold ? "bold" : "regular")} {(Italic ? "italic" : "upright")} stroke={StrokeEm:F3} slant={SlantScore:F2}" +
@@ -89,6 +94,9 @@ namespace RSTGameTranslation.Layout
                 SlantScore = slant,
                 GradientTop = top,
                 GradientBottom = bottom,
+                Coverage = Array.ConvertAll(coverage, v => (float)v),
+                CoverageWidth = w,
+                CoverageHeight = h,
             };
         }
 

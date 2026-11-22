@@ -125,6 +125,22 @@ namespace RSTGameTranslation
         // The game's outline or drop shadow, drawn around the translation like the original (null = none)
         private RSTGameTranslation.Layout.TextStyle? _gameTextStyle;
 
+        // The installed font that looks most like the game's (FontMatching), null = the usual font
+        private string? _matchedFont;
+        public string? MatchedFont
+        {
+            get => _matchedFont;
+            set
+            {
+                _matchedFont = value;
+                if (TextBlock != null)
+                    TextBlock.FontFamily = ResolveFontFamily();
+            }
+        }
+
+        private FontFamily ResolveFontFamily() =>
+            _matchedFont != null ? FontMatching.Family(_matchedFont) : GameFonts.Resolve();
+
         public void SetTextEffect(RSTGameTranslation.Layout.TextStyle style)
         {
             _gameTextStyle = style;
@@ -226,7 +242,7 @@ namespace RSTGameTranslation
                     TextWrapping = TextWrapping.Wrap,
                     TextAlignment = TextAlignment.Left, // Changed from Justify for better readability of merged blocks
                     FontStretch = FontStretches.Normal, // Changed from Expanded for better readability
-                    FontFamily = GameFonts.Resolve(),
+                    FontFamily = ResolveFontFamily(),
                     Margin = new Thickness(0), // Increased margin for better text display
                     TextTrimming = TextTrimming.None
                 };
@@ -243,7 +259,7 @@ namespace RSTGameTranslation
                     TextWrapping = TextWrapping.Wrap,
                     TextAlignment = TextAlignment.Left, // Changed from Justify for better readability of merged blocks
                     FontStretch = FontStretches.Normal, // Changed from Expanded for better readability
-                    FontFamily = GameFonts.Resolve(),
+                    FontFamily = ResolveFontFamily(),
                     Margin = new Thickness(0), // Increased margin for better text display
                     TextTrimming = TextTrimming.None
                 };
@@ -326,7 +342,7 @@ namespace RSTGameTranslation
                 ResetLayout();
                 ApplyBoxConstraints();
                 // The current game's font, else the language override, else the default chain
-                TextBlock.FontFamily = GameFonts.Resolve();
+                TextBlock.FontFamily = ResolveFontFamily();
 
                 // Reset font size to default and then adjust if needed
                 TextBlock.FontSize = 24; // Increased from 18 to 24 for better initial size

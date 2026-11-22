@@ -113,6 +113,7 @@
   "OverlayOptions_Lbl_TextStyleFromGame": "Giữ màu chữ, viền và bóng đổ của game (lấy mẫu từ màn hình; giữ cả màu nhạt, chỉ thêm viền khi khó đọc)",
   "OverlayOptions_Lbl_GameFont": "Font cho game này ({0}) - chỉ liệt kê font có đủ dấu tiếng Việt; có thể chép file .ttf/.otf vào thư mục Fonts cạnh rst.exe:",
   "OverlayOptions_Item_NoGameFont": "(không đặt - dùng cài đặt phía trên)",
+  "OverlayOptions_Lbl_AutoMatchFont": "Khi chưa chọn font, tự dùng font có sẵn trông giống chữ của game nhất (có chân, không chân, đơn cách hoặc chữ hẹp - so trên màn hình)",
   "OverlayOptions_Lbl_ShowAllFonts": "Hiện cả font không có dấu tiếng Việt",
   "OverlayOptions_Msg_FontNoVietnamese": "\"{0}\" thiếu một số chữ có dấu tiếng Việt: các chữ đó sẽ hiện bằng font khác hoặc thành ô vuông. Vẫn dùng?",
   "OverlayOptions_Lbl_WordColors": "Tô màu từng từ như game (ví dụ tên vật phẩm): dịch bằng AI sẽ giữ thẻ màu; dịch vụ khác chỉ tô được tên riêng và số giữ nguyên",
