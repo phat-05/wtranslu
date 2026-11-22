@@ -1,0 +1,167 @@
+{
+  "title": {
+    "font": "Georgia",
+    "px": 30,
+    "bold": true,
+    "italic": false,
+    "fill": "#FFD678",
+    "effect": "shadow",
+    "effect_color": "#000000",
+    "gradient_to": null,
+    "align": "left"
+  },
+  "speaker": {
+    "font": "Segoe UI",
+    "px": 24,
+    "bold": true,
+    "italic": false,
+    "fill": "#FFC83C",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "left"
+  },
+  "dialogue": {
+    "font": "Segoe UI",
+    "px": 26,
+    "bold": false,
+    "italic": false,
+    "fill": "#FFFFFF",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "left"
+  },
+  "menu": {
+    "font": "Segoe UI",
+    "px": 20,
+    "bold": false,
+    "italic": false,
+    "fill": "#3C2814",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "left"
+  },
+  "banner": {
+    "font": "Bahnschrift Condensed",
+    "px": 44,
+    "bold": true,
+    "italic": false,
+    "fill": "#FF5A46",
+    "effect": "shadow",
+    "effect_color": "#000000",
+    "gradient_to": null,
+    "align": "left"
+  },
+  "subtitle": {
+    "font": "Segoe UI",
+    "px": 30,
+    "bold": true,
+    "italic": false,
+    "fill": "#FFFFFF",
+    "effect": "outline",
+    "effect_color": "#000000",
+    "gradient_to": null,
+    "align": "left"
+  },
+  "hint": {
+    "font": "Segoe UI",
+    "px": 22,
+    "bold": false,
+    "italic": true,
+    "fill": "#B0966E",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "left"
+  },
+  "hud": {
+    "font": "Consolas",
+    "px": 18,
+    "bold": true,
+    "italic": false,
+    "fill": "#FFFFFF",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "right"
+  },
+  "wuwa_speaker": {
+    "font": "Segoe UI",
+    "px": 20,
+    "bold": true,
+    "italic": false,
+    "fill": "#E8C77A",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "center"
+  },
+  "wuwa_dialogue": {
+    "font": "Segoe UI",
+    "px": 22,
+    "bold": false,
+    "italic": false,
+    "fill": "#FFFFFF",
+    "effect": "shadow",
+    "effect_color": "#000000",
+    "gradient_to": null,
+    "align": "center"
+  },
+  "wuwa_choice": {
+    "font": "Segoe UI",
+    "px": 18,
+    "bold": false,
+    "italic": false,
+    "fill": "#F0F0F0",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "left"
+  },
+  "uid": {
+    "font": "Consolas",
+    "px": 13,
+    "bold": false,
+    "italic": false,
+    "fill": "#C8C8C8",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "left"
+  },
+  "minimap": {
+    "font": "Segoe UI",
+    "px": 14,
+    "bold": true,
+    "italic": false,
+    "fill": "#FFFFFF",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": null,
+    "align": "left"
+  },
+  "gradient": {
+    "font": "Georgia",
+    "px": 36,
+    "bold": true,
+    "italic": false,
+    "fill": "#FFF4AA",
+    "effect": "none",
+    "effect_color": null,
+    "gradient_to": "#E16E19",
+    "align": "left"
+  },
+  "centered": {
+    "font": "Segoe UI",
+    "px": 26,
+    "bold": false,
+    "italic": false,
+    "fill": "#D7EBFF",
+    "effect": "shadow",
+    "effect_color": "#000000",
+    "gradient_to": null,
+    "align": "center"
+  }
+}

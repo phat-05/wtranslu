@@ -1,0 +1,129 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 Wuthering Waves-like scenario",
+ "summary": {
+  "size": 0.966,
+  "color": 1.0,
+  "gradient": 1.0,
+  "effect": 0.25,
+  "bold": 1.0,
+  "italic": 1.0,
+  "font": 1.0,
+  "align": 0.167,
+  "overall": 0.798,
+  "elements": 4
+ },
+ "rows": [
+  {
+   "style": "wuwa_dialogue",
+   "text": "The Resonators gathered at the edge of Jinzhou before dawn.",
+   "overlay": {
+    "t": 1795356274683,
+    "size": 21.5,
+    "source": "The Resonators gathered at the edge of Jinzhou before dawn.",
+    "shown": "Các Bộ cộng hưởng tập trung ở rìa Cẩm Châu trước bình minh.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9772727272727273,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 0.0
+   },
+   "total": 0.7471590909090909
+  },
+  {
+   "style": "wuwa_dialogue",
+   "text": "I can hear an echo of something old beneath the city.",
+   "overlay": {
+    "t": 1795356278452,
+    "size": 21.9,
+    "source": "I can hear an echo of something old beneath the city.",
+    "shown": "Tôi có thể nghe thấy tiếng vang của thứ gì đó cũ kỹ bên dưới thành phố.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9954545454545454,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 0.0
+   },
+   "total": 0.7494318181818181
+  },
+  {
+   "style": "wuwa_choice",
+   "text": "Let's go together. I'll go alone. Tell me more about the Tacet Discord.",
+   "overlay": {
+    "t": 1795356282832,
+    "size": 17.4,
+    "source": "Tell me more about the Tacet Discord.",
+    "shown": "Hãy cho tôi biết thêm về Tacet <c1>Discord.</c1>",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#F0F0F0",
+    "effect": "None",
+    "align": "Right"
+   },
+   "parts": 3,
+   "scores": {
+    "size": 0.9666666666666665,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 0.6666666666666666
+   },
+   "total": 0.9541666666666666
+  },
+  {
+   "style": "wuwa_dialogue",
+   "text": "Then we leave now. Stay close to me.",
+   "overlay": {
+    "t": 1795356288781,
+    "size": 23.7,
+    "source": "Then we leave now. Stay close to me.",
+    "shown": "Vậy thì chúng ta rời đi ngay bây giờ. Hãy ở gần tôi.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9227272727272728,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 0.0
+   },
+   "total": 0.7403409090909091
+  }
+ ]
+}

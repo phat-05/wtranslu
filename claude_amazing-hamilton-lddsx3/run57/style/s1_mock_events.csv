@@ -1,0 +1,13 @@
+utc_ms,step,cycle,style,speaker,text
+1795356195037,0,0,title,"","Chapter 2: The Lighthouse"
+1795356200055,1,0,dialogue,"Captain Mira","Find the red key before the tide turns."
+1795356206059,2,0,menu,"","Continue / Load Game / Settings / Quit"
+1795356212093,3,0,banner,"","QUEST COMPLETE: THE LIGHTHOUSE KEEPER"
+1795356218109,4,0,subtitle,"","The storm is coming. Hold on to the mast!"
+1795356224149,5,0,hint,"","Tip: press Space to skip the cutscene."
+1795356230165,6,0,hud,"","Lv.70  776,256  2026-11-15 14:39:01 HD"
+1795356236196,7,0,gradient,"","The Lighthouse Awakens"
+1795356242241,8,0,centered,"","The tide rises with the moon. / Every sailor knows its song."
+1795356248286,9,0,dialogue,"Old Fisherman","The blue door opens only for the green lantern."
+1795356254287,10,0,dialogue,"Young Sailor","Captain, the merchant wants twelve gold coins for the map."
+1795356260318,-1,1,end,"",""
