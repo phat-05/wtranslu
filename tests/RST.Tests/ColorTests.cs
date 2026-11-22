@@ -373,3 +373,26 @@ public class KeepAsIsTests
     public void Character_names_on_their_own_stay_as_the_game_shows_them(string text, bool kept) =>
         Assert.Equal(kept, GamePresets.WutheringWaves.IsKeptAsIs(text));
 }
+
+public class OcrScaleTests
+{
+    [Fact]
+    public void Large_text_on_a_4k_screen_is_read_from_a_smaller_copy()
+    {
+        // WuWa dialogue at 3840x2160: lines about 48 px tall
+        Assert.InRange(OcrScale.For(3000, 1300, 48), 0.53, 0.55);
+    }
+
+    [Theory]
+    [InlineData(960, 560, 48)]    // small picture
+    [InlineData(3000, 1300, 0)]   // nothing known yet
+    [InlineData(3000, 1300, 28)]  // text already small: 0.93, not worth it
+    public void Otherwise_full_size(int w, int h, double line) => Assert.Equal(1, OcrScale.For(w, h, line));
+
+    [Fact]
+    public void Never_below_half_size_and_led_by_the_smaller_lines()
+    {
+        Assert.Equal(0.5, OcrScale.For(3840, 2160, 120));
+        Assert.Equal(24, OcrScale.SmallLineHeight(new double[] { 48, 50, 24, 47, 49, 52, 51, 46, 50, 49 }));
+    }
+}

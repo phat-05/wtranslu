@@ -77,6 +77,9 @@ def run_session(args, index):
     env["RST_AUTOMATION_WINDOW"] = args.window
     env["RST_METRICS_FILE"] = metrics
     env["RST_AUTOMATION_CONFIG"] = args.config
+    for pair in args.env:
+        key, _, value = pair.partition("=")
+        env[key] = value
     if args.dump_styles:
         # The pixels of every analysed text box, to tune the style analysers offline
         env["RST_STYLE_DUMP_DIR"] = os.path.abspath(os.path.join(args.out, "style_dump"))
@@ -196,6 +199,7 @@ def main():
     ap.add_argument("--window", default=WINDOW_TITLE, help="window RST selects; @known = RST must find a game it knows by itself")
     ap.add_argument("--mock-as", default="", help="run the mock under this executable name (e.g. Client-Win64-Shipping.exe)")
     ap.add_argument("--mock-arg", action="append", default=[], help="extra MockGame argument (repeatable)")
+    ap.add_argument("--env", action="append", default=[], help="extra KEY=VALUE environment variable for RST (repeatable)")
     args = ap.parse_args()
 
     os.makedirs(args.out, exist_ok=True)

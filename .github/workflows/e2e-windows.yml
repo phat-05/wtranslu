@@ -80,7 +80,7 @@ jobs:
           OUT="evidence/cache"
           python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
             --script tests/e2e/scenarios/cache.txt --out "$OUT" --sessions 2 --fresh \
-            --label "${GITHUB_REF_NAME} cache scenario" \
+            --label "${GITHUB_REF_NAME} cache scenario" --env RST_FORCE_OCR_SCALE=0.75 \
             --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate"
 
       - name: Run style scenario (new overlay features off = upstream behaviour)
