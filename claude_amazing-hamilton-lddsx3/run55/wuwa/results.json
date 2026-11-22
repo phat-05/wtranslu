@@ -1,0 +1,117 @@
+{
+  "summary": {
+    "label": "claude/amazing-hamilton-lddsx3 Wuthering Waves-like scenario",
+    "all": {
+      "n": 5,
+      "missing": 0,
+      "mean_ms": 1686,
+      "median_ms": 1461,
+      "min_ms": 1369,
+      "max_ms": 2654,
+      "ocr_runs": 21,
+      "translation_requests": 3,
+      "from_cache": 2,
+      "image_cache_hits": 63
+    },
+    "first_time_lines": {
+      "n": 4,
+      "missing": 0,
+      "mean_ms": 1742,
+      "median_ms": 1473,
+      "min_ms": 1369,
+      "max_ms": 2654,
+      "ocr_runs": 17,
+      "translation_requests": 3,
+      "from_cache": 1,
+      "image_cache_hits": 49
+    },
+    "repeated_lines": {
+      "n": 1,
+      "missing": 0,
+      "mean_ms": 1461,
+      "median_ms": 1461,
+      "min_ms": 1461,
+      "max_ms": 1461,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "from_cache": 1,
+      "image_cache_hits": 14
+    },
+    "per_session": {
+      "s1": {
+        "n": 5,
+        "missing": 0,
+        "mean_ms": 1686,
+        "median_ms": 1461,
+        "min_ms": 1369,
+        "max_ms": 2654,
+        "ocr_runs": 21,
+        "translation_requests": 3,
+        "from_cache": 2,
+        "image_cache_hits": 63
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "The Resonators gathered at the edge of Jinzhou before dawn.",
+      "latency_ms": 2654,
+      "ocr_runs": 3,
+      "translation_requests": 1,
+      "served_from_cache": false,
+      "image_cache_hits": 10,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "I can hear an echo of something old beneath the city.",
+      "latency_ms": 1570,
+      "ocr_runs": 6,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 11,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Let's go together. / I'll go alone. / Tell me more about the Tacet Discord.",
+      "latency_ms": 1376,
+      "ocr_runs": 3,
+      "translation_requests": 1,
+      "served_from_cache": false,
+      "image_cache_hits": 14,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 3,
+      "cycle": 0,
+      "text": "Then we leave now. Stay close to me.",
+      "latency_ms": 1369,
+      "ocr_runs": 5,
+      "translation_requests": 1,
+      "served_from_cache": false,
+      "image_cache_hits": 14,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 4,
+      "cycle": 0,
+      "text": "I can hear an echo of something old beneath the city.",
+      "latency_ms": 1461,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 14,
+      "rst_crashed": false
+    }
+  ]
+}

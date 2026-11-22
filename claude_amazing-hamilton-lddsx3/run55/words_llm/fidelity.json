@@ -1,0 +1,213 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 coloured words, Ollama qwen2.5:3b",
+ "summary": {
+  "size": 0.945,
+  "color": 1.0,
+  "gradient": 1.0,
+  "effect": 1.0,
+  "bold": 1.0,
+  "italic": 1.0,
+  "font": 1.0,
+  "align": 1.0,
+  "overall": 0.993,
+  "elements": 7
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 1: The Old Harbor",
+   "overlay": {
+    "t": 1795355613789,
+    "size": 30.9,
+    "source": "Chapter 1: The Old Harbor",
+    "shown": "Chương 1: Cảng cũ",
+    "family": "Palatino Linotype",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFD678",
+    "effect": "Shadow",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.97,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.99625
+  },
+  {
+   "style": "speaker",
+   "text": "Captain Mira",
+   "overlay": {
+    "t": 1795355613790,
+    "size": 24.7,
+    "source": "Captain Mira",
+    "shown": "Thuyền trưởng Mira",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9708333333333334,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9963541666666667
+  },
+  {
+   "style": "dialogue",
+   "text": "Find the red key before the tide turns.",
+   "overlay": {
+    "t": 1795355613791,
+    "size": 25.8,
+    "source": "Find the red key before the tide turns.",
+    "shown": "Tìm <c1>điều khiển màu đỏ</c1> trước khi nước chuyển hướng.",
+    "family": "Tahoma",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9923076923076923,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9990384615384615
+  },
+  {
+   "style": "speaker",
+   "text": "Old Fisherman",
+   "overlay": {
+    "t": 1795355632274,
+    "size": 24.2,
+    "source": "Old Fisherman",
+    "shown": "Ngư Ông già",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9916666666666667,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9989583333333334
+  },
+  {
+   "style": "dialogue",
+   "text": "The blue door opens only for the green lantern.",
+   "overlay": {
+    "t": 1795355632274,
+    "size": 25.8,
+    "source": "The blue door opens only for the green lantern .",
+    "shown": "The <c1>đèn xanh</c1> chỉ mở cho <c2>đèn xanh</c2> .",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9923076923076923,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9990384615384615
+  },
+  {
+   "style": "speaker",
+   "text": "Young Sailor",
+   "overlay": {
+    "t": 1795355656841,
+    "size": 20.1,
+    "source": "Young Sailor",
+    "shown": "Thuyền viên trẻ",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.8375,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9796875
+  },
+  {
+   "style": "dialogue",
+   "text": "Ask Captain Mira about the Storm Crystal.",
+   "overlay": {
+    "t": 1795355656841,
+    "size": 22.4,
+    "source": "Ask Captain Mira about the Storm Crystal.",
+    "shown": "Hỏi <c1>Thuyền trưởng Mira</c1> về <c2>Quyết minh Storm</c2> .",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.8615384615384615,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9826923076923076
+  }
+ ]
+}

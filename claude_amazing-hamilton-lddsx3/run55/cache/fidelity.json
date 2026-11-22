@@ -1,0 +1,353 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 cache scenario",
+ "summary": {
+  "size": 0.963,
+  "color": 1.0,
+  "gradient": 1.0,
+  "effect": 1.0,
+  "bold": 1.0,
+  "italic": 1.0,
+  "font": 1.0,
+  "align": 1.0,
+  "overall": 0.995,
+  "elements": 12
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 1: The Old Harbor",
+   "overlay": {
+    "t": 1795355210415,
+    "size": 30.9,
+    "source": "Chapter 1: The Old Harbor",
+    "shown": "Chương 1: Cảng Cũ",
+    "family": "Palatino Linotype",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFD678",
+    "effect": "Shadow",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.97,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.99625
+  },
+  {
+   "style": "speaker",
+   "text": "Captain Mira",
+   "overlay": {
+    "t": 1795355208738,
+    "size": 24.7,
+    "source": "Captain Mira",
+    "shown": "Thuyền trưởng Mira",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9708333333333334,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9963541666666667
+  },
+  {
+   "style": "dialogue",
+   "text": "Welcome aboard. The harbor has been quiet for days.",
+   "overlay": {
+    "t": 1795355208739,
+    "size": 22.9,
+    "source": "Welcome aboard. The harbor has been quiet for days.",
+    "shown": "Chào mừng lên tàu. Bến cảng đã yên tĩnh trong nhiều ngày.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.8807692307692307,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9850961538461538
+  },
+  {
+   "style": "speaker",
+   "text": "Old Fisherman",
+   "overlay": {
+    "t": 1795355210415,
+    "size": 24.2,
+    "source": "Old Fisherman",
+    "shown": "Lão Ngư",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9916666666666667,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9989583333333334
+  },
+  {
+   "style": "dialogue",
+   "text": "Nobody sails at night anymore. The fog is too thick.",
+   "overlay": {
+    "t": 1795355210415,
+    "size": 22.4,
+    "source": "Nobody sails at night anymore. The fog is too thick.",
+    "shown": "Không ai đi thuyền vào ban đêm nữa. Sương mù quá dày.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.8615384615384615,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9826923076923076
+  },
+  {
+   "style": "dialogue",
+   "text": "Then we leave at dawn. Prepare the ropes and the lanterns.",
+   "overlay": {
+    "t": 1795355216059,
+    "size": 25.8,
+    "source": "Then we leave at dawn. Prepare the ropes and the lanterns.",
+    "shown": "Sau đó chúng tôi rời đi vào lúc bình minh. Chuẩn bị dây thừng và đèn lồng.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9923076923076923,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9990384615384615
+  },
+  {
+   "style": "speaker",
+   "text": "Young Sailor",
+   "overlay": {
+    "t": 1795355218594,
+    "size": 24.7,
+    "source": "Young Sailor",
+    "shown": "Thủy thủ trẻ",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9708333333333334,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9963541666666667
+  },
+  {
+   "style": "dialogue",
+   "text": "Captain, the merchant wants twelve gold coins for the map.",
+   "overlay": {
+    "t": 1795355218595,
+    "size": 24.8,
+    "source": "Captain, the merchant wants twelve gold coins for the map.",
+    "shown": "Thuyền trưởng, thương gia muốn 12 đồng vàng cho bản đồ.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9538461538461539,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9942307692307693
+  },
+  {
+   "style": "dialogue",
+   "text": "Pay him. That map is worth far more than gold.",
+   "overlay": {
+    "t": 1795355222402,
+    "size": 25.8,
+    "source": "Pay him. That map is worth far more than gold.",
+    "shown": "Trả tiền cho anh ta. Bản đồ đó có giá trị hơn vàng rất nhiều.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9923076923076923,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9990384615384615
+  },
+  {
+   "style": "dialogue",
+   "text": "Beware the lighthouse. Strange voices come from it.",
+   "overlay": {
+    "t": 1795355226582,
+    "size": 25.8,
+    "source": "Beware the lighthouse. Strange voices come from it.",
+    "shown": "Hãy coi chừng ngọn hải đăng. Những giọng nói lạ phát ra từ đó.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9923076923076923,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9990384615384615
+  },
+  {
+   "style": "dialogue",
+   "text": "I heard the keeper vanished three winters ago.",
+   "overlay": {
+    "t": 1795355231337,
+    "size": 25.8,
+    "source": "I heard the keeper vanished three winters ago.",
+    "shown": "Tôi nghe nói người canh gác đã biến mất cách đây ba mùa đông.",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9923076923076923,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9990384615384615
+  },
+  {
+   "style": "dialogue",
+   "text": "Stories will not stop us. Raise the anchor!",
+   "overlay": {
+    "t": 1795355234659,
+    "size": 25.8,
+    "source": "Stories will not stop us. Raise the anchor!",
+    "shown": "Những câu chuyện sẽ không ngăn cản chúng ta. Hãy nâng mỏ neo lên!",
+    "family": "Segoe UI",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9923076923076923,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9990384615384615
+  }
+ ]
+}

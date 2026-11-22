@@ -1,0 +1,17 @@
+{"k":"- x","o":"- X","t":"- X","s":"Ollama","u":1795355608889}
+{"k":"mockgame dialogue test","o":"MockGame Dialogue Test","t":"MockGame Dialogue Test","s":"Ollama","u":1795355608892}
+{"k":"chapter 1: the old harbor","o":"Chapter 1: The Old Harbor","t":"Ch\u01B0\u01A1ng 1: C\u1EA3ng c\u0169","s":"Ollama","u":1795355608893}
+{"k":"captain mira","o":"Captain Mira","t":"Thuy\u1EC1n tr\u01B0\u1EDFng Mira","s":"Ollama","u":1795355608893}
+{"k":"find the red key before the tide turns.","o":"Find the red key before the tide turns.","t":"T\u00ECm ki\u1EBFm kh\u00F3a \u0111\u1ECF tr\u01B0\u1EDBc khi n\u01B0\u1EDBc chuy\u1EC3n h\u01B0\u1EDBng.","s":"Ollama","u":1795355608893}
+{"k":"- \u003Cc1\u003Ex\u003C/c1\u003E","o":"- \u003Cc1\u003EX\u003C/c1\u003E","t":"- \u003Cc1\u003EX\u003C/c1\u003E","s":"Ollama","u":1795355613778}
+{"k":"find the \u003Cc1\u003Ered key\u003C/c1\u003E before the tide turns.","o":"Find the \u003Cc1\u003Ered key\u003C/c1\u003E before the tide turns.","t":"T\u00ECm \u003Cc1\u003E\u0111i\u1EC1u khi\u1EC3n m\u00E0u \u0111\u1ECF\u003C/c1\u003E tr\u01B0\u1EDBc khi n\u01B0\u1EDBc chuy\u1EC3n h\u01B0\u1EDBng.","s":"Ollama","u":1795355613778}
+{"k":"i- mockgame dialogue test","o":"I- MockGame Dialogue Test","t":"I- MockGame \u5BF9\u8BDD\u6D4B\u8BD5","s":"Ollama","u":1795355616647}
+{"k":"\u003Cc1\u003Ei-\u003C/c1\u003E mockgame dialogue test","o":"\u003Cc1\u003EI-\u003C/c1\u003E MockGame Dialogue Test","t":"\u003Cc1\u003EI-\u003C/c1\u003E MockGame Dialogue Test\n","s":"Ollama","u":1795355619880}
+{"k":"old fisherman","o":"Old Fisherman","t":"Ng\u01B0 \u00D4ng gi\u00E0","s":"Ollama","u":1795355624635}
+{"k":"the blue door opens only for the green lantern .","o":"The blue door opens only for the green lantern .","t":"C\u1EEDa m\u00E0u xanh ch\u1EC9 m\u1EDF cho \u0111\u00E8n l\u1ED3ng m\u00E0u xanh.","s":"Ollama","u":1795355624639}
+{"k":"x","o":"X","t":"\u0110\u1ECF kh\u00F3a tr\u01B0\u1EDBc khi s\u00F3ng chuy\u1EC3n.","s":"Ollama","u":1795355632272}
+{"k":"the \u003Cc1\u003Eblue door\u003C/c1\u003E opens only for the \u003Cc2\u003Egreen lantern\u003C/c2\u003E .","o":"The \u003Cc1\u003Eblue door\u003C/c1\u003E opens only for the \u003Cc2\u003Egreen lantern\u003C/c2\u003E .","t":"The \u003Cc1\u003E\u0111\u00E8n xanh\u003C/c1\u003E ch\u1EC9 m\u1EDF cho \u003Cc2\u003E\u0111\u00E8n xanh\u003C/c2\u003E .","s":"Ollama","u":1795355632272}
+{"k":"young sailor","o":"Young Sailor","t":"Thuy\u1EC1n vi\u00EAn tr\u1EBB","s":"Ollama","u":1795355640652}
+{"k":"ask captain mira about the storm crystal .","o":"Ask Captain Mira about the Storm Crystal .","t":"H\u1ECFi thuy\u1EC1n tr\u01B0\u1EDFng Mira v\u1EC1 Ng\u1ECDc Quy\u1EBFt Storm.","s":"Ollama","u":1795355640652}
+{"k":"ask \u003Cc1\u003Ecaptain mira\u003C/c1\u003E about the \u003Cc2\u003Estorm crystal\u003C/c2\u003E .","o":"Ask \u003Cc1\u003ECaptain Mira\u003C/c1\u003E about the \u003Cc2\u003EStorm Crystal\u003C/c2\u003E .","t":"H\u1ECFi \u003Cc1\u003EThuy\u1EC1n tr\u01B0\u1EDFng Mira\u003C/c1\u003E v\u1EC1 \u003Cc2\u003EQuy\u1EBFt minh Storm\u003C/c2\u003E .","s":"Ollama","u":1795355645165}
+{"k":"ask \u003Cc1\u003Ecaptain mira\u003C/c1\u003E about the \u003Cc2\u003Estorm crystal.\u003C/c2\u003E","o":"Ask \u003Cc1\u003ECaptain Mira\u003C/c1\u003E about the \u003Cc2\u003EStorm Crystal.\u003C/c2\u003E","t":"H\u1ECFi \u003Cc1\u003EThuy\u1EC1n tr\u01B0\u1EDFng Mira\u003C/c1\u003E v\u1EC1 \u003Cc2\u003EQuy\u1EBFt minh Storm\u003C/c2\u003E .","s":"Ollama","u":1795355649643}

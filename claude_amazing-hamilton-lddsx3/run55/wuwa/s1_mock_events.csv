@@ -1,0 +1,7 @@
+utc_ms,step,cycle,style,speaker,text
+1795355506758,0,0,wuwa,"Yangyang","The Resonators gathered at the edge of Jinzhou before dawn."
+1795355511779,1,0,wuwa,"Rover","I can hear an echo of something old beneath the city."
+1795355516816,2,0,wuwa_choices,"","Let's go together. / I'll go alone. / Tell me more about the Tacet Discord."
+1795355521851,3,0,wuwa,"Yangyang","Then we leave now. Stay close to me."
+1795355526863,4,0,wuwa,"Rover","I can hear an echo of something old beneath the city."
+1795355531869,-1,1,end,"",""
