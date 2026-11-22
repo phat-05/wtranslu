@@ -1071,19 +1071,24 @@ namespace RSTGameTranslation
                             int lineCount = item.TryGetProperty("line_count", out JsonElement lineCountElement) && lineCountElement.ValueKind == JsonValueKind.Number
                                 ? Math.Max(1, lineCountElement.GetInt32())
                                 : 1;
+                            string? align = item.TryGetProperty("align", out JsonElement alignElement) && alignElement.ValueKind == JsonValueKind.String
+                                ? alignElement.GetString()
+                                : null;
+                            bool listItem = item.TryGetProperty("list_item", out JsonElement listElement) && listElement.ValueKind == JsonValueKind.True;
 
                             if (autoMergeEnabled)
                             {
                                 int? bubbleId = item.TryGetProperty("bubble_id", out JsonElement bubbleElement) && bubbleElement.ValueKind == JsonValueKind.Number
                                     ? bubbleElement.GetInt32()
                                     : null;
-                                tempBlocks.Add(new TempTextBlock { Text = text, X = x, Y = y, Width = width, Height = height, Confidence = confidence, BubbleId = bubbleId, FontPx = fontPx, LineCount = lineCount });
+                                tempBlocks.Add(new TempTextBlock { Text = text, X = x, Y = y, Width = width, Height = height, Confidence = confidence, BubbleId = bubbleId, FontPx = fontPx, LineCount = lineCount, Align = align, ListItem = listItem });
                             }
                             else
                             {
                                 // OCR boxes are in capture pixels; the overlay canvas is in MonitorWindow DIPs
                                 DpiHelper.GetWindowRenderDpi(MonitorWindow.Instance, out double dpiScaleX, out double dpiScaleY);
-                                CreateTextObjectAtPosition(text, x / dpiScaleX, y / dpiScaleY, width / dpiScaleX, height / dpiScaleY, confidence, sourceBitmap, fontPx / dpiScaleY, lineCount);
+                                CreateTextObjectAtPosition(text, x / dpiScaleX, y / dpiScaleY, width / dpiScaleX, height / dpiScaleY, confidence, sourceBitmap, fontPx / dpiScaleY, lineCount,
+                                    align == "center", align == "right");
                             }
                         }
                     }
@@ -1106,8 +1111,13 @@ namespace RSTGameTranslation
                             double originalHeight = bounds.MaxY - bounds.MinY;
 
                             // Lines with a common middle but different left edges: the game centres this text
-                            bool centered = RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(block.LineBoxes, block.FontPx);
-                            bool rightAligned = !centered && RSTGameTranslation.Layout.AlignmentDetector.LinesRightAligned(block.LineBoxes, block.FontPx);
+                            // One OCR paragraph: as the OCR's line boxes said; several merged: from their boxes
+                            bool centered = block.Lines.Count > 0
+                                ? RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(block.LineBoxes, block.FontPx)
+                                : block.Align == "center";
+                            bool rightAligned = !centered && (block.Lines.Count > 0
+                                ? RSTGameTranslation.Layout.AlignmentDetector.LinesRightAligned(block.LineBoxes, block.FontPx)
+                                : block.Align == "right");
                             CreateTextObjectAtPosition(block.Text, originalX / dpiScaleX, originalY / dpiScaleY,
                                 originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap, block.FontPx / dpiScaleY, block.LineCount, centered, rightAligned);
                         }
@@ -3269,6 +3279,10 @@ namespace RSTGameTranslation
             public double FontPx { get; set; }
             // Lines of game text in the block
             public int LineCount { get; set; } = 1;
+            // One item of a menu or list: stays apart from its neighbours
+            public bool ListItem { get; set; }
+            // How the game aligned the block's lines ("center", "right"; null = left / unknown)
+            public string? Align { get; set; }
             // Left edge and width of each OCR line merged into the block (empty = just this box)
             public List<(double Left, double Width)> Lines { get; set; } = new();
             public IReadOnlyList<(double Left, double Width)> LineBoxes => Lines.Count > 0 ? Lines : new List<(double, double)> { (X, Width) };
@@ -3458,6 +3472,10 @@ namespace RSTGameTranslation
 
             // Text in two different manga speech bubbles never merges, however close the bubbles are
             if (a.BubbleId != null && b.BubbleId != null && a.BubbleId != b.BubbleId)
+                return false;
+
+            // Menu items stay one per line, as the game shows them
+            if (a.ListItem || b.ListItem)
                 return false;
 
             // Larger threshold to better detect adjacent/overlapping text blocks

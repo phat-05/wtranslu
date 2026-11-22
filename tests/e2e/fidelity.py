@@ -63,6 +63,8 @@ def similar(a, b):
 def part_of(line, text):
     """Whether an overlay's source text is one of the lines of a longer text (most of its words in it)."""
     wl, wt = words(line), words(text)
+    if len(wl) == 1:  # a one-word menu item: that word must be one of the text's
+        return wl <= wt and len(wt) > 1
     return len(wl) >= 2 and len(wl & wt) >= 0.8 * len(wl) and len(wl) < len(wt)
 
 

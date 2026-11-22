@@ -175,6 +175,8 @@ namespace RSTGameTranslation
                 if (!isVertical && !ConfigManager.Instance.IsMangaModeEnabled())
                 {
                     paragraphs = JoinUnfinishedSentences(paragraphs);
+                    // Menus and option lists: one item per line, each translated and shown on its own
+                    paragraphs = SplitLists(paragraphs);
                 }
 
                 // PHASE 5: Apply manga-specific processing if manga mode is enabled.
@@ -1182,6 +1184,52 @@ namespace RSTGameTranslation
             return overlapX >= Math.Min(a.Bounds.Width, b.Bounds.Width) * 0.5;
         }
 
+        /// <summary>
+        /// Lines of a paragraph that form a list (3+ short stacked items, see Layout.ListDetector)
+        /// become paragraphs of their own; the other lines stay grouped as they were.
+        /// </summary>
+        private static List<TextElement> SplitLists(List<TextElement> paragraphs)
+        {
+            var result = new List<TextElement>();
+            foreach (var paragraph in paragraphs)
+            {
+                if (paragraph.Children.Count < 3)
+                {
+                    result.Add(paragraph);
+                    continue;
+                }
+                var lines = paragraph.Children;
+                var listLines = RSTGameTranslation.Layout.ListDetector.ListLines(
+                    lines.Select(l => (l.Text, l.Bounds.X, l.Bounds.Y, l.Bounds.Width, l.Bounds.Height)).ToList());
+                if (listLines.Count == 0)
+                {
+                    result.Add(paragraph);
+                    continue;
+                }
+                Console.WriteLine($"List of {listLines.Count} items kept apart: '{paragraph.Text.Replace('\n', '|')}'");
+                var run = new List<TextElement>();
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    if (!listLines.Contains(i))
+                    {
+                        run.Add(lines[i]);
+                        continue;
+                    }
+                    if (run.Count > 0)
+                    {
+                        result.Add(BuildParagraph(run));
+                        run = new List<TextElement>();
+                    }
+                    var item = BuildParagraph(new[] { lines[i] });
+                    item.IsListItem = true;
+                    result.Add(item);
+                }
+                if (run.Count > 0)
+                    result.Add(BuildParagraph(run));
+            }
+            return result;
+        }
+
         // One paragraph from lines already in reading order: texts joined by newlines, bounds unioned
         private static TextElement BuildParagraph(IEnumerable<TextElement> orderedLines)
         {
@@ -1338,6 +1386,18 @@ namespace RSTGameTranslation
 
                         // Add metadata
                         writer.WriteNumber("line_count", paragraph.Children.Count);
+                        if (paragraph.IsListItem)
+                            writer.WriteBoolean("list_item", true);
+                        // How the game aligned the lines of the paragraph (see Layout.AlignmentDetector)
+                        if (paragraph.Children.Count >= 2)
+                        {
+                            var lineBoxes = paragraph.Children.Select(l => (l.Bounds.X, l.Bounds.Width)).ToList();
+                            double lineFontPx = paragraph.Children.Average(l => l.Bounds.Height) / 1.2;
+                            if (RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(lineBoxes, lineFontPx))
+                                writer.WriteString("align", "center");
+                            else if (RSTGameTranslation.Layout.AlignmentDetector.LinesRightAligned(lineBoxes, lineFontPx))
+                                writer.WriteString("align", "right");
+                        }
                         writer.WriteString("element_type", "paragraph");
 
                         // The game's font size, from the height of each line (see Layout.FontSizeEstimator)
@@ -1804,6 +1864,9 @@ namespace RSTGameTranslation
             public ElementType ElementType { get; set; } = ElementType.Other;
             public bool IsCharacter { get; set; }
             public bool IsProcessed { get; set; }
+
+            // One item of a menu or list (see SplitLists): never merged with its neighbours again
+            public bool IsListItem { get; set; }
 
             // Hierarchy
             public int LineIndex { get; set; } = -1;

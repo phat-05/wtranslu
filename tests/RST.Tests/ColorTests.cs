@@ -264,3 +264,44 @@ public class RightAlignmentTests
         Assert.False(AlignmentDetector.LineAtRightOfArea(570, 300, 0, 964));  // ends far from the edge
     }
 }
+
+public class ListDetectorTests
+{
+    [Fact]
+    public void A_menu_is_a_list()
+    {
+        var lines = new (string, double, double, double, double)[]
+        {
+            ("Continue", 674, 124, 90, 24), ("Load Game", 674, 158, 110, 24),
+            ("Settings", 674, 192, 88, 24), ("Quit", 674, 226, 46, 24),
+        };
+        Assert.Equal(4, ListDetector.ListLines(lines).Count);
+    }
+
+    [Fact]
+    public void Wrapped_dialogue_is_not_a_list()
+    {
+        var lines = new (string, double, double, double, double)[]
+        {
+            ("Welcome aboard. The harbor has been", 60, 400, 500, 26),
+            ("quiet for days, and the fog", 60, 430, 380, 26),
+            ("is too thick.", 60, 460, 150, 26),
+        };
+        Assert.Empty(ListDetector.ListLines(lines));
+    }
+
+    [Fact]
+    public void Two_short_lines_are_not_enough()
+    {
+        var lines = new (string, double, double, double, double)[] { ("Chapter 2", 60, 50, 120, 30), ("The Lighthouse", 60, 85, 190, 30) };
+        Assert.Empty(ListDetector.ListLines(lines));
+    }
+
+    [Theory]
+    [InlineData("Load Game", true)]
+    [InlineData("2 Players", true)]
+    [InlineData("quiet for days", false)]
+    [InlineData("Hello there,", false)]
+    [InlineData("This line has far too many words", false)]
+    public void Items_are_short_and_start_with_a_capital(string text, bool item) => Assert.Equal(item, ListDetector.IsItem(text));
+}
