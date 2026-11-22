@@ -1308,7 +1308,11 @@ namespace RSTGameTranslation
                         }
 
                         // Original text removed from its own background, shown under the translation
-                        erasedPatch = TextEraser.CreateErasedPatch(sourceBitmap, textBox, bgColor, out var patchPixels);
+                        // The game's outline/shadow is erased too where it sticks out of the box
+                        System.Windows.Media.Color? effectColor = textStyle != null && textStyle.Effect != RSTGameTranslation.Layout.TextEffectKind.None && !textStyle.EffectAdded
+                            ? textStyle.EffectColor.ToMediaColor()
+                            : null;
+                        erasedPatch = TextEraser.CreateErasedPatch(sourceBitmap, textBox, bgColor, out var patchPixels, effectColor);
                         erasedBounds = new Rect(patchPixels.X / dpiScaleX, patchPixels.Y / dpiScaleY,
                                                 patchPixels.Width / dpiScaleX, patchPixels.Height / dpiScaleY);
                     }

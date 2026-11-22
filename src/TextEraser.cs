@@ -33,7 +33,10 @@ namespace RSTGameTranslation
         /// Builds the cleaned patch for a text box (bitmap pixels). Returns null when the box is unusable.
         /// <paramref name="patchBounds"/> receives the patch position in bitmap pixels: the box plus a margin.
         /// </summary>
-        public static BitmapSource? CreateErasedPatch(Bitmap bitmap, Rectangle textBox, MediaColor background, out Rectangle patchBounds)
+        /// <param name="effectColor">Colour of the game text's outline or drop shadow, erased with the
+        /// letters where it sticks out of the box (a shadow is shifted down/right of the letters).</param>
+        public static BitmapSource? CreateErasedPatch(Bitmap bitmap, Rectangle textBox, MediaColor background, out Rectangle patchBounds,
+                                                      MediaColor? effectColor = null)
         {
             var image = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
             int margin = Math.Clamp(Math.Min(textBox.Width, textBox.Height) / 4, 3, 12);
@@ -57,15 +60,17 @@ namespace RSTGameTranslation
             // OCR boxes are tight and often cut glyph parts off (descenders, accents, the edge of the
             // last letter); those parts sit in the margin and stayed visible next to the translation.
             // Follow the strokes from inside the box into the margin and erase what stays connected.
+            (float R, float G, float B)? effect = effectColor is MediaColor e ? (e.R, e.G, e.B) : null;
             if (inkColor != null)
-                GrowMaskIntoMargin(mask, r, g, b, w, h, left, top, right, bottom, background, inkDistance, inkColor.Value);
+                GrowMaskIntoMargin(mask, r, g, b, w, h, left, top, right, bottom, background, inkDistance, inkColor.Value, effect);
 
             // Other strokes in the margin (neighbouring text, bubble outlines) stay as they are but must
             // not be smeared into the fill. Judge them by closeness to the ink color rather than distance
             // from one background color, which would reject half a gradient.
             var usable = new bool[w * h];
             for (int i = 0; i < usable.Length; i++)
-                usable[i] = !mask[i] && (inkColor == null || !IsCloserToInk(r[i], g[i], b[i], inkColor.Value, background));
+                usable[i] = !mask[i] && (inkColor == null || !IsCloserToInk(r[i], g[i], b[i], inkColor.Value, background))
+                            && (effect == null || !IsCloserToInk(r[i], g[i], b[i], effect.Value, background));
 
             // Start from the background color, so pixels no usable neighbour reaches still look right
             for (int i = 0; i < mask.Length; i++)
@@ -103,10 +108,14 @@ namespace RSTGameTranslation
         // look like the ink) and mask them, dilated like the strokes inside
         private static void GrowMaskIntoMargin(bool[] mask, float[] r, float[] g, float[] b, int w, int h,
                                                int left, int top, int right, int bottom, MediaColor bg,
-                                               double inkDistance, (float R, float G, float B) inkColor)
+                                               double inkDistance, (float R, float G, float B) inkColor,
+                                               (float R, float G, float B)? effect = null)
         {
             bool InBox(int x, int y) => x >= left && x < right && y >= top && y < bottom;
-            bool IsStroke(int i) => IsInk(r[i], g[i], b[i], bg, inkDistance) && IsCloserToInk(r[i], g[i], b[i], inkColor, bg);
+            // The letters' colour, or their outline/shadow colour
+            bool IsStroke(int i) => IsInk(r[i], g[i], b[i], bg, inkDistance) &&
+                                    (IsCloserToInk(r[i], g[i], b[i], inkColor, bg) ||
+                                     (effect != null && IsCloserToInk(r[i], g[i], b[i], effect.Value, bg)));
 
             var grown = new bool[w * h];
             var queue = new Queue<int>();
