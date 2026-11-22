@@ -116,19 +116,22 @@ namespace RSTGameTranslation
         // Lines the game text had: the translation may use as many lines of its own line height, even
         // when the OCR boxes (which hug the letters) are a little shorter than that
         public int SourceLineCount { get; set; } = 1;
-        // The game centred this text (lines sharing their middle): the translation is centred on the
-        // same point. Set from the OCR lines of a block; the overlay layout pass may also set it.
-        private bool _sourceCentered;
-        public bool SourceCentered
+        // How the game aligned this text: centred (lines sharing their middle) or right-aligned (sharing
+        // their right edge, or against the right side of the screen). The translation keeps the same
+        // middle or right edge. Set from the OCR lines of a block; the overlay layout pass may also set it.
+        private TextAlignment _sourceAlignment = TextAlignment.Left;
+        public TextAlignment SourceAlignment
         {
-            get => _sourceCentered;
+            get => _sourceAlignment;
             set
             {
-                _sourceCentered = value;
+                _sourceAlignment = value;
                 if (TextBlock != null)
-                    TextBlock.TextAlignment = value ? TextAlignment.Center : TextAlignment.Left;
+                    TextBlock.TextAlignment = value;
             }
         }
+        public bool SourceCentered => _sourceAlignment == TextAlignment.Center;
+        public bool SourceRightAligned => _sourceAlignment == TextAlignment.Right;
 
         // Feather width (DIPs) of the background edge when overlay colors are sampled automatically
         private const double SoftEdgeRadius = 6;
@@ -347,7 +350,7 @@ namespace RSTGameTranslation
                 //     TextBlock.Text = this.Text;
                 // }
                 TextBlock.Foreground = this.TextColor;
-                TextBlock.TextAlignment = _sourceCentered ? TextAlignment.Center : TextAlignment.Left;
+                TextBlock.TextAlignment = _sourceAlignment;
                 ApplyGameShape(TextBlock);
                 ApplyBackground();
                 // The overlay positions borders with Canvas.Left/Top; a margin would add the offset twice

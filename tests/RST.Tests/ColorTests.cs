@@ -245,3 +245,22 @@ public class TextCaseTests
         Assert.Equal("Người giữ hải đăng", TextCase.Match("The keeper", "Người giữ hải đăng"));
     }
 }
+
+public class RightAlignmentTests
+{
+    [Fact]
+    public void Lines_sharing_their_right_edge_are_right_aligned()
+    {
+        Assert.True(AlignmentDetector.LinesRightAligned(new[] { (600.0, 370.0), (700.0, 270.0) }, 18));
+        Assert.False(AlignmentDetector.LinesRightAligned(new[] { (600.0, 370.0), (600.0, 270.0) }, 18));
+    }
+
+    [Fact]
+    public void Hud_text_in_the_bottom_right_corner_is_right_aligned()
+    {
+        // MockGame's HUD: Consolas 18 bold drawn 2 px from the right edge of a 964 px wide client
+        Assert.True(AlignmentDetector.LineAtRightOfArea(570, 390, 0, 964));
+        Assert.False(AlignmentDetector.LineAtRightOfArea(60, 890, 0, 964));   // a full-width line
+        Assert.False(AlignmentDetector.LineAtRightOfArea(570, 300, 0, 964));  // ends far from the edge
+    }
+}

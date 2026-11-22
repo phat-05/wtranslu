@@ -655,7 +655,8 @@ namespace RSTGameTranslation
                     item.Relayout(item.Width, preferredRatio);
                     if (item.TextFitsBox) continue;
 
-                    bool isRtl = item.FlowDirection == System.Windows.FlowDirection.RightToLeft;
+                    // Right-aligned text grows to the left, like right-to-left text
+                    bool isRtl = item.FlowDirection == System.Windows.FlowDirection.RightToLeft || item.SourceRightAligned;
                     bool centered = item.SourceCentered;
                     double right = isRtl ? item.X + item.Width : overlayWidth;
                     double left = isRtl || centered ? 0 : item.X;
@@ -736,16 +737,24 @@ namespace RSTGameTranslation
                     if (b.SourceLineCount > 1 || Math.Abs(a.Height - b.Height) > lineHeight * 0.4)
                         continue;
                     double em = a.SourceFontSize > 0 ? a.SourceFontSize : a.Height / 1.2;
-                    if (RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(new[] { (a.X, a.Width), (b.X, b.Width) }, em))
+                    var pair = new[] { (a.X, a.Width), (b.X, b.Width) };
+                    if (RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(pair, em))
                     {
-                        a.SourceCentered = true;
-                        b.SourceCentered = true;
+                        a.SourceAlignment = System.Windows.TextAlignment.Center;
+                        b.SourceAlignment = System.Windows.TextAlignment.Center;
+                    }
+                    else if (RSTGameTranslation.Layout.AlignmentDetector.LinesRightAligned(pair, em))
+                    {
+                        a.SourceAlignment = System.Windows.TextAlignment.Right;
+                        b.SourceAlignment = System.Windows.TextAlignment.Right;
                     }
                 }
-                if (!a.SourceCentered && !double.IsInfinity(overlayWidth) &&
-                    RSTGameTranslation.Layout.AlignmentDetector.LineCenteredInArea(a.X, a.Width, 0, overlayWidth))
+                if (a.SourceAlignment == System.Windows.TextAlignment.Left && !double.IsInfinity(overlayWidth))
                 {
-                    a.SourceCentered = true;
+                    if (RSTGameTranslation.Layout.AlignmentDetector.LineCenteredInArea(a.X, a.Width, 0, overlayWidth))
+                        a.SourceAlignment = System.Windows.TextAlignment.Center;
+                    else if (RSTGameTranslation.Layout.AlignmentDetector.LineAtRightOfArea(a.X, a.Width, 0, overlayWidth))
+                        a.SourceAlignment = System.Windows.TextAlignment.Right;
                 }
             }
         }
@@ -759,7 +768,7 @@ namespace RSTGameTranslation
             // centred text keeps the original's middle
             double left = item.SourceCentered
                 ? item.X + item.Width / 2 - size.Width / 2
-                : item.FlowDirection == System.Windows.FlowDirection.RightToLeft
+                : item.FlowDirection == System.Windows.FlowDirection.RightToLeft || item.SourceRightAligned
                 ? item.X + item.Width - size.Width
                 : item.X;
 

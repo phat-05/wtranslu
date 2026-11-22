@@ -21,7 +21,7 @@ internal static class Styles
         ["banner"] = new("Bahnschrift Condensed", 44, true, false, Color.FromArgb(255, 90, 70), "shadow", Color.Black),
         ["subtitle"] = new("Segoe UI", 30, true, false, Color.White, "outline", Color.Black),
         ["hint"] = new("Segoe UI", 22, false, true, Color.FromArgb(176, 150, 110)),
-        ["hud"] = new("Consolas", 18, true, false, Color.White),
+        ["hud"] = new("Consolas", 18, true, false, Color.White, Align: "right"),
         ["gradient"] = new("Georgia", 36, true, false, Color.FromArgb(255, 244, 170), GradientTo: Color.FromArgb(225, 110, 25)),
         ["centered"] = new("Segoe UI", 26, false, false, Color.FromArgb(215, 235, 255), "shadow", Color.Black, Align: "center"),
     };

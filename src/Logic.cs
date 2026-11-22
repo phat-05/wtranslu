@@ -1107,8 +1107,9 @@ namespace RSTGameTranslation
 
                             // Lines with a common middle but different left edges: the game centres this text
                             bool centered = RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(block.LineBoxes, block.FontPx);
+                            bool rightAligned = !centered && RSTGameTranslation.Layout.AlignmentDetector.LinesRightAligned(block.LineBoxes, block.FontPx);
                             CreateTextObjectAtPosition(block.Text, originalX / dpiScaleX, originalY / dpiScaleY,
-                                originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap, block.FontPx / dpiScaleY, block.LineCount, centered);
+                                originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap, block.FontPx / dpiScaleY, block.LineCount, centered, rightAligned);
                         }
                     }
                 }
@@ -1211,7 +1212,7 @@ namespace RSTGameTranslation
 
         // Create a text object at the specified position with confidence info
         // sourceFontSize: the game's font size in DIPs, estimated from the OCR line heights (0 = unknown)
-        private void CreateTextObjectAtPosition(string text, double x, double y, double width, double height, double confidence, Bitmap? sourceBitmap, double sourceFontSize = 0, int sourceLineCount = 1, bool centered = false)
+        private void CreateTextObjectAtPosition(string text, double x, double y, double width, double height, double confidence, Bitmap? sourceBitmap, double sourceFontSize = 0, int sourceLineCount = 1, bool centered = false, bool rightAligned = false)
         {
             try
             {
@@ -1220,7 +1221,7 @@ namespace RSTGameTranslation
                 {
                     // Run on UI thread to ensure STA compliance
                     Application.Current.Dispatcher.Invoke(() =>
-                        CreateTextObjectAtPosition(text, x, y, width, height, confidence, sourceBitmap, sourceFontSize, sourceLineCount, centered));
+                        CreateTextObjectAtPosition(text, x, y, width, height, confidence, sourceBitmap, sourceFontSize, sourceLineCount, centered, rightAligned));
                     return;
                 }
 
@@ -1335,7 +1336,10 @@ namespace RSTGameTranslation
                     captureX, captureY  // Store original capture coordinates
                 );
                 textObject.ID = "text_" + GetNextTextID();
-                textObject.SourceCentered = centered;
+                if (centered)
+                    textObject.SourceAlignment = System.Windows.TextAlignment.Center;
+                else if (rightAligned)
+                    textObject.SourceAlignment = System.Windows.TextAlignment.Right;
                 if (ConfigManager.Instance.IsFontSizeFromLineHeightEnabled())
                 {
                     textObject.SourceFontSize = sourceFontSize;
