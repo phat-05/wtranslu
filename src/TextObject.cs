@@ -496,6 +496,16 @@ namespace RSTGameTranslation
             }
         }
 
+        // "#RRGGBB" for a plain colour, "#top>#bottom" for a vertical gradient (for measurements)
+        private static string DescribeBrush(System.Windows.Media.Brush? brush) => brush switch
+        {
+            SolidColorBrush solid => $"#{solid.Color.R:X2}{solid.Color.G:X2}{solid.Color.B:X2}",
+            LinearGradientBrush gradient when gradient.GradientStops.Count >= 2 =>
+                $"#{gradient.GradientStops[0].Color.R:X2}{gradient.GradientStops[0].Color.G:X2}{gradient.GradientStops[0].Color.B:X2}>" +
+                $"#{gradient.GradientStops[^1].Color.R:X2}{gradient.GradientStops[^1].Color.G:X2}{gradient.GradientStops[^1].Color.B:X2}",
+            _ => "?"
+        };
+
         // Static cache for font size calculations
         private static readonly Dictionary<string, (double Size, bool Fits)> _fontSizeCache = new Dictionary<string, (double Size, bool Fits)>();
         public static void ClearCache()
@@ -617,7 +627,11 @@ namespace RSTGameTranslation
                 TextFitsBox = FitsAt(textBlock, finalSize);
                 textBlock.VerticalAlignment = VerticalAlignment.Stretch;
                 ApplyFontSize(textBlock, finalSize);
-                OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}");
+                if (OcrTiming.Metrics.Enabled)
+                {
+                    OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}" +
+                        $"|{textBlock.FontWeight}|{textBlock.FontStyle}|{DescribeBrush(textBlock.Foreground)}|{_gameTextStyle?.Effect.ToString() ?? "None"}|{textBlock.TextAlignment}");
+                }
                 
                 // Cache result
                 if (_fontSizeCache.Count > 100) _fontSizeCache.Clear();

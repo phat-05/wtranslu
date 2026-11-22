@@ -14,8 +14,9 @@ namespace MockGame;
 /// words with {#RRGGBB:word} markup. Each change of text is logged with a UTC millisecond timestamp
 /// so the time until RST shows the translation can be computed.
 ///
-/// Usage: MockGame.exe --script script.txt --log events.csv [--animate] [--cycles N]
-/// Script lines: durationMs|style|speaker|text   (style: dialogue, title, menu; # = comment)
+/// Usage: MockGame.exe --script script.txt --log events.csv [--animate] [--cycles N] [--truth styles.json]
+/// Script lines: durationMs|style|speaker|text   (style: a key of Styles.All, or "title" to change the
+/// chapter title; # = comment). --truth writes how every style is drawn, for fidelity scoring.
 /// </summary>
 internal static class Program
 {
@@ -24,7 +25,7 @@ internal static class Program
     [STAThread]
     private static void Main(string[] args)
     {
-        string? script = null, log = null;
+        string? script = null, log = null, truth = null;
         bool animate = false;
         int cycles = 1;
         for (int i = 0; i < args.Length; i++)
@@ -35,9 +36,12 @@ internal static class Program
                 case "--log": log = args[++i]; break;
                 case "--animate": animate = true; break;
                 case "--cycles": cycles = int.Parse(args[++i], CultureInfo.InvariantCulture); break;
+                case "--truth": truth = args[++i]; break;
             }
         }
 
+        if (truth != null)
+            Styles.WriteTruth(truth);
         var steps = Step.Load(script);
         ApplicationConfiguration.Initialize();
         Application.Run(new GameForm(steps, log, animate, cycles));
@@ -163,9 +167,10 @@ internal sealed class GameForm : Form
 
         var step = Current;
         // Chapter title, big and golden, at the top
-        using (var titleFont = new Font("Georgia", 30, FontStyle.Bold, GraphicsUnit.Pixel))
-        using (var shadow = new SolidBrush(Color.FromArgb(160, 0, 0, 0)))
-        using (var gold = new SolidBrush(Color.FromArgb(255, 214, 120)))
+        var title = Styles.All["title"];
+        using (var titleFont = Styles.MakeFont(title))
+        using (var shadow = new SolidBrush(Color.FromArgb(160, title.EffectColor!.Value)))
+        using (var gold = new SolidBrush(title.Fill))
         {
             g.DrawString(_chapter, titleFont, shadow, 42, 32);
             g.DrawString(_chapter, titleFont, gold, 40, 30);
@@ -183,6 +188,10 @@ internal sealed class GameForm : Form
             DrawHint(g, step);
         else if (step.Style == "hud")
             DrawHud(g, step);
+        else if (step.Style == "gradient")
+            DrawGradient(g, step);
+        else if (step.Style == "centered")
+            DrawCentered(g, step);
         else if (step.Style == "dialogue")
             DrawDialogue(g, step);
     }
@@ -214,20 +223,23 @@ internal sealed class GameForm : Form
         using (var border = new Pen(Color.FromArgb(200, 170, 120), 3))
             g.DrawRectangle(border, box);
 
-        using (var nameFont = new Font("Segoe UI", 24, FontStyle.Bold, GraphicsUnit.Pixel))
-        using (var nameBrush = new SolidBrush(Color.FromArgb(255, 200, 60)))
+        var speaker = Styles.All["speaker"];
+        using (var nameFont = Styles.MakeFont(speaker))
+        using (var nameBrush = new SolidBrush(speaker.Fill))
             g.DrawString(step.Speaker, nameFont, nameBrush, box.X + 24, box.Y + 14);
 
-        using var textFont = new Font("Segoe UI", 26, FontStyle.Regular, GraphicsUnit.Pixel);
-        DrawRichText(g, step.Text, textFont, Color.White, new RectangleF(box.X + 24, box.Y + 58, box.Width - 48, box.Height - 70));
+        var dialogue = Styles.All["dialogue"];
+        using var textFont = Styles.MakeFont(dialogue);
+        DrawRichText(g, step.Text, textFont, dialogue.Fill, new RectangleF(box.X + 24, box.Y + 58, box.Width - 48, box.Height - 70));
     }
 
     // Big text in a condensed font (narrower letters than Arial at the same height), as game banners use
     private static void DrawBanner(Graphics g, Step step)
     {
-        using var font = new Font("Bahnschrift Condensed", 44, FontStyle.Bold, GraphicsUnit.Pixel);
-        using var shadow = new SolidBrush(Color.FromArgb(200, 0, 0, 0));
-        using var fill = new SolidBrush(Color.FromArgb(255, 90, 70));
+        var spec = Styles.All["banner"];
+        using var font = Styles.MakeFont(spec);
+        using var shadow = new SolidBrush(Color.FromArgb(200, spec.EffectColor!.Value));
+        using var fill = new SolidBrush(spec.Fill);
         g.DrawString(step.Text, font, shadow, 63, 203);
         g.DrawString(step.Text, font, fill, 60, 200);
     }
@@ -235,12 +247,14 @@ internal sealed class GameForm : Form
     // White subtitle with a black outline over the bright sky, as cutscene subtitles are drawn
     private static void DrawSubtitle(Graphics g, Step step)
     {
+        var spec = Styles.All["subtitle"];
         using var path = new GraphicsPath();
-        using var family = new FontFamily("Segoe UI");
-        path.AddString(step.Text, family, (int)FontStyle.Bold, 30, new PointF(60, 250), StringFormat.GenericTypographic);
-        using var outline = new Pen(Color.Black, 5) { LineJoin = LineJoin.Round };
+        using var family = new FontFamily(spec.Font);
+        path.AddString(step.Text, family, (int)FontStyle.Bold, spec.Px, new PointF(60, 250), StringFormat.GenericTypographic);
+        using var outline = new Pen(spec.EffectColor!.Value, 5) { LineJoin = LineJoin.Round };
+        using var fill = new SolidBrush(spec.Fill);
         g.DrawPath(outline, path);
-        g.FillPath(Brushes.White, path);
+        g.FillPath(fill, path);
     }
 
     // Pale hint text on a cream panel: low contrast, as greyed-out tips are
@@ -249,8 +263,9 @@ internal sealed class GameForm : Form
         var panel = new Rectangle(60, 230, 700, 50);
         using (var fill = new SolidBrush(Color.FromArgb(240, 232, 214)))
             g.FillRectangle(fill, panel);
-        using var font = new Font("Segoe UI", 22, FontStyle.Italic, GraphicsUnit.Pixel);
-        using var brush = new SolidBrush(Color.FromArgb(176, 150, 110));
+        var spec = Styles.All["hint"];
+        using var font = Styles.MakeFont(spec);
+        using var brush = new SolidBrush(spec.Fill);
         g.DrawString(step.Text, font, brush, panel.X + 14, panel.Y + 10);
     }
 
@@ -258,10 +273,43 @@ internal sealed class GameForm : Form
     // level, coordinates or a clock there (reading pixels at that edge once crashed the overlay)
     private void DrawHud(Graphics g, Step step)
     {
-        using var font = new Font("Consolas", 18, FontStyle.Bold, GraphicsUnit.Pixel);
+        var spec = Styles.All["hud"];
+        using var font = Styles.MakeFont(spec);
+        using var brush = new SolidBrush(spec.Fill);
         SizeF size = g.MeasureString(step.Text, font);
         float x = ClientSize.Width - size.Width - 2, y = ClientSize.Height - size.Height + 2;
-        g.DrawString(step.Text, font, Brushes.White, x, y);
+        g.DrawString(step.Text, font, brush, x, y);
+    }
+
+    // Big title with a vertical colour gradient (light gold at the top to orange at the bottom)
+    private static void DrawGradient(Graphics g, Step step)
+    {
+        var spec = Styles.All["gradient"];
+        using var font = Styles.MakeFont(spec);
+        SizeF size = g.MeasureString(step.Text, font);
+        var area = new RectangleF(60, 180, size.Width, size.Height);
+        using var brush = new LinearGradientBrush(new RectangleF(area.X, area.Y + size.Height * 0.2f, area.Width, size.Height * 0.6f),
+            spec.Fill, spec.GradientTo!.Value, LinearGradientMode.Vertical);
+        g.DrawString(step.Text, font, brush, area.X, area.Y);
+    }
+
+    // Two centred lines (" / " separates them) with a soft dark shadow, as narration is shown
+    private void DrawCentered(Graphics g, Step step)
+    {
+        var spec = Styles.All["centered"];
+        using var font = Styles.MakeFont(spec);
+        using var shadow = new SolidBrush(Color.FromArgb(170, spec.EffectColor!.Value));
+        using var fill = new SolidBrush(spec.Fill);
+        string[] lines = step.Text.Split(" / ");
+        float y = 200;
+        foreach (string line in lines)
+        {
+            SizeF size = g.MeasureString(line, font);
+            float x = (ClientSize.Width - size.Width) / 2;
+            g.DrawString(line, font, shadow, x + 2, y + 2);
+            g.DrawString(line, font, fill, x, y);
+            y += size.Height * 1.05f;
+        }
     }
 
     private void DrawMenu(Graphics g, Step step)
@@ -271,9 +319,10 @@ internal sealed class GameForm : Form
         var panel = new Rectangle(660, 110, 270, 40 + items.Length * 34);
         using (var fill = new SolidBrush(Color.FromArgb(230, 245, 240, 225)))
             g.FillRectangle(fill, panel);
-        using var font = new Font("Segoe UI", 20, FontStyle.Regular, GraphicsUnit.Pixel);
+        var spec = Styles.All["menu"];
+        using var font = Styles.MakeFont(spec);
         for (int i = 0; i < items.Length; i++)
-            DrawRichText(g, items[i], font, Color.FromArgb(60, 40, 20), new RectangleF(panel.X + 20, panel.Y + 20 + i * 34, panel.Width - 30, 34));
+            DrawRichText(g, items[i], font, spec.Fill, new RectangleF(panel.X + 20, panel.Y + 20 + i * 34, panel.Width - 30, 34));
     }
 
     // Word-wrapped text where {#RRGGBB:words} are drawn in that colour

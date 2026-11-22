@@ -33,7 +33,7 @@ jobs:
       # Config that turns this fork's overlay features off, for before/after screenshots
       STYLE_OFF: 'font_size_from_line_height=false;text_style_from_game=false;game_fonts=;word_colors=false'
       # RST saves its config, so the run after must turn them on explicitly
-      STYLE_ON: 'font_size_from_line_height=true;text_style_from_game=true;game_fonts=MockGame=Segoe Print;word_colors=true'
+      STYLE_ON: 'font_size_from_line_height=true;text_style_from_game=true;game_fonts=;word_colors=true'
     steps:
       - uses: actions/checkout@v4
 

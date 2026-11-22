@@ -79,7 +79,8 @@ def run_session(args, index):
     env["RST_AUTOMATION_CONFIG"] = args.config
 
     mock = subprocess.Popen([args.mock, "--script", os.path.abspath(args.script), "--log", events,
-                             "--animate", "--cycles", str(args.cycles)])
+                             "--animate", "--cycles", str(args.cycles),
+                             "--truth", os.path.abspath(os.path.join(args.out, "styles.json"))])
     time.sleep(2)
     rst_dir = os.path.dirname(os.path.abspath(args.rst))
     with open(console, "w", encoding="utf-8", errors="replace") as console_file:
@@ -207,6 +208,14 @@ def main():
                     f"{'yes' if r['served_from_cache'] else ''} | {r['image_cache_hits']} | {r['text'][:50]} |\n")
         f.write("\n```json\n" + json.dumps(summary, indent=2) + "\n```\n")
     print(json.dumps(summary, indent=2))
+    # How close the overlay came to the original text (style scenarios)
+    truth = os.path.join(args.out, "styles.json")
+    if os.path.exists(truth):
+        try:
+            import fidelity
+            fidelity.main(args.out, truth, args.label)
+        except Exception as ex:  # scoring must not hide the run's own result
+            print(f"fidelity scoring failed: {ex}")
     if any(r.get("rst_crashed") for r in results):
         print("FAIL: RST exited before the end of a session")
         return 1
