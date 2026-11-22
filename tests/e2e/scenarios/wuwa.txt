@@ -5,4 +5,5 @@
 5000|wuwa|Rover|I can hear an echo of something old beneath the city.
 5000|wuwa_choices||Let's go together. / I'll go alone. / Tell me more about the Tacet Discord.
 5000|wuwa|Yangyang|Then we leave now. Stay close to me.
+5000|wuwa|Chixia|Rover, the Tacet Discord is heading for Jinzhou. Your Echo can stop it!
 5000|wuwa|Rover|I can hear an echo of something old beneath the city.

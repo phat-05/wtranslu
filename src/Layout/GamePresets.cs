@@ -30,6 +30,8 @@ namespace RSTGameTranslation.Layout
         // Names shown on their own (speakers above their lines): left as the game shows them, as a
         // translator turns some into common words ("Rover" -> "xe thám hiểm")
         public string[] KeepAsIs { get; init; } = Array.Empty<string>();
+        // What AI translators are told about the game when the user wrote nothing of their own
+        public string GameInfo { get; init; } = "";
         // Config values that suit the game (key=value), applied for this session
         public Dictionary<string, string> Settings { get; init; } = new();
         // Shown once when the game is found (how to set it up for the overlay)
@@ -90,10 +92,18 @@ namespace RSTGameTranslation.Layout
                 "Qiuyuan", "Chisa", "Buling", "Lynae", "Mornye", "Scar", "Magistrate", "Tethys", "Lollo", "Geshu Lin",
                 "Yangyang & Rover", "Echo", "Sentinel", "Jué", "Jue",
             },
+            GameInfo = "Wuthering Waves, an open-world action RPG by Kuro Games set on Solaris-3. The player character is " +
+                       "the Rover. Keep character names (Rover, Yangyang, Chixia, Jiyan, Jinhsi, Changli, Camellya, " +
+                       "Carlotta, Phoebe, Cartethyia...), place names (Jinzhou, Huanglong, Rinascita, Black Shores) and " +
+                       "game terms (Resonator, Echo, Tacet Discord, Tacet Field, Waveplate, Forte, Union Level, Data " +
+                       "Bank, Sonata) as they are. Dialogue is spoken and story-driven: keep it natural and concise.",
             Settings = new()
             {
                 // Lines type out letter by letter: wait for each line to finish before translating
                 ["block_detection_settle_time"] = "0.25",
+                // The old translation never stays over a new line typing out, or over the world once
+                // the conversation ends (by default it stays until the next translation replaces it)
+                ["hide_stale_translation"] = "true",
             },
             TipVi = "Đã nhận Wuthering Waves và bắt đầu dịch phần hội thoại. Để bản dịch hiện trên game, đặt WuWa ở chế độ Cửa sổ hoặc Toàn màn hình không viền (Cài đặt > Đồ họa > Chế độ hiển thị). {0}: chuyển Hội thoại / Toàn màn hình. {1}: tạm dừng.",
             TipEn = "Wuthering Waves found: translating the dialogue. For the overlay to show above the game, run WuWa windowed or borderless (Settings > Graphics > Display Mode). {0}: switch Dialogue / Full screen. {1}: pause.",

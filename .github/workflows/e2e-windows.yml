@@ -114,7 +114,13 @@ jobs:
           found = [r[2] for r in rows if r[1] == 'known_game']
           modes = [r[2] for r in rows if r[1] == 'game_mode']
           stray = sorted({r[2].split('|')[3] for r in rows if r[1] == 'font_size' and ('UID' in r[2] or 'Jinzhou City' in r[2])})
-          report = f"known_game: {found[:1]}\ngame_mode: {modes[:1]}\nUID / minimap translated: {stray}\n"
+          shown = {}
+          for r in rows:
+              if r[1] == 'font_size':
+                  p = r[2].split('|')
+                  shown[p[3]] = p[4]
+          pairs = "".join(f"- {k} => {v}\n" for k, v in shown.items())
+          report = f"known_game: {found[:1]}\ngame_mode: {modes[:1]}\nUID / minimap translated: {stray}\n\nTranslations:\n{pairs}"
           print(report)
           open('evidence/wuwa/wuwa_check.md', 'w', encoding='utf-8').write(report)
           EOF

@@ -66,10 +66,11 @@ namespace RSTGameTranslation
                         ApplyGameMode(_gameMode, notify: false);
                     return;
                 }
-                if (!isCapturingWindow)
+                if (!isCapturingWindow && _activePreset != null)
                 {
                     _activePreset = null;
                     GamePresets.Active = null;
+                    ConfigManager.Instance.ClearSessionOverrides();
                 }
                 if (isCapturingWindow || isSelectingTranslationArea || !IsLoaded ||
                     !ConfigManager.Instance.IsAutoStartKnownGamesEnabled())
@@ -114,11 +115,17 @@ namespace RSTGameTranslation
             if (preset == null)
             {
                 _activePreset = null;
+                ConfigManager.Instance.ClearSessionOverrides();
                 return;
             }
             _activePreset = preset;
+            // For this game only, not saved: settings that suit it, and what AI translators are told
+            // about it (unless the user described the game themselves)
+            ConfigManager.Instance.ClearSessionOverrides();
             foreach (var (key, value) in preset.Settings)
-                ConfigManager.Instance.SetValue(key, value);
+                ConfigManager.Instance.SetSessionOverride(key, value);
+            if (preset.GameInfo.Length > 0)
+                ConfigManager.Instance.SetSessionOverride(ConfigManager.GAME_INFO, preset.GameInfo);
             _gameMode = GameCaptureMode.Dialogue;
             // Areas the user drew for this game are kept; the Game Mode hotkey still switches to the preset's
             if (!hasSelectedTranslationArea || _presetAreasActive)
