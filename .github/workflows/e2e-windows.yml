@@ -95,7 +95,7 @@ jobs:
         shell: bash
         run: |
           python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
-            --script tests/e2e/scenarios/style.txt --out evidence/style --sessions 1 \
+            --script tests/e2e/scenarios/style.txt --out evidence/style --sessions 1 --dump-styles \
             --label "${GITHUB_REF_NAME} style scenario" --shot-delay 4500 \
             --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate;${STYLE_ON}"
 

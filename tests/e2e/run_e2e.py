@@ -77,6 +77,9 @@ def run_session(args, index):
     env["RST_AUTOMATION_WINDOW"] = WINDOW_TITLE
     env["RST_METRICS_FILE"] = metrics
     env["RST_AUTOMATION_CONFIG"] = args.config
+    if args.dump_styles:
+        # The pixels of every analysed text box, to tune the style analysers offline
+        env["RST_STYLE_DUMP_DIR"] = os.path.abspath(os.path.join(args.out, "style_dump"))
 
     mock = subprocess.Popen([args.mock, "--script", os.path.abspath(args.script), "--log", events,
                              "--animate", "--cycles", str(args.cycles),
@@ -184,6 +187,7 @@ def main():
     ap.add_argument("--timeout", type=int, default=600)
     ap.add_argument("--config", default="source_language=en;target_language=vi;ocr_method=OneOCR;translation_service=Google Translate")
     ap.add_argument("--fresh", action="store_true", help="delete RST cache folder before the first session")
+    ap.add_argument("--dump-styles", action="store_true", help="save the pixels of every analysed text box (style_dump/)")
     args = ap.parse_args()
 
     os.makedirs(args.out, exist_ok=True)
