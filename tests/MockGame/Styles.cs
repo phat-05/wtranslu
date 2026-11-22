@@ -22,6 +22,12 @@ internal static class Styles
         ["subtitle"] = new("Segoe UI", 30, true, false, Color.White, "outline", Color.Black),
         ["hint"] = new("Segoe UI", 22, false, true, Color.FromArgb(176, 150, 110)),
         ["hud"] = new("Consolas", 18, true, false, Color.White, Align: "right"),
+        // Wuthering Waves-like screen (WuwaScene)
+        ["wuwa_speaker"] = new("Segoe UI", 20, true, false, Color.FromArgb(0xE8, 0xC7, 0x7A), Align: "center"),
+        ["wuwa_dialogue"] = new("Segoe UI", 22, false, false, Color.White, "shadow", Color.Black, Align: "center"),
+        ["wuwa_choice"] = new("Segoe UI", 18, false, false, Color.FromArgb(0xF0, 0xF0, 0xF0)),
+        ["uid"] = new("Consolas", 13, false, false, Color.FromArgb(0xC8, 0xC8, 0xC8)),
+        ["minimap"] = new("Segoe UI", 14, true, false, Color.White),
         ["gradient"] = new("Georgia", 36, true, false, Color.FromArgb(255, 244, 170), GradientTo: Color.FromArgb(225, 110, 25)),
         ["centered"] = new("Segoe UI", 26, false, false, Color.FromArgb(215, 235, 255), "shadow", Color.Black, Align: "center"),
     };

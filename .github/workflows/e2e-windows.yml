@@ -99,6 +99,26 @@ jobs:
             --label "${GITHUB_REF_NAME} style scenario" --shot-delay 4500 \
             --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate;${STYLE_ON}"
 
+      - name: Run Wuthering Waves-like scenario (RST finds the game by itself)
+        shell: bash
+        run: |
+          python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
+            --script tests/e2e/scenarios/wuwa.txt --out evidence/wuwa --sessions 1 --dump-styles \
+            --label "${GITHUB_REF_NAME} Wuthering Waves-like scenario" --shot-delay 3500 \
+            --window @known --mock-as Client-Win64-Shipping.exe \
+            --mock-arg=--layout --mock-arg=wuwa --mock-arg=--title --mock-arg="Wuthering Waves" \
+            --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate;${STYLE_ON}"
+          python - <<'EOF'
+          import csv
+          rows = [r for r in csv.reader(open('evidence/wuwa/s1_rst_metrics.csv', encoding='utf-8')) if len(r) > 2]
+          found = [r[2] for r in rows if r[1] == 'known_game']
+          modes = [r[2] for r in rows if r[1] == 'game_mode']
+          stray = sorted({r[2].split('|')[3] for r in rows if r[1] == 'font_size' and ('UID' in r[2] or 'Jinzhou City' in r[2])})
+          report = f"known_game: {found[:1]}\ngame_mode: {modes[:1]}\nUID / minimap translated: {stray}\n"
+          print(report)
+          open('evidence/wuwa/wuwa_check.md', 'w', encoding='utf-8').write(report)
+          EOF
+
       - name: Install Ollama and a small model (AI translation for coloured-word tags)
         id: ollama
         continue-on-error: true

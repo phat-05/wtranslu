@@ -20,7 +20,10 @@ namespace MockGame;
 /// </summary>
 internal static class Program
 {
-    public const string WindowTitle = "MockGame Dialogue Test";
+    public static string WindowTitle = "MockGame Dialogue Test";
+    // "wuwa": a scene laid out like Wuthering Waves (subtitles at the bottom, choices on the right,
+    // UID in the corner); otherwise the visual-novel scene
+    public static string Layout = "";
 
     [STAThread]
     private static void Main(string[] args)
@@ -37,6 +40,8 @@ internal static class Program
                 case "--animate": animate = true; break;
                 case "--cycles": cycles = int.Parse(args[++i], CultureInfo.InvariantCulture); break;
                 case "--truth": truth = args[++i]; break;
+                case "--title": WindowTitle = args[++i]; break;
+                case "--layout": Layout = args[++i]; break;
             }
         }
 
@@ -89,6 +94,7 @@ internal sealed class GameForm : Form
     private int _index = -1;
     private int _cycle;
     private long _stepEndsAt;
+    private long _stepStartedAt;
     private string _chapter = "Chapter 1: The Old Harbor";
 
     public GameForm(List<Step> steps, string? logPath, bool animate, int cycles)
@@ -139,13 +145,15 @@ internal sealed class GameForm : Form
             if (step.Style == "title")
                 _chapter = step.PlainText;
             _stepEndsAt = _clock.ElapsedMilliseconds + step.DurationMs;
+            _stepStartedAt = _clock.ElapsedMilliseconds;
             // Paint now so the logged time is when the text is on screen
             Invalidate();
             Update();
             Log(_index, step);
             return;
         }
-        if (_animate)
+        // Lines typing out letter by letter need repainting too
+        if (_animate || Program.Layout == "wuwa")
             Invalidate();
     }
 
@@ -164,6 +172,11 @@ internal sealed class GameForm : Form
         g.SmoothingMode = SmoothingMode.AntiAlias;
         g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
         DrawScene(g);
+        if (Program.Layout == "wuwa")
+        {
+            WuwaScene.Draw(g, ClientRectangle, Current, _clock.ElapsedMilliseconds - _stepStartedAt);
+            return;
+        }
 
         var step = Current;
         // Chapter title, big and golden, at the top

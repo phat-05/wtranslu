@@ -41,7 +41,8 @@ namespace RSTGameTranslation
         /// <summary>Begins watching for known games (call once the main window is up).</summary>
         private void StartKnownGameWatcher()
         {
-            if (_knownGameTimer != null || TestAutomation.IsEnabled && Environment.GetEnvironmentVariable("RST_AUTOMATION_KNOWN_GAMES") != "1")
+            // Test runs pick their window themselves, unless the test is finding the game
+            if (_knownGameTimer != null || TestAutomation.IsEnabled && !TestAutomation.FindsKnownGame)
                 return;
             KeyboardShortcuts.GameModeToggleRequested += (s, e) => Dispatcher.Invoke(ToggleGameMode);
             _knownGameTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };

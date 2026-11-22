@@ -74,16 +74,21 @@ def run_session(args, index):
             os.remove(p)
 
     env = dict(os.environ)
-    env["RST_AUTOMATION_WINDOW"] = WINDOW_TITLE
+    env["RST_AUTOMATION_WINDOW"] = args.window
     env["RST_METRICS_FILE"] = metrics
     env["RST_AUTOMATION_CONFIG"] = args.config
     if args.dump_styles:
         # The pixels of every analysed text box, to tune the style analysers offline
         env["RST_STYLE_DUMP_DIR"] = os.path.abspath(os.path.join(args.out, "style_dump"))
 
-    mock = subprocess.Popen([args.mock, "--script", os.path.abspath(args.script), "--log", events,
+    mock_exe = args.mock
+    if args.mock_as:
+        # The mock under another executable name (a game's process name); its DLL stays beside it
+        mock_exe = os.path.join(os.path.dirname(os.path.abspath(args.mock)), args.mock_as)
+        shutil.copyfile(os.path.abspath(args.mock), mock_exe)
+    mock = subprocess.Popen([mock_exe, "--script", os.path.abspath(args.script), "--log", events,
                              "--animate", "--cycles", str(args.cycles),
-                             "--truth", os.path.abspath(os.path.join(args.out, "styles.json"))])
+                             "--truth", os.path.abspath(os.path.join(args.out, "styles.json"))] + args.mock_arg)
     time.sleep(2)
     rst_dir = os.path.dirname(os.path.abspath(args.rst))
     with open(console, "w", encoding="utf-8", errors="replace") as console_file:
@@ -188,6 +193,9 @@ def main():
     ap.add_argument("--config", default="source_language=en;target_language=vi;ocr_method=OneOCR;translation_service=Google Translate")
     ap.add_argument("--fresh", action="store_true", help="delete RST cache folder before the first session")
     ap.add_argument("--dump-styles", action="store_true", help="save the pixels of every analysed text box (style_dump/)")
+    ap.add_argument("--window", default=WINDOW_TITLE, help="window RST selects; @known = RST must find a game it knows by itself")
+    ap.add_argument("--mock-as", default="", help="run the mock under this executable name (e.g. Client-Win64-Shipping.exe)")
+    ap.add_argument("--mock-arg", action="append", default=[], help="extra MockGame argument (repeatable)")
     args = ap.parse_args()
 
     os.makedirs(args.out, exist_ok=True)

@@ -86,6 +86,11 @@ def expected_elements(events):
             out.append((t0, t1, "dialogue", text))
         elif style in ("menu", "centered"):
             out.append((t0, t1, style, text.replace(" / ", " ")))
+        elif style == "wuwa":
+            out.append((t0, t1, "wuwa_speaker", speaker))
+            out.append((t0, t1, "wuwa_dialogue", text))
+        elif style == "wuwa_choices":
+            out.append((t0, t1, "wuwa_choice", text.replace(" / ", " ")))
         elif style != "title":
             out.append((t0, t1, style, text))
     return out
