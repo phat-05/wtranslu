@@ -1,0 +1,45 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 coloured words, Ollama qwen2.5:3b",
+ "summary": {
+  "size": 0.97,
+  "color": 1.0,
+  "gradient": 1.0,
+  "effect": 1.0,
+  "bold": 1.0,
+  "italic": 1.0,
+  "font": 1.0,
+  "align": 1.0,
+  "overall": 0.996,
+  "elements": 1
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 1: The Old Harbor",
+   "overlay": {
+    "t": 1795357174635,
+    "size": 30.9,
+    "source": "Chapter 1: The Old Harbor",
+    "shown": "Chương 1: Cảng cũ",
+    "family": "Cambria",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFD678",
+    "effect": "Shadow",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.97,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.99625
+  }
+ ]
+}
