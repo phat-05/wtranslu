@@ -242,6 +242,10 @@ namespace RSTGameTranslation.Layout
                 }
             }
 
+            // The groups' means include the smoothed letter edges (blends with the background or the
+            // outline), which pulls the colour toward them: use the core of the letters instead
+            fill = CoreColour(inside, w, rowBackground, fill, effect != TextEffectKind.None ? effectColor : null);
+
             // Keep the game's colour; add an outline only when the text would be unreadable
             bool added = false;
             if (effect == TextEffectKind.None && fill.ContrastWith(background) < ReadableContrast)
@@ -392,6 +396,29 @@ namespace RSTGameTranslation.Layout
                     }
                 }
             return (best.Item1, best.Item2, bestScore);
+        }
+
+        /// <summary>
+        /// Colour of the core of the letters: of the pixels close to the fill colour (and closer to it
+        /// than to the outline/shadow), the 40% farthest from the background, averaged.
+        /// </summary>
+        private static Rgb CoreColour(Rgb[] pixels, int w, Rgb[] rowBackground, Rgb fill, Rgb? effect)
+        {
+            var near = new List<(double D, Rgb P)>();
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                var p = pixels[i];
+                var bg = rowBackground[i / w];
+                if (p.DistanceTo(fill) > Math.Max(40, fill.DistanceTo(bg) * 0.35))
+                    continue;
+                if (effect != null && p.DistanceTo(effect.Value) < p.DistanceTo(fill))
+                    continue;
+                near.Add((p.DistanceTo(bg), p));
+            }
+            if (near.Count < 10)
+                return fill;
+            var core = near.OrderByDescending(n => n.D).Take(Math.Max(5, near.Count * 2 / 5)).Select(n => n.P).ToList();
+            return Mean(core);
         }
 
         /// <summary>
