@@ -35,8 +35,10 @@ namespace RSTGameTranslation
         /// </summary>
         /// <param name="effectColor">Colour of the game text's outline or drop shadow, erased with the
         /// letters where it sticks out of the box (a shadow is shifted down/right of the letters).</param>
+        /// <param name="boxRowBackground">Background of each row of the text box when it changes from top
+        /// to bottom (Layout.TextStyle.RowBackground); null = <paramref name="background"/> everywhere.</param>
         public static BitmapSource? CreateErasedPatch(Bitmap bitmap, Rectangle textBox, MediaColor background, out Rectangle patchBounds,
-                                                      MediaColor? effectColor = null)
+                                                      MediaColor? effectColor = null, IReadOnlyList<MediaColor>? boxRowBackground = null)
         {
             var image = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
             int margin = Math.Clamp(Math.Min(textBox.Width, textBox.Height) / 4, 3, 12);
@@ -53,30 +55,37 @@ namespace RSTGameTranslation
             int left = inner.X - patchBounds.X, top = inner.Y - patchBounds.Y;
             int right = left + inner.Width, bottom = top + inner.Height;
 
-            double inkDistance = EstimateInkDistance(r, g, b, w, left, top, right, bottom, background);
-            bool[] mask = BuildMask(r, g, b, w, left, top, right, bottom, background, inkDistance);
-            var inkColor = DominantInkColor(r, g, b, w, left, top, right, bottom, background, inkDistance);
+            // Background of every patch row: the box's row backgrounds, extended into the margin
+            var bg = new MediaColor[h];
+            for (int y = 0; y < h; y++)
+                bg[y] = boxRowBackground != null && boxRowBackground.Count == inner.Height
+                    ? boxRowBackground[Math.Clamp(y - top, 0, boxRowBackground.Count - 1)]
+                    : background;
+
+            double inkDistance = EstimateInkDistance(r, g, b, w, left, top, right, bottom, bg);
+            bool[] mask = BuildMask(r, g, b, w, left, top, right, bottom, bg, inkDistance);
+            var inkColor = DominantInkColor(r, g, b, w, left, top, right, bottom, bg, inkDistance);
 
             // OCR boxes are tight and often cut glyph parts off (descenders, accents, the edge of the
             // last letter); those parts sit in the margin and stayed visible next to the translation.
             // Follow the strokes from inside the box into the margin and erase what stays connected.
             (float R, float G, float B)? effect = effectColor is MediaColor e ? (e.R, e.G, e.B) : null;
             if (inkColor != null)
-                GrowMaskIntoMargin(mask, r, g, b, w, h, left, top, right, bottom, background, inkDistance, inkColor.Value, effect);
+                GrowMaskIntoMargin(mask, r, g, b, w, h, left, top, right, bottom, bg, inkDistance, inkColor.Value, effect);
 
             // Other strokes in the margin (neighbouring text, bubble outlines) stay as they are but must
             // not be smeared into the fill. Judge them by closeness to the ink color rather than distance
             // from one background color, which would reject half a gradient.
             var usable = new bool[w * h];
             for (int i = 0; i < usable.Length; i++)
-                usable[i] = !mask[i] && (inkColor == null || !IsCloserToInk(r[i], g[i], b[i], inkColor.Value, background))
-                            && (effect == null || !IsCloserToInk(r[i], g[i], b[i], effect.Value, background));
+                usable[i] = !mask[i] && (inkColor == null || !IsCloserToInk(r[i], g[i], b[i], inkColor.Value, bg[i / w]))
+                            && (effect == null || !IsCloserToInk(r[i], g[i], b[i], effect.Value, bg[i / w]));
 
             // Start from the background color, so pixels no usable neighbour reaches still look right
             for (int i = 0; i < mask.Length; i++)
                 if (mask[i])
                 {
-                    r[i] = background.R; g[i] = background.G; b[i] = background.B;
+                    r[i] = bg[i / w].R; g[i] = bg[i / w].G; b[i] = bg[i / w].B;
                 }
 
             Fill(r, g, b, mask, usable, w, h);
@@ -86,14 +95,14 @@ namespace RSTGameTranslation
 
         // Stroke threshold for this box: a share of its strongest contrast (ignoring the top 2% as
         // outliers), within [MinInkDistance, MaxInkDistance]
-        private static double EstimateInkDistance(float[] r, float[] g, float[] b, int w, int left, int top, int right, int bottom, MediaColor bg)
+        private static double EstimateInkDistance(float[] r, float[] g, float[] b, int w, int left, int top, int right, int bottom, MediaColor[] bg)
         {
             var distances = new List<double>((right - left) * (bottom - top));
             for (int y = top; y < bottom; y++)
                 for (int x = left; x < right; x++)
                 {
                     int i = y * w + x;
-                    double dr = r[i] - bg.R, dg = g[i] - bg.G, db = b[i] - bg.B;
+                    double dr = r[i] - bg[y].R, dg = g[i] - bg[y].G, db = b[i] - bg[y].B;
                     distances.Add(Math.Sqrt(dr * dr + dg * dg + db * db));
                 }
             if (distances.Count == 0)
@@ -107,15 +116,15 @@ namespace RSTGameTranslation
         // Follow strokes from inside the text box out into the margin (8-connected, through pixels that
         // look like the ink) and mask them, dilated like the strokes inside
         private static void GrowMaskIntoMargin(bool[] mask, float[] r, float[] g, float[] b, int w, int h,
-                                               int left, int top, int right, int bottom, MediaColor bg,
+                                               int left, int top, int right, int bottom, MediaColor[] bg,
                                                double inkDistance, (float R, float G, float B) inkColor,
                                                (float R, float G, float B)? effect = null)
         {
             bool InBox(int x, int y) => x >= left && x < right && y >= top && y < bottom;
             // The letters' colour, or their outline/shadow colour
-            bool IsStroke(int i) => IsInk(r[i], g[i], b[i], bg, inkDistance) &&
-                                    (IsCloserToInk(r[i], g[i], b[i], inkColor, bg) ||
-                                     (effect != null && IsCloserToInk(r[i], g[i], b[i], effect.Value, bg)));
+            bool IsStroke(int i) => IsInk(r[i], g[i], b[i], bg[i / w], inkDistance) &&
+                                    (IsCloserToInk(r[i], g[i], b[i], inkColor, bg[i / w]) ||
+                                     (effect != null && IsCloserToInk(r[i], g[i], b[i], effect.Value, bg[i / w])));
 
             var grown = new bool[w * h];
             var queue = new Queue<int>();
@@ -165,7 +174,7 @@ namespace RSTGameTranslation
         }
 
         // Text strokes inside the box, dilated; the whole box when strokes dominate it
-        private static bool[] BuildMask(float[] r, float[] g, float[] b, int w, int left, int top, int right, int bottom, MediaColor bg, double inkDistance)
+        private static bool[] BuildMask(float[] r, float[] g, float[] b, int w, int left, int top, int right, int bottom, MediaColor[] bg, double inkDistance)
         {
             int h = r.Length / w;
             var ink = new bool[w * h];
@@ -174,7 +183,7 @@ namespace RSTGameTranslation
                 for (int x = left; x < right; x++)
                 {
                     int i = y * w + x;
-                    if (IsInk(r[i], g[i], b[i], bg, inkDistance))
+                    if (IsInk(r[i], g[i], b[i], bg[y], inkDistance))
                     {
                         ink[i] = true;
                         inkCount++;
@@ -207,14 +216,14 @@ namespace RSTGameTranslation
 
         // Most common stroke color inside the box (coarse bins), null when there are no strokes
         private static (float R, float G, float B)? DominantInkColor(float[] r, float[] g, float[] b, int w,
-                                                                       int left, int top, int right, int bottom, MediaColor bg, double inkDistance)
+                                                                       int left, int top, int right, int bottom, MediaColor[] bg, double inkDistance)
         {
             var bins = new Dictionary<int, (float R, float G, float B, int Count)>();
             for (int y = top; y < bottom; y++)
                 for (int x = left; x < right; x++)
                 {
                     int i = y * w + x;
-                    if (!IsInk(r[i], g[i], b[i], bg, inkDistance))
+                    if (!IsInk(r[i], g[i], b[i], bg[y], inkDistance))
                         continue;
                     int key = ((int)r[i] >> 4 << 8 | (int)g[i] >> 4) << 4 | (int)b[i] >> 4;
                     bins.TryGetValue(key, out var bin);
