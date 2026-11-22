@@ -54,12 +54,15 @@ namespace RSTGameTranslation.Layout
             return gap >= -2 && gap <= areaWidth * 0.025 && left - areaLeft >= areaWidth / 3;
         }
 
-        public static bool LineCenteredInArea(double left, double width, double areaLeft, double areaWidth)
+        /// <param name="minMarginShare">Free space needed on each side, as a share of the area: 8% of
+        /// the whole screen (a long left-aligned line can end up centred by chance), less for a
+        /// translation area drawn around the text, whose middle is the text's middle.</param>
+        public static bool LineCenteredInArea(double left, double width, double areaLeft, double areaWidth, double minMarginShare = 0.08)
         {
-            if (areaWidth <= 0 || width <= 0 || width > areaWidth * 0.9)
+            if (areaWidth <= 0 || width <= 0 || width > areaWidth * (1 - 2 * minMarginShare))
                 return false;
             double centre = left + width / 2, areaCentre = areaLeft + areaWidth / 2;
-            return Math.Abs(centre - areaCentre) <= areaWidth * 0.015 && left - areaLeft >= areaWidth * 0.08;
+            return Math.Abs(centre - areaCentre) <= areaWidth * 0.015 && left - areaLeft >= areaWidth * minMarginShare;
         }
     }
 }

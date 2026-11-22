@@ -642,7 +642,7 @@ namespace RSTGameTranslation
 
                 double overlayWidth = ActualWidth > 0 ? ActualWidth : double.PositiveInfinity;
                 double overlayHeight = ActualHeight > 0 ? ActualHeight : double.PositiveInfinity;
-                MarkCenteredLines(items, overlayWidth);
+                MarkCenteredLines(items, overlayWidth, MainWindow.Instance.GetTranslationAreasOnOverlay());
 
                 // Widen: let an overflowing box grow until the next box on the same rows or the overlay edge
                 foreach (var item in items)
@@ -720,7 +720,7 @@ namespace RSTGameTranslation
         // Text the game centred but OCR returned as separate one-line boxes: consecutive lines of the
         // same height whose middles line up (see Layout.AlignmentDetector), or a single line in the
         // middle of the overlay area
-        private static void MarkCenteredLines(List<TextObject> items, double overlayWidth)
+        private static void MarkCenteredLines(List<TextObject> items, double overlayWidth, List<Rect> areas)
         {
             var ordered = items.OrderBy(t => t.Y).ToList();
             for (int i = 0; i < ordered.Count; i++)
@@ -750,8 +750,19 @@ namespace RSTGameTranslation
                         Console.WriteLine($"Right-aligned pair: ({a.X:F0},{a.Width:F0}) ({b.X:F0},{b.Width:F0}) '{a.Text}' / '{b.Text}'");
                     }
                 }
-                if (a.SourceAlignment == System.Windows.TextAlignment.Left && !double.IsInfinity(overlayWidth))
+                if (a.SourceAlignment == System.Windows.TextAlignment.Left && areas.Count > 0)
                 {
+                    // Translation areas (drawn, or a known game's): centred in the area that holds it
+                    var holder = areas.FirstOrDefault(r => r.Contains(new System.Windows.Point(a.X + a.Width / 2, a.Y + a.Height / 2)));
+                    if (!holder.IsEmpty && RSTGameTranslation.Layout.AlignmentDetector.LineCenteredInArea(a.X, a.Width, holder.X, holder.Width, 0.03))
+                    {
+                        a.SourceAlignment = System.Windows.TextAlignment.Center;
+                        Console.WriteLine($"Centred in its area: ({a.X:F0},{a.Width:F0}) in ({holder.X:F0},{holder.Width:F0}) '{a.Text}'");
+                    }
+                }
+                else if (a.SourceAlignment == System.Windows.TextAlignment.Left && !double.IsInfinity(overlayWidth))
+                {
+                    // The whole window: centred on screen, or against its right side (HUD)
                     if (RSTGameTranslation.Layout.AlignmentDetector.LineCenteredInArea(a.X, a.Width, 0, overlayWidth))
                         a.SourceAlignment = System.Windows.TextAlignment.Center;
                     else if (RSTGameTranslation.Layout.AlignmentDetector.LineAtRightOfArea(a.X, a.Width, 0, overlayWidth))

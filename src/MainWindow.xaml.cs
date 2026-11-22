@@ -1217,6 +1217,19 @@ namespace RSTGameTranslation
             return bounds;
         }
 
+        /// <summary>The active translation areas in overlay coordinates (DIPs from its top-left); empty
+        /// when the whole window or screen area is captured.</summary>
+        public List<Rect> GetTranslationAreasOnOverlay()
+        {
+            var list = new List<Rect>();
+            if (!hasSelectedTranslationArea)
+                return list;
+            DpiHelper.GetWindowRenderDpi(MonitorWindow.Instance, out double sx, out double sy);
+            foreach (var a in GetActiveAreas())
+                list.Add(new Rect((a.X - captureRect.Left) / sx, (a.Y - captureRect.Top) / sy, a.Width / sx, a.Height / sy));
+            return list;
+        }
+
         // Set capture area to selected region
         private void UpdateCustomCaptureRect()
         {
