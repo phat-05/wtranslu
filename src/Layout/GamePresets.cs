@@ -27,6 +27,9 @@ namespace RSTGameTranslation.Layout
         public RelRect[] DialogueAreas { get; init; } = Array.Empty<RelRect>();
         // Full mode: the whole screen but these strips (the player's ID, HUD corners)
         public RelRect[] FullAreas { get; init; } = Array.Empty<RelRect>();
+        // Names shown on their own (speakers above their lines): left as the game shows them, as a
+        // translator turns some into common words ("Rover" -> "xe thám hiểm")
+        public string[] KeepAsIs { get; init; } = Array.Empty<string>();
         // Config values that suit the game (key=value), applied for this session
         public Dictionary<string, string> Settings { get; init; } = new();
         // Shown once when the game is found (how to set it up for the overlay)
@@ -46,6 +49,13 @@ namespace RSTGameTranslation.Layout
         }
 
         public RelRect[] Areas(GameCaptureMode mode) => mode == GameCaptureMode.Dialogue ? DialogueAreas : FullAreas;
+
+        /// <summary>Whether this text is only one of the names the game's text keeps as is.</summary>
+        public bool IsKeptAsIs(string text)
+        {
+            string t = (text ?? "").Trim().TrimEnd(':', '：').Trim();
+            return t.Length > 0 && KeepAsIs.Any(n => n.Equals(t, StringComparison.OrdinalIgnoreCase));
+        }
     }
 
     public static class GamePresets
@@ -71,6 +81,15 @@ namespace RSTGameTranslation.Layout
             {
                 new RelRect(0.0, 0.06, 1.0, 0.905),    // all but the top icon bar and the UID line
             },
+            KeepAsIs = new[]
+            {
+                "Rover", "Abby", "Yangyang", "Chixia", "Baizhi", "Sanhua", "Jiyan", "Jianxin", "Yinlin", "Encore",
+                "Lingyang", "Calcharo", "Verina", "Danjin", "Aalto", "Mortefi", "Taoqi", "Yuanwu", "Changli", "Jinhsi",
+                "Zhezhi", "Xiangli Yao", "Shorekeeper", "The Shorekeeper", "Camellya", "Carlotta", "Roccia", "Phoebe",
+                "Brant", "Cantarella", "Zani", "Ciaccona", "Cartethyia", "Lupa", "Phrolova", "Augusta", "Iuno", "Galbrena",
+                "Qiuyuan", "Chisa", "Buling", "Lynae", "Mornye", "Scar", "Magistrate", "Tethys", "Lollo", "Geshu Lin",
+                "Yangyang & Rover", "Echo", "Sentinel", "Jué", "Jue",
+            },
             Settings = new()
             {
                 // Lines type out letter by letter: wait for each line to finish before translating
@@ -81,6 +100,9 @@ namespace RSTGameTranslation.Layout
         };
 
         public static readonly IReadOnlyList<GamePreset> All = new[] { WutheringWaves };
+
+        /// <summary>The preset of the game being translated now (null = none).</summary>
+        public static volatile GamePreset? Active;
 
         public static GamePreset? Find(string windowTitle, string processName) =>
             All.FirstOrDefault(p => p.Matches(windowTitle, processName));

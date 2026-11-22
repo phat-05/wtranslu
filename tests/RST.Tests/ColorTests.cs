@@ -361,3 +361,15 @@ public class SpeakerNameDetectorTests
     public void Finds_a_name_above_its_line(string first, double firstWidth, string next, double nextWidth, bool name) =>
         Assert.Equal(name, SpeakerNameDetector.IsNameAbove(first, firstWidth, next, nextWidth));
 }
+
+public class KeepAsIsTests
+{
+    [Theory]
+    [InlineData("Rover", true)]
+    [InlineData("Yangyang:", true)]
+    [InlineData(" The Shorekeeper ", true)]
+    [InlineData("Rover and Yangyang left the city.", false)]  // a sentence is translated
+    [InlineData("Captain Mira", false)]
+    public void Character_names_on_their_own_stay_as_the_game_shows_them(string text, bool kept) =>
+        Assert.Equal(kept, GamePresets.WutheringWaves.IsKeptAsIs(text));
+}

@@ -67,7 +67,10 @@ namespace RSTGameTranslation
                     return;
                 }
                 if (!isCapturingWindow)
+                {
                     _activePreset = null;
+                    GamePresets.Active = null;
+                }
                 if (isCapturingWindow || isSelectingTranslationArea || !IsLoaded ||
                     !ConfigManager.Instance.IsAutoStartKnownGamesEnabled())
                     return;
@@ -105,6 +108,7 @@ namespace RSTGameTranslation
         private void OnGameWindowSelected(IntPtr handle, string title)
         {
             var preset = GamePresets.Find(title, ProcessNameOfWindow(handle));
+            GamePresets.Active = preset;
             if (preset == null)
             {
                 _activePreset = null;

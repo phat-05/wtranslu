@@ -853,6 +853,10 @@ namespace RSTGameTranslation
             if (string.IsNullOrWhiteSpace(text))
                 return (true, string.Empty);
 
+            // A known game's character name on its own line: the game's own text stays visible
+            if (RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true)
+                return (true, string.Empty);
+
             var ignoreSet = ConfigManager.Instance.GetIgnorePhraseSet();
             if (ignoreSet.Phrases.Count == 0)
                 return (false, text); // No phrases to check, keep the text as is
