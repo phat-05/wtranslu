@@ -1,0 +1,73 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 coloured words, Ollama qwen2.5:3b",
+ "summary": {
+  "size": 0.919,
+  "color": 0.978,
+  "gradient": 1.0,
+  "effect": 0.5,
+  "bold": 1.0,
+  "italic": 1.0,
+  "font": 0.5,
+  "align": 1.0,
+  "overall": 0.862,
+  "elements": 2
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 1: The Old Harbor",
+   "overlay": {
+    "t": 1795351165243,
+    "size": 30.1,
+    "source": "Chapter 1: The Old Harbor",
+    "shown": "Chương 1: Cảng cũ",
+    "family": "Arial",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#F2CC76",
+    "effect": "Outline",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9966666666666666,
+    "color": 0.9625335336919313,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.7449000250448248
+  },
+  {
+   "style": "speaker",
+   "text": "Old Fisherman",
+   "overlay": {
+    "t": 1795351174104,
+    "size": 27.8,
+    "source": "Old Fisherman",
+    "shown": "Ngư Ông già",
+    "family": "Arial",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FDC63B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.8416666666666666,
+    "color": 0.9931972789115646,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9793579931972789
+  }
+ ]
+}
