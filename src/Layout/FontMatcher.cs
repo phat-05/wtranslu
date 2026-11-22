@@ -9,9 +9,12 @@ namespace RSTGameTranslation.Layout
     /// draws the text wider than the game.</param>
     public sealed record FontDistance(string Font, double Shape, double Aspect, double Contrast, double AspectLog = 0)
     {
-        // Weights tuned on 14 game fonts x 6 texts x 3 sizes against Liberation Sans/Serif/Mono
-        // (91% of single lines got the right kind of font: serif, sans or monospace)
-        public double Total => Shape + 0.5 * Aspect + 2 * Contrast;
+        // Weights: tuned first on 14 game fonts x 6 texts x 3 sizes against Liberation Sans/Serif/Mono
+        // (contrast weight 2: 91% of single lines got the right kind of font), then on text captured
+        // on Windows in CI: there GDI+ draws thin horizontals of regular Segoe UI lighter than WPF
+        // does, and a weight of 2 took dialogue lines for Times New Roman; 1 keeps every serif title
+        // and gets those lines right
+        public double Total => Shape + 0.5 * Aspect + Contrast;
     }
 
     /// <summary>

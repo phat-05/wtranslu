@@ -1353,7 +1353,10 @@ namespace RSTGameTranslation
                 if (centered)
                     textObject.SourceAlignment = System.Windows.TextAlignment.Center;
                 else if (rightAligned)
+                {
                     textObject.SourceAlignment = System.Windows.TextAlignment.Right;
+                    Console.WriteLine($"Right-aligned block (OCR line boxes): '{text}'");
+                }
                 if (ConfigManager.Instance.IsFontSizeFromLineHeightEnabled())
                 {
                     textObject.SourceFontSize = sourceFontSize;

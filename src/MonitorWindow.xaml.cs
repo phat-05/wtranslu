@@ -747,6 +747,7 @@ namespace RSTGameTranslation
                     {
                         a.SourceAlignment = System.Windows.TextAlignment.Right;
                         b.SourceAlignment = System.Windows.TextAlignment.Right;
+                        Console.WriteLine($"Right-aligned pair: ({a.X:F0},{a.Width:F0}) ({b.X:F0},{b.Width:F0}) '{a.Text}' / '{b.Text}'");
                     }
                 }
                 if (a.SourceAlignment == System.Windows.TextAlignment.Left && !double.IsInfinity(overlayWidth))
@@ -754,7 +755,10 @@ namespace RSTGameTranslation
                     if (RSTGameTranslation.Layout.AlignmentDetector.LineCenteredInArea(a.X, a.Width, 0, overlayWidth))
                         a.SourceAlignment = System.Windows.TextAlignment.Center;
                     else if (RSTGameTranslation.Layout.AlignmentDetector.LineAtRightOfArea(a.X, a.Width, 0, overlayWidth))
+                    {
                         a.SourceAlignment = System.Windows.TextAlignment.Right;
+                        Console.WriteLine($"Right-aligned line at the right edge: ({a.X:F0},{a.Width:F0}) of {overlayWidth:F0} '{a.Text}'");
+                    }
                 }
             }
         }
