@@ -98,6 +98,8 @@ namespace RSTGameTranslation
                 ToggleMonitorWindow();
             if (!isStarted)
                 OnStartButtonToggleClicked(toggleButton, new RoutedEventArgs());
+            // Out of the way: the player goes back to the game, the overlay stays
+            Dispatcher.BeginInvoke(() => WindowState = WindowState.Minimized, DispatcherPriority.ApplicationIdle);
             return true;
         }
 
