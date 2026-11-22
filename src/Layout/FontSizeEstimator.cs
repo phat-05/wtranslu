@@ -77,6 +77,23 @@ namespace RSTGameTranslation.Layout
             return 0.52;       // x-height only ("use", "nor")
         }
 
+        /// <summary>
+        /// Height of the ink of these letters as a fraction of the font size, for measuring the letters
+        /// themselves on screen. Real fonts reach a little further than the box-based figures above:
+        /// on Windows-rendered Segoe UI, Georgia and Bahnschrift text, ascender top to descender
+        /// bottom is about 0.97 em and capital/ascender height about 0.745 em.
+        /// </summary>
+        public static double LetterHeightEm(string text)
+        {
+            double em = InkHeightEm(text);
+            return em switch
+            {
+                0.93 => 0.97,
+                0.73 => 0.745,
+                _ => em,
+            };
+        }
+
         // Lowercase letters with marks above (é, ô, ữ) reach ascender height
         private static bool IsAccented(char c) =>
             c > 127 && char.IsLetter(c) && char.IsLower(c) &&

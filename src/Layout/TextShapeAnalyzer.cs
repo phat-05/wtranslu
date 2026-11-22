@@ -55,6 +55,9 @@ namespace RSTGameTranslation.Layout
         public const double MinFontPx = 11;
         private const double MinGradientDistance = 60;
 
+        // Diagnostics for tuning (tests / tools only)
+        public static Action<string>? Trace;
+
         /// <param name="fontPx">Font size of the text in pixels of this image (0 = unknown: no bold).</param>
         /// <param name="lineCount">Lines of text in the box, for the gradient (measured per line).</param>
         /// <param name="text">The OCR text: with one line, the font size is measured on the letters
@@ -93,7 +96,22 @@ namespace RSTGameTranslation.Layout
             double inkPx = 0;
             if (text != null && lineCount <= 1)
             {
-                inkPx = FontPxFromInk(pixels, w, h, rowBackground, style.Fill, effect, text);
+                // The rows just above and below the box too: OCR boxes hug the letters, and the
+                // letters' tops or tails may stick out a little
+                int extra = Math.Max(2, h / 2);
+                int ey0 = Math.Max(0, y0 - extra), ey1 = Math.Min(imageHeight, y1 + extra);
+                var band = new Rgb[w * (ey1 - ey0)];
+                var bandBackground = new Rgb[ey1 - ey0];
+                for (int y = ey0; y < ey1; y++)
+                {
+                    bandBackground[y - ey0] = rowBackground[Math.Clamp(y - y0, 0, h - 1)];
+                    for (int x = 0; x < w; x++)
+                    {
+                        int p = y * stride + (x0 + x) * 4;
+                        band[(y - ey0) * w + x] = new Rgb(bgra[p + 2], bgra[p + 1], bgra[p]);
+                    }
+                }
+                inkPx = FontPxFromInk(band, w, ey1 - ey0, y0 - ey0, y1 - ey0, bandBackground, style.Fill, effect, text);
                 if (inkPx > 0)
                     fontPx = inkPx;
             }
@@ -124,36 +142,66 @@ namespace RSTGameTranslation.Layout
         /// the tallest letter to the bottom of the lowest, divided by how tall these letters are in
         /// em (FontSizeEstimator.InkHeightEm). Independent of how much room the OCR engine leaves
         /// around the line, which varies (a 24 px name got a 28 px box, so the box said 30 px).
-        /// Letters are pixels clearly unlike the background and unlike the outline/shadow colour, in
-        /// any colour (a word in another colour can hold the only descender). 0 when the letters touch
-        /// the top or bottom of the box (cut off) or are too few pixels tall.
+        /// Letters are pixels clearly unlike the background, in any colour (a word in another colour
+        /// can hold the only descender), but nearer the fill than the outline/shadow colour.
+        /// The rows are those of the box [boxTop, boxBottom) of the band, extended while the rows next
+        /// to it still have letters (OCR boxes cut tails and accents). 0 when the letters run to the
+        /// edge of the band (cut off by the screen) or are too few pixels tall.
         /// </summary>
-        public static double FontPxFromInk(Rgb[] pixels, int w, int h, Rgb[] rowBackground, Rgb fill, Rgb? effect, string text)
+        public static double FontPxFromInk(Rgb[] pixels, int w, int h, int boxTop, int boxBottom, Rgb[] rowBackground,
+                                           Rgb fill, Rgb? effect, string text)
         {
-            int top = -1, bottom = -1;
-            for (int y = 0; y < h; y++)
+            bool IsLetter(int x, int y)
             {
                 var bg = rowBackground[y];
-                double inkDistance = Math.Max(40, fill.DistanceTo(bg) * 0.35);
+                var p = pixels[y * w + x];
+                if (p.DistanceTo(bg) <= Math.Max(40, fill.DistanceTo(bg) * 0.35))
+                    return false;
+                return effect == null || p.DistanceTo(effect.Value) > p.DistanceTo(fill);
+            }
+
+            int top = -1, bottom = -1;
+            for (int y = boxTop; y < boxBottom; y++)
+            {
                 int count = 0;
                 for (int x = 0; x < w && count < 2; x++)
-                {
-                    var p = pixels[y * w + x];
-                    if (p.DistanceTo(bg) <= inkDistance)
-                        continue;
-                    if (effect != null && p.DistanceTo(effect.Value) < 60)
-                        continue;
-                    count++;
-                }
+                    if (IsLetter(x, y)) count++;
                 if (count >= 2)
                 {
                     if (top < 0) top = y;
                     bottom = y;
                 }
             }
-            if (top <= 0 || bottom >= h - 1 || bottom - top + 1 < 6)
+            if (top < 0)
                 return 0;
-            return (bottom - top + 1) / FontSizeEstimator.InkHeightEm(text);
+
+            // Past the box, only letter pixels touching the letters of the row before count (sparks,
+            // stars or the next line nearby do not)
+            int Grow(int from, int step)
+            {
+                var current = new bool[w];
+                for (int x = 0; x < w; x++)
+                    current[x] = IsLetter(x, from);
+                int y = from;
+                while (y + step >= 0 && y + step < h)
+                {
+                    var next = new bool[w];
+                    bool any = false;
+                    for (int x = 0; x < w; x++)
+                        if ((current[x] || (x > 0 && current[x - 1]) || (x < w - 1 && current[x + 1])) && IsLetter(x, y + step))
+                            next[x] = any = true;
+                    if (!any)
+                        break;
+                    current = next;
+                    y += step;
+                }
+                return y;
+            }
+            top = Grow(top, -1);
+            bottom = Grow(bottom, +1);
+            if (top == 0 || bottom == h - 1 || bottom - top + 1 < 6)
+                return 0;
+            return (bottom - top + 1) / FontSizeEstimator.LetterHeightEm(text);
         }
 
         /// <summary>
@@ -295,6 +343,10 @@ namespace RSTGameTranslation.Layout
                 foreach (var r in rows)
                     samples.Add(((r.Y - inkTop) / (double)(inkBottom - inkTop), r.Colour, r.N));
             }
+            // The middle of the letters only: the very top and bottom rows are few pixels (serifs,
+            // accents, tails) and a game's gradient may not reach them, or wrap around there (a
+            // gradient tiled over the line height starts again at the bottom)
+            samples = samples.Where(x => x.Pos >= CoreFrom && x.Pos <= CoreTo).ToList();
             if (samples.Count < 6)
                 return (null, null);
 
@@ -319,9 +371,12 @@ namespace RSTGameTranslation.Layout
                 explained += slope * slope * vp;
                 totalVar += samples.Sum(s => s.Weight * (get(s.Colour) - mc) * (get(s.Colour) - mc));
             }
-            var topColour = ToRgb(fitTop);
-            var bottomColour = ToRgb(fitBottom);
+            // Colours at the ends of the measured part (not extrapolated past what was seen)
+            var topColour = ToRgb(Lerp(fitTop, fitBottom, CoreFrom));
+            var bottomColour = ToRgb(Lerp(fitTop, fitBottom, CoreTo));
             double r2 = totalVar > 0 ? explained / totalVar : 0;
+            Trace?.Invoke($"gradient fit: {samples.Count} rows, top {ToRgb(fitTop)} bottom {ToRgb(fitBottom)} r2 {r2:F2}; rows: " +
+                string.Join(" ", samples.Select(x => $"{x.Pos:F2}:{x.Colour}")));
             if (topColour.DistanceTo(bottomColour) < MinGradientDistance || r2 < 0.6)
                 return (null, null);
             return (topColour, bottomColour);
@@ -338,6 +393,11 @@ namespace RSTGameTranslation.Layout
                            (byte)Math.Round(top.G + (bottom.G - top.G) * t),
                            (byte)Math.Round(top.B + (bottom.B - top.B) * t));
         }
+
+        private const double CoreFrom = 0.12, CoreTo = 0.88;
+
+        private static double[] Lerp(double[] a, double[] b, double t) =>
+            new[] { a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t };
 
         private static Rgb ToRgb(double[] c) =>
             new Rgb((byte)Math.Clamp(Math.Round(c[0]), 0, 255), (byte)Math.Clamp(Math.Round(c[1]), 0, 255), (byte)Math.Clamp(Math.Round(c[2]), 0, 255));

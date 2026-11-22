@@ -1,0 +1,183 @@
+[
+ {
+  "name": "title_shadow_georgia",
+  "box": [
+   8,
+   8,
+   411,
+   33
+  ],
+  "font_px": 29.2,
+  "lines": 1,
+  "text": "Chapter 2: The Lighthouse",
+  "bold": true,
+  "italic": false,
+  "gradient": false,
+  "effect": "Shadow",
+  "fill": "#FFD678",
+  "px": 30
+ },
+ {
+  "name": "speaker_bold",
+  "box": [
+   6,
+   6,
+   150,
+   27
+  ],
+  "font_px": 23.9,
+  "lines": 1,
+  "text": "Captain Mira",
+  "bold": true,
+  "italic": false,
+  "gradient": false,
+  "effect": "None",
+  "fill": "#FFC83C",
+  "px": 24
+ },
+ {
+  "name": "dialogue",
+  "box": [
+   6,
+   6,
+   422,
+   27
+  ],
+  "font_px": 23.9,
+  "lines": 1,
+  "text": "Find the red key before the tide turns.",
+  "bold": false,
+  "italic": false,
+  "gradient": false,
+  "effect": "None",
+  "fill": "#FFFFFF",
+  "px": 26
+ },
+ {
+  "name": "menu_four_lines",
+  "box": [
+   12,
+   12,
+   101,
+   121
+  ],
+  "font_px": 19.9,
+  "lines": 4,
+  "text": "Continue\nLoad Game\nSettings\nQuit",
+  "bold": false,
+  "italic": false,
+  "gradient": false,
+  "effect": "None",
+  "fill": "#3C2814",
+  "px": 20
+ },
+ {
+  "name": "banner_condensed_shadow",
+  "box": [
+   9,
+   9,
+   609,
+   37
+  ],
+  "font_px": 39.8,
+  "lines": 1,
+  "text": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER",
+  "bold": true,
+  "italic": false,
+  "gradient": false,
+  "effect": "Shadow",
+  "fill": "#FF5A46",
+  "px": 44
+ },
+ {
+  "name": "subtitle_outline_over_sky",
+  "box": [
+   8,
+   8,
+   602,
+   35
+  ],
+  "font_px": 31,
+  "lines": 1,
+  "text": "The storm is coming. Hold on to the mast!",
+  "bold": true,
+  "italic": false,
+  "gradient": false,
+  "effect": "Outline",
+  "fill": "#FFFFFF",
+  "px": 30
+ },
+ {
+  "name": "hint_italic_low_contrast",
+  "box": [
+   6,
+   6,
+   352,
+   26
+  ],
+  "font_px": 23,
+  "lines": 1,
+  "text": "Tip: press Space to skip the cutscene.",
+  "bold": false,
+  "italic": true,
+  "gradient": false,
+  "effect": "None",
+  "fill": "#B0966E",
+  "px": 22
+ },
+ {
+  "name": "hud_bottom_edge",
+  "box": [
+   3,
+   3,
+   391,
+   15
+  ],
+  "font_px": 14.4,
+  "lines": 1,
+  "text": "Lv.70 776,256 2026-11-15 14:39:01 HD",
+  "bold": true,
+  "italic": false,
+  "gradient": false,
+  "effect": "None",
+  "fill": "#FFFFFF",
+  "px": 0
+ },
+ {
+  "name": "gradient_title",
+  "box": [
+   9,
+   9,
+   464,
+   39
+  ],
+  "font_px": 34.5,
+  "lines": 1,
+  "text": "The Lighthouse Awakens",
+  "bold": true,
+  "italic": false,
+  "gradient": true,
+  "effect": "None",
+  "top": "#FFF4AA",
+  "bottom": "#E16E19",
+  "px": 36
+ },
+ {
+  "name": "centered_shadow",
+  "box": [
+   6,
+   6,
+   338,
+   27
+  ],
+  "font_px": 29,
+  "lines": 1,
+  "text": "The tide rises with the moon.",
+  "bold": false,
+  "italic": false,
+  "gradient": false,
+  "effect": "Shadow",
+  "fill": "#D7EBFF",
+  "px": 26
+ }
+]

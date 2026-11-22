@@ -65,7 +65,9 @@ namespace RSTGameTranslation
             {
                 string key = StyleKey(style, shape, fontPx);
                 _byStyle.TryGetValue(key, out var votes);
-                bool canSample = shape.Coverage != null && lineCount == 1 && fontPx >= 10 &&
+                // One whole line: its letters were measured (FontPxFromInk > 0), so none are cut off by
+                // the box or the screen edge (cut letters look like another font)
+                bool canSample = shape.Coverage != null && lineCount == 1 && shape.FontPxFromInk > 0 && fontPx >= 10 &&
                                  text.Trim().Length >= 4 && !text.Any(IsWide);
                 if ((votes == null || votes.Samples < SamplesPerStyle) && canSample)
                 {
@@ -73,6 +75,7 @@ namespace RSTGameTranslation
                     var game = new FontMatcher.Ink(shape.Coverage!, shape.CoverageWidth, shape.CoverageHeight);
                     var candidates = UsableFonts().Select(f => (f, Render(text.Trim(), f, fontPx, shape.Bold, shape.Italic))).ToList();
                     var (_, all) = FontMatcher.Best(game, candidates);
+                    Dump(text, game, candidates);
                     if (all.Count > 0)
                     {
                         votes ??= _byStyle[key] = new Votes();
@@ -125,7 +128,8 @@ namespace RSTGameTranslation
                 return _usable;
             var installed = new HashSet<string>(Fonts.SystemFontFamilies.Select(f => f.Source), StringComparer.OrdinalIgnoreCase);
             _usable = Candidates.Where(n => installed.Contains(n) && GameFonts.SupportsVietnamese(n)).ToList();
-            Console.WriteLine($"Font matching candidates: {string.Join(", ", _usable)}");
+            Console.WriteLine($"Font matching candidates: {string.Join(", ", _usable)}; left out: " +
+                string.Join(", ", Candidates.Except(_usable).Select(n => $"{n} ({(installed.Contains(n) ? "no Vietnamese" : "not installed")})")));
             return _usable;
         }
 
@@ -154,6 +158,40 @@ namespace RSTGameTranslation
             for (int i = 0; i < coverage.Length; i++)
                 coverage[i] = pixels[i * 4 + 1] / 255f;
             return new FontMatcher.Ink(coverage, w, h);
+        }
+
+        // Test runs only (RST_STYLE_DUMP_DIR set): the game's letters and each candidate's drawing, as
+        // coverage images (int32 width, int32 height, one byte per pixel), to tune the matcher offline
+        private static readonly string? _dumpDir = Environment.GetEnvironmentVariable("RST_STYLE_DUMP_DIR");
+        private static int _dumpCount;
+
+        private static void Dump(string text, FontMatcher.Ink game, List<(string Font, FontMatcher.Ink Ink)> candidates)
+        {
+            if (string.IsNullOrEmpty(_dumpDir) || _dumpCount >= 60)
+                return;
+            try
+            {
+                int n = ++_dumpCount;
+                string dir = System.IO.Path.Combine(_dumpDir, "fonts");
+                System.IO.Directory.CreateDirectory(dir);
+                void Save(string name, FontMatcher.Ink ink)
+                {
+                    using var fs = System.IO.File.Create(System.IO.Path.Combine(dir, name));
+                    using var gz = new System.IO.Compression.GZipStream(fs, System.IO.Compression.CompressionLevel.Optimal);
+                    gz.Write(BitConverter.GetBytes(ink.Width));
+                    gz.Write(BitConverter.GetBytes(ink.Height));
+                    gz.Write(ink.Coverage.Select(v => (byte)Math.Clamp(v * 255, 0, 255)).ToArray());
+                }
+                Save($"{n:D2}_game.cov.gz", game);
+                foreach (var (font, ink) in candidates)
+                    Save($"{n:D2}_{font.Replace(' ', '_')}.cov.gz", ink);
+                System.IO.File.AppendAllText(System.IO.Path.Combine(dir, "index.jsonl"),
+                    System.Text.Json.JsonSerializer.Serialize(new { n, text, fonts = candidates.Select(c => c.Font).ToArray() }) + "\n");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Font dump failed: {ex.Message}");
+            }
         }
 
         // CJK and other wide scripts: the candidate Latin fonts say nothing about them
