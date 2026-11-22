@@ -151,10 +151,10 @@ namespace RSTGameTranslation
         {
             var typeface = new Typeface(new FontFamily(font), italic ? FontStyles.Italic : FontStyles.Normal,
                 bold ? FontWeights.Bold : FontWeights.Normal, FontStretches.Normal);
-            // Display mode: snapped to the pixel grid (hinted) like GDI/GDI+ text, which most games'
-            // text resembles more than WPF's unhinted ideal layout (thin strokes differ most)
+            // Ideal (unhinted) layout: tried hinted Display mode to look more like GDI text, but on Windows
+            // CI data it matched the game's letters worse for 10 of 13 lines
             var formatted = new FormattedText(text, CultureInfo.InvariantCulture, FlowDirection.LeftToRight,
-                typeface, px, Brushes.White, null, TextFormattingMode.Display, 1.0);
+                typeface, px, Brushes.White, 1.0);
             int w = Math.Clamp((int)Math.Ceiling(formatted.WidthIncludingTrailingWhitespace) + 8, 8, 4000);
             int h = Math.Clamp((int)Math.Ceiling(formatted.Height) + 8, 8, 1000);
             var visual = new DrawingVisual();
