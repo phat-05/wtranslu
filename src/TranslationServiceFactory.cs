@@ -22,11 +22,12 @@ namespace RSTGameTranslation
                 "LM Studio" => new LMStudioTranslationService(),
                 "ChatGPT" => new ChatGptTranslationService(),
                 "Custom API" => new CustomApiTranslationService(),
-                "Google Translate" => new GoogleTranslateService(),
-                "Yandex" => new YandexTranslationService(),
+                // Machine translators: a known game's names and terms are kept (AI ones get game info)
+                "Google Translate" => TermGuardTranslationService.Wrap(new GoogleTranslateService()),
+                "Yandex" => TermGuardTranslationService.Wrap(new YandexTranslationService()),
                 "Mistral" => new MistralTranslationService(),
                 "Groq" => new GroqTranslationService(),
-                "Microsoft" => new MicrosoftLegacyTranslationService(),
+                "Microsoft" => TermGuardTranslationService.Wrap(new MicrosoftLegacyTranslationService()),
                 _ => new GeminiTranslationService() // Default to Gemini if unknown
             };
         }

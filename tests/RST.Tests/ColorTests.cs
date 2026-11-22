@@ -396,3 +396,34 @@ public class OcrScaleTests
         Assert.Equal(24, OcrScale.SmallLineHeight(new double[] { 48, 50, 24, 47, 49, 52, 51, 46, 50, 49 }));
     }
 }
+
+public class TermGuardTests
+{
+    private static readonly string[] Terms = { "Resonator", "Resonators", "Tacet Discord", "Echo", "Rover", "Jinzhou" };
+
+    [Fact]
+    public void Terms_become_tokens_and_come_back()
+    {
+        var p = TermGuard.Protect("The Resonators gathered at the edge of Jinzhou before dawn.", Terms);
+        Assert.Equal("The QZX1 gathered at the edge of QZX2 before dawn.", p.Text);
+        // What a translator returns, with a space slipped into a token
+        Assert.Equal("Các Resonators tập trung ở rìa Jinzhou trước bình minh.",
+            TermGuard.Restore("Các QZX1 tập trung ở rìa QZX 2 trước bình minh.", p.Map));
+    }
+
+    [Fact]
+    public void Longest_term_first_whole_words_exact_case()
+    {
+        var p = TermGuard.Protect("Rover, the Tacet Discord hears an echo of your Echo.", Terms);
+        Assert.Equal("QZX2, the QZX1 hears an echo of your QZX3.", p.Text);
+        Assert.Empty(TermGuard.Protect("Echoing roverS", Terms).Map);
+    }
+
+    [Fact]
+    public void Text_without_terms_is_untouched()
+    {
+        var p = TermGuard.Protect("Then we leave now.", Terms);
+        Assert.Equal("Then we leave now.", p.Text);
+        Assert.Equal("Vậy thì đi thôi.", TermGuard.Restore("Vậy thì đi thôi.", p.Map));
+    }
+}

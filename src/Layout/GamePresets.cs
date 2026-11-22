@@ -30,6 +30,9 @@ namespace RSTGameTranslation.Layout
         // Names shown on their own (speakers above their lines): left as the game shows them, as a
         // translator turns some into common words ("Rover" -> "xe thám hiểm")
         public string[] KeepAsIs { get; init; } = Array.Empty<string>();
+        // Names and terms machine translators must leave as they are, inside sentences too (exact case)
+        public IReadOnlyCollection<string> ProtectedTerms => KeepAsIs.Concat(Terms).Distinct().ToArray();
+        public string[] Terms { get; init; } = Array.Empty<string>();
         // What AI translators are told about the game when the user wrote nothing of their own
         public string GameInfo { get; init; } = "";
         // Config values that suit the game (key=value), applied for this session
@@ -93,6 +96,13 @@ namespace RSTGameTranslation.Layout
                 "Brant", "Cantarella", "Zani", "Ciaccona", "Cartethyia", "Lupa", "Phrolova", "Augusta", "Iuno", "Galbrena",
                 "Qiuyuan", "Chisa", "Buling", "Lynae", "Mornye", "Scar", "Magistrate", "Tethys", "Lollo", "Geshu Lin",
                 "Yangyang & Rover", "Echo", "Sentinel", "Jué", "Jue",
+            },
+            Terms = new[]
+            {
+                "Resonator", "Resonators", "Tacet Discord", "Tacet Discords", "Tacet Field", "Tacet Fields",
+                "Echo", "Echoes", "Waveplate", "Waveplates", "Forte", "Sonata", "Union Level", "Data Bank",
+                "Solaris-3", "Jinzhou", "Huanglong", "Rinascita", "Lahai-Roi", "Black Shores", "Mt. Firmament",
+                "Threnodian", "Fractsidus", "Waveworn",
             },
             GameInfo = "Wuthering Waves, an open-world action RPG by Kuro Games set on Solaris-3. The player character is " +
                        "the Rover. Keep character names (Rover, Yangyang, Chixia, Jiyan, Jinhsi, Changli, Camellya, " +
