@@ -27,8 +27,6 @@ namespace RSTGameTranslation.Layout
         public RelRect[] DialogueAreas { get; init; } = Array.Empty<RelRect>();
         // Full mode: the whole screen but these strips (the player's ID, HUD corners)
         public RelRect[] FullAreas { get; init; } = Array.Empty<RelRect>();
-        // Proper names the game uses: kept as they are in the translation
-        public string[] KeepTerms { get; init; } = Array.Empty<string>();
         // Config values that suit the game (key=value), applied for this session
         public Dictionary<string, string> Settings { get; init; } = new();
         // Shown once when the game is found (how to set it up for the overlay)
@@ -72,16 +70,6 @@ namespace RSTGameTranslation.Layout
             FullAreas = new[]
             {
                 new RelRect(0.0, 0.06, 1.0, 0.905),    // all but the top icon bar and the UID line
-            },
-            KeepTerms = new[]
-            {
-                "Rover", "Resonator", "Resonators", "Tacet Discord", "Tacet Field", "Echo", "Echoes", "Waveplate", "Waveplates",
-                "Solaris-3", "Jinzhou", "Huanglong", "Rinascita", "Lahai-Roi", "Black Shores", "Mt. Firmament",
-                "Abby", "Yangyang", "Chixia", "Baizhi", "Sanhua", "Jiyan", "Jianxin", "Yinlin", "Encore", "Lingyang",
-                "Calcharo", "Verina", "Danjin", "Aalto", "Mortefi", "Taoqi", "Yuanwu", "Changli", "Jinhsi", "Zhezhi",
-                "Xiangli Yao", "Shorekeeper", "Camellya", "Carlotta", "Roccia", "Phoebe", "Brant", "Cantarella", "Zani",
-                "Ciaccona", "Cartethyia", "Lupa", "Phrolova", "Augusta", "Iuno", "Scar", "Rover's", "Magistrate",
-                "Tethys", "Lollo", "Union Level", "Data Bank", "Forte Circuit", "Resonance Chain",
             },
             Settings = new()
             {
