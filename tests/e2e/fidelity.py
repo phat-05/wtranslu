@@ -60,6 +60,12 @@ def similar(a, b):
     return len(wa & wb) / len(wa | wb)
 
 
+def part_of(line, text):
+    """Whether an overlay's source text is one of the lines of a longer text (most of its words in it)."""
+    wl, wt = words(line), words(text)
+    return len(wl) >= 2 and len(wl & wt) >= 0.8 * len(wl) and len(wl) < len(wt)
+
+
 def expected_elements(events):
     """(t0, t1, style, text) for every piece of text on screen during each step."""
     chapter = "Chapter 1: The Old Harbor"
@@ -142,13 +148,23 @@ def main(run_dir, truth_path, label=""):
     for t0, t1, style, text in expected_elements(events):
         if (style, text) in seen or style not in truth:
             continue
-        window = [e for e in entries if t0 <= e["t"] < t1 + 1000 and similar(e["source"], text) >= 0.6]
-        if not window:
+        in_time = [e for e in entries if t0 <= e["t"] < t1 + 1000]
+        window = [e for e in in_time if similar(e["source"], text) >= 0.6]
+        if window:
+            parts = [window[-1]]
+        else:
+            # Text of several lines may be shown as one overlay per line: score each line's overlay
+            latest = {}
+            for e in in_time:
+                if part_of(e["source"], text):
+                    latest[e["source"]] = e
+            parts = list(latest.values())
+        if not parts:
             continue
         seen.add((style, text))
-        o = window[-1]
-        s = score(style, truth, o)
-        rows.append({"style": style, "text": text, "overlay": o, "scores": s,
+        scores = [score(style, truth, o) for o in parts]
+        s = {c: sum(x[c] for x in scores) / len(scores) for c in COMPONENTS}
+        rows.append({"style": style, "text": text, "overlay": parts[-1], "parts": len(parts), "scores": s,
                      "total": sum(s.values()) / len(s)})
 
     summary = {c: round(sum(r["scores"][c] for r in rows) / len(rows), 3) if rows else None for c in COMPONENTS}
