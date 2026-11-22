@@ -26,6 +26,7 @@ namespace RSTGameTranslation
         private bool _gameTipShown;
         // The translation areas are the preset's (not drawn by the user)
         private bool _presetAreasActive;
+        private bool _gameModeShownOnce;
 
         [DllImport("user32.dll")]
         private static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
@@ -162,6 +163,12 @@ namespace RSTGameTranslation
             Console.WriteLine($"{_activePreset.Name}: {mode} mode, {areas.Count} area(s) in a {width}x{height} window");
             OcrTiming.Metrics.Write("game_mode", $"{_activePreset.Id}|{mode}|{width}x{height}|" +
                 string.Join(";", areas.Select(a => $"{a.X:F0},{a.Y:F0},{a.Width:F0},{a.Height:F0}")));
+            // Outline what is translated for a moment (not on the silent re-fit after a resolution change)
+            if (notify || !_gameModeShownOnce)
+            {
+                _gameModeShownOnce = true;
+                AreaBorderOverlay.Show(GetActiveAreas(), multi, areas.Count - 1, TimeSpan.FromSeconds(2));
+            }
             if (notify)
             {
                 ShowFastNotification(_activePreset.Name, LocalizationManager.Instance.Strings[
