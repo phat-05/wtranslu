@@ -51,6 +51,8 @@ namespace RSTGameTranslation.Layout
         // True when the game's text had no outline but its colour is too close to the background to read
         // without one, so an outline was added
         public bool EffectAdded { get; init; }
+        // Bold / italic / gradient fill of the letters (TextShapeAnalyzer), null when not measured
+        public TextShape? Shape { get; set; }
     }
 
     /// <summary>

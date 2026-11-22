@@ -1276,14 +1276,19 @@ namespace RSTGameTranslation
 
                         if (ConfigManager.Instance.IsTextStyleFromGameEnabled())
                         {
-                            // Fill, background and outline/shadow read from the game's pixels
-                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox);
+                            // Fill, background, outline/shadow, bold/italic and gradient read from the game's pixels.
+                            // Font size in capture pixels: from the OCR line heights, else from this box
+                            int lines = Math.Max(1, sourceLineCount);
+                            double fontPx = sourceFontSize > 0
+                                ? sourceFontSize * dpiScaleY
+                                : RSTGameTranslation.Layout.FontSizeEstimator.FromLine(bitmapHeight / (double)lines, text);
+                            textStyle = ColorUtils.AnalyzeTextStyle(sourceBitmap, textBox, fontPx, lines);
                         }
                         if (textStyle != null)
                         {
                             bgColor = textStyle.Background.ToMediaColor();
                             textColor = textStyle.Fill.ToMediaColor();
-                            OcrTiming.Metrics.Write("text_style", $"{textStyle.Fill}|{textStyle.Background}|{textStyle.Effect}|{textStyle.EffectColor}|{textStyle.ShadowDx},{textStyle.ShadowDy}|{text}");
+                            OcrTiming.Metrics.Write("text_style", $"{textStyle.Fill}|{textStyle.Background}|{textStyle.Effect}|{textStyle.EffectColor}|{textStyle.ShadowDx},{textStyle.ShadowDy}|{text}|{textStyle.Shape}");
                         }
                         else
                         {

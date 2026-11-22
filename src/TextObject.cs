@@ -125,7 +125,38 @@ namespace RSTGameTranslation
         // The game's outline or drop shadow, drawn around the translation like the original (null = none)
         private RSTGameTranslation.Layout.TextStyle? _gameTextStyle;
 
-        public void SetTextEffect(RSTGameTranslation.Layout.TextStyle style) => _gameTextStyle = style;
+        public void SetTextEffect(RSTGameTranslation.Layout.TextStyle style)
+        {
+            _gameTextStyle = style;
+            if (TextBlock != null)
+                ApplyGameShape(TextBlock);
+        }
+
+        // Bold, italic and a vertical gradient fill like the game's letters (read from its pixels)
+        private void ApplyGameShape(TextBlock textBlock)
+        {
+            var shape = _gameTextStyle?.Shape;
+            textBlock.FontWeight = shape?.Bold == true ? FontWeights.Bold : FontWeights.Normal;
+            textBlock.FontStyle = shape?.Italic == true ? FontStyles.Italic : FontStyles.Normal;
+            if (shape?.GradientTop is RSTGameTranslation.Layout.Rgb top && shape.GradientBottom is RSTGameTranslation.Layout.Rgb bottom)
+                textBlock.Foreground = LineGradient(top, bottom, textBlock.FontSize * LineHeightRatio);
+        }
+
+        // A gradient repeated on every line (a block of several lines is coloured line by line, as the
+        // game colours each of its lines): top colour at the top of the letters, bottom colour at the bottom
+        private static LinearGradientBrush LineGradient(RSTGameTranslation.Layout.Rgb top, RSTGameTranslation.Layout.Rgb bottom, double lineHeight)
+        {
+            var brush = new LinearGradientBrush
+            {
+                MappingMode = BrushMappingMode.Absolute,
+                SpreadMethod = GradientSpreadMethod.Repeat,
+                StartPoint = new Point(0, 0),
+                EndPoint = new Point(0, Math.Max(1, lineHeight)),
+            };
+            brush.GradientStops.Add(new GradientStop(Color.FromRgb(top.R, top.G, top.B), 0.15));
+            brush.GradientStops.Add(new GradientStop(Color.FromRgb(bottom.R, bottom.G, bottom.B), 0.9));
+            return brush;
+        }
 
         // Fallback chain used when no language font override is set
         private const string DefaultFontFamily = "Arial, Noto Sans SC, Noto Sans JP, Noto Sans, Noto Sans KR, Noto Sans Devanagari, MS Gothic, Malgun Gothic, Yu Gothic, Microsoft YaHei, Arial Unicode MS";
@@ -284,6 +315,7 @@ namespace RSTGameTranslation
                 //     TextBlock.Text = this.Text;
                 // }
                 TextBlock.Foreground = this.TextColor;
+                ApplyGameShape(TextBlock);
                 ApplyBackground();
                 // The overlay positions borders with Canvas.Left/Top; a margin would add the offset twice
                 Border.Margin = new Thickness(0);
@@ -527,6 +559,9 @@ namespace RSTGameTranslation
             textBlock.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
             textBlock.LineHeight = fontSize * LineHeightRatio;
             textBlock.LayoutTransform = Transform.Identity;
+            // A per-line gradient follows the line height
+            if (textBlock.Foreground is LinearGradientBrush { MappingMode: BrushMappingMode.Absolute, IsFrozen: false } gradient)
+                gradient.EndPoint = new Point(0, Math.Max(1, fontSize * LineHeightRatio));
         }
 
         // Whether the text, wrapped at the box width, fits inside the box at this font size
@@ -585,7 +620,7 @@ namespace RSTGameTranslation
                 // Same length doesn't mean same rendered size, so key on the actual text and font
                 // With coloured words the text is in Inlines and TextBlock.Text still holds the old string
                 string shownText = TranslatedMarkup ?? textBlock.Text;
-                string cacheKey = $"{textBlock.FontFamily.Source}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{shownText}";
+                string cacheKey = $"{textBlock.FontFamily.Source}_{textBlock.FontWeight}_{textBlock.FontStyle}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{shownText}";
                 
                 // Check cache
                 if (_fontSizeCache.TryGetValue(cacheKey, out var cached))

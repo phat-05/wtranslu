@@ -1,0 +1,186 @@
+[
+ {
+  "name": "sans_regular",
+  "box": [
+   20,
+   18,
+   495,
+   26
+  ],
+  "font_px": 24,
+  "lines": 1,
+  "bold": false,
+  "italic": false,
+  "gradient": false
+ },
+ {
+  "name": "sans_bold",
+  "box": [
+   19,
+   18,
+   532,
+   26
+  ],
+  "font_px": 24,
+  "lines": 1,
+  "bold": true,
+  "italic": false,
+  "gradient": false
+ },
+ {
+  "name": "sans_italic",
+  "box": [
+   18,
+   18,
+   496,
+   26
+  ],
+  "font_px": 24,
+  "lines": 1,
+  "bold": false,
+  "italic": true,
+  "gradient": false
+ },
+ {
+  "name": "serif_regular_dark",
+  "box": [
+   17,
+   18,
+   490,
+   30
+  ],
+  "font_px": 26,
+  "lines": 1,
+  "bold": false,
+  "italic": false,
+  "gradient": false
+ },
+ {
+  "name": "serif_bold_dark",
+  "box": [
+   17,
+   17,
+   548,
+   31
+  ],
+  "font_px": 26,
+  "lines": 1,
+  "bold": true,
+  "italic": false,
+  "gradient": false
+ },
+ {
+  "name": "serif_italic_dark",
+  "box": [
+   17,
+   18,
+   492,
+   30
+  ],
+  "font_px": 26,
+  "lines": 1,
+  "bold": false,
+  "italic": true,
+  "gradient": false
+ },
+ {
+  "name": "carlito_bold_italic",
+  "box": [
+   17,
+   20,
+   582,
+   32
+  ],
+  "font_px": 30,
+  "lines": 1,
+  "bold": true,
+  "italic": true,
+  "gradient": false
+ },
+ {
+  "name": "mono_regular_small",
+  "box": [
+   19,
+   16,
+   368,
+   17
+  ],
+  "font_px": 16,
+  "lines": 1,
+  "bold": false,
+  "italic": false,
+  "gradient": false
+ },
+ {
+  "name": "mono_bold_small",
+  "box": [
+   19,
+   16,
+   413,
+   20
+  ],
+  "font_px": 18,
+  "lines": 1,
+  "bold": true,
+  "italic": false,
+  "gradient": false
+ },
+ {
+  "name": "outlined_bold",
+  "box": [
+   19,
+   16,
+   554,
+   37
+  ],
+  "font_px": 30,
+  "lines": 1,
+  "bold": true,
+  "italic": false,
+  "gradient": false
+ },
+ {
+  "name": "gradient_serif_bold",
+  "box": [
+   16,
+   18,
+   393,
+   42
+  ],
+  "font_px": 36,
+  "lines": 1,
+  "bold": true,
+  "italic": false,
+  "gradient": true,
+  "top": "#FFF4AA",
+  "bottom": "#E16E19"
+ },
+ {
+  "name": "two_lines_two_colours",
+  "box": [
+   18,
+   18,
+   382,
+   56
+  ],
+  "font_px": 24,
+  "lines": 2,
+  "bold": false,
+  "italic": false,
+  "gradient": false
+ },
+ {
+  "name": "red_word",
+  "box": [
+   19,
+   17,
+   434,
+   30
+  ],
+  "font_px": 26,
+  "lines": 1,
+  "bold": false,
+  "italic": false,
+  "gradient": false
+ }
+]

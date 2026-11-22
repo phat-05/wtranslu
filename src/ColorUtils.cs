@@ -118,7 +118,9 @@ namespace RSTGameTranslation
         /// Fill colour, background and outline/shadow of the game text in the box (see
         /// Layout.TextColorAnalyzer). Null when the box is unusable.
         /// </summary>
-        public static RSTGameTranslation.Layout.TextStyle? AnalyzeTextStyle(Bitmap bitmap, Rectangle textBox)
+        /// <param name="fontPx">The game's font size in bitmap pixels (0 = unknown), for bold detection.</param>
+        /// <param name="lineCount">Lines of text in the box, for gradient detection.</param>
+        public static RSTGameTranslation.Layout.TextStyle? AnalyzeTextStyle(Bitmap bitmap, Rectangle textBox, double fontPx = 0, int lineCount = 1)
         {
             var image = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
             int margin = Math.Clamp(Math.Min(textBox.Width, textBox.Height) / 4, 3, 12);
@@ -128,8 +130,15 @@ namespace RSTGameTranslation
 
             byte[] pixels = CopyRegion(bitmap, area, out int stride);
             // Box position relative to the copied area
-            return RSTGameTranslation.Layout.TextColorAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
+            var style = RSTGameTranslation.Layout.TextColorAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
                 textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height);
+            if (style != null)
+            {
+                // Bold, italic and gradient fill, read from the same pixels
+                style.Shape = RSTGameTranslation.Layout.TextShapeAnalyzer.Analyze(pixels, area.Width, area.Height, stride,
+                    textBox.X - area.X, textBox.Y - area.Y, textBox.Width, textBox.Height, style, fontPx, lineCount);
+            }
+            return style;
         }
 
         /// <summary>
