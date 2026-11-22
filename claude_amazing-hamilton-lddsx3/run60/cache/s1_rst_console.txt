@@ -1,0 +1,2783 @@
+Configuration file not found. Creating default configuration.
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Default configuration created and saved.
+[Automation] Config override source_language
+[Automation] Config override target_language
+[Automation] Config override ocr_method
+[Automation] Config override translation_service
+ConfigManager.GetValue: Key 'dark_mode' not found, returning default value: 'false'
+Fetching version info from: https://raw.githubusercontent.com/phat-05/wtranslu/refs/heads/main/media/latest_version_checker.json
+ConfigManager.GetValue: Key 'chatbox_display_mode' not found, returning default value: '0'
+Applied ChatBox styling: Font=Segoe UI, Size=15, Color=#FFFFFFFF, BG=#FF000000, Window Opacity=1, BG Opacity=0.35, Outline=#FF000000
+MainWindow constructor: Setting _isInitializing to true
+Error getting console mode: 6
+﻿Console output initialized. Toggle visibility with the Log button.
+Note: Console input is disabled to prevent application freeze.
+Saved Gemini prompt (1628 chars)
+Prompt saved for Gemini
+Saved ChatGPT prompt (1628 chars)
+Prompt saved for ChatGPT
+Saved Mistral prompt (1628 chars)
+Prompt saved for Mistral
+Saved Groq prompt (1628 chars)
+Prompt saved for Groq
+Saved Custom API prompt (1628 chars)
+Prompt saved for Custom API
+Saved Ollama prompt (1628 chars)
+Prompt saved for Ollama
+Saved LM Studio prompt (1628 chars)
+Prompt saved for LM Studio
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Force update prompt set to: 8
+MonitorWindow constructor: Setting _isInitializing to true
+MonitorWindow constructor started
+MonitorWindow constructor completed
+Exclude MonitorWindow from capture success
+MonitorWindow set to be excluded from screen capture
+MonitorWindow click-through enabled
+MonitorWindow_Loaded: Starting initialization
+MonitorWindow: Got DPI scale: 1.00x
+MonitorWindow initialization complete
+Parsed hotkey for Start/Stop: ALT+G -> Modifiers: 1, VK: 71
+Parsed hotkey for Overlay: ALT+F -> Modifiers: 1, VK: 70
+Parsed hotkey for ChatBox: ALT+C -> Modifiers: 1, VK: 67
+Parsed hotkey for Setting: ALT+P -> Modifiers: 1, VK: 80
+ConfigManager.GetValue: Key 'hotkey_log' not found, returning default value: 'ALT+L'
+Parsed hotkey for Log: ALT+L -> Modifiers: 1, VK: 76
+Parsed hotkey for Select Area: ALT+Q -> Modifiers: 1, VK: 81
+Parsed hotkey for Clear Areas: ALT+R -> Modifiers: 1, VK: 82
+Parsed hotkey for Clear Selected Area: ALT+H -> Modifiers: 1, VK: 72
+Parsed hotkey for Show Area: ALT+B -> Modifiers: 1, VK: 66
+Parsed hotkey for Audio Service: ALT+K -> Modifiers: 1, VK: 75
+Parsed hotkey for Swap Languages: ALT+V -> Modifiers: 1, VK: 86
+Parsed hotkey for Retry Translation: ALT+T -> Modifiers: 1, VK: 84
+Parsed hotkey for Select Exclude Region: ALT+X -> Modifiers: 1, VK: 88
+ConfigManager.GetValue: Key 'hotkey_game_mode' not found, returning default value: 'ALT+M'
+Parsed hotkey for Game Mode: ALT+M -> Modifiers: 1, VK: 77
+Global keyboard hook initialized successfully
+ConfigManager.GetValue: Key 'gamepad_hotkey_start_stop' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_overlay' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_chatbox' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_Show Area' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_audio_service' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_swap_languages' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_retry_translation' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_game_mode' not found, returning default value: ''
+ConfigManager.GetValue: Key 'exclude_regions' not found, returning default value: ''
+Loaded 0 exclude regions from config
+Gamepad polling started
+ConfigManager.GetValue: Key 'GamepadHotKeyEnable' not found, returning default value: 'false'
+ConfigManager.GetValue: Key 'show_exclude_regions' not found, returning default value: 'true'
+Loaded 0 exclude regions from config
+Received JSON: {
+    "name":"Real Time Game Translation",
+    "latest_version":6.4,
+    "message":"Download V{VERSION_STRING} now from github?"
+}
+
+Deserialized version: 6.4, name: Real Time Game Translation, message: Download V{VERSION_STRING} now from github?
+Registered Start/Stop hotkey successfully
+Registered Overlay hotkey successfully
+Registered ChatBox hotkey successfully
+Registered Setting hotkey successfully
+Registered Log hotkey successfully
+Registered Select Area hotkey successfully
+Registered Clear Areas hotkey successfully
+Registered Clear Selected Area hotkey successfully
+Registered Show Area hotkey successfully
+Registered Audio Service hotkey successfully
+Registered Swap Languages hotkey successfully
+Registered Retry Translation hotkey successfully
+Registered Select Exclude Region hotkey successfully
+Registered Game Mode hotkey successfully
+SettingsWindow constructor: Setting _isInitializing to true
+SettingsWindow.TranslationServiceComboBox_SelectionChanged called (isInitializing: True)
+Skipping translation service change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Microsoft legacy signature mode set to: True
+Microsoft legacy signature mode changed: True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Skipping OCR method change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Set Overlay Background enabled: True
+Auto set overlay background color set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Show icon signal enabled: True
+Show icon signal set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Merge Overlapping Text enabled: True
+Auto merge overlapping text set to True
+Screen 0: DISPLAY1 - Generic PnP Monitor, 1024x768, Primary: True
+Loaded 1 screens
+ConfigManager.GetValue: Key 'audio_processing_provider' not found, returning default value: 'Whisper'
+ConfigManager.GetValue: Key 'tts_volume' not found, returning default value: '100'
+Found Windows UWP TTS voice: Microsoft David (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_DavidM
+Found Windows UWP TTS voice: Microsoft Zira (en-US, Female, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_ZiraM
+Found Windows UWP TTS voice: Microsoft Mark (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_MarkM
+Found SAPI TTS voice: Microsoft David Desktop (English (United States), Male, SAPI) - Microsoft David Desktop
+Found SAPI TTS voice: Microsoft Zira Desktop (English (United States), Female, SAPI) - Microsoft Zira Desktop
+Initialized 5 Windows TTS voices in total
+Selected default system voice: Microsoft David Desktop (English (United States), Male, SAPI)
+Loaded 5 Windows TTS voices
+Logic initialized
+Loaded Gemini API key: Set
+Loaded LLM prompt: Not set
+Using OneOCR (built-in)
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+MainWindow_Loaded: Loading OCR method from config: 'OneOCR'
+MainWindow.SetOcrMethod called with method: OneOCR (isInitializing: True)
+Setting OCR method during initialization: OneOCR
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+=== Configuration Test ===
+API Key: Set - <you...
+LLM Prompt: Not set
+OCR Method: OneOCR
+Translation Service: Google Translate
+=========================
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Language interface set to: en
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Added screen 0: Screen 1 (1024x768) - Primary
+ConfigManager.GetValue: Key 'SelectedScreenIndex' not found, returning default value: '0'
+Screen list loaded. Selected index: 0
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Audio service auto-translate enabled: False
+MainWindow initialization complete. Settings changes will now be saved.
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Ensuring config OCR method is preserved: OneOCR
+ConfigManager.SetOcrMethod called with method: OneOCR
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+OCR method set to OneOCR and saved to config
+Loading language settings from config: Source=en, Target=vi
+Set source language to en
+Set target language to vi
+Added screen 0: Screen 1 (1024x768) - Primary
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Selected screen index set to: 0
+Screen selection changed to index: 0
+DpiHelper: DPI cache invalidated
+Screen list loaded. Selected index: 0
+[Automation] Waiting for window 'MockGame Dialogue Test'
+Windows Graphics Capture stopped
+D3D11: multithread protection enabled
+WGC: Yellow capture border disabled via IGraphicsCaptureSession3
+Windows Graphics Capture started successfully
+MonitorWindow set to be included in screen capture
+Selected window: MockGame Dialogue Test (Handle: 131480)
+Creating new MonitorWindow instance...
+MonitorWindow setup complete
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetValue: Key 'google_translate_use_cloud_api' not found, returning default value: 'false'
+ConfigManager.GetValue: Key 'onboarding_tips_shown' not found, returning default value: ''
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+[WarmUp] Google Translate: connected to translate.googleapis.com in 142 ms (404)
+ConfigManager.GetValue: Key 'translation_cache_enabled' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'image_text_cache_enabled' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_persistent' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'current_game_profile' not found, returning default value: ''
+Image cache: MockGame.en.OneOCR.images (0 entries)
+OCR pipeline initialized successfully
+[WarmUp] Google Translate: connected to translate.google.com.hk in 347 ms (200)
+ConfigManager.GetValue: Key 'word_colors' not found, returning default value: 'true'
+Loaded block detection scale from config: 3
+Loaded block detection settle time from config: 0.2 seconds
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:19:47.487 +0ms] 1. New text from OCR: OCR took 307 ms; waiting 0.20s for it to settle: 'X I- MockGame Dialogue Test Chapter 1: T…'
+ConfigManager.GetValue: Key 'translation_prefetch' not found, returning default value: 'true'
+Translation cache: D:\a\wtranslu\wtranslu\app\Cache\MockGame.en-vi.jsonl (0 entries)
+ConfigManager.GetValue: Key 'translation_cache_fuzzy' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_fuzzy_threshold' not found, returning default value: '0.90'
+OCR processing completed in 321ms
+ConfigManager.GetValue: Key 'google_translate_api_key' not found, returning default value: ''
+[OCR timing 15:19:47.495 +8ms] 2a. Prefetch request: 5 block(s) combined
+[Automation] Translation started
+Google Translate: 1 block(s), 5 part(s) translated together
+Google translated: 'X##|||##I- MockGame Dialogue Test##|||##Chapter 1: The Old Harbor##|||##Captain Mira##|||##Welcome aboard. The harbor has been quiet for days.' -> 'X##|||##I- Kiểm tra đối thoại MockGame##|||##Chương 1: Cảng Cũ##|||##Thuyền trưởng Mira##|||##Chào mừng lên tàu. Bến cảng đã yên tĩnh trong nhiều ngày.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"X##|||##I- MockGame Dialogue Test##|||##Chapter 1: The...
+[OCR timing 15:19:47.630 +143ms] 2b. Prefetch done: 135 ms, 5 translation(s) cached
+[Automation] 27 fonts with Vietnamese letters: Arial, Calibri, Cambria, Cambria Math, Candara, Cascadia Code, Cascadia Mono, Consolas, Constantia, Corbel, Courier New, Microsoft Sans Serif, Palatino Linotype, Sans Serif Collection, Segoe UI, Segoe UI Variable Display, Segoe UI Variable Small, Segoe UI Variable Text, Sitka Banner, Sitka Display, Sitka Heading, Sitka Small, Sitka Subheading, Sitka Text, Tahoma, Times New Roman, Verdana
+ConfigManager.GetValue: Key 'game_fonts' not found, returning default value: ''
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:19:48.748 +1261ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+ConfigManager.GetValue: Key 'text_style_from_game' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'font_size_from_line_height' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'auto_match_font' not found, returning default value: 'true'
+Font matching candidates: Segoe UI, Arial, Tahoma, Times New Roman, Cambria, Palatino Linotype, Consolas, Courier New; left out: Bahnschrift (no Vietnamese), Georgia (no Vietnamese), Bahnschrift Condensed (not installed)
+OCR JSON processing took 448 ms
+Log files will be saved in: D:\a\wtranslu\wtranslu\app\
+[OCR timing 15:19:49.214 +1727ms] 3. Translation request: Google Translate, 1 request(s), 25 chars, 4 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'I- MockGame Dialogue Test' -> 'I- Kiểm tra đối thoại MockGame'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"I- MockGame Dialogue Test","translated_text":"I- Ki\u1...
+[OCR timing 15:19:49.252 +1765ms] 4. Translation received: 40 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Typed-out line completed: replacing its half-typed history entry
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Translation took 73 ms
+[OCR timing 15:19:49.271 +1784ms] 5. Translation shown: translation step took 73 ms
+Right-aligned line at the right edge: (931,13) of 962 'X'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:19:50.345 +0ms] 1. New text from OCR: OCR took 115 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+[OCR timing 15:19:50.346 +0ms] 2a. Prefetch request: 4 block(s) combined
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:19:50.610 +264ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 100 ms
+[OCR timing 15:19:50.711 +365ms] 3a. Waiting for the prefetch of this text
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Google Translate: 1 block(s), 4 part(s) translated together
+Google translated: '- x##|||##! MockGame Dialogue Test##|||##Old Fisherman##|||##Nobody sails at night anymore. The fog is too thick.' -> '- x##|||##! Kiểm tra đối thoại MockGame##|||##Lão Ngư##|||##Không ai đi thuyền vào ban đêm nữa. Sương mù quá dày.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- x##|||##! MockGame Dialogue Test##|||##Old Fisherman...
+[OCR timing 15:19:51.235 +890ms] 2b. Prefetch done: 889 ms, 4 translation(s) cached
+[OCR timing 15:19:51.241 +895ms] 3. Translation request: Google Translate, 1 request(s), 27 chars, 3 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: '- x##|||##! MockGame Dialogue Test' -> '- x##|||##! Kiểm tra đối thoại MockGame'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"- x##|||##! MockGame Dialogue Test","translated_text":...
+[OCR timing 15:19:51.393 +1047ms] 4. Translation received: 153 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Updated text object at index 1 with translation from Google Translate
+Skipping translation entry already shown recently
+Translation took 686 ms
+[OCR timing 15:19:51.397 +1051ms] 5. Translation shown: translation step took 686 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 113ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:19:54.312 +0ms] 1. New text from OCR: OCR took 114 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+[OCR timing 15:19:54.313 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 116ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Then we leave at dawn. Prepare the ropes and the lanterns.' -> 'Sau đó chúng tôi rời đi vào lúc bình minh. Chuẩn bị dây thừng và đèn lồng.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Then we leave at dawn. Prepare the ropes and the lante...
+[OCR timing 15:19:54.352 +39ms] 2b. Prefetch done: 39 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:19:54.577 +264ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 90 ms
+[OCR timing 15:19:54.674 +361ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 7 ms
+[OCR timing 15:19:54.675 +362ms] 5. Translation shown: translation step took 7 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:19:58.470 +0ms] 1. New text from OCR: OCR took 118 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+[OCR timing 15:19:58.470 +0ms] 2a. Prefetch request: 2 block(s) combined
+OCR processing completed in 120ms
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: 'Young Sailor##|||##Captain, the merchant wants twelve gold coins for the map.' -> 'Thủy thủ trẻ##|||##Thuyền trưởng, thương gia muốn 12 đồng vàng cho bản đồ.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Young Sailor##|||##Captain, the merchant wants twelve ...
+[OCR timing 15:19:58.510 +40ms] 2b. Prefetch done: 39 ms, 2 translation(s) cached
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:19:58.846 +375ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 37 ms
+[OCR timing 15:19:58.886 +416ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 15:19:58.886 +416ms] 5. Translation shown: translation step took 3 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+OCR processing completed in 155ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (similarity=0.97 >= threshold=0.90)
+  prev: '! MockGame Dialogue Test - x Chapter 1: The Old Harbor Young Sailor Captain, the...'
+  new:  'I- MockGame Dialogue Test X Chapter 1: The Old Harbor Young Sailor Captain, the ...'
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:02.407 +0ms] 1. New text from OCR: OCR took 110 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+[OCR timing 15:20:02.407 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 111ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Pay him. That map is worth far more than gold.' -> 'Trả tiền cho anh ta. Bản đồ đó có giá trị hơn vàng rất nhiều.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Pay him. That map is worth far more than gold.","trans...
+[OCR timing 15:20:02.447 +40ms] 2b. Prefetch done: 39 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:02.660 +252ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 23 ms
+[OCR timing 15:20:02.686 +279ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 15:20:02.686 +279ms] 5. Translation shown: translation step took 3 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 111ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:06.349 +0ms] 1. New text from OCR: OCR took 114 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+[OCR timing 15:20:06.349 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 116ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Beware the lighthouse. Strange voices come from it.' -> 'Hãy coi chừng ngọn hải đăng. Những giọng nói lạ phát ra từ đó.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Beware the lighthouse. Strange voices come from it.","...
+[OCR timing 15:20:06.388 +38ms] 2b. Prefetch done: 38 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:06.595 +245ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 22 ms
+[OCR timing 15:20:06.620 +271ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 15:20:06.620 +271ms] 5. Translation shown: translation step took 3 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 121ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:10.408 +0ms] 1. New text from OCR: OCR took 114 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+[OCR timing 15:20:10.409 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 115ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'I heard the keeper vanished three winters ago.' -> 'Tôi nghe nói người canh gác đã biến mất cách đây ba mùa đông.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"I heard the keeper vanished three winters ago.","trans...
+[OCR timing 15:20:10.450 +41ms] 2b. Prefetch done: 41 ms, 1 translation(s) cached
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:10.765 +356ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 27 ms
+[OCR timing 15:20:10.794 +385ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 15:20:10.794 +386ms] 5. Translation shown: translation step took 3 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+OCR processing completed in 140ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:14.565 +0ms] 1. New text from OCR: OCR took 111 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+[OCR timing 15:20:14.565 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 112ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Stories will not stop us. Raise the anchor!' -> 'Những câu chuyện sẽ không ngăn cản chúng ta. Hãy nâng mỏ neo lên!'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Stories will not stop us. Raise the anchor!","translat...
+[OCR timing 15:20:14.608 +42ms] 2b. Prefetch done: 42 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:14.817 +252ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 53 ms
+[OCR timing 15:20:14.895 +330ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Translation took 25 ms
+[OCR timing 15:20:14.896 +330ms] 5. Translation shown: translation step took 25 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 110ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 109ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:18.413 +0ms] 1. New text from OCR: OCR took 1 ms; waiting 0.20s for it to settle: 'X I- MockGame Dialogue Test Chapter 1: T…'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:18.662 +249ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 26 ms
+[OCR timing 15:20:18.689 +275ms] 3c. Fuzzy cache match: 94% similar: 'I- MockGame Dialogue Test'
+[OCR timing 15:20:18.692 +278ms] 3. Translation served from cache: 5 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 15:20:18.692 +278ms] 5. Translation shown: translation step took 3 ms
+Right-aligned line at the right edge: (931,13) of 962 'X'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (similarity=0.93 >= threshold=0.90)
+  prev: 'X I- MockGame Dialogue Test Chapter 1: The Old Harbor Captain Mira Welcome aboar...'
+  new:  '! MockGame Dialogue Test - x Chapter 1: The Old Harbor Captain Mira Welcome aboa...'
+OCR processing completed in 121ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:22.492 +0ms] 1. New text from OCR: OCR took 0 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:22.744 +252ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 23 ms
+[OCR timing 15:20:22.770 +277ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 15:20:22.770 +278ms] 5. Translation shown: translation step took 3 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 121ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:26.555 +0ms] 1. New text from OCR: OCR took 0 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:26.806 +251ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 17 ms
+[OCR timing 15:20:26.827 +272ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 3 ms
+[OCR timing 15:20:26.827 +272ms] 5. Translation shown: translation step took 3 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:30.621 +0ms] 1. New text from OCR: OCR took 117 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+OCR processing completed in 119ms
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:30.998 +376ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 20 ms
+[OCR timing 15:20:31.041 +419ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 23 ms
+[OCR timing 15:20:31.041 +419ms] 5. Translation shown: translation step took 23 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+OCR processing completed in 160ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 116ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:34.431 +0ms] 1. New text from OCR: OCR took 0 ms; waiting 0.20s for it to settle: 'MockGame Dialogue Test - X Chapter 1: Th…'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:34.680 +249ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 24 ms
+[OCR timing 15:20:34.706 +274ms] 3c. Fuzzy cache match: 92% similar: 'MockGame Dialogue Test'
+[OCR timing 15:20:34.710 +278ms] 3. Translation request: Google Translate, 1 request(s), 46 chars, 4 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'I heard the keeper vanished three winters ago.' -> 'Tôi nghe nói người canh gác đã biến mất cách đây ba mùa đông.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"I heard the keeper vanished three winters ago.","trans...
+[OCR timing 15:20:34.747 +315ms] 4. Translation received: 38 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Skipping translation entry already shown recently
+Translation took 44 ms
+[OCR timing 15:20:34.749 +317ms] 5. Translation shown: translation step took 44 ms
+Right-aligned line at the right edge: (840,104) of 962 '- X'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 114ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 130ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:38.458 +0ms] 1. New text from OCR: OCR took 0 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:38.708 +250ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 24 ms
+[OCR timing 15:20:38.734 +276ms] 3. Translation served from cache: 5 block(s)
+Translation took 2 ms
+[OCR timing 15:20:38.734 +276ms] 5. Translation shown: translation step took 2 ms
+Right-aligned line at the right edge: (840,105) of 962 '- x'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 122ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 123ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:42.491 +0ms] 1. New text from OCR: OCR took 0 ms; waiting 0.20s for it to settle: '! MockGame Dialogue Test - x Chapter 1: …'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:42.741 +250ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 17 ms
+[OCR timing 15:20:42.761 +270ms] 3. Translation served from cache: 5 block(s)
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Skipping translation entry already shown recently
+Translation took 2 ms
+[OCR timing 15:20:42.761 +270ms] 5. Translation shown: translation step took 2 ms
+Right-aligned line at the right edge: (841,104) of 962 '- x'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (similarity=0.98 >= threshold=0.90)
+  prev: '! MockGame Dialogue Test - x Chapter 1: The Old Harbor Captain Mira Stories will...'
+  new:  'I- MockGame Dialogue Test - X Chapter 1: The Old Harbor Captain Mira Stories wil...'
+OCR processing completed in 118ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 117ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:46.587 +0ms] 1. New text from OCR: OCR took 0 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 15:20:46.843 +256ms] 2. Text settled
+Character-level processing (scale=3.00): 5 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 25 ms
+[OCR timing 15:20:46.868 +281ms] 3. Translation served from cache: 5 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Translation took 4 ms
+[OCR timing 15:20:46.868 +281ms] 5. Translation shown: translation step took 4 ms
+Right-aligned line at the right edge: (931,13) of 962 'X'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (similarity=0.97 >= threshold=0.90)
+  prev: 'I- MockGame Dialogue Test X Chapter 1: The Old Harbor Young Sailor Captain, the ...'
+  new:  '! MockGame Dialogue Test - x Chapter 1: The Old Harbor Young Sailor Captain, the...'
+OCR processing completed in 119ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OneOCR on a 0.75x copy (721x444): 6 line(s)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+OCR processing completed in 121ms
+GraphicsCaptureItem closed (target window gone)
+Windows Graphics Capture stopped
+Capture position changed by (-31998, -31950). Text overlays updated.
+MonitorWindow set to be excluded from screen capture
+Logic finalized
+All text objects cleared
+Monitor window force closed
+Global keyboard hook removed
+ConfigManager.GetValue: Key 'force_cursor_visible' not found, returning default value: 'true'
+MouseManager initialized. Force cursor visible: True
+Logic finalized
+All text objects cleared
+Gamepad polling stopped
+Captured window no longer exists, reverting to normal capture mode
+ChatBox window closing intercepted - hiding instead
