@@ -79,6 +79,8 @@ namespace RSTGameTranslation
             "Audio Service",
             "Swap Languages",
             "Retry Translation",
+            // Dialogue / full screen of a known game (Wuthering Waves), often played with a controller
+            "Game Mode",
         };
 
         public static bool IsSupportedFunction(string function) => _supportedFunctions.Contains(function);
