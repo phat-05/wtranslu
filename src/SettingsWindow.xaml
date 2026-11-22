@@ -976,6 +976,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
                                 <!-- OCR Method -->
@@ -1033,6 +1034,14 @@
                                          ToolTip="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Tip_WindowSelectorAtStartup]}"
                                          Checked="WindowSelectorAtStartupCheckBox_CheckedChanged"
                                          Unchecked="WindowSelectorAtStartupCheckBox_CheckedChanged"/>
+
+                                <!-- Known games (Wuthering Waves): find the window and start by itself -->
+                                <TextBlock Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Lbl_AutoStartKnownGames]}" Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"
+                                    ToolTip="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Tip_AutoStartKnownGames]}"/>
+                                <CheckBox x:Name="autoStartKnownGamesCheckBox" Grid.Row="12" Grid.Column="1" Margin="0,5" IsChecked="True"
+                                         ToolTip="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Tip_AutoStartKnownGames]}"
+                                         Checked="AutoStartKnownGamesCheckBox_CheckedChanged"
+                                         Unchecked="AutoStartKnownGamesCheckBox_CheckedChanged"/>
 
                                 <!-- Minimize the main window while selecting an area -->
                                 <TextBlock Text="{Binding Source={x:Static local:LocalizationManager.Instance}, Path=Strings[Lbl_MinimizeOnSelectArea]}" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"

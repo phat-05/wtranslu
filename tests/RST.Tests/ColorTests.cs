@@ -305,3 +305,46 @@ public class ListDetectorTests
     [InlineData("This line has far too many words", false)]
     public void Items_are_short_and_start_with_a_capital(string text, bool item) => Assert.Equal(item, ListDetector.IsItem(text));
 }
+
+public class GamePresetTests
+{
+    [Theory]
+    [InlineData("Wuthering Waves  ", "Client-Win64-Shipping", true)]
+    [InlineData("鸣潮", "Client-Win64-Shipping.exe", true)]
+    [InlineData("Wuthering Waves", "launcher", false)]                    // the launcher, not the game
+    [InlineData("Wuthering Waves 3.0 trailer - YouTube", "chrome", false)] // a browser tab
+    [InlineData("Some Unreal Game", "Client-Win64-Shipping", false)]
+    public void Recognises_the_Wuthering_Waves_window(string title, string process, bool match) =>
+        Assert.Equal(match, GamePresets.Find(title, process) == GamePresets.WutheringWaves);
+
+    [Fact]
+    public void Dialogue_band_sits_at_the_bottom_centre_of_a_1080p_window()
+    {
+        var band = GamePresets.WutheringWaves.DialogueAreas[0];
+        var (x, y, w, h) = GamePresets.ToScreen(band, 0, 0, 1920, 1080);
+        Assert.InRange(x + w / 2, 955, 965);         // centred
+        Assert.InRange(y, 780, 800);                 // speaker name row
+        Assert.InRange(y + h, 1010, 1030);           // above the UID line at the very bottom
+    }
+
+    [Fact]
+    public void Ultrawide_and_16_by_10_keep_the_16_by_9_interface_box()
+    {
+        var band = GamePresets.WutheringWaves.DialogueAreas[0];
+        // 3440x1440: the 16:9 box is 2560 wide, centred (440 px of scenery each side)
+        var (x, _, w, _) = GamePresets.ToScreen(band, 0, 0, 3440, 1440);
+        Assert.InRange(x, 440 + 0.13 * 2560 - 1, 440 + 0.13 * 2560 + 1);
+        Assert.InRange(w, 0.74 * 2560 - 1, 0.74 * 2560 + 1);
+        // 1920x1200: the box is 1080 high, 60 px above and below
+        var (_, y, _, h) = GamePresets.ToScreen(band, 100, 50, 1920, 1200);
+        Assert.InRange(y, 50 + 60 + 0.735 * 1080 - 1, 50 + 60 + 0.735 * 1080 + 1);
+        Assert.InRange(h, 0.215 * 1080 - 1, 0.215 * 1080 + 1);
+    }
+
+    [Fact]
+    public void Full_mode_leaves_out_the_uid_line()
+    {
+        var (_, y, _, h) = GamePresets.ToScreen(GamePresets.WutheringWaves.FullAreas[0], 0, 0, 1920, 1080);
+        Assert.True(y + h < 1080 * 0.97, $"full area ends at {y + h}");
+    }
+}

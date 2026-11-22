@@ -1096,6 +1096,7 @@ namespace RSTGameTranslation
             // Set multi selection area from config
             multiSelectionAreaCheckBox.IsChecked = ConfigManager.Instance.IsMultiSelectionAreaEnabled();
             windowSelectorAtStartupCheckBox.IsChecked = ConfigManager.Instance.IsWindowSelectorAtStartupEnabled();
+            autoStartKnownGamesCheckBox.IsChecked = ConfigManager.Instance.IsAutoStartKnownGamesEnabled();
             minimizeOnSelectAreaCheckBox.IsChecked = ConfigManager.Instance.IsMinimizeOnSelectAreaEnabled();
             if (!ConfigManager.Instance.IsMultiSelectionAreaEnabled())
             {
@@ -1360,6 +1361,7 @@ namespace RSTGameTranslation
             ("Swap Languages", "Lbl_SwapLanguages", "hotKeySwapLanguages"),
             ("Retry Translation", "Lbl_TranslationRetry", "hotKeyRetryTranslate"),
             ("Select Exclude Region", "Lbl_SelectExcludeRegion", "hotKeyToggleExcludeRegions"),
+            ("Game Mode", "Lbl_GameMode", "hotKeyGameMode"),
         };
 
         private readonly ObservableCollection<HotkeySettingRow> _hotkeyRows = new ObservableCollection<HotkeySettingRow>();
@@ -5498,6 +5500,13 @@ namespace RSTGameTranslation
             window.isNeedShowMessage = !ConfigManager.Instance.IsMultiSelectionAreaEnabled();
             window.multiSelectionAreaCheckBox.Checked += window.MultiSelectionAreaCheckBox_CheckedChanged;
             window.multiSelectionAreaCheckBox.Unchecked += window.MultiSelectionAreaCheckBox_CheckedChanged;
+        }
+
+        private void AutoStartKnownGamesCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (_isInitializing) return;
+            ConfigManager.Instance.SetValue(ConfigManager.AUTO_START_KNOWN_GAMES, autoStartKnownGamesCheckBox.IsChecked == true ? "true" : "false");
+            ConfigManager.Instance.SaveConfig();
         }
 
         private void WindowSelectorAtStartupCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
