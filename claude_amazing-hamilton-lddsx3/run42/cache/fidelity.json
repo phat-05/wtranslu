@@ -1,0 +1,341 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 cache scenario",
+ "summary": {
+  "size": 0.954,
+  "color": 0.987,
+  "gradient": 1.0,
+  "effect": 0.917,
+  "bold": 0.667,
+  "italic": 1.0,
+  "font": 0.917,
+  "align": 1.0,
+  "overall": 0.93,
+  "elements": 12
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 1: The Old Harbor",
+   "overlay": {
+    "t": 1795350131653,
+    "size": 30.1,
+    "source": "Chapter 1: The Old Harbor",
+    "shown": "Chương 1: Cảng Cũ",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#F2CC76",
+    "effect": "Outline",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9966666666666666,
+    "color": 0.9625335336919313,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.6199000250448248
+  },
+  {
+   "style": "speaker",
+   "text": "Captain Mira",
+   "overlay": {
+    "t": 1795350131654,
+    "size": 23.0,
+    "source": "Captain Mira",
+    "shown": "Thuyền trưởng Mira",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FCC63B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9583333333333334,
+    "color": 0.9915155161297643,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8687311061828872
+  },
+  {
+   "style": "dialogue",
+   "text": "Welcome aboard. The harbor has been quiet for days.",
+   "overlay": {
+    "t": 1795350131655,
+    "size": 22.5,
+    "source": "Welcome aboard. The harbor has been quiet for days.",
+    "shown": "Chào mừng lên tàu. Bến cảng đã yên tĩnh trong nhiều ngày.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FAFAFB",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.8653846153846154,
+    "color": 0.9815781442071747,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9808703449489737
+  },
+  {
+   "style": "speaker",
+   "text": "Old Fisherman",
+   "overlay": {
+    "t": 1795350133666,
+    "size": 29.0,
+    "source": "Old Fisherman",
+    "shown": "Lão Ngư",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FDC63B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.7916666666666667,
+    "color": 0.9931972789115646,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8481079931972789
+  },
+  {
+   "style": "dialogue",
+   "text": "Nobody sails at night anymore. The fog is too thick.",
+   "overlay": {
+    "t": 1795350133667,
+    "size": 25.7,
+    "source": "Nobody sails at night anymore. The fog is too thick.",
+    "shown": "Không còn ai đi thuyền vào ban đêm nữa. Sương mù quá dày.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FDFDFD",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9884615384615384,
+    "color": 0.9921448942967398,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9975758040947847
+  },
+  {
+   "style": "dialogue",
+   "text": "Then we leave at dawn. Prepare the ropes and the lanterns.",
+   "overlay": {
+    "t": 1795350137531,
+    "size": 25.7,
+    "source": "Then we leave at dawn. Prepare the ropes and the lanterns.",
+    "shown": "Sau đó chúng tôi rời đi vào lúc bình minh. Chuẩn bị dây thừng và đèn lồng.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FBFBFB",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9884615384615384,
+    "color": 0.9842897885934796,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9965939158818773
+  },
+  {
+   "style": "speaker",
+   "text": "Young Sailor",
+   "overlay": {
+    "t": 1795350141228,
+    "size": 23.0,
+    "source": "Young Sailor",
+    "shown": "Thủy thủ trẻ",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FCC53B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9583333333333334,
+    "color": 0.9901158754114724,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8685561510931007
+  },
+  {
+   "style": "dialogue",
+   "text": "Captain, the merchant wants twelve gold coins for the map.",
+   "overlay": {
+    "t": 1795350141228,
+    "size": 24.5,
+    "source": "Captain, the merchant wants twelve gold coins for the map.",
+    "shown": "Thuyền trưởng, thương gia muốn 12 đồng vàng cho bản đồ.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FDFDFD",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9423076923076923,
+    "color": 0.9921448942967398,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.991806573325554
+  },
+  {
+   "style": "dialogue",
+   "text": "Pay him. That map is worth far more than gold.",
+   "overlay": {
+    "t": 1795350145528,
+    "size": 25.7,
+    "source": "Pay him. That map is worth far more than gold.",
+    "shown": "Trả tiền cho anh ta. Bản đồ đó có giá trị hơn vàng rất nhiều.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FDFDFD",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9884615384615384,
+    "color": 0.9921448942967398,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9975758040947847
+  },
+  {
+   "style": "dialogue",
+   "text": "Beware the lighthouse. Strange voices come from it.",
+   "overlay": {
+    "t": 1795350150028,
+    "size": 25.7,
+    "source": "Beware the lighthouse. Strange voices come from it.",
+    "shown": "Hãy coi chừng ngọn hải đăng. Những giọng nói lạ phát ra từ đó.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FDFDFD",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9884615384615384,
+    "color": 0.9921448942967398,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9975758040947847
+  },
+  {
+   "style": "dialogue",
+   "text": "I heard the keeper vanished three winters ago.",
+   "overlay": {
+    "t": 1795350153604,
+    "size": 25.7,
+    "source": "I heard the keeper vanished three winters ago.",
+    "shown": "Tôi nghe nói người canh gác đã biến mất cách đây ba mùa đông.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FBFBFB",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9884615384615384,
+    "color": 0.9842897885934796,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9965939158818773
+  },
+  {
+   "style": "dialogue",
+   "text": "Stories will not stop us. Raise the anchor!",
+   "overlay": {
+    "t": 1795350157320,
+    "size": 25.7,
+    "source": "Stories will not stop us. Raise the anchor!",
+    "shown": "Những câu chuyện sẽ không ngăn cản chúng ta. Hãy nâng mỏ neo lên!",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FDFDFD",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9884615384615384,
+    "color": 0.9921448942967398,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9975758040947847
+  }
+ ]
+}

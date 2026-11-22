@@ -1,0 +1,71 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 coloured words, Ollama qwen2.5:3b",
+ "summary": {
+  "size": 0.978,
+  "color": 0.976,
+  "gradient": 1.0,
+  "effect": 0.5,
+  "bold": 0.0,
+  "italic": 1.0,
+  "font": 0.5,
+  "align": 1.0,
+  "overall": 0.744,
+  "elements": 2
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 1: The Old Harbor",
+   "overlay": {
+    "t": 1795350531715,
+    "size": 30.1,
+    "source": "Chapter 1: The Old Harbor",
+    "shown": "Chương 1: Cảng cũ",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#F2CC76",
+    "effect": "Outline",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9966666666666666,
+    "color": 0.9625335336919313,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.6199000250448248
+  },
+  {
+   "style": "speaker",
+   "text": "Young Sailor",
+   "overlay": {
+    "t": 1795350558266,
+    "size": 23.0,
+    "source": "Young Sailor",
+    "shown": "Young Sailor",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FCC53B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9583333333333334,
+    "color": 0.9901158754114724,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8685561510931007
+  }
+ ]
+}

@@ -1,0 +1,368 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 style scenario",
+ "summary": {
+  "size": 0.911,
+  "color": 0.972,
+  "gradient": 0.923,
+  "effect": 0.923,
+  "bold": 0.385,
+  "italic": 0.923,
+  "font": 0.692,
+  "align": 1.0,
+  "overall": 0.841,
+  "elements": 13
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 2: The Lighthouse",
+   "overlay": {
+    "t": 1795350354852,
+    "size": 29.2,
+    "source": "Chapter 2: The Lighthouse",
+    "shown": "Chương 2: Ngọn hải đăng",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#F2CC76",
+    "effect": "Outline",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9733333333333333,
+    "color": 0.9625335336919313,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.6169833583781581
+  },
+  {
+   "style": "speaker",
+   "text": "Captain Mira",
+   "overlay": {
+    "t": 1795350359685,
+    "size": 23.9,
+    "source": "Captain Mira",
+    "shown": "Thuyền trưởng Mira",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FCC63B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9958333333333332,
+    "color": 0.9915155161297643,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8734186061828872
+  },
+  {
+   "style": "dialogue",
+   "text": "Find the red key before the tide turns.",
+   "overlay": {
+    "t": 1795350359686,
+    "size": 23.9,
+    "source": "Find the red key before the tide turns.",
+    "shown": "Tìm chìa khóa màu đỏ trước khi thủy triều đổi chiều.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#F4F4F5",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9192307692307692,
+    "color": 0.9580652108641566,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9846619975118658
+  },
+  {
+   "style": "menu",
+   "text": "Continue Load Game Settings Quit",
+   "overlay": {
+    "t": 1795350366766,
+    "size": 19.9,
+    "source": "Continue Load Game Settings Quit",
+    "shown": "Tiếp tục tải Cài đặt trò chơi Thoát",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#422E1B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9949999999999999,
+    "color": 0.9750566893424036,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9962570861678004
+  },
+  {
+   "style": "banner",
+   "text": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER",
+   "overlay": {
+    "t": 1795350371253,
+    "size": 37.2,
+    "source": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER",
+    "shown": "NHIỆM VỤ HOÀN THÀNH: NGƯỜI GIỮ HẢI QUYỀN",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#F85946",
+    "effect": "Shadow",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.8454545454545456,
+    "color": 0.9839658326261553,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.7286775472600876
+  },
+  {
+   "style": "subtitle",
+   "text": "The storm is coming. Hold on to the mast!",
+   "overlay": {
+    "t": 1795350381002,
+    "size": 27.8,
+    "source": "The storm is coming. Hold on to the mast!",
+    "shown": "Cơn bão đang đến. Hãy bám chặt vào cột buồm!",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#F5F5F5",
+    "effect": "Outline",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9266666666666666,
+    "color": 0.9607244714836989,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8609238922687957
+  },
+  {
+   "style": "hint",
+   "text": "Tip: press Space to skip the cutscene.",
+   "overlay": {
+    "t": 1795350383415,
+    "size": 23.0,
+    "source": "Tip: press Space to skip the cutscene.",
+    "shown": "Mẹo: nhấn Space để bỏ qua đoạn cắt cảnh.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#B39A73",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9545454545454546,
+    "color": 0.9839658326261553,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 0.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8673139108964513
+  },
+  {
+   "style": "hud",
+   "text": "Lv.70  776,256  2026-11-15 14:39:01 HD",
+   "overlay": {
+    "t": 1795350389151,
+    "size": 13.3,
+    "source": "Lv.70 776,256 2026-11-15 14:39:01 HD",
+    "shown": "Lv.70 776,256 2026-11-15 14:39:01 HD",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#E8ECEF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.7388888888888889,
+    "color": 0.9232366853523322,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.7077656967801527
+  },
+  {
+   "style": "gradient",
+   "text": "The Lighthouse Awakens",
+   "overlay": {
+    "t": 1795350395261,
+    "size": 31.0,
+    "source": "The Lighthouse Awakens",
+    "shown": "Ngọn hải đăng thức tỉnh",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#EFC178",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.8611111111111112,
+    "color": 0.9373537878297447,
+    "gradient": 0.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.599808112367607
+  },
+  {
+   "style": "speaker",
+   "text": "Old Fisherman",
+   "overlay": {
+    "t": 1795350407342,
+    "size": 30.1,
+    "source": "Old Fisherman",
+    "shown": "Lão Ngư",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FDC63B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.7458333333333333,
+    "color": 0.9931972789115646,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8423788265306122
+  },
+  {
+   "style": "dialogue",
+   "text": "The blue door opens only for the green lantern.",
+   "overlay": {
+    "t": 1795350407343,
+    "size": 26.5,
+    "source": "The blue door opens only for the green lantern .",
+    "shown": "Cánh cửa màu xanh chỉ mở cho chiếc đèn lồng màu xanh lá cây.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FAFAFB",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9807692307692308,
+    "color": 0.9815781442071747,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9952934218720507
+  },
+  {
+   "style": "speaker",
+   "text": "Young Sailor",
+   "overlay": {
+    "t": 1795350419030,
+    "size": 23.0,
+    "source": "Young Sailor",
+    "shown": "Thủy thủ trẻ",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FCC53B",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9583333333333334,
+    "color": 0.9901158754114724,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8685561510931007
+  },
+  {
+   "style": "dialogue",
+   "text": "Captain, the merchant wants twelve gold coins for the map.",
+   "overlay": {
+    "t": 1795350419031,
+    "size": 24.5,
+    "source": "Captain, the merchant wants twelve gold coins for the map.",
+    "shown": "Thuyền trưởng, thương gia muốn 12 đồng vàng cho bản đồ.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FDFDFD",
+    "effect": "None",
+    "align": "Left"
+   },
+   "scores": {
+    "size": 0.9423076923076923,
+    "color": 0.9921448942967398,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.991806573325554
+  }
+ ]
+}
