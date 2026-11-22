@@ -332,9 +332,9 @@ namespace RSTGameTranslation
                 {
                     // Use translated text if available; tagged words in the colours the game used
                     if (TranslatedMarkup != null && ColorSpans != null)
-                        SetColouredText(TextBlock, TranslatedMarkup, ColorSpans);
+                        SetColouredText(TextBlock, TranslatedMarkup, ColorSpans, Shown);
                     else
-                        TextBlock.Text = this.TextTranslated;
+                        TextBlock.Text = Shown(this.TextTranslated);
                     SyncOutlineText();
                     TextBlock.FlowDirection = FlowDirection;
                 }
@@ -488,7 +488,7 @@ namespace RSTGameTranslation
         {
             if (_outlineLayer == null)
                 return;
-            string text = TextTranslated.Length > 0 ? TextTranslated : TextBlock?.Text ?? "";
+            string text = TextTranslated.Length > 0 ? Shown(TextTranslated) : TextBlock?.Text ?? "";
             foreach (TextBlock copy in _outlineLayer.Children)
                 copy.Text = text;
         }
@@ -545,12 +545,17 @@ namespace RSTGameTranslation
         }
 
         // Pieces of the translation as runs: tagged pieces in their span's colour, the rest in the text colour
-        private static void SetColouredText(TextBlock textBlock, string markup, IReadOnlyList<RSTGameTranslation.Layout.ColorSpan> spans)
+        // The translation as shown: in capitals when the game wrote its text in capitals
+        private string Shown(string translation) =>
+            ConfigManager.Instance.IsTextStyleFromGameEnabled() ? RSTGameTranslation.Layout.TextCase.Match(Text, translation) : translation;
+
+        private static void SetColouredText(TextBlock textBlock, string markup, IReadOnlyList<RSTGameTranslation.Layout.ColorSpan> spans,
+                                            Func<string, string> shown)
         {
             textBlock.Inlines.Clear();
             foreach (var (piece, span) in RSTGameTranslation.Layout.ColorMarkup.Parse(markup))
             {
-                var run = new System.Windows.Documents.Run(piece);
+                var run = new System.Windows.Documents.Run(shown(piece));
                 var colour = span == null ? null : spans.FirstOrDefault(s => s.Number == span.Value);
                 if (colour != null)
                     run.Foreground = new SolidColorBrush(Color.FromRgb(colour.Color.R, colour.Color.G, colour.Color.B));

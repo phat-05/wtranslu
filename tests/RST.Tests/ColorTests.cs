@@ -225,3 +225,23 @@ public class AlignmentDetectorTests
         Assert.False(AlignmentDetector.LineCenteredInArea(20, 940, 0, 980));
     }
 }
+
+public class TextCaseTests
+{
+    [Theory]
+    [InlineData("QUEST COMPLETE: THE LIGHTHOUSE KEEPER", true)]
+    [InlineData("GAME OVER", true)]
+    [InlineData("HP 70/100", false)]
+    [InlineData("Chapter 2: The Lighthouse", false)]
+    [InlineData("OK", false)]
+    [InlineData("ゲームオーバー", false)]
+    public void Detects_text_in_capitals(string text, bool caps) => Assert.Equal(caps, TextCase.IsAllCaps(text));
+
+    [Fact]
+    public void Vietnamese_letters_become_capitals()
+    {
+        Assert.Equal("NHIỆM VỤ HOÀN THÀNH: NGƯỜI GIỮ HẢI ĐĂNG",
+            TextCase.Match("QUEST COMPLETE: THE LIGHTHOUSE KEEPER", "Nhiệm vụ hoàn thành: Người giữ hải đăng"));
+        Assert.Equal("Người giữ hải đăng", TextCase.Match("The keeper", "Người giữ hải đăng"));
+    }
+}
