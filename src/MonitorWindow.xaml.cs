@@ -642,6 +642,7 @@ namespace RSTGameTranslation
 
                 double overlayWidth = ActualWidth > 0 ? ActualWidth : double.PositiveInfinity;
                 double overlayHeight = ActualHeight > 0 ? ActualHeight : double.PositiveInfinity;
+                MarkCenteredLines(items, overlayWidth);
 
                 // Widen: let an overflowing box grow until the next box on the same rows or the overlay edge
                 foreach (var item in items)
@@ -655,24 +656,31 @@ namespace RSTGameTranslation
                     if (item.TextFitsBox) continue;
 
                     bool isRtl = item.FlowDirection == System.Windows.FlowDirection.RightToLeft;
+                    bool centered = item.SourceCentered;
                     double right = isRtl ? item.X + item.Width : overlayWidth;
-                    double left = isRtl ? 0 : item.X;
+                    double left = isRtl || centered ? 0 : item.X;
                     foreach (var other in items)
                     {
                         bool sharesRows = other.Y < item.Y + item.Height && other.Y + other.Height > item.Y;
                         if (other == item || !sharesRows) continue;
 
-                        if (!isRtl && other.X >= item.X + item.Width)
+                        if ((!isRtl || centered) && other.X >= item.X + item.Width)
                         {
                             right = Math.Min(right, other.X);
                         }
-                        else if (isRtl && other.X + other.Width <= item.X)
+                        else if ((isRtl || centered) && other.X + other.Width <= item.X)
                         {
                             left = Math.Max(left, other.X + other.Width);
                         }
                     }
 
                     double availableWidth = isRtl ? right - (left + OverlayGap) : right - OverlayGap - left;
+                    if (centered)
+                    {
+                        // Centred text grows on both sides of its middle, as far as the nearer limit allows
+                        double middle = item.X + item.Width / 2;
+                        availableWidth = 2 * Math.Min(middle - left, right - middle) - 2 * OverlayGap;
+                    }
                     if (!double.IsInfinity(availableWidth) && availableWidth > item.Width)
                     {
                         item.Relayout(availableWidth, preferredRatio);
@@ -708,13 +716,50 @@ namespace RSTGameTranslation
             }
         }
 
+        // Text the game centred but OCR returned as separate one-line boxes: consecutive lines of the
+        // same height whose middles line up (see Layout.AlignmentDetector), or a single line in the
+        // middle of the overlay area
+        private static void MarkCenteredLines(List<TextObject> items, double overlayWidth)
+        {
+            var ordered = items.OrderBy(t => t.Y).ToList();
+            for (int i = 0; i < ordered.Count; i++)
+            {
+                var a = ordered[i];
+                if (a.SourceLineCount > 1)
+                    continue; // a block's own lines were checked when it was built
+                for (int j = i + 1; j < ordered.Count; j++)
+                {
+                    var b = ordered[j];
+                    double lineHeight = Math.Max(a.Height, b.Height);
+                    if (b.Y - (a.Y + a.Height) > lineHeight * 0.8)
+                        break;
+                    if (b.SourceLineCount > 1 || Math.Abs(a.Height - b.Height) > lineHeight * 0.4)
+                        continue;
+                    double em = a.SourceFontSize > 0 ? a.SourceFontSize : a.Height / 1.2;
+                    if (RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(new[] { (a.X, a.Width), (b.X, b.Width) }, em))
+                    {
+                        a.SourceCentered = true;
+                        b.SourceCentered = true;
+                    }
+                }
+                if (!a.SourceCentered && !double.IsInfinity(overlayWidth) &&
+                    RSTGameTranslation.Layout.AlignmentDetector.LineCenteredInArea(a.X, a.Width, 0, overlayWidth))
+                {
+                    a.SourceCentered = true;
+                }
+            }
+        }
+
         private static Rect PlaceBelowOverlaps(TextObject item, List<Rect> placed)
         {
             item.Border.Measure(new System.Windows.Size(double.PositiveInfinity, double.PositiveInfinity));
             System.Windows.Size size = item.Border.DesiredSize;
             double top = item.Y;
-            // RTL boxes grow leftward, so keep their right edge on the original text's right edge
-            double left = item.FlowDirection == System.Windows.FlowDirection.RightToLeft
+            // RTL boxes grow leftward, so keep their right edge on the original text's right edge;
+            // centred text keeps the original's middle
+            double left = item.SourceCentered
+                ? item.X + item.Width / 2 - size.Width / 2
+                : item.FlowDirection == System.Windows.FlowDirection.RightToLeft
                 ? item.X + item.Width - size.Width
                 : item.X;
 

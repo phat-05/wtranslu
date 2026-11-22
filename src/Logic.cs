@@ -1105,8 +1105,10 @@ namespace RSTGameTranslation
                             double originalWidth = bounds.MaxX - bounds.MinX;
                             double originalHeight = bounds.MaxY - bounds.MinY;
 
+                            // Lines with a common middle but different left edges: the game centres this text
+                            bool centered = RSTGameTranslation.Layout.AlignmentDetector.LinesCentered(block.LineBoxes, block.FontPx);
                             CreateTextObjectAtPosition(block.Text, originalX / dpiScaleX, originalY / dpiScaleY,
-                                originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap, block.FontPx / dpiScaleY, block.LineCount);
+                                originalWidth / dpiScaleX, originalHeight / dpiScaleY, block.Confidence, sourceBitmap, block.FontPx / dpiScaleY, block.LineCount, centered);
                         }
                     }
                 }
@@ -1209,7 +1211,7 @@ namespace RSTGameTranslation
 
         // Create a text object at the specified position with confidence info
         // sourceFontSize: the game's font size in DIPs, estimated from the OCR line heights (0 = unknown)
-        private void CreateTextObjectAtPosition(string text, double x, double y, double width, double height, double confidence, Bitmap? sourceBitmap, double sourceFontSize = 0, int sourceLineCount = 1)
+        private void CreateTextObjectAtPosition(string text, double x, double y, double width, double height, double confidence, Bitmap? sourceBitmap, double sourceFontSize = 0, int sourceLineCount = 1, bool centered = false)
         {
             try
             {
@@ -1218,7 +1220,7 @@ namespace RSTGameTranslation
                 {
                     // Run on UI thread to ensure STA compliance
                     Application.Current.Dispatcher.Invoke(() =>
-                        CreateTextObjectAtPosition(text, x, y, width, height, confidence, sourceBitmap, sourceFontSize, sourceLineCount));
+                        CreateTextObjectAtPosition(text, x, y, width, height, confidence, sourceBitmap, sourceFontSize, sourceLineCount, centered));
                     return;
                 }
 
@@ -1320,6 +1322,7 @@ namespace RSTGameTranslation
                     captureX, captureY  // Store original capture coordinates
                 );
                 textObject.ID = "text_" + GetNextTextID();
+                textObject.SourceCentered = centered;
                 if (ConfigManager.Instance.IsFontSizeFromLineHeightEnabled())
                 {
                     textObject.SourceFontSize = sourceFontSize;
@@ -3245,6 +3248,9 @@ namespace RSTGameTranslation
             public double FontPx { get; set; }
             // Lines of game text in the block
             public int LineCount { get; set; } = 1;
+            // Left edge and width of each OCR line merged into the block (empty = just this box)
+            public List<(double Left, double Width)> Lines { get; set; } = new();
+            public IReadOnlyList<(double Left, double Width)> LineBoxes => Lines.Count > 0 ? Lines : new List<(double, double)> { (X, Width) };
         }
 
         /// <summary>
@@ -3490,7 +3496,8 @@ namespace RSTGameTranslation
                 Confidence = Math.Min(a.Confidence, b.Confidence),
                 BubbleId = a.BubbleId ?? b.BubbleId,
                 FontPx = MergeFontPx(a, b),
-                LineCount = a.LineCount + b.LineCount
+                LineCount = a.LineCount + b.LineCount,
+                Lines = a.LineBoxes.Concat(b.LineBoxes).ToList()
             };
         }
 

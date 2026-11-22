@@ -198,3 +198,30 @@ public class ColorMarkupTests
             ColorMarkup.TagVerbatim("Thuyền trưởng Mira trả 12 đồng vàng", spans));
     }
 }
+
+public class AlignmentDetectorTests
+{
+    [Fact]
+    public void Centred_lines_share_their_middle()
+    {
+        // "The tide rises with the moon." / "Every sailor knows its song." centred at x = 490
+        Assert.True(AlignmentDetector.LinesCentered(new[] { (325.0, 330.0), (343.0, 294.0) }, 26));
+    }
+
+    [Fact]
+    public void Left_aligned_lines_are_not_centred()
+    {
+        Assert.False(AlignmentDetector.LinesCentered(new[] { (60.0, 330.0), (60.0, 294.0) }, 26));
+        // Same length, same left edge: nothing tells, keep left
+        Assert.False(AlignmentDetector.LinesCentered(new[] { (60.0, 300.0), (61.0, 299.0) }, 26));
+        Assert.False(AlignmentDetector.LinesCentered(new[] { (60.0, 300.0) }, 26));
+    }
+
+    [Fact]
+    public void A_line_in_the_middle_of_the_screen_is_centred()
+    {
+        Assert.True(AlignmentDetector.LineCenteredInArea(340, 300, 0, 980));
+        Assert.False(AlignmentDetector.LineCenteredInArea(60, 300, 0, 980));
+        Assert.False(AlignmentDetector.LineCenteredInArea(20, 940, 0, 980));
+    }
+}
