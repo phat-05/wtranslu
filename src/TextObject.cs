@@ -455,6 +455,7 @@ namespace RSTGameTranslation
         // ---- Outline: WPF text has no stroke, so the text is drawn 8 times in the outline colour, shifted
         // around the real text, under it. The copies follow the real text's size and wrapping by binding.
         private Grid? _outlineLayer;
+        // Default outline thickness (DIPs) when the game's is unknown or the outline was added for contrast
         private const double OutlineWidth = 1.5;
 
         private Grid CreateOutlineLayer()
@@ -503,8 +504,18 @@ namespace RSTGameTranslation
                 return;
             }
             var brush = new SolidColorBrush(color.Value);
+            // As thick as the game's outline, within reason. The measure counts the outline's smoothed
+            // edge and its rounded corners too: a 2 px outline measures about 3
+            double width = _gameTextStyle is { OutlineWidth: > 0, EffectAdded: false } style
+                ? Math.Clamp(style.OutlineWidth * 0.65, 1, 4)
+                : OutlineWidth;
+            int n = 0;
             foreach (TextBlock copy in _outlineLayer.Children)
+            {
                 copy.Foreground = brush;
+                double angle = n++ * Math.PI / 4;
+                copy.RenderTransform = new TranslateTransform(Math.Round(Math.Cos(angle) * width, 2), Math.Round(Math.Sin(angle) * width, 2));
+            }
             SyncOutlineText();
             _outlineLayer.Visibility = Visibility.Visible;
         }

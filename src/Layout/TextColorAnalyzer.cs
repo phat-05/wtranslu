@@ -48,6 +48,8 @@ namespace RSTGameTranslation.Layout
         // Shadow offset in pixels (right / down positive)
         public double ShadowDx { get; init; }
         public double ShadowDy { get; init; }
+        // Outline thickness in pixels (0 = unknown / no outline)
+        public double OutlineWidth { get; init; }
         // True when the game's text had no outline but its colour is too close to the background to read
         // without one, so an outline was added
         public bool EffectAdded { get; init; }
@@ -138,7 +140,7 @@ namespace RSTGameTranslation.Layout
             Rgb fill;
             TextEffectKind effect = TextEffectKind.None;
             Rgb effectColor = default;
-            double dx = 0, dy = 0;
+            double dx = 0, dy = 0, outlineWidth = 0;
 
             bool twoColours = a.DistanceTo(b) >= MinClusterDistance &&
                               Math.Min(countA, countB) >= ink.Count * MinClusterShare;
@@ -208,6 +210,7 @@ namespace RSTGameTranslation.Layout
                     fillIdx = stats[0].Enclosed > stats[1].Enclosed ? 0 : 1;
                     effectIdx = 1 - fillIdx;
                     effect = TextEffectKind.Outline;
+                    outlineWidth = OutlineThickness(ink, label, w, h, fillIdx);
                 }
                 else
                 {
@@ -264,6 +267,7 @@ namespace RSTGameTranslation.Layout
                 EffectColor = effectColor,
                 ShadowDx = dx,
                 ShadowDy = dy,
+                OutlineWidth = outlineWidth,
                 EffectAdded = added,
             };
         }
@@ -396,6 +400,33 @@ namespace RSTGameTranslation.Layout
                     }
                 }
             return (best.Item1, best.Item2, bestScore);
+        }
+
+        /// <summary>
+        /// Thickness of an outline: its pixels spread along the edge of the fill, so their number
+        /// divided by the number of fill pixels on that edge (touching the outline).
+        /// </summary>
+        private static double OutlineThickness(List<int> ink, int[] label, int w, int h, int fillIdx)
+        {
+            var group = new int[w * h];
+            Array.Fill(group, -1);
+            for (int k = 0; k < ink.Count; k++)
+                group[ink[k]] = label[k];
+            int outline = 0, edge = 0;
+            for (int k = 0; k < ink.Count; k++)
+            {
+                int i = ink[k];
+                if (label[k] != fillIdx)
+                {
+                    outline++;
+                    continue;
+                }
+                int x = i % w, y = i / w;
+                bool touches = (x > 0 && group[i - 1] == 1 - fillIdx) || (x < w - 1 && group[i + 1] == 1 - fillIdx) ||
+                               (y > 0 && group[i - w] == 1 - fillIdx) || (y < h - 1 && group[i + w] == 1 - fillIdx);
+                if (touches) edge++;
+            }
+            return edge > 0 ? Math.Clamp((double)outline / edge, 0.5, 8) : 0;
         }
 
         /// <summary>

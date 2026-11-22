@@ -131,5 +131,7 @@ public class TextEffectFixtureTests
         var want = new Rgb(Convert.ToByte(fill[1..3], 16), Convert.ToByte(fill[3..5], 16), Convert.ToByte(fill[5..7], 16));
         Assert.Equal(spec.GetProperty("effect").GetString(), style.Effect.ToString());
         Assert.True(style.Fill.DistanceTo(want) < 40, $"fill {style.Fill}, want {fill}");
+        if (style.Effect == TextEffectKind.Outline)
+            Assert.InRange(style.OutlineWidth * 0.65, 1.5, 2.5); // drawn with a 2 px stroke
     }
 }
