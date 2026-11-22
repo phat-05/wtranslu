@@ -45,8 +45,11 @@ namespace RSTGameTranslation
         }
 
         // A font that draws the game's text this much wider (or more) is squeezed to the game's
-        // width: the game uses a condensed face that no candidate has
-        private const double CondenseFrom = 0.88, MostCondensed = 0.6;
+        // width: the game uses a condensed face that no candidate has (a banner measured 0.67; boxes
+        // drawn around answer choices made a normal font measure 0.83, so not below 0.8)
+        private const double CondenseFrom = 0.8, MostCondensed = 0.6;
+        // Shorter texts (a name like "Yangyang") look alike in too many fonts to tell them apart
+        private const int MinSampleLength = 10;
 
         private static readonly Dictionary<string, Votes> _byStyle = new();
         private static List<string>? _usable;
@@ -75,7 +78,7 @@ namespace RSTGameTranslation
                 // One whole line: its letters were measured (FontPxFromInk > 0), so none are cut off by
                 // the box or the screen edge (cut letters look like another font)
                 bool canSample = shape.Coverage != null && lineCount == 1 && shape.FontPxFromInk > 0 && fontPx >= 10 &&
-                                 text.Trim().Length >= 4 && !text.Any(IsWide);
+                                 text.Trim().Length >= MinSampleLength && !text.Any(IsWide);
                 if ((votes == null || votes.Samples < SamplesPerStyle) && canSample)
                 {
                     var started = DateTime.UtcNow;

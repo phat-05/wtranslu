@@ -348,3 +348,16 @@ public class GamePresetTests
         Assert.True(y + h < 1080 * 0.97, $"full area ends at {y + h}");
     }
 }
+
+public class SpeakerNameDetectorTests
+{
+    [Theory]
+    [InlineData("Yangyang", 90, "Then we leave now. Stay close to me.", 380, true)]
+    [InlineData("Captain Mira:", 140, "Find the red key before the tide turns.", 420, true)]
+    [InlineData("Then we leave", 150, "now. Stay close to me.", 260, false)]   // a wrapped sentence
+    [InlineData("Hello there,", 120, "Captain, the map is ready.", 300, false)]
+    [InlineData("Chapter Two", 200, "The Lighthouse", 210, false)]             // two-line heading
+    [InlineData("Rover", 60, "and the others left.", 250, false)]             // the next line continues
+    public void Finds_a_name_above_its_line(string first, double firstWidth, string next, double nextWidth, bool name) =>
+        Assert.Equal(name, SpeakerNameDetector.IsNameAbove(first, firstWidth, next, nextWidth));
+}

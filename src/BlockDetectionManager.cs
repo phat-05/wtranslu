@@ -177,6 +177,8 @@ namespace RSTGameTranslation
                     paragraphs = JoinUnfinishedSentences(paragraphs);
                     // Menus and option lists: one item per line, each translated and shown on its own
                     paragraphs = SplitLists(paragraphs);
+                    // A speaker's name above their line is not part of the sentence
+                    paragraphs = SplitSpeakerNames(paragraphs);
                 }
 
                 // PHASE 5: Apply manga-specific processing if manga mode is enabled.
@@ -1226,6 +1228,27 @@ namespace RSTGameTranslation
                 }
                 if (run.Count > 0)
                     result.Add(BuildParagraph(run));
+            }
+            return result;
+        }
+
+        private static List<TextElement> SplitSpeakerNames(List<TextElement> paragraphs)
+        {
+            var result = new List<TextElement>();
+            foreach (var paragraph in paragraphs)
+            {
+                var lines = paragraph.Children;
+                if (lines.Count >= 2 && RSTGameTranslation.Layout.SpeakerNameDetector.IsNameAbove(
+                        lines[0].Text, lines[0].Bounds.Width, lines[1].Text, lines[1].Bounds.Width))
+                {
+                    Console.WriteLine($"Speaker name kept apart: '{lines[0].Text}'");
+                    result.Add(BuildParagraph(new[] { lines[0] }));
+                    result.Add(BuildParagraph(lines.Skip(1)));
+                }
+                else
+                {
+                    result.Add(paragraph);
+                }
             }
             return result;
         }

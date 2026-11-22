@@ -72,3 +72,31 @@ namespace RSTGameTranslation.Layout
         }
     }
 }
+
+namespace RSTGameTranslation.Layout
+{
+    /// <summary>
+    /// A speaker's name on its own line above what they say ("Yangyang" / "Then we leave now."):
+    /// grouped with the line as one paragraph it was translated as part of the sentence. A name
+    /// line: 1-3 words, each starting with a capital (or all capitals), at most 24 characters, no
+    /// sentence punctuation, clearly shorter than the line under it, which starts a sentence.
+    /// </summary>
+    public static class SpeakerNameDetector
+    {
+        public static bool IsNameAbove(string first, double firstWidth, string next, double nextWidth)
+        {
+            string name = first.Trim().TrimEnd(':', '：');
+            string line = next.TrimStart('"', '“', '「', '\'', ' ');
+            if (name.Length == 0 || name.Length > 24 || line.Length == 0)
+                return false;
+            var words = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length > 3 || words.Any(w => !char.IsLetter(w[0]) || !char.IsUpper(w[0])))
+                return false;
+            if (name.IndexOfAny(new[] { '.', ',', '!', '?', ';' }) >= 0 || name.Any(char.IsDigit))
+                return false;
+            if (!(char.IsUpper(line[0]) || char.IsDigit(line[0])))
+                return false;
+            return firstWidth < nextWidth * 0.5;
+        }
+    }
+}
