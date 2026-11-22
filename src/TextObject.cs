@@ -151,6 +151,9 @@ namespace RSTGameTranslation
             }
         }
 
+        // Horizontal scale of the text (below 1: condensed like the game's font, see FontMatching)
+        public double MatchedScaleX { get; set; } = 1;
+
         private FontFamily ResolveFontFamily() =>
             _matchedFont != null ? FontMatching.Family(_matchedFont) : GameFonts.Resolve();
 
@@ -475,7 +478,8 @@ namespace RSTGameTranslation
                     TextBlock.LineStackingStrategyProperty, TextBlock.TextWrappingProperty, TextBlock.TextAlignmentProperty,
                     FrameworkElement.MaxWidthProperty, FrameworkElement.WidthProperty, FrameworkElement.MarginProperty,
                     FrameworkElement.FlowDirectionProperty, FrameworkElement.VerticalAlignmentProperty,
-                    FrameworkElement.HorizontalAlignmentProperty, TextBlock.PaddingProperty
+                    FrameworkElement.HorizontalAlignmentProperty, TextBlock.PaddingProperty,
+                    FrameworkElement.LayoutTransformProperty
                 })
                 {
                     copy.SetBinding(property, new System.Windows.Data.Binding(property.Name) { Source = TextBlock, Mode = System.Windows.Data.BindingMode.OneWay });
@@ -533,7 +537,8 @@ namespace RSTGameTranslation
                 // Cover at least the original text; wrap at the (possibly widened) layout width
                 Border.MinWidth = Width;
                 Border.MaxWidth = LayoutWidth + 20;
-                TextBlock.MaxWidth = LayoutWidth;
+                // In the text's own (unscaled) units: a condensed text fits more per line
+                TextBlock.MaxWidth = LayoutWidth / Math.Clamp(MatchedScaleX, 0.5, 1);
             }
 
             if (Height > 0)
@@ -599,12 +604,13 @@ namespace RSTGameTranslation
         // widening into free space, before shrinking down to DefaultMinSourceSizeRatio
         public const double PreferredMinSourceSizeRatio = 0.85;
 
-        private static void ApplyFontSize(TextBlock textBlock, double fontSize)
+        private void ApplyFontSize(TextBlock textBlock, double fontSize)
         {
             textBlock.FontSize = fontSize;
             textBlock.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
             textBlock.LineHeight = fontSize * LineHeightRatio;
-            textBlock.LayoutTransform = Transform.Identity;
+            // Squeezed like a condensed game font; layout (wrapping, fitting) follows the transform
+            textBlock.LayoutTransform = MatchedScaleX < 0.99 ? new ScaleTransform(MatchedScaleX, 1) : Transform.Identity;
             // A per-line gradient follows the line height
             if (textBlock.Foreground is LinearGradientBrush { MappingMode: BrushMappingMode.Absolute, IsFrozen: false } gradient)
                 gradient.EndPoint = new Point(0, Math.Max(1, fontSize * LineHeightRatio));
@@ -666,7 +672,7 @@ namespace RSTGameTranslation
                 // Same length doesn't mean same rendered size, so key on the actual text and font
                 // With coloured words the text is in Inlines and TextBlock.Text still holds the old string
                 string shownText = TranslatedMarkup ?? textBlock.Text;
-                string cacheKey = $"{textBlock.FontFamily.Source}_{textBlock.FontWeight}_{textBlock.FontStyle}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{shownText}";
+                string cacheKey = $"{textBlock.FontFamily.Source}_{textBlock.FontWeight}_{textBlock.FontStyle}_{MatchedScaleX:F2}_{Width}_{LayoutWidth}_{Height}_{MinSourceSizeRatio}_{configMin}_{configMax}_{SourceFontSize}_{Text}_{shownText}";
                 
                 // Check cache
                 if (_fontSizeCache.TryGetValue(cacheKey, out var cached))
@@ -710,7 +716,7 @@ namespace RSTGameTranslation
                 ApplyFontSize(textBlock, finalSize);
                 if (OcrTiming.Metrics.Enabled)
                 {
-                    OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}" +
+                    OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}{(MatchedScaleX < 0.99 ? $" Condensed {MatchedScaleX:F2}" : "")}" +
                         $"|{textBlock.FontWeight}|{textBlock.FontStyle}|{DescribeBrush(textBlock.Foreground)}|{_gameTextStyle?.Effect.ToString() ?? "None"}|{textBlock.TextAlignment}");
                 }
                 

@@ -46,6 +46,15 @@ public class FontMatcherTests
     }
 
     [Fact]
+    public void Width_difference_has_a_sign()
+    {
+        // Monospaced letters take more room than proportional ones: the candidate is wider
+        var d = FontMatcher.Compare("mono", Load("game_FreeSans"), Load("candidate_mono"));
+        Assert.True(d.AspectLog > 0.2, d.ToString());
+        Assert.Equal(Math.Abs(d.AspectLog), d.Aspect, 6);
+    }
+
+    [Fact]
     public void Empty_image_is_far_from_everything()
     {
         var empty = new FontMatcher.Ink(new float[100], 10, 10);

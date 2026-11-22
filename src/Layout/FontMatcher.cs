@@ -5,7 +5,9 @@ using System.Linq;
 namespace RSTGameTranslation.Layout
 {
     /// <summary>How far one candidate font's rendering of the text is from the game's letters.</summary>
-    public sealed record FontDistance(string Font, double Shape, double Aspect, double Contrast)
+    /// <param name="AspectLog">ln(candidate ink aspect / game ink aspect): above 0 when the candidate
+    /// draws the text wider than the game.</param>
+    public sealed record FontDistance(string Font, double Shape, double Aspect, double Contrast, double AspectLog = 0)
     {
         // Weights tuned on 14 game fonts x 6 texts x 3 sizes against Liberation Sans/Serif/Mono
         // (91% of single lines got the right kind of font: serif, sans or monospace)
@@ -52,9 +54,9 @@ namespace RSTGameTranslation.Layout
                 inkC += cs[i];
             }
             double shape = diff / Math.Max(1e-6, (inkG + inkC) / 2);
-            double aspect = Math.Abs(Math.Log(aspectCandidate / aspectGame));
+            double aspectLog = Math.Log(aspectCandidate / aspectGame);
             double contrast = Math.Abs(Math.Log(Math.Max(1e-3, StrokeContrast(c)) / Math.Max(1e-3, StrokeContrast(g))));
-            return new FontDistance(font, shape, aspect, contrast);
+            return new FontDistance(font, shape, Math.Abs(aspectLog), contrast, aspectLog);
         }
 
         /// <summary>The candidate closest to the game text (smallest total distance), with all distances.</summary>

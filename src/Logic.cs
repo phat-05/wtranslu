@@ -1350,7 +1350,11 @@ namespace RSTGameTranslation
                     textObject.SetTextEffect(textStyle);
                     // No font chosen for the game: the installed font most like the game's
                     if (textStyle.Shape != null && FontMatching.Active)
-                        textObject.MatchedFont = FontMatching.Match(text, textStyle, styleFontPx, styleLines);
+                    {
+                        var (font, scaleX) = FontMatching.Match(text, textStyle, styleFontPx, styleLines);
+                        textObject.MatchedScaleX = scaleX;
+                        textObject.MatchedFont = font;
+                    }
                     if (textStyle.Shape != null)
                         textStyle.Shape.Coverage = null;
                 }

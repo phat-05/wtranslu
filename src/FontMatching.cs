@@ -39,8 +39,14 @@ namespace RSTGameTranslation
         private sealed class Votes
         {
             public readonly Dictionary<string, double> Sum = new();
+            // Sum of ln(candidate width / game width) per font
+            public readonly Dictionary<string, double> AspectLog = new();
             public int Samples;
         }
+
+        // A font that draws the game's text this much wider (or more) is squeezed to the game's
+        // width: the game uses a condensed face that no candidate has
+        private const double CondenseFrom = 0.88, MostCondensed = 0.6;
 
         private static readonly Dictionary<string, Votes> _byStyle = new();
         private static List<string>? _usable;
@@ -53,14 +59,15 @@ namespace RSTGameTranslation
             !ConfigManager.Instance.IsLanguageFontOverrideEnabled();
 
         /// <summary>
-        /// Name of the font closest to the game's for this text, or null (unknown: default font).
+        /// Name of the font closest to the game's for this text, or null (unknown: default font), and
+        /// the horizontal scale that gives it the game's width (1 = as is; below 1 = condensed).
         /// Must run on the UI thread (draws with WPF).
         /// </summary>
-        public static string? Match(string text, TextStyle style, double fontPx, int lineCount)
+        public static (string? Font, double ScaleX) Match(string text, TextStyle style, double fontPx, int lineCount)
         {
             var shape = style.Shape;
             if (shape == null)
-                return null;
+                return (null, 1);
             try
             {
                 string key = StyleKey(style, shape, fontPx);
@@ -80,20 +87,26 @@ namespace RSTGameTranslation
                     {
                         votes ??= _byStyle[key] = new Votes();
                         foreach (var d in all)
+                        {
                             votes.Sum[d.Font] = votes.Sum.GetValueOrDefault(d.Font) + d.Total;
+                            votes.AspectLog[d.Font] = votes.AspectLog.GetValueOrDefault(d.Font) + d.AspectLog;
+                        }
                         votes.Samples++;
                         OcrTiming.Metrics.Write("font_match", $"{(DateTime.UtcNow - started).TotalMilliseconds:F0} ms|{key}|{text}|" +
                             string.Join(",", all.Take(4).Select(d => $"{d.Font}={d.Total:F3}({d.Shape:F2}/{d.Aspect:F2}/{d.Contrast:F2})")));
                     }
                 }
                 if (votes == null || votes.Samples == 0)
-                    return null;
-                return votes.Sum.MinBy(kv => kv.Value).Key;
+                    return (null, 1);
+                string best = votes.Sum.MinBy(kv => kv.Value).Key;
+                double widthRatio = Math.Exp(-votes.AspectLog.GetValueOrDefault(best) / votes.Samples);
+                double scaleX = widthRatio <= CondenseFrom ? Math.Max(MostCondensed, widthRatio) : 1;
+                return (best, scaleX);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Font matching failed: {ex.Message}");
-                return null;
+                return (null, 1);
             }
             finally
             {
