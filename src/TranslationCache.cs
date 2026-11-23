@@ -63,6 +63,13 @@ namespace RSTGameTranslation
 
         public bool TryGet(string text, out string translation, out CacheMatch match, out double similarity)
         {
+            // The game's own dictionary first: translated once, chosen to fit (see GameDictionaries)
+            if (GameDictionaries.TryTranslate(text, out translation))
+            {
+                match = CacheMatch.Exact;
+                similarity = 1;
+                return true;
+            }
             TranslationStore store;
             string service;
             lock (_lock)

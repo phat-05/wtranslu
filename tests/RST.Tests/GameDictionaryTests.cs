@@ -1,0 +1,55 @@
+using RSTGameTranslation.Layout;
+using Xunit;
+
+/// <summary>The Wuthering Waves dictionary shipped in app/GameDictionaries, on text from the game's menus.</summary>
+public class GameDictionaryTests
+{
+    private static readonly GameDictionary Dict = GameDictionary.Parse(
+        File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "GameDictionaries", "wuthering-waves.vi.json")));
+
+    [Theory]
+    [InlineData("Go", "Đi")]
+    [InlineData("Claim", "Nhận")]
+    [InlineData("Expedition\nMotorbike", "Mô tô thám hiểm")]
+    [InlineData("Pioneer Podcast", "Podcast Tiên Phong")]
+    [InlineData("Sort by Rarity", "Xếp theo độ hiếm")]
+    [InlineData("Upgrade", "Nâng cấp")]
+    [InlineData("Birthday:", "Sinh nhật")]
+    [InlineData("Weapons 96/2000", "Vũ khí 96/2000")]
+    [InlineData("Level 70/70", "Cấp 70/70")]
+    [InlineData("Rank 5", "Hạng 5")]
+    [InlineData("Equipped by Cartethyia", "Cartethyia đang dùng")]
+    [InlineData("Resets after 11h 59m", "Làm mới sau 11h 59m")]
+    [InlineData("Spend 180 Waveplates", "Dùng 180 Waveplate")]
+    [InlineData("Complete 1 Daily Quest", "Làm 1 nhiệm vụ ngày")]
+    [InlineData("Clear Nightmare Nest or Tacet Discord Nest 1 time", "Phá Tổ Ác Mộng hoặc Tổ Tacet Discord 1 lần")]
+    public void Menus_are_translated_from_the_dictionary(string text, string translation)
+    {
+        Assert.True(Dict.TryTranslate(text, out var result), text);
+        Assert.Equal(translation, result);
+    }
+
+    [Theory]
+    [InlineData("Lv. 70")]
+    [InlineData("ATK 312")]
+    [InlineData("HP 59.7%")]
+    [InlineData("Crit DMG")]
+    [InlineData("User ID: 712903107")]
+    [InlineData("4974535")]
+    [InlineData("Union EXP 3175/12000")]
+    [InlineData("Resonators")]
+    [InlineData("80%")]
+    public void Stats_abbreviations_and_numbers_stay_as_the_game_shows_them(string text) => Assert.True(Dict.IsKept(text), text);
+
+    [Theory]
+    [InlineData("Upgrade")]
+    [InlineData("Max HP is increased by 12%.")]
+    [InlineData("Attack")]
+    public void Words_are_not_kept(string text) => Assert.False(Dict.IsKept(text), text);
+
+    [Fact]
+    public void New_text_is_left_to_the_translator()
+    {
+        Assert.False(Dict.TryTranslate("Beyond the door lies a battlefield long past.", out _));
+    }
+}

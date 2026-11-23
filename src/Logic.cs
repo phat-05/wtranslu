@@ -853,8 +853,9 @@ namespace RSTGameTranslation
             if (string.IsNullOrWhiteSpace(text))
                 return (true, string.Empty);
 
-            // A known game's character name on its own line: the game's own text stays visible
-            if (RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true)
+            // A known game's character name on its own line, or only stats, abbreviations and numbers
+            // (Lv. 70, ATK 312, Crit Rate): the game's own text stays visible
+            if (RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true || GameDictionaries.IsKept(text))
                 return (true, string.Empty);
 
             var ignoreSet = ConfigManager.Instance.GetIgnorePhraseSet();

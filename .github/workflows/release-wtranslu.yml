@@ -63,6 +63,9 @@ jobs:
           Copy-Item app\OneOcr\* $root -Force
           Copy-Item app\AudioModel\ggml-tiny.bin "$root\AudioModel" -Force
           Copy-Item app\Languages\* "$root\Languages" -Recurse -Force
+          # Game dictionaries (Wuthering Waves...): translations shipped with the app, editable by players
+          New-Item -ItemType Directory -Force -Path "$root\GameDictionaries" | Out-Null
+          Copy-Item app\GameDictionaries\* "$root\GameDictionaries" -Recurse -Force
           Copy-Item README.md, README_vi.md, LICENSE.md $root -Force
           Copy-Item tests\e2e\latency_report.py, tests\e2e\README_vi.md "$root\tools" -Force
           Get-ChildItem $root -Filter *.lib | Remove-Item
