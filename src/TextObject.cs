@@ -729,7 +729,8 @@ namespace RSTGameTranslation
                 if (OcrTiming.Metrics.Enabled)
                 {
                     OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}{(MatchedScaleX < 0.99 ? $" Condensed {MatchedScaleX:F2}" : "")}" +
-                        $"|{textBlock.FontWeight}|{textBlock.FontStyle}|{DescribeBrush(textBlock.Foreground)}|{_gameTextStyle?.Effect.ToString() ?? "None"}|{textBlock.TextAlignment}");
+                        $"|{textBlock.FontWeight}|{textBlock.FontStyle}|{DescribeBrush(textBlock.Foreground)}|{_gameTextStyle?.Effect.ToString() ?? "None"}|{textBlock.TextAlignment}" +
+                        $"|{(TextFitsBox ? "fits" : "overflows")}|{Width:F0}");
                 }
                 
                 // Cache result
