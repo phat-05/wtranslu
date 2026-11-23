@@ -183,6 +183,19 @@ public class ColorMarkupTests
     }
 
     [Fact]
+    public void Grey_words_on_white_text_are_not_coloured_words()
+    {
+        // Small white menu text: thin or blurred letters measure grey (Log in to the game, run 62)
+        var light = new Rgb(0xE3, 0xE3, 0xE4);
+        var words = new (string, Rgb?)[] { ("Log", new Rgb(0xAE, 0xAD, 0xAF)), ("in", new Rgb(0xAE, 0xAD, 0xAF)), ("to", light),
+                                           ("the", new Rgb(0x48, 0x46, 0x4A)), ("game", new Rgb(0xAB, 0xAB, 0xAC)) };
+        Assert.Null(ColorMarkup.BuildTagged(words, light, out _));
+        // A gold word in it still is
+        words[4] = ("game", new Rgb(0xE8, 0xC7, 0x4A));
+        Assert.Equal("Log in to the <c1>game</c1>", ColorMarkup.BuildTagged(words, light, out _));
+    }
+
+    [Fact]
     public void Parses_a_translation_and_tolerates_a_missing_closing_tag()
     {
         var parts = ColorMarkup.Parse("Tìm <c1>chìa khóa đỏ</c1> trước <c2>bình minh");
@@ -323,8 +336,8 @@ public class GamePresetTests
         var band = GamePresets.WutheringWaves.DialogueAreas[0];
         var (x, y, w, h) = GamePresets.ToScreen(band, 0, 0, 1920, 1080);
         Assert.InRange(x + w / 2, 955, 965);         // centred
-        Assert.InRange(y, 780, 800);                 // speaker name row
-        Assert.InRange(y + h, 1010, 1030);           // above the UID line at the very bottom
+        Assert.InRange(y, 745, 770);                 // above the speaker name row
+        Assert.InRange(y + h, 1035, 1048);           // above the UID line at the very bottom (~1055)
     }
 
     [Fact]
@@ -333,12 +346,12 @@ public class GamePresetTests
         var band = GamePresets.WutheringWaves.DialogueAreas[0];
         // 3440x1440: the 16:9 box is 2560 wide, centred (440 px of scenery each side)
         var (x, _, w, _) = GamePresets.ToScreen(band, 0, 0, 3440, 1440);
-        Assert.InRange(x, 440 + 0.13 * 2560 - 1, 440 + 0.13 * 2560 + 1);
-        Assert.InRange(w, 0.74 * 2560 - 1, 0.74 * 2560 + 1);
+        Assert.InRange(x, 440 + 0.12 * 2560 - 1, 440 + 0.12 * 2560 + 1);
+        Assert.InRange(w, 0.76 * 2560 - 1, 0.76 * 2560 + 1);
         // 1920x1200: the box is 1080 high, 60 px above and below
         var (_, y, _, h) = GamePresets.ToScreen(band, 100, 50, 1920, 1200);
-        Assert.InRange(y, 50 + 60 + 0.735 * 1080 - 1, 50 + 60 + 0.735 * 1080 + 1);
-        Assert.InRange(h, 0.215 * 1080 - 1, 0.215 * 1080 + 1);
+        Assert.InRange(y, 50 + 60 + 0.70 * 1080 - 1, 50 + 60 + 0.70 * 1080 + 1);
+        Assert.InRange(h, 0.265 * 1080 - 1, 0.265 * 1080 + 1);
     }
 
     [Fact]
@@ -372,4 +385,58 @@ public class KeepAsIsTests
     [InlineData("Captain Mira", false)]
     public void Character_names_on_their_own_stay_as_the_game_shows_them(string text, bool kept) =>
         Assert.Equal(kept, GamePresets.WutheringWaves.IsKeptAsIs(text));
+}
+
+public class OcrScaleTests
+{
+    [Fact]
+    public void Large_text_on_a_4k_screen_is_read_from_a_smaller_copy()
+    {
+        // WuWa dialogue at 3840x2160: lines about 48 px tall
+        Assert.InRange(OcrScale.For(3000, 1300, 48), 0.53, 0.55);
+    }
+
+    [Theory]
+    [InlineData(960, 560, 48)]    // small picture
+    [InlineData(3000, 1300, 0)]   // nothing known yet
+    [InlineData(3000, 1300, 28)]  // text already small: 0.93, not worth it
+    public void Otherwise_full_size(int w, int h, double line) => Assert.Equal(1, OcrScale.For(w, h, line));
+
+    [Fact]
+    public void Never_below_half_size_and_led_by_the_smaller_lines()
+    {
+        Assert.Equal(0.5, OcrScale.For(3840, 2160, 120));
+        Assert.Equal(24, OcrScale.SmallLineHeight(new double[] { 48, 50, 24, 47, 49, 52, 51, 46, 50, 49 }));
+    }
+}
+
+public class TermGuardTests
+{
+    private static readonly string[] Terms = { "Resonator", "Resonators", "Tacet Discord", "Echo", "Rover", "Jinzhou" };
+
+    [Fact]
+    public void Terms_become_tokens_and_come_back()
+    {
+        var p = TermGuard.Protect("The Resonators gathered at the edge of Jinzhou before dawn.", Terms);
+        Assert.Equal("The QZX1 gathered at the edge of QZX2 before dawn.", p.Text);
+        // What a translator returns, with a space slipped into a token
+        Assert.Equal("Các Resonators tập trung ở rìa Jinzhou trước bình minh.",
+            TermGuard.Restore("Các QZX1 tập trung ở rìa QZX 2 trước bình minh.", p.Map));
+    }
+
+    [Fact]
+    public void Longest_term_first_whole_words_exact_case()
+    {
+        var p = TermGuard.Protect("Rover, the Tacet Discord hears an echo of your Echo.", Terms);
+        Assert.Equal("QZX2, the QZX1 hears an echo of your QZX3.", p.Text);
+        Assert.Empty(TermGuard.Protect("Echoing roverS", Terms).Map);
+    }
+
+    [Fact]
+    public void Text_without_terms_is_untouched()
+    {
+        var p = TermGuard.Protect("Then we leave now.", Terms);
+        Assert.Equal("Then we leave now.", p.Text);
+        Assert.Equal("Vậy thì đi thôi.", TermGuard.Restore("Vậy thì đi thôi.", p.Map));
+    }
 }

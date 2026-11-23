@@ -467,10 +467,31 @@ namespace RSTGameTranslation
                             data_ptr = dataPtr
                         };
 
-                        // Execute OCR processing
-                        Line[]? result = RunOcr(formattedImage);
-                        imgRgba.UnlockBits(bitmapData);
-                        return result != null ? result.ToList() : new List<Line>();
+                        // Large picture with large text: OCR a smaller copy (see Layout.OcrScale). Not for a
+                        // known game read only after the player's input: few reads, and a menu's small
+                        // labels opened over large dialogue text would be lost in a smaller copy
+                        bool fullSizeOnly = RSTGameTranslation.Layout.GamePresets.Active is { RefreshOnInput: true };
+                        double scale = _ocrRuns++ % FullSizeProbeEvery == 0 || fullSizeOnly
+                            ? 1
+                            : ForcedScale ?? RSTGameTranslation.Layout.OcrScale.For(cols, rows, _smallLineHeight);
+                        Line[]? result;
+                        if (scale < 1)
+                        {
+                            imgRgba.UnlockBits(bitmapData);
+                            result = RunOcrScaled(imgRgba, scale);
+                        }
+                        else
+                        {
+                            result = RunOcr(formattedImage);
+                            imgRgba.UnlockBits(bitmapData);
+                        }
+                        var lines = result != null ? result.ToList() : new List<Line>();
+                        // Remember the size of the smaller lines; nothing found: full size next time
+                        _smallLineHeight = RSTGameTranslation.Layout.OcrScale.SmallLineHeight(
+                            lines.Select(l => (double)(Math.Max(l.Y3, l.Y4) - Math.Min(l.Y1, l.Y2))));
+                        if (scale < 1)
+                            Console.WriteLine($"OneOCR on a {scale:F2}x copy ({(int)(cols * scale)}x{(int)(rows * scale)}): {lines.Count} line(s)");
+                        return lines;
                     }
                 }
                 finally
@@ -487,6 +508,55 @@ namespace RSTGameTranslation
                 Console.WriteLine($"OneOCR error: {ex.Message}");
                 Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 return new List<Line>();
+            }
+        }
+
+        // Smallest line height (capture pixels) in the last result; 0 = unknown, OCR at full size
+        private double _smallLineHeight;
+        private long _ocrRuns;
+        // Every so often at full size anyway, so smaller text that appeared since is not missed
+        private const int FullSizeProbeEvery = 8;
+        // Test runs only: shrink every picture by this much, to check the shrunk path on small screens
+        private static readonly double? ForcedScale =
+            double.TryParse(Environment.GetEnvironmentVariable("RST_FORCE_OCR_SCALE"), System.Globalization.NumberStyles.Float,
+                            System.Globalization.CultureInfo.InvariantCulture, out double forced) && forced > 0.3 && forced < 1
+                ? forced
+                : null;
+
+        /// <summary>OCR of a copy of the image shrunk by <paramref name="scale"/>; boxes in full-size pixels.</summary>
+        private Line[]? RunOcrScaled(Bitmap full, double scale)
+        {
+            int w = Math.Max(1, (int)Math.Round(full.Width * scale)), h = Math.Max(1, (int)Math.Round(full.Height * scale));
+            using var small = new Bitmap(w, h, PixelFormat.Format32bppArgb);
+            using (var g = Graphics.FromImage(small))
+            {
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                g.DrawImage(full, new Rectangle(0, 0, w, h));
+            }
+            var data = small.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadOnly, small.PixelFormat);
+            try
+            {
+                var img = new Img { t = 3, col = w, row = h, _unk = 0, step = data.Stride, data_ptr = data.Scan0 };
+                var lines = RunOcr(img);
+                if (lines == null)
+                    return null;
+                float back = (float)(1 / scale);
+                foreach (var line in lines)
+                {
+                    line.X1 *= back; line.Y1 *= back; line.X2 *= back; line.Y2 *= back;
+                    line.X3 *= back; line.Y3 *= back; line.X4 *= back; line.Y4 *= back;
+                    foreach (var word in line.Words ?? Array.Empty<Word>())
+                    {
+                        word.X1 *= back; word.Y1 *= back; word.X2 *= back; word.Y2 *= back;
+                        word.X3 *= back; word.Y3 *= back; word.X4 *= back; word.Y4 *= back;
+                    }
+                }
+                return lines;
+            }
+            finally
+            {
+                small.UnlockBits(data);
             }
         }
 
@@ -642,6 +712,48 @@ namespace RSTGameTranslation
                         new[] { (double)line.X4, (double)line.Y4 }
                     };
 
+                    // Word boxes: words in another colour are found from these (x, y, width, height)
+                    var wordBoxes = line.Words.Where(w => !string.IsNullOrEmpty(w.Text)).Select(w =>
+                    {
+                        float minX = Math.Min(Math.Min(w.X1, w.X2), Math.Min(w.X3, w.X4));
+                        float minY = Math.Min(Math.Min(w.Y1, w.Y2), Math.Min(w.Y3, w.Y4));
+                        float maxX = Math.Max(Math.Max(w.X1, w.X2), Math.Max(w.X3, w.X4));
+                        float maxY = Math.Max(Math.Max(w.Y1, w.Y2), Math.Max(w.Y3, w.Y4));
+                        return new { text = w.Text, box = new[] { minX, minY, maxX - minX, maxY - minY } };
+                    }).ToArray();
+
+                    // Separate labels OCR read as one line (a menu's names in a row, a label and its
+                    // value far apart): one line each (see Layout.LineGaps). Horizontal lines only
+                    var groups = new List<List<int>>();
+                    if (wordBoxes.Length > 1)
+                    {
+                        double lineW = Math.Max(Math.Abs(line.X2 - line.X1), Math.Abs(line.X3 - line.X4));
+                        double lineH = Math.Max(Math.Abs(line.Y4 - line.Y1), Math.Abs(line.Y3 - line.Y2));
+                        if (lineW > lineH)
+                            groups = RSTGameTranslation.Layout.LineGaps.Split(
+                                wordBoxes.Select(w => ((double)w.box[0], (double)w.box[1], (double)w.box[2], (double)w.box[3])).ToList());
+                    }
+                    if (groups.Count > 1)
+                    {
+                        string separator = line.Text.Contains(' ') ? " " : "";
+                        foreach (var group in groups)
+                        {
+                            var groupWords = group.Select(i => wordBoxes[i]).ToArray();
+                            float left = groupWords.Min(w => w.box[0]), top = groupWords.Min(w => w.box[1]);
+                            float right = groupWords.Max(w => w.box[0] + w.box[2]), bottom = groupWords.Max(w => w.box[1] + w.box[3]);
+                            results.Add(new
+                            {
+                                text = ProcessTextByLanguage(string.Join(separator, groupWords.Select(w => w.text)), languageCode),
+                                confidence = line.Confidence,
+                                rect = new[] { new[] { (double)left, (double)top }, new[] { (double)right, (double)top },
+                                               new[] { (double)right, (double)bottom }, new[] { (double)left, (double)bottom } },
+                                bubble_id = bubbleIds[lineIndex],
+                                words = groupWords
+                            });
+                        }
+                        continue;
+                    }
+
                     // Process text based on language
                     string processedText = ProcessTextByLanguage(line.Text, languageCode);
                     
@@ -652,15 +764,7 @@ namespace RSTGameTranslation
                         confidence = line.Confidence,
                         rect = box,
                         bubble_id = bubbleIds[lineIndex],
-                        // Word boxes: words in another colour are found from these (x, y, width, height)
-                        words = line.Words.Where(w => !string.IsNullOrEmpty(w.Text)).Select(w =>
-                        {
-                            float minX = Math.Min(Math.Min(w.X1, w.X2), Math.Min(w.X3, w.X4));
-                            float minY = Math.Min(Math.Min(w.Y1, w.Y2), Math.Min(w.Y3, w.Y4));
-                            float maxX = Math.Max(Math.Max(w.X1, w.X2), Math.Max(w.X3, w.X4));
-                            float maxY = Math.Max(Math.Max(w.Y1, w.Y2), Math.Max(w.Y3, w.Y4));
-                            return new { text = w.Text, box = new[] { minX, minY, maxX - minX, maxY - minY } };
-                        }).ToArray()
+                        words = wordBoxes
                     });
                 }
 

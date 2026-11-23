@@ -19,13 +19,16 @@ internal static class WuwaScene
     {
         int w = client.Width, h = client.Height;
 
-        // Minimap with a place name (top left), UID (bottom right): always there
-        using (var map = new SolidBrush(Color.FromArgb(150, 10, 20, 30)))
-            g.FillEllipse(map, 18, 18, 120, 120);
-        var label = Styles.All["minimap"];
-        using (var labelFont = Styles.MakeFont(label))
-        using (var labelBrush = new SolidBrush(label.Fill))
-            g.DrawString(MinimapLabel, labelFont, labelBrush, 30, 142);
+        // Minimap with a place name (top left; not in menus), UID (bottom right): always there
+        if (step?.Style != "wuwa_menu")
+        {
+            using (var map = new SolidBrush(Color.FromArgb(150, 10, 20, 30)))
+                g.FillEllipse(map, 18, 18, 120, 120);
+            var label = Styles.All["minimap"];
+            using (var labelFont = Styles.MakeFont(label))
+            using (var labelBrush = new SolidBrush(label.Fill))
+                g.DrawString(MinimapLabel, labelFont, labelBrush, 30, 142);
+        }
         var uid = Styles.All["uid"];
         using (var uidFont = Styles.MakeFont(uid))
         using (var uidBrush = new SolidBrush(uid.Fill))
@@ -40,6 +43,63 @@ internal static class WuwaScene
             DrawDialogue(g, w, h, step, msIntoStep);
         else if (step.Style == "wuwa_choices")
             DrawChoices(g, w, h, step);
+        else if (step.Style == "wuwa_menu")
+            DrawMenu(g, w, h, step);
+    }
+
+    /// <summary>
+    /// The Terminal menu: a grid of icons with their names (the step's text, " / " between them),
+    /// and on the left the player's level and the day's activities with Go / Claim buttons, numbers
+    /// on their own (46, 3175/12000), as in the game.
+    /// </summary>
+    private static void DrawMenu(Graphics g, int w, int h, Step step)
+    {
+        using (var dim = new SolidBrush(Color.FromArgb(215, 12, 14, 20)))
+            g.FillRectangle(dim, 0, 0, w, h);
+        var header = Styles.All["wuwa_menu_header"];
+        var label = Styles.All["wuwa_menu_label"];
+        using var headerFont = Styles.MakeFont(header);
+        using var labelFont = Styles.MakeFont(label);
+        using var headerBrush = new SolidBrush(header.Fill);
+        using var labelBrush = new SolidBrush(label.Fill);
+        using var dimText = new SolidBrush(Color.FromArgb(0xA8, 0xA8, 0xA8));
+        using var icon = new SolidBrush(Color.FromArgb(255, 48, 52, 62));
+        using var gold = new SolidBrush(Color.FromArgb(0xE8, 0xC7, 0x7A));
+        using var button = new SolidBrush(Color.FromArgb(255, 0xD9, 0xC0, 0x7E));
+        using var buttonText = new SolidBrush(Color.FromArgb(0x20, 0x1C, 0x14));
+
+        g.DrawString("Terminal", headerFont, headerBrush, w * 0.03f, h * 0.04f);
+
+        // Left: the player's level and the day's activities
+        float x = w * 0.04f, y = h * 0.17f;
+        g.DrawString("Union Level", labelFont, dimText, x, y);
+        g.DrawString("46", headerFont, gold, x + 150, y - 6);
+        y += 34;
+        g.DrawString("Union EXP", labelFont, dimText, x, y);
+        g.DrawString("3175/12000", labelFont, labelBrush, x + 150, y);
+        y += 52;
+        g.DrawString("Resets after 11h 59m", labelFont, dimText, x, y);
+        y += 36;
+        foreach (var (task, action) in new[] { ("Log in to the game", "Claim"), ("Complete 1 Daily Quest", "Go") })
+        {
+            g.DrawString(task, labelFont, labelBrush, x, y + 6);
+            g.FillRectangle(button, x + 236, y, 68, 30);
+            var centre = new StringFormat { Alignment = StringAlignment.Center };
+            g.DrawString(action, labelFont, buttonText, new RectangleF(x + 236, y + 6, 68, 24), centre);
+            y += 46;
+        }
+
+        // Right: the menu's icons, four to a row, each name centred under its icon
+        string[] names = step.Text.Split(" / ");
+        float gridX = w * 0.40f, gridY = h * 0.16f, cellW = w * 0.14f, cellH = h * 0.25f;
+        var middle = new StringFormat { Alignment = StringAlignment.Center };
+        for (int i = 0; i < names.Length; i++)
+        {
+            float cx = gridX + i % 4 * cellW, cy = gridY + i / 4 * cellH;
+            g.FillRectangle(icon, cx + (cellW - 56) / 2, cy, 56, 56);
+            // A long name wraps onto a second line under its icon, as in the game
+            g.DrawString(names[i], labelFont, labelBrush, new RectangleF(cx + 6, cy + 66, cellW - 12, 44), middle);
+        }
     }
 
     private static void DrawDialogue(Graphics g, int w, int h, Step step, long msIntoStep)

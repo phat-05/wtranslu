@@ -30,6 +30,11 @@ namespace RSTGameTranslation.Layout
         // Names shown on their own (speakers above their lines): left as the game shows them, as a
         // translator turns some into common words ("Rover" -> "xe thám hiểm")
         public string[] KeepAsIs { get; init; } = Array.Empty<string>();
+        // Names and terms machine translators must leave as they are, inside sentences too (exact case)
+        public IReadOnlyCollection<string> ProtectedTerms => KeepAsIs.Concat(Terms).Distinct().ToArray();
+        public string[] Terms { get; init; } = Array.Empty<string>();
+        // What AI translators are told about the game when the user wrote nothing of their own
+        public string GameInfo { get; init; } = "";
         // Config values that suit the game (key=value), applied for this session
         public Dictionary<string, string> Settings { get; init; } = new();
         // Shown once when the game is found (how to set it up for the overlay)
@@ -49,6 +54,12 @@ namespace RSTGameTranslation.Layout
         }
 
         public RelRect[] Areas(GameCaptureMode mode) => mode == GameCaptureMode.Dialogue ? DialogueAreas : FullAreas;
+
+        // Mode when the game is found (the player's last choice is remembered over it)
+        public GameCaptureMode DefaultMode { get; init; } = GameCaptureMode.Full;
+        // Full screen: read the screen again only after the player's input (keys, clicks, wheel,
+        // gamepad), not whenever the animated picture behind the menus changes
+        public bool RefreshOnInput { get; init; }
 
         /// <summary>Whether this text is only one of the names the game's text keeps as is.</summary>
         public bool IsKeptAsIs(string text)
@@ -74,13 +85,20 @@ namespace RSTGameTranslation.Layout
             TitleKeywords = new[] { "Wuthering Waves", "鸣潮", "鳴潮", "명조" },
             DialogueAreas = new[]
             {
-                new RelRect(0.13, 0.735, 0.74, 0.215), // speaker name + dialogue lines
+                // Speaker name + dialogue lines, and cutscene subtitles (lower, over the letterbox bar);
+                // generous, as the exact layout varies, but above the UID line
+                new RelRect(0.12, 0.70, 0.76, 0.265),
                 new RelRect(0.58, 0.34, 0.39, 0.42),   // answer choices
             },
             FullAreas = new[]
             {
-                new RelRect(0.0, 0.06, 1.0, 0.905),    // all but the top icon bar and the UID line
+                // Menus, items, quests, the HUD: all but the "User ID" line at the very bottom (menu
+                // titles sit at the very top, e.g. "Weapons 96/2000" at 6% of the height)
+                new RelRect(0.0, 0.0, 1.0, 0.962),
             },
+            // The player mostly reads menus and skips the story: full screen first (Alt+M: dialogue)
+            DefaultMode = GameCaptureMode.Full,
+            RefreshOnInput = true,
             KeepAsIs = new[]
             {
                 "Rover", "Abby", "Yangyang", "Chixia", "Baizhi", "Sanhua", "Jiyan", "Jianxin", "Yinlin", "Encore",
@@ -90,13 +108,28 @@ namespace RSTGameTranslation.Layout
                 "Qiuyuan", "Chisa", "Buling", "Lynae", "Mornye", "Scar", "Magistrate", "Tethys", "Lollo", "Geshu Lin",
                 "Yangyang & Rover", "Echo", "Sentinel", "Jué", "Jue",
             },
+            Terms = new[]
+            {
+                "Resonator", "Resonators", "Tacet Discord", "Tacet Discords", "Tacet Field", "Tacet Fields",
+                "Echo", "Echoes", "Waveplate", "Waveplates", "Forte", "Sonata", "Union Level", "Data Bank",
+                "Solaris-3", "Jinzhou", "Huanglong", "Rinascita", "Lahai-Roi", "Black Shores", "Mt. Firmament",
+                "Threnodian", "Fractsidus", "Waveworn",
+            },
+            GameInfo = "Wuthering Waves, an open-world action RPG by Kuro Games set on Solaris-3. The player character is " +
+                       "the Rover. Keep character names (Rover, Yangyang, Chixia, Jiyan, Jinhsi, Changli, Camellya, " +
+                       "Carlotta, Phoebe, Cartethyia...), place names (Jinzhou, Huanglong, Rinascita, Black Shores) and " +
+                       "game terms (Resonator, Echo, Tacet Discord, Tacet Field, Waveplate, Forte, Union Level, Data " +
+                       "Bank, Sonata) as they are. Dialogue is spoken and story-driven: keep it natural and concise.",
             Settings = new()
             {
                 // Lines type out letter by letter: wait for each line to finish before translating
                 ["block_detection_settle_time"] = "0.25",
+                // The old translation never stays over a new line typing out, or over the world once
+                // the conversation ends (by default it stays until the next translation replaces it)
+                ["hide_stale_translation"] = "true",
             },
-            TipVi = "Đã nhận Wuthering Waves và bắt đầu dịch phần hội thoại. Để bản dịch hiện trên game, đặt WuWa ở chế độ Cửa sổ hoặc Toàn màn hình không viền (Cài đặt > Đồ họa > Chế độ hiển thị). {0}: chuyển Hội thoại / Toàn màn hình. {1}: tạm dừng.",
-            TipEn = "Wuthering Waves found: translating the dialogue. For the overlay to show above the game, run WuWa windowed or borderless (Settings > Graphics > Display Mode). {0}: switch Dialogue / Full screen. {1}: pause.",
+            TipVi = "Đã nhận Wuthering Waves: dịch toàn màn hình, làm mới khi bạn bấm phím, chuột hoặc tay cầm. Để bản dịch hiện trên game, đặt WuWa ở chế độ Cửa sổ hoặc Toàn màn hình không viền (Cài đặt > Đồ họa > Chế độ hiển thị). {0}: chuyển Toàn màn hình / Hội thoại. {1}: tạm dừng.",
+            TipEn = "Wuthering Waves found: translating the whole screen, refreshed when you press a key, click or use the gamepad. For the overlay to show above the game, run WuWa windowed or borderless (Settings > Graphics > Display Mode). {0}: switch Full screen / Dialogue. {1}: pause.",
         };
 
         public static readonly IReadOnlyList<GamePreset> All = new[] { WutheringWaves };

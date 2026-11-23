@@ -59,6 +59,29 @@ def screenshot_loop(events_path, out_dir, prefix, stop, delay_ms):
             time.sleep(0.05)
 
 
+def key_loop(events_path, stop, delay_ms):
+    """Press a key delay_ms after every new line logged by MockGame, as a player advancing the
+    dialogue would (games that refresh on input read the screen only after one). F24: bound to
+    nothing, in the game or in RST."""
+    import ctypes
+    VK_F24, KEYEVENTF_KEYUP = 0x87, 0x0002
+    seen = 0
+    pending = []
+    while not stop.is_set():
+        rows = read_csv(events_path)[1:]
+        for row in rows[seen:]:
+            if row and row[1] != "-1":
+                pending.append(int(row[0]) + delay_ms)
+        seen = len(rows)
+        now = int(time.time() * 1000)
+        for due in [p for p in pending if p <= now]:
+            pending.remove(due)
+            ctypes.windll.user32.keybd_event(VK_F24, 0, 0, 0)
+            time.sleep(0.03)
+            ctypes.windll.user32.keybd_event(VK_F24, 0, KEYEVENTF_KEYUP, 0)
+        time.sleep(0.02)
+
+
 def kill(proc):
     if proc and proc.poll() is None:
         subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True)
@@ -77,6 +100,9 @@ def run_session(args, index):
     env["RST_AUTOMATION_WINDOW"] = args.window
     env["RST_METRICS_FILE"] = metrics
     env["RST_AUTOMATION_CONFIG"] = args.config
+    for pair in args.env:
+        key, _, value = pair.partition("=")
+        env[key] = value
     if args.dump_styles:
         # The pixels of every analysed text box, to tune the style analysers offline
         env["RST_STYLE_DUMP_DIR"] = os.path.abspath(os.path.join(args.out, "style_dump"))
@@ -98,6 +124,8 @@ def run_session(args, index):
         shooter = threading.Thread(target=screenshot_loop,
                                    args=(events, args.out, prefix, stop, args.shot_delay), daemon=True)
         shooter.start()
+        if args.press_key_ms >= 0:
+            threading.Thread(target=key_loop, args=(events, stop, args.press_key_ms), daemon=True).start()
         try:
             mock.wait(timeout=args.timeout)
         except subprocess.TimeoutExpired:
@@ -196,6 +224,9 @@ def main():
     ap.add_argument("--window", default=WINDOW_TITLE, help="window RST selects; @known = RST must find a game it knows by itself")
     ap.add_argument("--mock-as", default="", help="run the mock under this executable name (e.g. Client-Win64-Shipping.exe)")
     ap.add_argument("--mock-arg", action="append", default=[], help="extra MockGame argument (repeatable)")
+    ap.add_argument("--press-key-ms", type=int, default=-1,
+                    help="press a key this long after every new line (games refreshed on the player's input)")
+    ap.add_argument("--env", action="append", default=[], help="extra KEY=VALUE environment variable for RST (repeatable)")
     args = ap.parse_args()
 
     os.makedirs(args.out, exist_ok=True)

@@ -652,6 +652,9 @@ namespace RSTGameTranslation
                     double preferredRatio = item.SourceFontSize > 0
                         ? TextObject.PreferredMinSourceSizeRatio
                         : TextObject.DefaultMinSourceSizeRatio;
+                    // Short labels shrink further instead of widening over their neighbours
+                    bool label = item.IsShortLabel;
+                    double minRatio = label ? TextObject.LabelMinSourceSizeRatio : TextObject.DefaultMinSourceSizeRatio;
                     item.Relayout(item.Width, preferredRatio);
                     if (item.TextFitsBox) continue;
 
@@ -682,15 +685,17 @@ namespace RSTGameTranslation
                         double middle = item.X + item.Width / 2;
                         availableWidth = 2 * Math.Min(middle - left, right - middle) - 2 * OverlayGap;
                     }
+                    if (label)
+                        availableWidth = Math.Min(availableWidth, item.Width * TextObject.LabelMaxWidening);
                     if (!double.IsInfinity(availableWidth) && availableWidth > item.Width)
                     {
                         item.Relayout(availableWidth, preferredRatio);
-                        if (!item.TextFitsBox && preferredRatio > TextObject.DefaultMinSourceSizeRatio)
-                            item.Relayout(availableWidth, TextObject.DefaultMinSourceSizeRatio);
+                        if (!item.TextFitsBox && preferredRatio > minRatio)
+                            item.Relayout(availableWidth, minRatio);
                     }
-                    else if (preferredRatio > TextObject.DefaultMinSourceSizeRatio)
+                    else if (preferredRatio > minRatio)
                     {
-                        item.Relayout(item.Width, TextObject.DefaultMinSourceSizeRatio);
+                        item.Relayout(item.Width, minRatio);
                     }
                 }
 

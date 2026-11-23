@@ -680,6 +680,10 @@ namespace RSTGameTranslation
 
             if (!ShouldPerformOcrNow())
                 return;
+            // A known game's full screen: only shortly after the player's input (see InputActivity)
+            // (and on while the text read then still has to settle: a line typing out, a list sliding in)
+            if (OcrWaitsForInput && !InputActivity.IsRefreshDue(textSettling: !Logic.Instance.IsOcrResultSettled))
+                return;
 
             // Nothing on screen changed since the last OCR and its result is fully handled: OCR would
             // read the same text again. It still re-reads now and then, in case a setting that shapes

@@ -79,6 +79,8 @@ namespace RSTGameTranslation
             "Audio Service",
             "Swap Languages",
             "Retry Translation",
+            // Dialogue / full screen of a known game (Wuthering Waves), often played with a controller
+            "Game Mode",
         };
 
         public static bool IsSupportedFunction(string function) => _supportedFunctions.Contains(function);
@@ -211,7 +213,7 @@ namespace RSTGameTranslation
                 {
                     while (!token.IsCancellationRequested)
                     {
-                        bool active = _capturing ||
+                        bool active = _capturing || InputActivity.Watching ||
                                       (ConfigManager.Instance.IsGamepadHotKeyEnabled() && ConfigManager.Instance.IsHotKeyEnabled());
                         if (active)
                         {
@@ -307,7 +309,11 @@ namespace RSTGameTranslation
                     if (state.Gamepad.bLeftTrigger >= TriggerThreshold) held |= LT_MASK;
                     if (state.Gamepad.bRightTrigger >= TriggerThreshold) held |= RT_MASK;
 
-                    if (!_capturing)
+                    // A newly pressed button is the player doing something (see InputActivity)
+                    if ((held & ~_previousButtons[i]) != 0)
+                        InputActivity.Touch();
+
+                    if (!_capturing && ConfigManager.Instance.IsGamepadHotKeyEnabled() && ConfigManager.Instance.IsHotKeyEnabled())
                     {
                         DetectCombos(combos, _previousButtons[i], held);
                     }

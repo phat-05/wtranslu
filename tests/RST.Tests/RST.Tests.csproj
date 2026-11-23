@@ -18,6 +18,8 @@
     <None Include="Fixtures\shape\*.bgra.gz;Fixtures\shape\fixtures.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\fonts\*.cov.gz;Fixtures\fonts\fixtures.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\windows\*.bgra.gz;Fixtures\windows\fixtures.json" CopyToOutputDirectory="PreserveNewest" />
+    <!-- The dictionaries shipped with the app -->
+    <None Include="..\..\app\GameDictionaries\*.json" Link="GameDictionaries\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

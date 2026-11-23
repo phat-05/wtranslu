@@ -27,6 +27,17 @@ namespace RSTGameTranslation.Layout
         public const double MinWordColorDistance = 90;
         // Neighbouring coloured words closer than this to each other share a tag
         private const double SameSpanDistance = 60;
+        // Below this spread between its channels a colour is a grey (white, grey, black)
+        private const int MaxGreyChroma = 40;
+
+        private static bool IsGrey(Rgb c) => Math.Max(c.R, Math.Max(c.G, c.B)) - Math.Min(c.R, Math.Min(c.G, c.B)) < MaxGreyChroma;
+
+        /// <summary>
+        /// Whether a word's colour stands out from the line's: far enough from it, and not only lighter
+        /// or darker grey on grey (small white text reads as grey words where it is thin or blurred).
+        /// </summary>
+        public static bool IsDistinctColor(Rgb word, Rgb fill) =>
+            word.DistanceTo(fill) >= MinWordColorDistance && !(IsGrey(word) && IsGrey(fill));
 
         public static bool HasTags(string? text) => !string.IsNullOrEmpty(text) && Tag.IsMatch(text);
 
@@ -55,7 +66,7 @@ namespace RSTGameTranslation.Layout
             for (int i = 0; i < words.Count; i++)
             {
                 var (word, color) = words[i];
-                bool coloured = color != null && color.Value.DistanceTo(fill) >= MinWordColorDistance;
+                bool coloured = color != null && IsDistinctColor(color.Value, fill);
                 if (open != null && (!coloured || color!.Value.DistanceTo(open.Color) >= SameSpanDistance))
                     CloseOpen(sb);
                 if (sb.Length > 0)

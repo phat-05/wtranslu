@@ -28,6 +28,8 @@ internal static class Styles
         ["wuwa_choice"] = new("Segoe UI", 18, false, false, Color.FromArgb(0xF0, 0xF0, 0xF0)),
         ["uid"] = new("Consolas", 13, false, false, Color.FromArgb(0xC8, 0xC8, 0xC8)),
         ["minimap"] = new("Segoe UI", 14, true, false, Color.White),
+        ["wuwa_menu_header"] = new("Segoe UI", 24, true, false, Color.White),
+        ["wuwa_menu_label"] = new("Segoe UI", 15, false, false, Color.FromArgb(0xEE, 0xEE, 0xEE), Align: "center"),
         ["gradient"] = new("Georgia", 36, true, false, Color.FromArgb(255, 244, 170), GradientTo: Color.FromArgb(225, 110, 25)),
         ["centered"] = new("Segoe UI", 26, false, false, Color.FromArgb(215, 235, 255), "shadow", Color.Black, Align: "center"),
     };

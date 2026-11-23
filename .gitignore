@@ -408,6 +408,7 @@ ocrstuff*/
 !app/tessdata/
 !app/OneOcr
 !app/Languages
+!app/GameDictionaries
 #but keep a few things...
 !app/AudioModel
 

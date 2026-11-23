@@ -80,7 +80,7 @@ jobs:
           OUT="evidence/cache"
           python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
             --script tests/e2e/scenarios/cache.txt --out "$OUT" --sessions 2 --fresh \
-            --label "${GITHUB_REF_NAME} cache scenario" \
+            --label "${GITHUB_REF_NAME} cache scenario" --env RST_FORCE_OCR_SCALE=0.75 \
             --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate"
 
       - name: Run style scenario (new overlay features off = upstream behaviour)
@@ -105,18 +105,43 @@ jobs:
           python tests/e2e/run_e2e.py --rst app/rst.exe --mock mockbin/MockGame.exe \
             --script tests/e2e/scenarios/wuwa.txt --out evidence/wuwa --sessions 1 --dump-styles \
             --label "${GITHUB_REF_NAME} Wuthering Waves-like scenario" --shot-delay 3500 \
-            --window @known --mock-as Client-Win64-Shipping.exe \
+            --window @known --mock-as Client-Win64-Shipping.exe --press-key-ms 120 \
             --mock-arg=--layout --mock-arg=wuwa --mock-arg=--title --mock-arg="Wuthering Waves" \
             --config "source_language=en;target_language=vi;ocr_method=${OCR};translation_service=Google Translate;${STYLE_ON}"
           python - <<'EOF'
-          import csv
+          import csv, sys
+          sys.stdout.reconfigure(encoding='utf-8', errors='replace')
           rows = [r for r in csv.reader(open('evidence/wuwa/s1_rst_metrics.csv', encoding='utf-8')) if len(r) > 2]
           found = [r[2] for r in rows if r[1] == 'known_game']
           modes = [r[2] for r in rows if r[1] == 'game_mode']
-          stray = sorted({r[2].split('|')[3] for r in rows if r[1] == 'font_size' and ('UID' in r[2] or 'Jinzhou City' in r[2])})
-          report = f"known_game: {found[:1]}\ngame_mode: {modes[:1]}\nUID / minimap translated: {stray}\n"
-          print(report)
+          stray = sorted({r[2].split('|')[3] for r in rows if r[1] == 'font_size' and 'UID' in r[2]})
+          shown = {}
+          for r in rows:
+              if r[1] == 'font_size':
+                  p = r[2].split('|')
+                  shown[p[3]] = p[4]
+          pairs = "".join(f"- {k} => {v}\n" for k, v in shown.items())
+          report = f"known_game: {found[:1]}\ngame_mode: {modes[:1]}\nUID translated (must be none): {stray}\n\nTranslations:\n{pairs}"
+          kept = all(t in v for k, v in shown.items() for t in ('Resonators', 'Rover', 'Echo') if t in k)
+          report += f"\nGame terms kept in translations: {kept}\n"
+          # The Terminal menu: translated from the game's dictionary, numbers left alone, labels fitting
+          events = [r for r in csv.reader(open('evidence/wuwa/s1_mock_events.csv', encoding='utf-8')) if len(r) > 5][1:]
+          menu = [i for i, r in enumerate(events) if r[3] == 'wuwa_menu']
+          if menu:
+              t0 = int(events[menu[0]][0])
+              t1 = int(events[menu[0] + 1][0]) if menu[0] + 1 < len(events) else t0 + 9000
+              window = [r for r in rows if t0 <= int(r[0]) < t1]
+              requests = sum(1 for r in window if r[1] == '3. Translation request')
+              labels = {}
+              for r in window:
+                  if r[1] == 'font_size':
+                      p = r[2].split('|')
+                      labels[p[3]] = (p[4], float(p[0]), float(p[1]), p[11] if len(p) > 11 else '?')
+              numbers = [k for k in labels if not any(c.isalpha() for c in k)]
+              report += f"\nTerminal menu: {len(labels)} overlays, translation requests: {requests}, numbers overlaid (must be none): {numbers}\n"
+              report += "".join(f"- {k} => {v[0]}  ({v[1]:.0f}px / game {v[2]:.0f}px, {v[3]})\n" for k, v in labels.items())
           open('evidence/wuwa/wuwa_check.md', 'w', encoding='utf-8').write(report)
+          print(report)
           EOF
 
       - name: Install Ollama and a small model (AI translation for coloured-word tags)

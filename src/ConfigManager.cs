@@ -893,9 +893,19 @@ namespace RSTGameTranslation
             return key.EndsWith("_multi") || key.EndsWith("_template");
         }
 
+        // Values that hold while a known game is translated (see GamePresets), never saved: the
+        // user's own config stays as it was for other games
+        private readonly System.Collections.Concurrent.ConcurrentDictionary<string, string> _sessionOverrides = new();
+
+        public void SetSessionOverride(string key, string value) => _sessionOverrides[key] = value;
+
+        public void ClearSessionOverrides() => _sessionOverrides.Clear();
+
         // Get a configuration value
         public string GetValue(string key, string defaultValue = "")
         {
+            if (_sessionOverrides.TryGetValue(key, out var overridden))
+                return overridden;
             if (_configValues.TryGetValue(key, out var value))
             {
                 //Console.WriteLine($"ConfigManager.GetValue: Found value for key '{key}': '{value}'");
@@ -917,6 +927,8 @@ namespace RSTGameTranslation
         public void SetValue(string key, string value)
         {
             _configValues[key] = value;
+            // Set by the user: wins over a known game's session value
+            _sessionOverrides.TryRemove(key, out _);
         }
 
         // Get overlay background color
@@ -2227,7 +2239,11 @@ namespace RSTGameTranslation
         // Get/Set game info
         public string GetGameInfo()
         {
-            return GetValue(GAME_INFO, "");
+            // The user's description of the game first; a known game's own otherwise
+            string own = _configValues.TryGetValue(GAME_INFO, out var value) ? value : "";
+            if (!string.IsNullOrWhiteSpace(own))
+                return own;
+            return _sessionOverrides.TryGetValue(GAME_INFO, out var preset) ? preset : "";
         }
 
         public void SetGameInfo(string gameInfo)
@@ -3114,6 +3130,7 @@ namespace RSTGameTranslation
         public void SetHideStaleTranslationEnabled(bool enabled)
         {
             _configValues[HIDE_STALE_TRANSLATION] = enabled.ToString().ToLower();
+            _sessionOverrides.TryRemove(HIDE_STALE_TRANSLATION, out _);
             SaveConfig();
             Console.WriteLine($"Hide stale translation set to: {enabled}");
         }
@@ -3359,6 +3376,7 @@ namespace RSTGameTranslation
             if (seconds >= 0)
             {
                 _configValues[BLOCK_DETECTION_SETTLE_TIME] = seconds.ToString("F2", CultureInfo.InvariantCulture);
+                _sessionOverrides.TryRemove(BLOCK_DETECTION_SETTLE_TIME, out _);
                 SaveConfig();
                 Console.WriteLine($"Block detection settle time set to: {seconds:F2} seconds");
             }

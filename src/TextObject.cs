@@ -606,6 +606,20 @@ namespace RSTGameTranslation
         // With the game's font size known, the overlay first tries to keep at least this share of it,
         // widening into free space, before shrinking down to DefaultMinSourceSizeRatio
         public const double PreferredMinSourceSizeRatio = 0.85;
+        // A short label (a button, a menu entry, an icon's name) sits among others: its translation
+        // gets smaller rather than run over its neighbours
+        public const double LabelMinSourceSizeRatio = 0.55;
+        public const double LabelMaxWidening = 1.15;
+
+        /// <summary>
+        /// A short label: at most 4 words and 32 characters on one or two lines, and not a sentence
+        /// (a short line of dialogue ends with . ! ? or holds a comma: it may still widen).
+        /// </summary>
+        public bool IsShortLabel =>
+            SourceLineCount <= 2 && Text.Length <= 32 &&
+            Text.Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries).Length <= 4 &&
+            Text.IndexOfAny(new[] { ',', '，', '、' }) < 0 &&
+            Text.TrimEnd() is { Length: > 0 } trimmed && !".!?…。！？\"'”’".Contains(trimmed[^1]);
 
         private void ApplyFontSize(TextBlock textBlock, double fontSize)
         {
@@ -720,7 +734,8 @@ namespace RSTGameTranslation
                 if (OcrTiming.Metrics.Enabled)
                 {
                     OcrTiming.Metrics.Write("font_size", $"{finalSize:F1}|{sourceSize:F1}|{(SourceFontSize > 0 ? "lines" : "fit")}|{Text}|{shownText}|{textBlock.FontFamily.Source.Split(',')[0]}{(MatchedScaleX < 0.99 ? $" Condensed {MatchedScaleX:F2}" : "")}" +
-                        $"|{textBlock.FontWeight}|{textBlock.FontStyle}|{DescribeBrush(textBlock.Foreground)}|{_gameTextStyle?.Effect.ToString() ?? "None"}|{textBlock.TextAlignment}");
+                        $"|{textBlock.FontWeight}|{textBlock.FontStyle}|{DescribeBrush(textBlock.Foreground)}|{_gameTextStyle?.Effect.ToString() ?? "None"}|{textBlock.TextAlignment}" +
+                        $"|{(TextFitsBox ? "fits" : "overflows")}|{Width:F0}");
                 }
                 
                 // Cache result
