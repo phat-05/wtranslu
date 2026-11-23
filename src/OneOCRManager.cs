@@ -467,8 +467,11 @@ namespace RSTGameTranslation
                             data_ptr = dataPtr
                         };
 
-                        // Large picture with large text: OCR a smaller copy (see Layout.OcrScale)
-                        double scale = _ocrRuns++ % FullSizeProbeEvery == 0
+                        // Large picture with large text: OCR a smaller copy (see Layout.OcrScale). Not for a
+                        // known game read only after the player's input: few reads, and a menu's small
+                        // labels opened over large dialogue text would be lost in a smaller copy
+                        bool fullSizeOnly = RSTGameTranslation.Layout.GamePresets.Active is { RefreshOnInput: true };
+                        double scale = _ocrRuns++ % FullSizeProbeEvery == 0 || fullSizeOnly
                             ? 1
                             : ForcedScale ?? RSTGameTranslation.Layout.OcrScale.For(cols, rows, _smallLineHeight);
                         Line[]? result;
