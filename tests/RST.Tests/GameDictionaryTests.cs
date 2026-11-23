@@ -47,6 +47,39 @@ public class GameDictionaryTests
     [InlineData("Attack")]
     public void Words_are_not_kept(string text) => Assert.False(Dict.IsKept(text), text);
 
+    [Theory]
+    [InlineData("Daily", "Ngày")]
+    [InlineData("Team", "Đội")]
+    [InlineData("Owned: 12", "Đang có: 12")]
+    [InlineData("Data Bank Lv. 18", "Kho dữ liệu Lv. 18")]
+    [InlineData("Click anywhere to close", "Bấm bất kỳ đâu để đóng")]
+    [InlineData("Defeat 3 enemies", "Hạ 3 kẻ địch")]
+    public void More_screens_are_translated_from_the_dictionary(string text, string translation)
+    {
+        Assert.True(Dict.TryTranslate(text, out var result), text);
+        Assert.Equal(translation, result);
+    }
+
+    /// <summary>
+    /// A translation must fit where the game's words were: no entry may be much longer than its
+    /// English (at most 2.5 times, or 6 more letters for very short words).
+    /// </summary>
+    [Fact]
+    public void Translations_stay_close_to_the_length_of_the_game_text()
+    {
+        string json = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "GameDictionaries", "wuthering-waves.vi.json"));
+        using var doc = System.Text.Json.JsonDocument.Parse(json, new System.Text.Json.JsonDocumentOptions
+        {
+            CommentHandling = System.Text.Json.JsonCommentHandling.Skip,
+            AllowTrailingCommas = true,
+        });
+        var tooLong = doc.RootElement.GetProperty("entries").EnumerateObject()
+            .Where(e => e.Value.GetString()!.Length > Math.Max(e.Name.Length * 2.5, e.Name.Length + 6))
+            .Select(e => $"{e.Name} -> {e.Value.GetString()}")
+            .ToList();
+        Assert.Empty(tooLong);
+    }
+
     [Fact]
     public void New_text_is_left_to_the_translator()
     {
