@@ -20,7 +20,7 @@ namespace RSTGameTranslation
     public partial class MainWindow
     {
         private GamePreset? _activePreset;
-        private GameCaptureMode _gameMode = GameCaptureMode.Dialogue;
+        private GameCaptureMode _gameMode = GameCaptureMode.Full;
         private DispatcherTimer? _knownGameTimer;
         private (int W, int H) _gameClientSize;
         private bool _gameTipShown;
@@ -71,6 +71,7 @@ namespace RSTGameTranslation
                     _activePreset = null;
                     GamePresets.Active = null;
                     ConfigManager.Instance.ClearSessionOverrides();
+                    InputActivity.Stop();
                 }
                 if (isCapturingWindow || isSelectingTranslationArea || !IsLoaded ||
                     !ConfigManager.Instance.IsAutoStartKnownGamesEnabled())
@@ -116,6 +117,7 @@ namespace RSTGameTranslation
             {
                 _activePreset = null;
                 ConfigManager.Instance.ClearSessionOverrides();
+                InputActivity.Stop();
                 return;
             }
             _activePreset = preset;
@@ -126,7 +128,15 @@ namespace RSTGameTranslation
                 ConfigManager.Instance.SetSessionOverride(key, value);
             if (preset.GameInfo.Length > 0)
                 ConfigManager.Instance.SetSessionOverride(ConfigManager.GAME_INFO, preset.GameInfo);
-            _gameMode = GameCaptureMode.Dialogue;
+            // The player's last mode for this game, else the preset's
+            _gameMode = ConfigManager.Instance.GetValue($"game_mode_{preset.Id}", "") switch
+            {
+                "dialogue" => GameCaptureMode.Dialogue,
+                "full" => GameCaptureMode.Full,
+                _ => preset.DefaultMode,
+            };
+            if (preset.RefreshOnInput)
+                InputActivity.Start();
             // Areas the user drew for this game are kept; the Game Mode hotkey still switches to the preset's
             if (!hasSelectedTranslationArea || _presetAreasActive)
                 ApplyGameMode(_gameMode, notify: false);
@@ -140,12 +150,23 @@ namespace RSTGameTranslation
             }
         }
 
+        /// <summary>
+        /// Whether the screen is read only after the player's input (full screen of a game that asks
+        /// for it): the menus' animated backgrounds change every frame, and re-reading them kept
+        /// resetting the overlay every few seconds.
+        /// </summary>
+        private bool OcrWaitsForInput =>
+            _activePreset is { RefreshOnInput: true } && _gameMode == GameCaptureMode.Full && isCapturingWindow;
+
         /// <summary>Game Mode hotkey: the game's dialogue areas or its full screen.</summary>
         private void ToggleGameMode()
         {
             if (_activePreset == null || !isCapturingWindow)
                 return;
             _gameMode = _gameMode == GameCaptureMode.Dialogue ? GameCaptureMode.Full : GameCaptureMode.Dialogue;
+            // Remembered for next time
+            ConfigManager.Instance.SetValue($"game_mode_{_activePreset.Id}", _gameMode == GameCaptureMode.Dialogue ? "dialogue" : "full");
+            ConfigManager.Instance.SaveConfig();
             ApplyGameMode(_gameMode, notify: true);
         }
 
@@ -173,6 +194,8 @@ namespace RSTGameTranslation
                 ConfigManager.Instance.SetUseMultiSelectionArea(multi);
             SetTranslationAreas(areas);
             _presetAreasActive = true;
+            // Read the new areas right away
+            InputActivity.Touch();
             Console.WriteLine($"{_activePreset.Name}: {mode} mode, {areas.Count} area(s) in a {width}x{height} window");
             OcrTiming.Metrics.Write("game_mode", $"{_activePreset.Id}|{mode}|{width}x{height}|" +
                 string.Join(";", areas.Select(a => $"{a.X:F0},{a.Y:F0},{a.Width:F0},{a.Height:F0}")));

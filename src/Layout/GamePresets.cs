@@ -55,6 +55,12 @@ namespace RSTGameTranslation.Layout
 
         public RelRect[] Areas(GameCaptureMode mode) => mode == GameCaptureMode.Dialogue ? DialogueAreas : FullAreas;
 
+        // Mode when the game is found (the player's last choice is remembered over it)
+        public GameCaptureMode DefaultMode { get; init; } = GameCaptureMode.Full;
+        // Full screen: read the screen again only after the player's input (keys, clicks, wheel,
+        // gamepad), not whenever the animated picture behind the menus changes
+        public bool RefreshOnInput { get; init; }
+
         /// <summary>Whether this text is only one of the names the game's text keeps as is.</summary>
         public bool IsKeptAsIs(string text)
         {
@@ -86,8 +92,13 @@ namespace RSTGameTranslation.Layout
             },
             FullAreas = new[]
             {
-                new RelRect(0.0, 0.06, 1.0, 0.905),    // all but the top icon bar and the UID line
+                // Menus, items, quests, the HUD: all but the "User ID" line at the very bottom (menu
+                // titles sit at the very top, e.g. "Weapons 96/2000" at 6% of the height)
+                new RelRect(0.0, 0.0, 1.0, 0.962),
             },
+            // The player mostly reads menus and skips the story: full screen first (Alt+M: dialogue)
+            DefaultMode = GameCaptureMode.Full,
+            RefreshOnInput = true,
             KeepAsIs = new[]
             {
                 "Rover", "Abby", "Yangyang", "Chixia", "Baizhi", "Sanhua", "Jiyan", "Jianxin", "Yinlin", "Encore",
@@ -117,8 +128,8 @@ namespace RSTGameTranslation.Layout
                 // the conversation ends (by default it stays until the next translation replaces it)
                 ["hide_stale_translation"] = "true",
             },
-            TipVi = "Đã nhận Wuthering Waves và bắt đầu dịch phần hội thoại. Để bản dịch hiện trên game, đặt WuWa ở chế độ Cửa sổ hoặc Toàn màn hình không viền (Cài đặt > Đồ họa > Chế độ hiển thị). {0}: chuyển Hội thoại / Toàn màn hình. {1}: tạm dừng.",
-            TipEn = "Wuthering Waves found: translating the dialogue. For the overlay to show above the game, run WuWa windowed or borderless (Settings > Graphics > Display Mode). {0}: switch Dialogue / Full screen. {1}: pause.",
+            TipVi = "Đã nhận Wuthering Waves: dịch toàn màn hình, làm mới khi bạn bấm phím, chuột hoặc tay cầm. Để bản dịch hiện trên game, đặt WuWa ở chế độ Cửa sổ hoặc Toàn màn hình không viền (Cài đặt > Đồ họa > Chế độ hiển thị). {0}: chuyển Toàn màn hình / Hội thoại. {1}: tạm dừng.",
+            TipEn = "Wuthering Waves found: translating the whole screen, refreshed when you press a key, click or use the gamepad. For the overlay to show above the game, run WuWa windowed or borderless (Settings > Graphics > Display Mode). {0}: switch Full screen / Dialogue. {1}: pause.",
         };
 
         public static readonly IReadOnlyList<GamePreset> All = new[] { WutheringWaves };
