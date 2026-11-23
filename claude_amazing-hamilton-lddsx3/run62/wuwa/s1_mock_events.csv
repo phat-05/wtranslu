@@ -1,0 +1,9 @@
+utc_ms,step,cycle,style,speaker,text
+1795423360270,0,0,wuwa,"Yangyang","The Resonators gathered at the edge of Jinzhou before dawn."
+1795423365288,1,0,wuwa,"Rover","I can hear an echo of something old beneath the city."
+1795423370301,2,0,wuwa_choices,"","Let's go together. / I'll go alone. / Tell me more about the Tacet Discord."
+1795423375346,3,0,wuwa,"Yangyang","Then we leave now. Stay close to me."
+1795423380358,4,0,wuwa,"Chixia","Rover, the Tacet Discord is heading for Jinzhou. Your Echo can stop it!"
+1795423385394,5,0,wuwa,"Rover","I can hear an echo of something old beneath the city."
+1795423390426,6,0,wuwa_menu,"","Events / Store / Pioneer Podcast / Convene / Resonators / Team / Data Bank / WavesLine / Guidebook / Synthesis / Expedition Motorbike / Trophies"
+1795423399458,-1,1,end,"",""

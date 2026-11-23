@@ -1,0 +1,652 @@
+[Automation] Config override source_language
+[Automation] Config override target_language
+[Automation] Config override ocr_method
+[Automation] Config override translation_service
+[Automation] Config override font_size_from_line_height
+[Automation] Config override text_style_from_game
+[Automation] Config override game_fonts
+[Automation] Config override word_colors
+[Automation] Config override auto_match_font
+ConfigManager.GetValue: Key 'dark_mode' not found, returning default value: 'false'
+Fetching version info from: https://raw.githubusercontent.com/phat-05/wtranslu/refs/heads/main/media/latest_version_checker.json
+ConfigManager.GetValue: Key 'chatbox_display_mode' not found, returning default value: '0'
+Applied ChatBox styling: Font=Segoe UI, Size=15, Color=#FFFFFFFF, BG=#FF000000, Window Opacity=1, BG Opacity=0.35, Outline=#FF000000
+MainWindow constructor: Setting _isInitializing to true
+Error getting console mode: 6
+﻿Console output initialized. Toggle visibility with the Log button.
+Note: Console input is disabled to prevent application freeze.
+MonitorWindow constructor: Setting _isInitializing to true
+MonitorWindow constructor started
+MonitorWindow constructor completed
+Exclude MonitorWindow from capture success
+MonitorWindow set to be excluded from screen capture
+MonitorWindow click-through enabled
+MonitorWindow_Loaded: Starting initialization
+MonitorWindow: Got DPI scale: 1.00x
+MonitorWindow initialization complete
+Parsed hotkey for Start/Stop: ALT+G -> Modifiers: 1, VK: 71
+Parsed hotkey for Overlay: ALT+F -> Modifiers: 1, VK: 70
+Parsed hotkey for ChatBox: ALT+C -> Modifiers: 1, VK: 67
+Parsed hotkey for Setting: ALT+P -> Modifiers: 1, VK: 80
+ConfigManager.GetValue: Key 'hotkey_log' not found, returning default value: 'ALT+L'
+Parsed hotkey for Log: ALT+L -> Modifiers: 1, VK: 76
+Parsed hotkey for Select Area: ALT+Q -> Modifiers: 1, VK: 81
+Parsed hotkey for Clear Areas: ALT+R -> Modifiers: 1, VK: 82
+Parsed hotkey for Clear Selected Area: ALT+H -> Modifiers: 1, VK: 72
+Parsed hotkey for Show Area: ALT+B -> Modifiers: 1, VK: 66
+Parsed hotkey for Audio Service: ALT+K -> Modifiers: 1, VK: 75
+Parsed hotkey for Swap Languages: ALT+V -> Modifiers: 1, VK: 86
+Parsed hotkey for Retry Translation: ALT+T -> Modifiers: 1, VK: 84
+Parsed hotkey for Select Exclude Region: ALT+X -> Modifiers: 1, VK: 88
+ConfigManager.GetValue: Key 'hotkey_game_mode' not found, returning default value: 'ALT+M'
+Parsed hotkey for Game Mode: ALT+M -> Modifiers: 1, VK: 77
+Global keyboard hook initialized successfully
+ConfigManager.GetValue: Key 'gamepad_hotkey_start_stop' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_overlay' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_chatbox' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_Show Area' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_audio_service' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_swap_languages' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_retry_translation' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_game_mode' not found, returning default value: ''
+ConfigManager.GetValue: Key 'exclude_regions' not found, returning default value: ''
+Loaded 0 exclude regions from config
+Gamepad polling started
+ConfigManager.GetValue: Key 'show_exclude_regions' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'GamepadHotKeyEnable' not found, returning default value: 'false'
+Loaded 0 exclude regions from config
+Received JSON: {
+    "name":"Real Time Game Translation",
+    "latest_version":6.4,
+    "message":"Download V{VERSION_STRING} now from github?"
+}
+
+Deserialized version: 6.4, name: Real Time Game Translation, message: Download V{VERSION_STRING} now from github?
+Registered Start/Stop hotkey successfully
+Registered Overlay hotkey successfully
+Registered ChatBox hotkey successfully
+Registered Setting hotkey successfully
+Registered Log hotkey successfully
+Registered Select Area hotkey successfully
+Registered Clear Areas hotkey successfully
+Registered Clear Selected Area hotkey successfully
+Registered Show Area hotkey successfully
+Registered Audio Service hotkey successfully
+Registered Swap Languages hotkey successfully
+Registered Retry Translation hotkey successfully
+Registered Select Exclude Region hotkey successfully
+Registered Game Mode hotkey successfully
+SettingsWindow constructor: Setting _isInitializing to true
+SettingsWindow.TranslationServiceComboBox_SelectionChanged called (isInitializing: True)
+Skipping translation service change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Microsoft legacy signature mode set to: True
+Microsoft legacy signature mode changed: True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Skipping OCR method change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Set Overlay Background enabled: True
+Auto set overlay background color set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Show icon signal enabled: True
+Show icon signal set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Merge Overlapping Text enabled: True
+Auto merge overlapping text set to True
+Screen 0: DISPLAY1 - Generic PnP Monitor, 1024x768, Primary: True
+Loaded 1 screens
+ConfigManager.GetValue: Key 'audio_processing_provider' not found, returning default value: 'Whisper'
+ConfigManager.GetValue: Key 'tts_volume' not found, returning default value: '100'
+Found Windows UWP TTS voice: Microsoft David (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_DavidM
+Found Windows UWP TTS voice: Microsoft Zira (en-US, Female, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_ZiraM
+Found Windows UWP TTS voice: Microsoft Mark (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_MarkM
+Found SAPI TTS voice: Microsoft David Desktop (English (United States), Male, SAPI) - Microsoft David Desktop
+Found SAPI TTS voice: Microsoft Zira Desktop (English (United States), Female, SAPI) - Microsoft Zira Desktop
+Initialized 5 Windows TTS voices in total
+Selected default system voice: Microsoft David Desktop (English (United States), Male, SAPI)
+Loaded 5 Windows TTS voices
+Logic initialized
+Loaded Gemini API key: Set
+Loaded LLM prompt: Not set
+Using OneOCR (built-in)
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+MainWindow_Loaded: Loading OCR method from config: 'OneOCR'
+MainWindow.SetOcrMethod called with method: OneOCR (isInitializing: True)
+Setting OCR method during initialization: OneOCR
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+=== Configuration Test ===
+API Key: Set - <you...
+LLM Prompt: Not set
+OCR Method: OneOCR
+Translation Service: Google Translate
+=========================
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Language interface set to: en
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Added screen 0: Screen 1 (1024x768) - Primary
+Screen list loaded. Selected index: 0
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Audio service auto-translate enabled: False
+MainWindow initialization complete. Settings changes will now be saved.
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Ensuring config OCR method is preserved: OneOCR
+ConfigManager.SetOcrMethod called with method: OneOCR
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+OCR method set to OneOCR and saved to config
+Loading language settings from config: Source=en, Target=vi
+Set source language to en
+Set target language to vi
+Added screen 0: Screen 1 (1024x768) - Primary
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Selected screen index set to: 0
+Screen selection changed to index: 0
+DpiHelper: DPI cache invalidated
+Screen list loaded. Selected index: 0
+[Automation] Waiting for RST to find a known game by itself
+ConfigManager.GetValue: Key 'auto_start_known_games' not found, returning default value: 'true'
+Known game found: Wuthering Waves ('Wuthering Waves')
+Windows Graphics Capture stopped
+D3D11: multithread protection enabled
+WGC: Yellow capture border disabled via IGraphicsCaptureSession3
+Windows Graphics Capture started successfully
+MonitorWindow set to be included in screen capture
+Selected window: Wuthering Waves (Handle: 590216)
+ConfigManager.GetValue: Key 'game_mode_wuthering-waves' not found, returning default value: ''
+All text objects cleared
+Wuthering Waves: Full mode, 1 area(s) in a 960x560 window
+Creating new MonitorWindow instance...
+MonitorWindow setup complete
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetValue: Key 'google_translate_use_cloud_api' not found, returning default value: 'false'
+[WarmUp] Google Translate: connected to translate.googleapis.com in 57 ms (404)
+Capturing region in window: X=1, Y=41, Width=960, Height=519
+[WarmUp] Google Translate: connected to translate.google.com.hk in 197 ms (200)
+ConfigManager.GetValue: Key 'translation_cache_enabled' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'image_text_cache_enabled' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_persistent' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'current_game_profile' not found, returning default value: ''
+Image cache: Client-Win64-Shipping.en.OneOCR.images (0 entries)
+OCR pipeline initialized successfully
+Loaded block detection scale from config: 3
+Loaded block detection settle time from config: 0.25 seconds
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Game dictionary: D:\a\wtranslu\wtranslu\app\GameDictionaries\wuthering-waves.vi.json (387 entries)
+[OCR timing 08:42:42.153 +0ms] 1. New text from OCR: OCR took 375 ms; waiting 0.25s for it to settle: 'Jinzhou City The Resonators gathered at …'
+ConfigManager.GetValue: Key 'translation_prefetch' not found, returning default value: 'true'
+Translation cache: D:\a\wtranslu\wtranslu\app\Cache\Client-Win64-Shipping.en-vi.jsonl (0 entries)
+ConfigManager.GetValue: Key 'translation_cache_fuzzy' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_fuzzy_threshold' not found, returning default value: '0.90'
+All text objects cleared
+OCR processing completed in 388ms
+ConfigManager.GetValue: Key 'google_translate_api_key' not found, returning default value: ''
+[OCR timing 08:42:42.164 +10ms] 2a. Prefetch request: 2 block(s) combined
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:42.588 +0ms] 1. New text from OCR: OCR took 177 ms; still typing out, waiting for it to settle: 'Jinzhou City The Resonators gathered at …'
+All text objects cleared
+OCR processing completed in 180ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:42.848 +259ms] 2. Text settled
+Character-level processing (scale=3.00): 3 characters → 2 blocks
+All text objects cleared
+Font matching candidates: Segoe UI, Arial, Tahoma, Times New Roman, Cambria, Palatino Linotype, Consolas, Courier New; left out: Bahnschrift (no Vietnamese), Georgia (no Vietnamese), Bahnschrift Condensed (not installed)
+OCR JSON processing took 191 ms
+Log files will be saved in: D:\a\wtranslu\wtranslu\app\
+[OCR timing 08:42:43.042 +454ms] 3. Translation request: Google Translate, 1 request(s), 71 chars
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Skipping OCR results - waiting for translation to finish
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: 'QZX2 City##|||##The QZX1 gathered at the edge of QZX2 before d' -> 'Thành phố QZX2##|||##QZX1 tập trung ở rìa QZX2 trước d'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"QZX2 City##|||##The QZX1 gathered at the edge of QZX2 ...
+[OCR timing 08:42:43.463 +875ms] 2b. Prefetch done: 1300 ms, 2 translation(s) cached
+Google Translate: 1 block(s), 2 part(s) translated together
+Google translated: 'QZX2 City##|||##The QZX1 gathered at the edge of QZX2 before dawn.' -> 'Thành phố QZX2##|||##QZX1 tập trung ở rìa QZX2 trước bình minh.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"QZX2 City##|||##The QZX1 gathered at the edge of QZX2 ...
+[OCR timing 08:42:44.259 +1670ms] 4. Translation received: 1217 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Updated text object at index 1 with translation from Google Translate
+Translation took 1238 ms
+[OCR timing 08:42:44.278 +1690ms] 5. Translation shown: translation step took 1238 ms
+Centred in its area: (180,599) in (0,960) 'The Resonators gathered at the edge of Jinzhou before dawn.'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:45.990 +0ms] 1. New text from OCR: OCR took 149 ms; waiting 0.25s for it to settle: 'Jinzhou City I can hear an echo of somet…'
+All text objects cleared
+[OCR timing 08:42:45.991 +1ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 151ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:46.400 +0ms] 1. New text from OCR: OCR took 164 ms; still typing out, waiting for it to settle: 'Jinzhou City I can hear an echo of somet…'
+All text objects cleared
+OCR processing completed in 165ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'I can hear an echo of somethi' -> 'Tôi có thể nghe thấy tiếng vọng của cái gì đó'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"I can hear an echo of somethi","translated_text":"T\u0...
+[OCR timing 08:42:46.572 +171ms] 2b. Prefetch done: 580 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:46.829 +0ms] 1. New text from OCR: OCR took 166 ms; still typing out, waiting for it to settle: 'Jinzhou City I can hear an echo of somet…'
+All text objects cleared
+OCR processing completed in 168ms
+[OCR timing 08:42:46.830 +0ms] 2a. Prefetch request: 1 block(s) combined
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'I can hear an echo of something old beneath the city.' -> 'Tôi có thể nghe thấy tiếng vang của thứ gì đó cũ kỹ bên dưới thành phố.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"I can hear an echo of something old beneath the city."...
+[OCR timing 08:42:47.019 +189ms] 2b. Prefetch done: 189 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:47.090 +261ms] 2. Text settled
+Character-level processing (scale=3.00): 3 characters → 2 blocks
+All text objects cleared
+OCR JSON processing took 66 ms
+[OCR timing 08:42:47.159 +329ms] 3. Translation served from cache: 2 block(s)
+Skipping translation entry already shown recently
+Translation took 2 ms
+[OCR timing 08:42:47.159 +329ms] 5. Translation shown: translation step took 2 ms
+Centred in its area: (221,514) in (0,960) 'I can hear an echo of something old beneath the city.'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:51.144 +0ms] 1. New text from OCR: OCR took 164 ms; waiting 0.25s for it to settle: 'Jinzhou City. Let's go together. I'll go…'
+All text objects cleared
+[OCR timing 08:42:51.145 +0ms] 2a. Prefetch request: 3 block(s) combined
+OCR processing completed in 167ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:51.559 +414ms] 2. Text settled
+Character-level processing (scale=3.00): 4 characters → 4 blocks
+All text objects cleared
+OCR JSON processing took 78 ms
+[OCR timing 08:42:51.650 +505ms] 3. Translation request: Google Translate, 1 request(s), 69 chars, 1 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+OCR processing completed in 261ms
+Google Translate: 1 block(s), 3 part(s) translated together
+Google translated: 'Let's go together.##|||##I'll go alone.##|||##Tell me more about the QZX1.' -> 'Chúng ta hãy đi cùng nhau.##|||##Tôi sẽ đi một mình.##|||##Hãy cho tôi biết thêm về QZX1.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Let\u0027s go together.##|||##I\u0027ll go alone.##|||...
+[OCR timing 08:42:51.821 +677ms] 2b. Prefetch done: 676 ms, 3 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Skipping OCR results - waiting for translation to finish
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Skipping OCR results - waiting for translation to finish
+Google Translate: 1 block(s), 3 part(s) translated together
+Google translated: 'Let's go together.##|||##I'll go alone.##|||##Tell me more about the QZX1.' -> 'Chúng ta hãy đi cùng nhau.##|||##Tôi sẽ đi một mình.##|||##Hãy cho tôi biết thêm về QZX1.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Let\u0027s go together.##|||##I\u0027ll go alone.##|||...
+[OCR timing 08:42:52.188 +1043ms] 4. Translation received: 539 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Updated text object at index 1 with translation from Google Translate
+Updated text object at index 2 with translation from Google Translate
+Skipping translation entry already shown recently
+Translation took 561 ms
+[OCR timing 08:42:52.197 +1052ms] 5. Translation shown: translation step took 561 ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:56.200 +0ms] 1. New text from OCR: OCR took 176 ms; waiting 0.25s for it to settle: 'Jinzhou City Then we leave now. Stay clo…'
+All text objects cleared
+[OCR timing 08:42:56.200 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 177ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Then we leave now. Stay close to m' -> 'Vậy thì chúng ta rời đi ngay bây giờ. Ở gần tôi'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Then we leave now. Stay close to m","translated_text":...
+[OCR timing 08:42:56.573 +373ms] 2b. Prefetch done: 372 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:56.641 +0ms] 1. New text from OCR: OCR took 174 ms; still typing out, waiting for it to settle: 'Jinzhou City Then we leave now. Stay clo…'
+All text objects cleared
+OCR processing completed in 175ms
+[OCR timing 08:42:56.641 +0ms] 2a. Prefetch request: 1 block(s) combined
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:42:57.077 +436ms] 2. Text settled
+Character-level processing (scale=3.00): 3 characters → 2 blocks
+All text objects cleared
+OCR JSON processing took 29 ms
+[OCR timing 08:42:57.106 +465ms] 3a. Waiting for the prefetch of this text
+OCR processing completed in 211ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'Then we leave now. Stay close to me.' -> 'Vậy thì chúng ta rời đi ngay bây giờ. Hãy ở gần tôi.'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"Then we leave now. Stay close to me.","translated_text...
+[OCR timing 08:42:57.231 +590ms] 2b. Prefetch done: 590 ms, 1 translation(s) cached
+[OCR timing 08:42:57.235 +594ms] 3. Translation served from cache: 2 block(s)
+Skipping translation entry already shown recently
+Translation took 129 ms
+[OCR timing 08:42:57.235 +594ms] 5. Translation shown: translation step took 129 ms
+Centred in its area: (296,365) in (0,960) 'Then we leave now. Stay close to me.'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:01.096 +0ms] 1. New text from OCR: OCR took 169 ms; waiting 0.25s for it to settle: 'Jinzhou City Rover, the Tacet Discord is…'
+All text objects cleared
+[OCR timing 08:43:01.096 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 170ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'QZX2, the QZX1 is h' -> 'QZX2, QZX1 là h'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"QZX2, the QZX1 is h","translated_text":"QZX2, QZX1 l\u...
+[OCR timing 08:43:01.281 +185ms] 2b. Prefetch done: 184 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:01.549 +0ms] 1. New text from OCR: OCR took 195 ms; still typing out, waiting for it to settle: 'Jinzhou City Rover, the Tacet Discord is…'
+All text objects cleared
+OCR processing completed in 195ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:02.020 +0ms] 1. New text from OCR: OCR took 211 ms; still typing out, waiting for it to settle: 'Jinzhou City Rover, the Tacet Discord is…'
+All text objects cleared
+OCR processing completed in 211ms
+[OCR timing 08:43:02.021 +0ms] 2a. Prefetch request: 1 block(s) combined
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:02.271 +250ms] 2. Text settled
+Character-level processing (scale=3.00): 4 characters → 2 blocks
+All text objects cleared
+OCR JSON processing took 32 ms
+[OCR timing 08:43:02.303 +282ms] 3a. Waiting for the prefetch of this text
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Skipping OCR results - waiting for translation to finish
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'QZX3, the QZX1 is heading for QZX2. Your QZX4 can
+stop it!' -> 'QZX3, QZX1 đang hướng tới QZX2. QZX4 của bạn có thể ngăn chặn nó!'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"QZX3, the QZX1 is heading for QZX2. Your QZX4 can\nsto...
+[OCR timing 08:43:03.095 +1074ms] 2b. Prefetch done: 1074 ms, 1 translation(s) cached
+[OCR timing 08:43:03.099 +1078ms] 3. Translation served from cache: 2 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Translation took 797 ms
+[OCR timing 08:43:03.100 +1079ms] 5. Translation shown: translation step took 797 ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:06.291 +0ms] 1. New text from OCR: OCR took 171 ms; waiting 0.25s for it to settle: 'Jinzhou City I can hear an echo of somet…'
+All text objects cleared
+[OCR timing 08:43:06.292 +0ms] 2a. Prefetch request: 1 block(s) combined
+OCR processing completed in 172ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:06.562 +0ms] 1. New text from OCR: OCR took 0 ms; still typing out, waiting for it to settle: 'Jinzhou City I can hear an echo of somet…'
+All text objects cleared
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:07.001 +438ms] 2. Text settled
+Character-level processing (scale=3.00): 3 characters → 2 blocks
+All text objects cleared
+OCR JSON processing took 28 ms
+[OCR timing 08:43:07.031 +469ms] 3. Translation served from cache: 2 block(s)
+Translation took 3 ms
+[OCR timing 08:43:07.032 +470ms] 5. Translation shown: translation step took 3 ms
+Centred in its area: (221,514) in (0,960) 'I can hear an echo of something old beneath the city.'
+OCR processing completed in 221ms
+Google Translate: 1 block(s), 1 part(s) translated together
+Google translated: 'I can hear an echo of something ol' -> 'Tôi có thể nghe thấy tiếng vọng của thứ gì đó'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"I can hear an echo of something ol","translated_text":...
+[OCR timing 08:43:07.345 +783ms] 2b. Prefetch done: 1053 ms, 1 translation(s) cached
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Content is similar to previous, skipping translation (hash match)
+OCR processing completed in 186ms
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+Joining unfinished sentence: 'Union Level 46' + 'Union EXP 3175/12000 Jinzhou City'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:11.344 +0ms] 1. New text from OCR: OCR took 263 ms; waiting 0.25s for it to settle: 'Terminal Union Level 46 Union EXP 3175/1…'
+All text objects cleared
+OCR processing completed in 264ms
+[OCR timing 08:43:11.345 +0ms] 2a. Prefetch request: 4 block(s) combined
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+Joining unfinished sentence: 'Union Level 46' + 'Union EXP 3175/12000 Jinzhou City'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 08:43:11.606 +261ms] 2. Text settled
+Character-level processing (scale=3.00): 23 characters → 11 blocks
+All text objects cleared
+OCR JSON processing took 105 ms
+[OCR timing 08:43:11.710 +366ms] 3a. Waiting for the prefetch of this text
+Google Translate: 1 block(s), 4 part(s) translated together
+Google translated: 'QZX1 46
+Union EXP 3175/12000
+QZX4 City##|||##Store Pioneer Podcast Convene##|||##QZX2 Team QZX3 WavesLine##|||##Guidebook Synthesis Expedition Motorb Trophies' -> 'QZX1 46 Liên minh EXP 3175/12000 Thành phố QZX4##|||##Cửa hàng Pioneer Podcast Convene##|||##Nhóm QZX2 QZX3 WavesLine##|||##Tổng hợp sách hướng dẫn Expedition Motorb Trophy'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"QZX1 46\nUnion EXP 3175/12000\nQZX4 City##|||##Store P...
+[OCR timing 08:43:12.291 +946ms] 2b. Prefetch done: 946 ms, 4 translation(s) cached
+[OCR timing 08:43:12.300 +955ms] 3. Translation request: Google Translate, 1 request(s), 198 chars, 5 block(s) from cache
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Google Translate: 1 block(s), 6 part(s) translated together
+Google translated: 'QZX1 46
+Union EXP 3175/12000
+QZX4 City##|||##Store Pioneer Podcast Convene##|||##Log in to the game##|||##Complete 1 Daily Quest##|||##QZX2 Team QZX3 WavesLine##|||##Guidebook Synthesis Expedition Motorb Trophies' -> 'QZX1 46 Liên minh EXP 3175/12000 Thành phố QZX4##|||##Cửa hàng Pioneer Podcast Convene##|||##Đăng nhập vào trò chơi##|||##Hoàn thành 1 nhiệm vụ hàng ngày##|||##Nhóm QZX2 QZX3 WavesLine##|||##Tổng hợp sách hướng dẫn Expedition Motorb Trophy'
+Google Translate final JSON result: {"translations":[{"id":"999","original_text":"QZX1 46\nUnion EXP 3175/12000\nQZX4 City##|||##Store P...
+[OCR timing 08:43:13.386 +2041ms] 4. Translation received: 1086 ms
+Translation response with 'translations' format detected (Google Translate / Yandex / compatible)
+Processing Google Translate response
+Updated text object at index 0 with translation from Google Translate
+Updated text object at index 1 with translation from Google Translate
+Updated text object at index 2 with translation from Google Translate
+Updated text object at index 3 with translation from Google Translate
+Updated text object at index 4 with translation from Google Translate
+Updated text object at index 5 with translation from Google Translate
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Typed-out line completed: replacing its half-typed history entry
+Translation took 1690 ms
+[OCR timing 08:43:13.401 +2056ms] 5. Translation shown: translation step took 1690 ms
+GraphicsCaptureItem closed (target window gone)
+Windows Graphics Capture stopped
+MonitorWindow set to be excluded from screen capture
+Logic finalized
+All text objects cleared
+Monitor window force closed
+Global keyboard hook removed
+ConfigManager.GetValue: Key 'force_cursor_visible' not found, returning default value: 'true'
+Gamepad polling stopped
+MouseManager initialized. Force cursor visible: True
+Logic finalized
+All text objects cleared
+Captured window no longer exists, reverting to normal capture mode
+ChatBox window closing intercepted - hiding instead

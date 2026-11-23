@@ -1,0 +1,129 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 coloured words, Ollama qwen2.5:3b",
+ "summary": {
+  "size": 0.867,
+  "color": 1.0,
+  "gradient": 1.0,
+  "effect": 1.0,
+  "bold": 1.0,
+  "italic": 1.0,
+  "font": 1.0,
+  "align": 1.0,
+  "overall": 0.983,
+  "elements": 4
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 1: The Old Harbor",
+   "overlay": {
+    "t": 1795423486099,
+    "size": 30.9,
+    "source": "Chapter 1: The Old Harbor",
+    "shown": "Chương 1: Cảng cũ",
+    "family": "Cambria",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFD678",
+    "effect": "Shadow",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.97,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.99625
+  },
+  {
+   "style": "speaker",
+   "text": "Captain Mira",
+   "overlay": {
+    "t": 1795423486103,
+    "size": 15.8,
+    "source": "Captain Mira",
+    "shown": "Thuyền trưởng Mira",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.6583333333333333,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9572916666666667
+  },
+  {
+   "style": "speaker",
+   "text": "Old Fisherman",
+   "overlay": {
+    "t": 1795423507061,
+    "size": 24.2,
+    "source": "Old Fisherman",
+    "shown": "Lão渔夫",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9916666666666667,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9989583333333334
+  },
+  {
+   "style": "speaker",
+   "text": "Young Sailor",
+   "overlay": {
+    "t": 1795423529436,
+    "size": 20.4,
+    "source": "Young Sailor",
+    "shown": "Thuyền viên trẻ",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.85,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.98125
+  }
+ ]
+}
