@@ -7,7 +7,9 @@ namespace RSTGameTranslation
     /// <summary>
     /// The dictionary of the game being translated (see Layout.GameDictionary): the file
     /// GameDictionaries\&lt;game&gt;.&lt;target language&gt;.json next to rst.exe, for a known game (see
-    /// GamePresets). Reloaded when the file changes, so the player's own additions apply at once.
+    /// GamePresets), and the player's own &lt;game&gt;.&lt;target language&gt;.user.json beside it, over
+    /// it (never shipped, so an update keeps it). Reloaded when either file changes, so the player's
+    /// additions apply at once.
     /// </summary>
     public static class GameDictionaries
     {
@@ -15,9 +17,11 @@ namespace RSTGameTranslation
 
         private static readonly object _lock = new();
         private static string _path = "";
-        private static DateTime _stamp;
+        private static (DateTime App, DateTime Player) _stamp;
         private static DateTime _lastCheck;
         private static GameDictionary? _dictionary;
+
+        private static DateTime Stamp(string path) => File.Exists(path) ? File.GetLastWriteTimeUtc(path) : DateTime.MinValue;
 
         public static GameDictionary? Active
         {
@@ -26,28 +30,32 @@ namespace RSTGameTranslation
                 var preset = GamePresets.Active;
                 if (preset == null)
                     return null;
-                string path = Path.Combine(Folder, $"{preset.Id}.{ConfigManager.Instance.GetTargetLanguage()}.json");
+                string name = $"{preset.Id}.{ConfigManager.Instance.GetTargetLanguage()}";
+                string path = Path.Combine(Folder, name + ".json");
+                string playerPath = Path.Combine(Folder, name + ".user.json");
                 lock (_lock)
                 {
                     if (path == _path && DateTime.UtcNow - _lastCheck < TimeSpan.FromSeconds(2))
                         return _dictionary;
                     _lastCheck = DateTime.UtcNow;
-                    DateTime stamp = File.Exists(path) ? File.GetLastWriteTimeUtc(path) : DateTime.MinValue;
+                    var stamp = (Stamp(path), Stamp(playerPath));
                     if (path == _path && stamp == _stamp)
                         return _dictionary;
                     _path = path;
                     _stamp = stamp;
                     _dictionary = null;
-                    if (stamp == DateTime.MinValue)
+                    if (stamp.Item1 == DateTime.MinValue && stamp.Item2 == DateTime.MinValue)
                         return null;
                     try
                     {
-                        _dictionary = GameDictionary.Parse(File.ReadAllText(path));
-                        Console.WriteLine($"Game dictionary: {path} ({_dictionary.Count} entries)");
+                        string app = stamp.Item1 != DateTime.MinValue ? File.ReadAllText(path) : "{}";
+                        string? player = stamp.Item2 != DateTime.MinValue ? File.ReadAllText(playerPath) : null;
+                        _dictionary = GameDictionary.Parse(app, player);
+                        Console.WriteLine($"Game dictionary: {path}{(player != null ? " + " + playerPath : "")} ({_dictionary.Count} entries)");
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Game dictionary {path} could not be read: {ex.Message}");
+                        Console.WriteLine($"Game dictionary {name} could not be read: {ex.Message}");
                     }
                     return _dictionary;
                 }

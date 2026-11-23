@@ -1,6 +1,9 @@
 // Từ điển Wuthering Waves (tiếng Anh -> tiếng Việt) của wtranslu.
 // Dùng trước khi gọi dịch vụ dịch: chữ có ở đây được hiện ngay, không gọi API. Chữ mới chưa có
-// thì gọi API một lần rồi được nhớ trong Cache\. Bạn có thể sửa / thêm, lưu file là có tác dụng.
+// thì gọi API một lần rồi được nhớ trong Cache\.
+// Từ của riêng bạn: tạo file wuthering-waves.vi.user.json cùng thư mục, cùng dạng như file này
+// (chỉ cần những mục bạn muốn thêm / sửa). File đó đè lên file này, lưu là có tác dụng ngay, và
+// không bị mất khi cài bản mới (file này thì bị thay).
 //   keep:     chữ để nguyên như game (chỉ số, viết tắt, tên hệ thống quen thuộc): không phủ bản dịch
 //   entries:  nguyên câu / nhãn (không phân biệt hoa thường, xuống dòng, dấu ':' cuối)
 //   patterns: có chỗ trống: {n} số (180, 3175/12000, 59.7%), {t} thời gian (11h 59m), {x} chữ bất kỳ

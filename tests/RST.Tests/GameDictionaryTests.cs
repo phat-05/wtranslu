@@ -81,6 +81,24 @@ public class GameDictionaryTests
     }
 
     [Fact]
+    public void The_players_own_file_goes_over_the_apps()
+    {
+        string app = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "GameDictionaries", "wuthering-waves.vi.json"));
+        var dict = GameDictionary.Parse(app, """
+            // the player's own words
+            { "keep": ["Crimson Jadeite"], "entries": { "Go": "Đến" }, "patterns": { "Level {n}": "Lv {n}" } }
+            """);
+        Assert.True(dict.TryTranslate("Go", out var go));
+        Assert.Equal("Đến", go);
+        Assert.True(dict.TryTranslate("Level 70/70", out var level));
+        Assert.Equal("Lv 70/70", level);
+        Assert.True(dict.TryTranslate("Claim", out var claim));
+        Assert.Equal("Nhận", claim);
+        Assert.True(dict.IsKept("Crimson Jadeite"));
+        Assert.True(dict.IsKept("ATK 312"));
+    }
+
+    [Fact]
     public void New_text_is_left_to_the_translator()
     {
         Assert.False(Dict.TryTranslate("Beyond the door lies a battlefield long past.", out _));

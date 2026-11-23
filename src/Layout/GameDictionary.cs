@@ -68,11 +68,28 @@ namespace RSTGameTranslation.Layout
             _keep = new Regex($@"^(?:\s|[^\p{{L}}\p{{N}}]|{Number}|{Duration}{keepAlternatives})+$", RegexOptions.CultureInvariant);
         }
 
-        public static GameDictionary Parse(string json)
+        /// <summary>
+        /// The dictionary shipped with the app, and the player's own file over it (optional): their
+        /// entries replace the app's, their patterns are tried first, their kept words are added.
+        /// </summary>
+        public static GameDictionary Parse(string json, string? playerJson = null)
+        {
+            var (entries, patterns, keep) = Read(json);
+            if (!string.IsNullOrWhiteSpace(playerJson))
+            {
+                var (playerEntries, playerPatterns, playerKeep) = Read(playerJson);
+                entries.AddRange(playerEntries);
+                patterns.InsertRange(0, playerPatterns);
+                keep.AddRange(playerKeep);
+            }
+            return new GameDictionary(entries, patterns, keep);
+        }
+
+        private static (List<KeyValuePair<string, string>> Entries, List<KeyValuePair<string, string>> Patterns, List<string> Keep) Read(string json)
         {
             using var doc = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip, AllowTrailingCommas = true });
             var root = doc.RootElement;
-            IEnumerable<KeyValuePair<string, string>> Pairs(string name) =>
+            List<KeyValuePair<string, string>> Pairs(string name) =>
                 root.TryGetProperty(name, out var obj) && obj.ValueKind == JsonValueKind.Object
                     ? obj.EnumerateObject().Where(p => p.Value.ValueKind == JsonValueKind.String)
                          .Select(p => new KeyValuePair<string, string>(p.Name, p.Value.GetString()!)).ToList()
@@ -80,7 +97,7 @@ namespace RSTGameTranslation.Layout
             var keep = root.TryGetProperty("keep", out var k) && k.ValueKind == JsonValueKind.Array
                 ? k.EnumerateArray().Where(v => v.ValueKind == JsonValueKind.String).Select(v => v.GetString()!).ToList()
                 : new List<string>();
-            return new GameDictionary(Pairs("entries"), Pairs("patterns"), keep);
+            return (Pairs("entries"), Pairs("patterns"), keep);
         }
 
         /// <summary>Lowercase, one space between words (line breaks too), no trailing colon or dots of
