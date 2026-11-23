@@ -19,13 +19,16 @@ internal static class WuwaScene
     {
         int w = client.Width, h = client.Height;
 
-        // Minimap with a place name (top left), UID (bottom right): always there
-        using (var map = new SolidBrush(Color.FromArgb(150, 10, 20, 30)))
-            g.FillEllipse(map, 18, 18, 120, 120);
-        var label = Styles.All["minimap"];
-        using (var labelFont = Styles.MakeFont(label))
-        using (var labelBrush = new SolidBrush(label.Fill))
-            g.DrawString(MinimapLabel, labelFont, labelBrush, 30, 142);
+        // Minimap with a place name (top left; not in menus), UID (bottom right): always there
+        if (step?.Style != "wuwa_menu")
+        {
+            using (var map = new SolidBrush(Color.FromArgb(150, 10, 20, 30)))
+                g.FillEllipse(map, 18, 18, 120, 120);
+            var label = Styles.All["minimap"];
+            using (var labelFont = Styles.MakeFont(label))
+            using (var labelBrush = new SolidBrush(label.Fill))
+                g.DrawString(MinimapLabel, labelFont, labelBrush, 30, 142);
+        }
         var uid = Styles.All["uid"];
         using (var uidFont = Styles.MakeFont(uid))
         using (var uidBrush = new SolidBrush(uid.Fill))
@@ -94,7 +97,8 @@ internal static class WuwaScene
         {
             float cx = gridX + i % 4 * cellW, cy = gridY + i / 4 * cellH;
             g.FillRectangle(icon, cx + (cellW - 56) / 2, cy, 56, 56);
-            g.DrawString(names[i], labelFont, labelBrush, new RectangleF(cx, cy + 66, cellW, 24), middle);
+            // A long name wraps onto a second line under its icon, as in the game
+            g.DrawString(names[i], labelFont, labelBrush, new RectangleF(cx + 6, cy + 66, cellW - 12, 44), middle);
         }
     }
 
