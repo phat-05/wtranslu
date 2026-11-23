@@ -100,7 +100,11 @@ namespace RSTGameTranslation
                     }
                 }
                 if (votes == null || votes.Samples == 0)
-                    return (null, 1);
+                {
+                    // Too short to tell (a button, a menu name): the font the game's other text matched
+                    string? gameFont = GameBest();
+                    return (gameFont, 1);
+                }
                 string best = votes.Sum.MinBy(kv => kv.Value).Key;
                 double widthRatio = Math.Exp(-votes.AspectLog.GetValueOrDefault(best) / votes.Samples);
                 double scaleX = widthRatio <= CondenseFrom ? Math.Max(MostCondensed, widthRatio) : 1;
@@ -115,6 +119,27 @@ namespace RSTGameTranslation
             {
                 shape.Coverage = null; // only needed here
             }
+        }
+
+        /// <summary>
+        /// The font closest over all of this game's measured text (mean distance per style), or null
+        /// when nothing was measured yet.
+        /// </summary>
+        private static string? GameBest()
+        {
+            string prefix = GameIdentity.Current + "|";
+            var total = new Dictionary<string, double>();
+            int styles = 0;
+            foreach (var (key, votes) in _byStyle)
+            {
+                if (!key.StartsWith(prefix, StringComparison.Ordinal) || votes.Samples == 0)
+                    continue;
+                styles++;
+                foreach (var (font, sum) in votes.Sum)
+                    total[font] = total.GetValueOrDefault(font) + sum / votes.Samples;
+            }
+            // Every style is measured in every usable font, so the sums compare
+            return styles == 0 || total.Count == 0 ? null : total.MinBy(kv => kv.Value).Key;
         }
 
         /// <summary>The family for a matched font name (with the fallback chain for other scripts).</summary>
