@@ -606,6 +606,15 @@ namespace RSTGameTranslation
         // With the game's font size known, the overlay first tries to keep at least this share of it,
         // widening into free space, before shrinking down to DefaultMinSourceSizeRatio
         public const double PreferredMinSourceSizeRatio = 0.85;
+        // A short label (a button, a menu entry, an icon's name) sits among others: its translation
+        // gets smaller rather than run over its neighbours
+        public const double LabelMinSourceSizeRatio = 0.55;
+        public const double LabelMaxWidening = 1.15;
+
+        /// <summary>A short label: at most 4 words and 32 characters, on one or two lines.</summary>
+        public bool IsShortLabel =>
+            SourceLineCount <= 2 && Text.Length <= 32 &&
+            Text.Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries).Length <= 4;
 
         private void ApplyFontSize(TextBlock textBlock, double fontSize)
         {
