@@ -21,6 +21,9 @@ namespace RSTGameTranslation
         // longer for menus that slide or fade in
         public const int RefreshDelayMs = 300;
         public const int RefreshWindowMs = 2200;
+        // Text that changed in that window (a line typing out, a list sliding in) is read on until it
+        // settles, up to this long after the input
+        public const int MaxRefreshMs = 8000;
 
         private static long _lastInputTick = Environment.TickCount64;
         private static CancellationTokenSource? _cts;
@@ -33,11 +36,14 @@ namespace RSTGameTranslation
         // Gamepad buttons count too while watching (GamepadShortcuts polls the controllers then)
         public static volatile bool Watching;
 
-        /// <summary>Whether the screen should be read now: shortly after the player's last input.</summary>
-        public static bool IsRefreshDue()
+        /// <summary>
+        /// Whether the screen should be read now: shortly after the player's last input, or a little
+        /// longer while the text read then is still changing (textSettling).
+        /// </summary>
+        public static bool IsRefreshDue(bool textSettling = false)
         {
             long since = Environment.TickCount64 - LastInputTick;
-            return since >= RefreshDelayMs && since <= RefreshWindowMs;
+            return since >= RefreshDelayMs && (since <= RefreshWindowMs || textSettling && since <= MaxRefreshMs);
         }
 
         public static void Start()
