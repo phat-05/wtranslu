@@ -63,8 +63,9 @@ namespace RSTGameTranslation
 
         public bool TryGet(string text, out string translation, out CacheMatch match, out double similarity)
         {
-            // The game's own dictionary first: translated once, chosen to fit (see GameDictionaries)
-            if (GameDictionaries.TryTranslate(text, out translation))
+            // The game's own dictionary first: translated once, chosen to fit (see GameDictionaries).
+            // Looked up without colour tags: a label with a coloured word is still the same label
+            if (GameDictionaries.TryTranslate(RSTGameTranslation.Layout.ColorMarkup.Strip(text), out translation))
             {
                 match = CacheMatch.Exact;
                 similarity = 1;

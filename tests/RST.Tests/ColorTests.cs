@@ -183,6 +183,19 @@ public class ColorMarkupTests
     }
 
     [Fact]
+    public void Grey_words_on_white_text_are_not_coloured_words()
+    {
+        // Small white menu text: thin or blurred letters measure grey (Log in to the game, run 62)
+        var light = new Rgb(0xE3, 0xE3, 0xE4);
+        var words = new (string, Rgb?)[] { ("Log", new Rgb(0xAE, 0xAD, 0xAF)), ("in", new Rgb(0xAE, 0xAD, 0xAF)), ("to", light),
+                                           ("the", new Rgb(0x48, 0x46, 0x4A)), ("game", new Rgb(0xAB, 0xAB, 0xAC)) };
+        Assert.Null(ColorMarkup.BuildTagged(words, light, out _));
+        // A gold word in it still is
+        words[4] = ("game", new Rgb(0xE8, 0xC7, 0x4A));
+        Assert.Equal("Log in to the <c1>game</c1>", ColorMarkup.BuildTagged(words, light, out _));
+    }
+
+    [Fact]
     public void Parses_a_translation_and_tolerates_a_missing_closing_tag()
     {
         var parts = ColorMarkup.Parse("Tìm <c1>chìa khóa đỏ</c1> trước <c2>bình minh");
