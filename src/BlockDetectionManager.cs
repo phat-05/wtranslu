@@ -691,7 +691,14 @@ namespace RSTGameTranslation
                         int? previousBubble = GetBubbleId(previousWord);
                         bool crossesBubbles = wordBubble != null && previousBubble != null && wordBubble != previousBubble;
 
-                        if (crossesBubbles || gap > largeHorizontalGapThreshold || gap > (averageCharSize * 10))
+                        // Horizontal text: a gap several text heights wide is between separate labels (a
+                        // menu's names in a row, a label and its value), not between words of one line.
+                        // The thresholds above scale with the block power and missed menus (run 62)
+                        double textHeight = (word.Bounds.Height + previousWord.Bounds.Height) / 2.0;
+                        bool labelGap = !isVertical && textHeight > 0 &&
+                                        gap > textHeight * RSTGameTranslation.Layout.LineGaps.MaxWordGapEm;
+
+                        if (crossesBubbles || labelGap || gap > largeHorizontalGapThreshold || gap > (averageCharSize * 10))
                         {
                             // Gap is large enough to split the line
                             if (currentSegment.Count > 0)
