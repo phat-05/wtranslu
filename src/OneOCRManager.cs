@@ -712,6 +712,48 @@ namespace RSTGameTranslation
                         new[] { (double)line.X4, (double)line.Y4 }
                     };
 
+                    // Word boxes: words in another colour are found from these (x, y, width, height)
+                    var wordBoxes = line.Words.Where(w => !string.IsNullOrEmpty(w.Text)).Select(w =>
+                    {
+                        float minX = Math.Min(Math.Min(w.X1, w.X2), Math.Min(w.X3, w.X4));
+                        float minY = Math.Min(Math.Min(w.Y1, w.Y2), Math.Min(w.Y3, w.Y4));
+                        float maxX = Math.Max(Math.Max(w.X1, w.X2), Math.Max(w.X3, w.X4));
+                        float maxY = Math.Max(Math.Max(w.Y1, w.Y2), Math.Max(w.Y3, w.Y4));
+                        return new { text = w.Text, box = new[] { minX, minY, maxX - minX, maxY - minY } };
+                    }).ToArray();
+
+                    // Separate labels OCR read as one line (a menu's names in a row, a label and its
+                    // value far apart): one line each (see Layout.LineGaps). Horizontal lines only
+                    var groups = new List<List<int>>();
+                    if (wordBoxes.Length > 1)
+                    {
+                        double lineW = Math.Max(Math.Abs(line.X2 - line.X1), Math.Abs(line.X3 - line.X4));
+                        double lineH = Math.Max(Math.Abs(line.Y4 - line.Y1), Math.Abs(line.Y3 - line.Y2));
+                        if (lineW > lineH)
+                            groups = RSTGameTranslation.Layout.LineGaps.Split(
+                                wordBoxes.Select(w => ((double)w.box[0], (double)w.box[1], (double)w.box[2], (double)w.box[3])).ToList());
+                    }
+                    if (groups.Count > 1)
+                    {
+                        string separator = line.Text.Contains(' ') ? " " : "";
+                        foreach (var group in groups)
+                        {
+                            var groupWords = group.Select(i => wordBoxes[i]).ToArray();
+                            float left = groupWords.Min(w => w.box[0]), top = groupWords.Min(w => w.box[1]);
+                            float right = groupWords.Max(w => w.box[0] + w.box[2]), bottom = groupWords.Max(w => w.box[1] + w.box[3]);
+                            results.Add(new
+                            {
+                                text = ProcessTextByLanguage(string.Join(separator, groupWords.Select(w => w.text)), languageCode),
+                                confidence = line.Confidence,
+                                rect = new[] { new[] { (double)left, (double)top }, new[] { (double)right, (double)top },
+                                               new[] { (double)right, (double)bottom }, new[] { (double)left, (double)bottom } },
+                                bubble_id = bubbleIds[lineIndex],
+                                words = groupWords
+                            });
+                        }
+                        continue;
+                    }
+
                     // Process text based on language
                     string processedText = ProcessTextByLanguage(line.Text, languageCode);
                     
@@ -722,15 +764,7 @@ namespace RSTGameTranslation
                         confidence = line.Confidence,
                         rect = box,
                         bubble_id = bubbleIds[lineIndex],
-                        // Word boxes: words in another colour are found from these (x, y, width, height)
-                        words = line.Words.Where(w => !string.IsNullOrEmpty(w.Text)).Select(w =>
-                        {
-                            float minX = Math.Min(Math.Min(w.X1, w.X2), Math.Min(w.X3, w.X4));
-                            float minY = Math.Min(Math.Min(w.Y1, w.Y2), Math.Min(w.Y3, w.Y4));
-                            float maxX = Math.Max(Math.Max(w.X1, w.X2), Math.Max(w.X3, w.X4));
-                            float maxY = Math.Max(Math.Max(w.Y1, w.Y2), Math.Max(w.Y3, w.Y4));
-                            return new { text = w.Text, box = new[] { minX, minY, maxX - minX, maxY - minY } };
-                        }).ToArray()
+                        words = wordBoxes
                     });
                 }
 

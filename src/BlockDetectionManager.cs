@@ -179,6 +179,8 @@ namespace RSTGameTranslation
                     paragraphs = SplitLists(paragraphs);
                     // A speaker's name above their line is not part of the sentence
                     paragraphs = SplitSpeakerNames(paragraphs);
+                    // Labels the game's dictionary knows, stacked: each on its own
+                    paragraphs = SplitKnownLabels(paragraphs);
                 }
 
                 // PHASE 5: Apply manga-specific processing if manga mode is enabled.
@@ -1228,6 +1230,40 @@ namespace RSTGameTranslation
                 }
                 if (run.Count > 0)
                     result.Add(BuildParagraph(run));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// A known game's menu: labels stacked close together ("Union Level" above "Union EXP", a
+        /// number under its name) read as one paragraph. When the game's dictionary does not know the
+        /// paragraph but knows one of its lines (a label, kept stats, a number), every line is shown on
+        /// its own, each translated from the dictionary where it can be.
+        /// </summary>
+        private static List<TextElement> SplitKnownLabels(List<TextElement> paragraphs)
+        {
+            if (GameDictionaries.Active == null)
+                return paragraphs;
+            static bool Known(string text) =>
+                GameDictionaries.TryTranslate(text, out _) || GameDictionaries.IsKept(text) ||
+                RSTGameTranslation.Layout.NumericText.HasNoWords(text) ||
+                RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true;
+            var result = new List<TextElement>();
+            foreach (var paragraph in paragraphs)
+            {
+                var lines = paragraph.Children;
+                if (lines.Count < 2 || Known(paragraph.Text) || !lines.Any(l => Known(l.Text)))
+                {
+                    result.Add(paragraph);
+                    continue;
+                }
+                Console.WriteLine($"Known labels kept apart: '{paragraph.Text.Replace('\n', '|')}'");
+                foreach (var line in lines)
+                {
+                    var item = BuildParagraph(new[] { line });
+                    item.IsListItem = true;
+                    result.Add(item);
+                }
             }
             return result;
         }
