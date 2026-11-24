@@ -20,7 +20,7 @@ internal static class WuwaScene
         int w = client.Width, h = client.Height;
 
         // Minimap with a place name (top left; not in menus), UID (bottom right): always there
-        if (step?.Style != "wuwa_menu")
+        if (step?.Style is not ("wuwa_menu" or "wuwa_materials"))
         {
             using (var map = new SolidBrush(Color.FromArgb(150, 10, 20, 30)))
                 g.FillEllipse(map, 18, 18, 120, 120);
@@ -45,6 +45,88 @@ internal static class WuwaScene
             DrawChoices(g, w, h, step);
         else if (step.Style == "wuwa_menu")
             DrawMenu(g, w, h, step);
+        else if (step.Style == "wuwa_materials")
+            DrawMaterials(g, w, h);
+    }
+
+    /// <summary>
+    /// The Material Collection screen (from a player's screenshot): cards on the left with a title
+    /// over a grey subtitle, "Limited Time Early Access" badges overlapping two titles, a small
+    /// "Current" badge beside the focused Resonator's name; on the right, domains with a two-line
+    /// subtitle ("Weapon and Skill Materials:" over "Sword") and Go buttons; a MAX badge and
+    /// counters at the top.
+    /// </summary>
+    private static void DrawMaterials(Graphics g, int w, int h)
+    {
+        using (var dim = new SolidBrush(Color.FromArgb(225, 20, 26, 34)))
+            g.FillRectangle(dim, 0, 0, w, h);
+        using var titleFont = new Font("Segoe UI", 17, FontStyle.Bold, GraphicsUnit.Pixel);
+        using var subFont = new Font("Segoe UI", 14, FontStyle.Regular, GraphicsUnit.Pixel);
+        using var badgeFont = new Font("Segoe UI", 11, FontStyle.Bold, GraphicsUnit.Pixel);
+        using var headerFont = new Font("Segoe UI", 22, FontStyle.Bold, GraphicsUnit.Pixel);
+        using var counterFont = new Font("Segoe UI", 19, FontStyle.Bold, GraphicsUnit.Pixel);
+        using var white = new SolidBrush(Color.FromArgb(0xF2, 0xF2, 0xF2));
+        using var grey = new SolidBrush(Color.FromArgb(0xA6, 0xAC, 0xB4));
+        using var dark = new SolidBrush(Color.FromArgb(0x22, 0x1E, 0x16));
+        using var yellow = new SolidBrush(Color.FromArgb(0xF3, 0xDE, 0x8A));
+        using var card = new SolidBrush(Color.FromArgb(255, 38, 44, 54));
+        using var lightCard = new SolidBrush(Color.FromArgb(255, 222, 226, 232));
+        using var black = new SolidBrush(Color.FromArgb(0x16, 0x18, 0x1C));
+        using var gold = new SolidBrush(Color.FromArgb(0xE8, 0xC7, 0x7A));
+        using var slot = new SolidBrush(Color.FromArgb(255, 70, 76, 88));
+
+        g.DrawString("Material Collection", headerFont, white, 40, 24);
+        // Counters, a MAX badge above the first
+        g.FillRectangle(yellow, 548, 14, 30, 13);
+        g.DrawString("MAX", badgeFont, dark, 549, 13);
+        g.DrawString("480", counterFont, white, 530, 30);
+        g.DrawString("175/240", counterFont, white, 640, 30);
+
+        // Left: cards, title over subtitle
+        var cards = new (string Title, string Sub)[]
+        {
+            ("Focus Resonator", "Lily"), ("Simulation Challenge", "EXP Materials"), ("Forgery Challenge", "Weapon and Skill Materials"),
+            ("Boss Challenge", "Resonator Ascension Materials"), ("Weekly Challenge", "Advanced Skill Materials"),
+            ("Tacet Suppression", "Echo Materials"), ("Tacet Discord Nest", "Echo Suite"),
+        };
+        for (int i = 0; i < cards.Length; i++)
+        {
+            float y = 70 + i * 62;
+            g.FillRectangle(card, 92, y - 6, 250, 54);
+            g.DrawString(cards[i].Title, titleFont, white, 140, y);
+            g.DrawString(cards[i].Sub, subFont, grey, 140, y + 24);
+        }
+        // "Current" under the portrait, just left of "Lily"
+        g.FillRectangle(slot, 98, 64, 36, 42);
+        g.FillRectangle(black, 97, 96, 38, 12);
+        g.DrawString("Current", new Font("Segoe UI", 9, FontStyle.Bold, GraphicsUnit.Pixel), gold, 99, 96);
+        // Badges overlapping the right end of two titles
+        foreach (float y in new[] { 70 + 3 * 62f, 70 + 4 * 62f })
+        {
+            g.FillRectangle(yellow, 212, y - 9, 132, 15);
+            g.DrawString("Limited Time Early Access", badgeFont, dark, 214, y - 9);
+        }
+
+        // Right: sort bar, region, domains
+        g.DrawString("Sort by Weapon Type", subFont, white, 362, 76);
+        g.FillRectangle(black, 700, 70, 220, 28);
+        g.DrawString("Weapon Type/All", subFont, white, 730, 76);
+        g.DrawString("Huanglong: Mengzhou", subFont, gold, 440, 110);
+        var domains = new (string Name, string Weapon)[] { ("Wingfall Chasm", "Sword"), ("Silent Chasm", "Rectifier"), ("Split Chasm", "Broadblade"), ("Eroded Chasm", "Gauntlets") };
+        for (int i = 0; i < domains.Length; i++)
+        {
+            float y = 140 + i * 92;
+            g.FillRectangle(lightCard, 356, y, 568, 82);
+            g.DrawString(domains[i].Name, titleFont, black, 450, y + 6);
+            using var subDark = new SolidBrush(Color.FromArgb(0x6A, 0x70, 0x78));
+            g.DrawString("Weapon and Skill Materials:", subFont, subDark, 450, y + 34);
+            g.DrawString(domains[i].Weapon, subFont, subDark, 450, y + 54);
+            for (int k = 0; k < 3; k++)
+                g.FillRectangle(slot, 660 + k * 48, y + 16, 42, 50);
+            g.FillRectangle(black, 820, y + 26, 90, 30);
+            var centre = new StringFormat { Alignment = StringAlignment.Center };
+            g.DrawString("Go", titleFont, white, new RectangleF(820, y + 30, 90, 24), centre);
+        }
     }
 
     /// <summary>
