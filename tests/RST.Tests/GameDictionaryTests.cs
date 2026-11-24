@@ -104,6 +104,21 @@ public class GameDictionaryTests
         Assert.True(dict.IsKept("ATK 312"));
     }
 
+    [Theory]
+    [InlineData("Limited Time Early Acces", "Mở sớm có thời hạn")]
+    [InlineData("Simulation Chalenge", "Thử thách mô phỏng")]
+    public void A_long_label_with_a_misread_letter_still_matches(string text, string translation)
+    {
+        Assert.True(Dict.TryTranslate(text, out var result), text);
+        Assert.Equal(translation, result);
+    }
+
+    [Theory]
+    [InlineData("Ga")]          // short labels: exact only ("Go")
+    [InlineData("Teams")]
+    [InlineData("Completely different words here")]
+    public void Short_or_unknown_text_does_not_match_loosely(string text) => Assert.False(Dict.TryTranslate(text, out _), text);
+
     [Fact]
     public void The_glossary_gives_the_players_names_for_game_terms()
     {

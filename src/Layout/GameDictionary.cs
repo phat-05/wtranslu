@@ -169,8 +169,58 @@ namespace RSTGameTranslation.Layout
                 translation = result;
                 return true;
             }
+            // OCR misread a letter of a long label ("Limited Time Early Acces"): the entry it is closest to
+            if (t.Length >= MinFuzzyLength && TryNearest(t, out translation))
+                return true;
             translation = "";
             return false;
+        }
+
+        // Labels this long or longer may differ from their entry by one misread letter per 12
+        public const int MinFuzzyLength = 10;
+
+        private bool TryNearest(string text, out string translation)
+        {
+            int allowed = Math.Max(1, text.Length / 12);
+            string? best = null;
+            int bestDistance = allowed + 1;
+            foreach (var (key, value) in _entries)
+            {
+                if (Math.Abs(key.Length - text.Length) > allowed || key.Length < MinFuzzyLength)
+                    continue;
+                int d = Distance(text, key, bestDistance - 1);
+                if (d < bestDistance)
+                {
+                    bestDistance = d;
+                    best = value;
+                }
+            }
+            translation = best ?? "";
+            return best != null;
+        }
+
+        // Edit distance, or max + 1 once it is certainly above max
+        private static int Distance(string a, string b, int max)
+        {
+            var previous = new int[b.Length + 1];
+            var current = new int[b.Length + 1];
+            for (int j = 0; j <= b.Length; j++)
+                previous[j] = j;
+            for (int i = 1; i <= a.Length; i++)
+            {
+                current[0] = i;
+                int rowMin = current[0];
+                for (int j = 1; j <= b.Length; j++)
+                {
+                    int cost = a[i - 1] == b[j - 1] ? 0 : 1;
+                    current[j] = Math.Min(Math.Min(current[j - 1] + 1, previous[j] + 1), previous[j - 1] + cost);
+                    rowMin = Math.Min(rowMin, current[j]);
+                }
+                if (rowMin > max)
+                    return max + 1;
+                (previous, current) = (current, previous);
+            }
+            return previous[b.Length];
         }
     }
 }
