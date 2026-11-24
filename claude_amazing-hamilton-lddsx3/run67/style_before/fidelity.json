@@ -1,0 +1,409 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 style scenario, features off",
+ "summary": {
+  "size": 0.836,
+  "color": 0.889,
+  "gradient": 0.929,
+  "effect": 0.714,
+  "bold": 0.429,
+  "italic": 0.929,
+  "font": 0.714,
+  "align": 0.857,
+  "overall": 0.787,
+  "elements": 14
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 2: The Lighthouse",
+   "overlay": {
+    "t": 1795495503928,
+    "size": 29.5,
+    "source": "Chapter 2: The Lighthouse",
+    "shown": "Chương 2: Ngọn Hải Đăng",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FED577",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9833333333333333,
+    "color": 0.9960724471483698,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.6224257225602129
+  },
+  {
+   "style": "speaker",
+   "text": "Captain Mira",
+   "overlay": {
+    "t": 1795495508534,
+    "size": 16.9,
+    "source": "Captain Mira",
+    "shown": "Thuyền trưởng Mira",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.7041666666666666,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8380208333333333
+  },
+  {
+   "style": "dialogue",
+   "text": "Find the red key before the tide turns.",
+   "overlay": {
+    "t": 1795495508537,
+    "size": 20.3,
+    "source": "Find the red key before the tide turns.",
+    "shown": "Tìm chìa khóa đỏ trước khi tình thế đảo chiều.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.7807692307692308,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9725961538461538
+  },
+  {
+   "style": "menu",
+   "text": "Continue Load Game Settings Quit",
+   "overlay": {
+    "t": 1795495512522,
+    "size": 16.4,
+    "source": "Quit",
+    "shown": "Bỏ đi",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#3C2814",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 4,
+   "scores": {
+    "size": 0.8049999999999999,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.975625
+  },
+  {
+   "style": "banner",
+   "text": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER",
+   "overlay": {
+    "t": 1795495519211,
+    "size": 27.4,
+    "source": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER .",
+    "shown": "NHIỆM VỤ HOÀN THÀNH: NGƯỜI GIỮ HẢI ĐĂNG",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.6227272727272727,
+    "color": 0.4378886505106331,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.5075769904047382
+  },
+  {
+   "style": "subtitle",
+   "text": "The storm is coming. Hold on to the mast!",
+   "overlay": {
+    "t": 1795495529304,
+    "size": 30.3,
+    "source": "The storm is coming. Hold on to the mast!",
+    "shown": "Cơn bão đang đến. Giữ chặt cột buồm!",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.99,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.74875
+  },
+  {
+   "style": "hint",
+   "text": "Tip: press Space to skip the cutscene.",
+   "overlay": {
+    "t": 1795495530666,
+    "size": 16.5,
+    "source": "Tip: press Space to skip the cutscene.",
+    "shown": "Mẹo: nhấn phím cách để bỏ qua đoạn cắt cảnh.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#000000",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.75,
+    "color": 0.4193240066151753,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 0.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.7711655008268969
+  },
+  {
+   "style": "hud",
+   "text": "Lv.70  776,256  2026-11-15 14:39:01 HD",
+   "overlay": {
+    "t": 1795495537621,
+    "size": 13.0,
+    "source": "Lv.70 776,256 2026-11-15 14:39:01 HD",
+    "shown": "Lv.70 776,256 2026-11-15 14:39:01 HD",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.7222222222222222,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 0.0
+   },
+   "total": 0.5902777777777778
+  },
+  {
+   "style": "gradient",
+   "text": "The Lighthouse Awakens",
+   "overlay": {
+    "t": 1795495544445,
+    "size": 33.7,
+    "source": "The Lighthouse Awakens .",
+    "shown": "Ngọn Hải Đăng Thức Tỉnh",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9361111111111112,
+    "color": 0.6000109909418752,
+    "gradient": 0.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 0.0,
+    "align": 1.0
+   },
+   "total": 0.5670152627566233
+  },
+  {
+   "style": "centered",
+   "text": "The tide rises with the moon. Every sailor knows its song.",
+   "overlay": {
+    "t": 1795495548899,
+    "size": 18.1,
+    "source": "Every sailor knows its song.",
+    "shown": "Mỗi thủy thủ đều biết bài hát của mình.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#D6EAFE",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 2,
+   "scores": {
+    "size": 0.7173076923076923,
+    "color": 0.9960724471483698,
+    "gradient": 1.0,
+    "effect": 0.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 0.0
+   },
+   "total": 0.7141725174320077
+  },
+  {
+   "style": "speaker",
+   "text": "Old Fisherman",
+   "overlay": {
+    "t": 1795495554830,
+    "size": 23.2,
+    "source": "Old Fisherman",
+    "shown": "Ngư Dân Già",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9666666666666667,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8708333333333333
+  },
+  {
+   "style": "dialogue",
+   "text": "The blue door opens only for the green lantern.",
+   "overlay": {
+    "t": 1795495554832,
+    "size": 25.1,
+    "source": "The blue door opens only for the green lantern.",
+    "shown": "Cánh cửa xanh chỉ mở ra cho đèn lồng xanh.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9653846153846154,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9956730769230769
+  },
+  {
+   "style": "speaker",
+   "text": "Young Sailor",
+   "overlay": {
+    "t": 1795495566721,
+    "size": 22.5,
+    "source": "Young Sailor",
+    "shown": "Thủy thủ trẻ",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9375,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 0.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.8671875
+  },
+  {
+   "style": "dialogue",
+   "text": "Captain, the merchant wants twelve gold coins for the map.",
+   "overlay": {
+    "t": 1795495566722,
+    "size": 21.5,
+    "source": "Captain, the merchant wants twelve gold coins for the map.",
+    "shown": "Thuyền trưởng, thương nhân muốn mười hai đồng vàng cho bản đồ.",
+    "family": "Arial",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.8269230769230769,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9783653846153846
+  }
+ ]
+}

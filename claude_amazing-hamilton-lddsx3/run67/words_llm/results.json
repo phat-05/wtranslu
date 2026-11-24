@@ -1,0 +1,84 @@
+{
+  "summary": {
+    "label": "claude/amazing-hamilton-lddsx3 coloured words, Ollama qwen2.5:3b",
+    "all": {
+      "n": 2,
+      "missing": 1,
+      "mean_ms": 11091,
+      "median_ms": 11091,
+      "min_ms": 9642,
+      "max_ms": 12540,
+      "ocr_runs": 13,
+      "translation_requests": 3,
+      "from_cache": 0,
+      "image_cache_hits": 73
+    },
+    "first_time_lines": {
+      "n": 2,
+      "missing": 1,
+      "mean_ms": 11091,
+      "median_ms": 11091,
+      "min_ms": 9642,
+      "max_ms": 12540,
+      "ocr_runs": 13,
+      "translation_requests": 3,
+      "from_cache": 0,
+      "image_cache_hits": 73
+    },
+    "repeated_lines": {
+      "n": 0
+    },
+    "per_session": {
+      "s1": {
+        "n": 2,
+        "missing": 1,
+        "mean_ms": 11091,
+        "median_ms": 11091,
+        "min_ms": 9642,
+        "max_ms": 12540,
+        "ocr_runs": 13,
+        "translation_requests": 3,
+        "from_cache": 0,
+        "image_cache_hits": 73
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "Find the red key before the tide turns.",
+      "latency_ms": null,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": false,
+      "image_cache_hits": 21,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "The blue door opens only for the green lantern.",
+      "latency_ms": 12540,
+      "ocr_runs": 6,
+      "translation_requests": 1,
+      "served_from_cache": false,
+      "image_cache_hits": 36,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Ask Captain Mira about the Storm Crystal.",
+      "latency_ms": 9642,
+      "ocr_runs": 3,
+      "translation_requests": 2,
+      "served_from_cache": false,
+      "image_cache_hits": 16,
+      "rst_crashed": false
+    }
+  ]
+}
