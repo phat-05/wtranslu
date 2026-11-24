@@ -85,7 +85,7 @@ internal static class WuwaScene
         // Left: cards, title over subtitle
         var cards = new (string Title, string Sub)[]
         {
-            ("Focus Resonator", "Lily"), ("Simulation Challenge", "EXP Materials"), ("Forgery Challenge", "Weapon and Skill Materials"),
+            ("Focus Resonator", ""), ("Simulation Challenge", "EXP Materials"), ("Forgery Challenge", "Weapon and Skill Materials"),
             ("Boss Challenge", "Resonator Ascension Materials"), ("Weekly Challenge", "Advanced Skill Materials"),
             ("Tacet Suppression", "Echo Materials"), ("Tacet Discord Nest", "Echo Suite"),
         };
@@ -96,7 +96,8 @@ internal static class WuwaScene
             g.DrawString(cards[i].Title, titleFont, white, 140, y);
             g.DrawString(cards[i].Sub, subFont, grey, 140, y + 24);
         }
-        // "Current" under the portrait, just left of "Lily"
+        // "Current" under the portrait, just left of the Resonator's name (as in the game)
+        g.DrawString("Lily", subFont, grey, 147, 70 + 24);
         g.FillRectangle(slot, 98, 64, 36, 42);
         g.FillRectangle(black, 97, 96, 38, 12);
         g.DrawString("Current", new Font("Segoe UI", 9, FontStyle.Bold, GraphicsUnit.Pixel), gold, 99, 96);
