@@ -42,5 +42,39 @@ namespace RSTGameTranslation.Layout
             groups.Add(current);
             return groups;
         }
+
+        // A label is split off at a gap at least this many text heights wide (spaces between words of
+        // a sentence are narrower)
+        public const double MinLabelGapEm = 0.5;
+
+        /// <summary>
+        /// A known game: where a line starts or ends with one of the game's labels set a little apart
+        /// (a "Current" badge beside a name), the index of the first word after the split; -1 when the
+        /// line is one item. Words in reading order; isLabel tells a label of the game.
+        /// </summary>
+        public static int LabelSplit(IReadOnlyList<(double X, double Y, double W, double H)> words, IReadOnlyList<string> texts,
+                                     Func<string, bool> isLabel, string separator = " ")
+        {
+            if (words.Count < 2 || words.Count != texts.Count || isLabel(string.Join(separator, texts)))
+                return -1;
+            int best = -1;
+            double bestRatio = MinLabelGapEm;
+            for (int k = 1; k < words.Count; k++)
+            {
+                // Against the taller of the two words (a lower-case word measures only its x-height)
+                double em = Math.Max(words[k].H, words[k - 1].H);
+                double gap = words[k].X - (words[k - 1].X + words[k - 1].W);
+                if (em <= 0 || gap / em < bestRatio)
+                    continue;
+                string before = string.Join(separator, texts.Take(k));
+                string after = string.Join(separator, texts.Skip(k));
+                if (isLabel(before) || isLabel(after))
+                {
+                    best = k;
+                    bestRatio = gap / em;
+                }
+            }
+            return best;
+        }
     }
 }
