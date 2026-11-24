@@ -84,6 +84,8 @@ namespace RSTGameTranslation.Layout
         private const double MinClusterDistance = 70;
         private const double MinClusterShare = 0.12;
         private const double ReadableContrast = 2.0;
+        // Share of a box covered by one colour from which it is a panel the text sits on, not letters
+        private const double MinPanelShare = 0.55;
 
         // Diagnostics for tuning (tests / tools only)
         public static Action<string>? Trace;
@@ -117,6 +119,18 @@ namespace RSTGameTranslation.Layout
             // A background that changes from top to bottom (sky, gradient panel): compare each row with
             // the background at its height, read above and below the box, not with one colour
             var rowBackground = VerticalBackground(bgra, stride, rx0, rx1, ry0, ry1, y0, y1, background);
+
+            // Text on a small panel of its own (a badge, a button) with the box reaching past it: one
+            // colour other than the surroundings covers most of the box. Letters never cover that much,
+            // so it is the panel, and the text is what stands out from it
+            var panel = Dominant(inside.ToList());
+            if (panel.DistanceTo(background) > MinClusterDistance &&
+                inside.Count(p => p.DistanceTo(panel) <= MinInkDistance) > inside.Length * MinPanelShare)
+            {
+                Trace?.Invoke($"panel {panel} over {background}");
+                background = panel;
+                Array.Fill(rowBackground, panel);
+            }
 
             // 2. ink: far enough from the background (threshold adapts to the strongest contrast)
             var distances = new double[inside.Length];

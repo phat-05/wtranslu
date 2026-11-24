@@ -17,18 +17,40 @@ namespace RSTGameTranslation
     {
         private readonly ITranslationService _inner;
         private readonly IReadOnlyCollection<string> _terms;
+        private readonly IReadOnlyDictionary<string, string>? _glossary;
 
-        public TermGuardTranslationService(ITranslationService inner, IReadOnlyCollection<string> terms)
+        public TermGuardTranslationService(ITranslationService inner, IReadOnlyCollection<string> terms,
+                                           IReadOnlyDictionary<string, string>? glossary = null)
         {
             _inner = inner;
             _terms = terms;
+            _glossary = glossary;
         }
+
+        /// <summary>
+        /// The terms of the game being translated: its names and terms kept as they are, and the terms
+        /// of its dictionary's glossary for the target language (shown in their translation).
+        /// </summary>
+        public static (IReadOnlyCollection<string> Terms, IReadOnlyDictionary<string, string>? Glossary) ActiveTerms()
+        {
+            var preset = GamePresets.Active;
+            if (preset == null)
+                return (Array.Empty<string>(), null);
+            var glossary = GameDictionaries.Active?.Glossary;
+            var terms = preset.ProtectedTerms.Concat(glossary?.Keys ?? Enumerable.Empty<string>()).Distinct().ToArray();
+            return (terms, glossary is { Count: > 0 } ? glossary : null);
+        }
+
+        // The services wrapped (see TranslationServiceFactory): their translations always keep the terms
+        private static readonly HashSet<string> Guarded = new(StringComparer.OrdinalIgnoreCase) { "Google Translate", "Yandex", "Microsoft" };
+
+        public static bool Guards(string? service) => service != null && Guarded.Contains(service);
 
         /// <summary>The service, wrapped when a known game with terms is being translated.</summary>
         public static ITranslationService Wrap(ITranslationService service)
         {
-            var terms = GamePresets.Active?.ProtectedTerms;
-            return terms is { Count: > 0 } ? new TermGuardTranslationService(service, terms) : service;
+            var (terms, glossary) = ActiveTerms();
+            return terms.Count > 0 ? new TermGuardTranslationService(service, terms, glossary) : service;
         }
 
         public async Task<string?> TranslateAsync(string jsonData, string prompt)
@@ -79,7 +101,7 @@ namespace RSTGameTranslation
                     if (!maps.TryGetValue(id, out var map))
                         continue;
                     if (t["translated_text"]?.GetValue<string>() is string translated)
-                        t["translated_text"] = TermGuard.Restore(translated, map);
+                        t["translated_text"] = TermGuard.Restore(translated, map, _glossary);
                     if (t["original_text"] != null)
                         t["original_text"] = originals[id];
                 }

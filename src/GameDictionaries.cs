@@ -69,5 +69,35 @@ namespace RSTGameTranslation
         }
 
         public static bool IsKept(string text) => Active?.IsKept(text) == true;
+
+        /// <summary>
+        /// A label of the game being translated, shown on its own: one its dictionary translates or
+        /// keeps, a number, or a character's name. Never joined with the text around it.
+        /// </summary>
+        public static bool IsKnownLabel(string text)
+        {
+            var dictionary = Active;
+            if (dictionary == null)
+                return false;
+            // Asked for every pair of neighbouring blocks: remembered per dictionary
+            lock (_labels)
+            {
+                if (!ReferenceEquals(_labelsOf, dictionary) || _labels.Count > 4000)
+                {
+                    _labels.Clear();
+                    _labelsOf = dictionary;
+                }
+                if (_labels.TryGetValue(text, out bool known))
+                    return known;
+            }
+            bool result = dictionary.TryTranslate(text, out _) || dictionary.IsKept(text) || NumericText.HasNoWords(text) ||
+                          GamePresets.Active?.IsKeptAsIs(text) == true;
+            lock (_labels)
+                _labels[text] = result;
+            return result;
+        }
+
+        private static readonly System.Collections.Generic.Dictionary<string, bool> _labels = new();
+        private static GameDictionary? _labelsOf;
     }
 }

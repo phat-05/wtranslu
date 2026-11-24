@@ -856,7 +856,9 @@ namespace RSTGameTranslation
             // Only numbers, timers and symbols (3175/12000, 59.7%, 11:59), a known game's character name
             // on its own line, or only stats, abbreviations and numbers (Lv. 70, ATK 312, Crit Rate):
             // nothing to translate, the game's own text stays visible
+            // Mostly letters of another script than the game's (decorations misread by OCR): noise
             if (RSTGameTranslation.Layout.NumericText.HasNoWords(text) ||
+                RSTGameTranslation.Layout.ScriptFilter.IsForeignScript(text, ConfigManager.Instance.GetSourceLanguage()) ||
                 RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true || GameDictionaries.IsKept(text))
                 return (true, string.Empty);
 
@@ -3471,6 +3473,9 @@ namespace RSTGameTranslation
             return (result, boundsResult);
         }
 
+        // Known game: blocks whose font sizes differ more than this are separate items
+        private const double MaxMergeFontRatio = 1.15;
+
         /// <summary>
         /// Checks if two text blocks physically overlap (intersect) with each other
         /// </summary>
@@ -3487,6 +3492,17 @@ namespace RSTGameTranslation
             // Menu items stay one per line, as the game shows them
             if (a.ListItem || b.ListItem)
                 return false;
+
+            // A known game's menus: a title touching its subtitle, a badge over a title, a small
+            // "Current" beside a name are separate items. Not joined when either is a label the game's
+            // dictionary knows, or when their letters are of clearly different sizes
+            if (RSTGameTranslation.Layout.GamePresets.Active != null)
+            {
+                if (GameDictionaries.IsKnownLabel(a.Text) || GameDictionaries.IsKnownLabel(b.Text))
+                    return false;
+                if (a.FontPx > 0 && b.FontPx > 0 && Math.Max(a.FontPx, b.FontPx) / Math.Min(a.FontPx, b.FontPx) > MaxMergeFontRatio)
+                    return false;
+            }
 
             // Larger threshold to better detect adjacent/overlapping text blocks
             double overlapThreshold = 5.0; // pixels

@@ -57,6 +57,20 @@ public class TextColorAnalyzerTests
     }
 
     [Fact]
+    public void Dark_text_on_a_badge_reads_dark_on_the_badge()
+    {
+        // "Limited Time Early Access": a pale yellow badge on a dark card, dark letters, the ring
+        // around the box mostly outside the badge
+        var c = new Canvas(Navy);
+        var badge = new Rgb(0xF3, 0xDE, 0x8A);
+        c.Rect(16, 18, 268, 44, badge);
+        Letters(c, _ => new Rgb(0x22, 0x1E, 0x16));
+        var s = Analyze(c);
+        Assert.True(s.Fill.DistanceTo(new Rgb(0x22, 0x1E, 0x16)) < 40, s.Fill.ToString());
+        Assert.True(s.Background.DistanceTo(badge) < 30, s.Background.ToString());
+    }
+
+    [Fact]
     public void Outline_is_detected()
     {
         var c = new Canvas(Grey);
@@ -430,6 +444,31 @@ public class TermGuardTests
         var p = TermGuard.Protect("Rover, the Tacet Discord hears an echo of your Echo.", Terms);
         Assert.Equal("QZX2, the QZX1 hears an echo of your QZX3.", p.Text);
         Assert.Empty(TermGuard.Protect("Echoing roverS", Terms).Map);
+    }
+
+    private static readonly Dictionary<string, string> Glossary = new() { ["Resonator"] = "Cộng hưởng giả", ["Resonators"] = "Cộng hưởng giả" };
+
+    [Fact]
+    public void Glossary_terms_come_back_in_their_translation()
+    {
+        var p = TermGuard.Protect("Focus Resonator", Terms);
+        Assert.Equal("Focus QZX1", p.Text);
+        Assert.Equal("Cộng hưởng giả tiêu điểm", TermGuard.Restore("QZX1 tiêu điểm", p.Map, Glossary));
+        // Kept terms stay as they are
+        var q = TermGuard.Protect("The Resonators gathered at Jinzhou.", Terms);
+        Assert.Equal("Cộng hưởng giả tập trung ở Jinzhou.", TermGuard.Restore("QZX1 tập trung ở QZX2.", q.Map, Glossary));
+    }
+
+    [Fact]
+    public void A_translation_that_lost_a_term_is_told_apart()
+    {
+        // Cached before the glossary: "Bộ cộng hưởng tiêu điểm" for "Focus Resonator"
+        Assert.False(TermGuard.KeepsTerms("Focus Resonator", "Bộ cộng hưởng tiêu điểm", Terms, Glossary));
+        Assert.True(TermGuard.KeepsTerms("Focus Resonator", "Cộng hưởng giả mục tiêu", Terms, Glossary));
+        Assert.False(TermGuard.KeepsTerms("Huanglong is far", "Hoàng Long ở xa", new[] { "Huanglong" }));
+        Assert.True(TermGuard.KeepsTerms("Then we leave now.", "Vậy thì đi thôi.", Terms, Glossary));
+        // "Tacet Discord" found, "Echo" inside nothing else
+        Assert.True(TermGuard.KeepsTerms("The Tacet Discord hears your Echo", "Tacet Discord nghe thấy Echo của bạn", Terms, Glossary));
     }
 
     [Fact]

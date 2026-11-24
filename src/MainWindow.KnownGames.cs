@@ -127,7 +127,15 @@ namespace RSTGameTranslation
             foreach (var (key, value) in preset.Settings)
                 ConfigManager.Instance.SetSessionOverride(key, value);
             if (preset.GameInfo.Length > 0)
-                ConfigManager.Instance.SetSessionOverride(ConfigManager.GAME_INFO, preset.GameInfo);
+            {
+                // With the dictionary's terms for the target language ("Resonator" -> "Cộng hưởng giả")
+                var glossary = GameDictionaries.Active?.Glossary;
+                string info = glossary is { Count: > 0 }
+                    ? preset.GameInfo + " Always translate these terms so: " +
+                      string.Join("; ", glossary.Select(g => $"{g.Key} = {g.Value}")) + "."
+                    : preset.GameInfo;
+                ConfigManager.Instance.SetSessionOverride(ConfigManager.GAME_INFO, info);
+            }
             // The player's last mode for this game, else the preset's
             _gameMode = ConfigManager.Instance.GetValue($"game_mode_{preset.Id}", "") switch
             {

@@ -37,7 +37,7 @@ public class GameDictionaryTests
     [InlineData("User ID: 712903107")]
     [InlineData("4974535")]
     [InlineData("Union EXP 3175/12000")]
-    [InlineData("Resonators")]
+    [InlineData("MAX")]
     [InlineData("80%")]
     public void Stats_abbreviations_and_numbers_stay_as_the_game_shows_them(string text) => Assert.True(Dict.IsKept(text), text);
 
@@ -49,6 +49,12 @@ public class GameDictionaryTests
 
     [Theory]
     [InlineData("Daily", "Ngày")]
+    [InlineData("Resonators", "Cộng hưởng giả")]
+    [InlineData("Focus Resonator", "Cộng hưởng giả mục tiêu")]
+    [InlineData("Resonator Ascension Materials", "Nguyên liệu đột phá Cộng hưởng giả")]
+    [InlineData("Limited Time Early Access", "Mở sớm có thời hạn")]
+    [InlineData("Weapon and Skill Materials:\nSword", "Nguyên liệu vũ khí & kỹ năng: Sword")]
+    [InlineData("Tacet Suppression", "Áp chế Tacet")]
     [InlineData("Team", "Đội")]
     [InlineData("Owned: 12", "Đang có: 12")]
     [InlineData("Data Bank Lv. 18", "Kho dữ liệu Lv. 18")]
@@ -96,6 +102,28 @@ public class GameDictionaryTests
         Assert.Equal("Nhận", claim);
         Assert.True(dict.IsKept("Crimson Jadeite"));
         Assert.True(dict.IsKept("ATK 312"));
+    }
+
+    [Theory]
+    [InlineData("Limited Time Early Acces", "Mở sớm có thời hạn")]
+    [InlineData("Simulation Chalenge", "Thử thách mô phỏng")]
+    public void A_long_label_with_a_misread_letter_still_matches(string text, string translation)
+    {
+        Assert.True(Dict.TryTranslate(text, out var result), text);
+        Assert.Equal(translation, result);
+    }
+
+    [Theory]
+    [InlineData("Ga")]          // short labels: exact only ("Go")
+    [InlineData("Teams")]
+    [InlineData("Completely different words here")]
+    public void Short_or_unknown_text_does_not_match_loosely(string text) => Assert.False(Dict.TryTranslate(text, out _), text);
+
+    [Fact]
+    public void The_glossary_gives_the_players_names_for_game_terms()
+    {
+        Assert.Equal("Cộng hưởng giả", Dict.Glossary["Resonator"]);
+        Assert.Equal("Cộng hưởng giả", Dict.Glossary["Resonators"]);
     }
 
     [Fact]

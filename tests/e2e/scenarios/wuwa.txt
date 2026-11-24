@@ -10,3 +10,6 @@
 # The Terminal menu: every name is in the game's dictionary (no translation request), numbers stay as
 # they are, short labels must fit under their icons
 9000|wuwa_menu||Events / Store / Pioneer Podcast / Convene / Resonators / Team / Data Bank / WavesLine / Guidebook / Synthesis / Expedition Motorbike / Trophies
+# Material Collection (from a player's screenshot): badges over titles, "Current" beside a name, two-line
+# subtitles; nothing may be merged, Resonator is "Cộng hưởng giả", MAX and numbers stay as they are
+9000|wuwa_materials||

@@ -3702,7 +3702,8 @@ namespace RSTGameTranslation
             foreach (var (name, font) in ParseGameFonts())
                 if (name.Equals(game, StringComparison.OrdinalIgnoreCase))
                     return font;
-            return "";
+            // A known game being translated: its preset's font (the player's own choice wins)
+            return RSTGameTranslation.Layout.GamePresets.Active?.Font ?? "";
         }
 
         public void SetGameFont(string game, string font)

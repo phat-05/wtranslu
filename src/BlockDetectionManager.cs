@@ -424,6 +424,42 @@ namespace RSTGameTranslation
             return tallColumns * 2 >= realColumns.Count;
         }
 
+        // Text of a row never overlaps itself: two texts that overlap this much across are stacked
+        // (a badge over a title, a label over its value), not on one line
+        private const double MaxSameRowOverlap = 0.3;
+        // A known game's menus: a text this many times taller than its neighbour is another item (a
+        // small "Current" badge beside a name)
+        private const double MaxSameRowHeightRatio = 1.7;
+
+        /// <summary>
+        /// Whether a text cannot belong to a row although it is level with it: it overlaps a text of
+        /// the row across, or (known game) its letters are much taller or smaller. Only for texts of
+        /// a few letters or more (whole OCR lines or words), never single characters.
+        /// </summary>
+        private static bool IsSeparateItem(List<TextElement> row, TextElement element)
+        {
+            if (element.Text.Trim().Length < 3)
+                return false;
+            bool knownGame = RSTGameTranslation.Layout.GamePresets.Active != null;
+            foreach (var other in row)
+            {
+                if (other.Text.Trim().Length < 3)
+                    continue;
+                double overlap = Math.Min(element.Bounds.X + element.Bounds.Width, other.Bounds.X + other.Bounds.Width) -
+                                 Math.Max(element.Bounds.X, other.Bounds.X);
+                if (overlap > MaxSameRowOverlap * Math.Min(element.Bounds.Width, other.Bounds.Width))
+                    return true;
+                if (knownGame)
+                {
+                    double taller = Math.Max(element.Bounds.Height, other.Bounds.Height);
+                    double smaller = Math.Max(1, Math.Min(element.Bounds.Height, other.Bounds.Height));
+                    if (taller / smaller > MaxSameRowHeightRatio)
+                        return true;
+                }
+            }
+            return false;
+        }
+
         private List<TextElement> GroupCharactersIntoWords(List<TextElement> characters, double blockPower, bool isVertical)
         {
             if (characters.Count == 0)
@@ -491,13 +527,22 @@ namespace RSTGameTranslation
                     }
                     else
                     {
-                        double diffY = Math.Abs(currentChar.CenterY - lastCharInLine.CenterY);
-
-                        bool isOverlapping = currentChar.Bounds.Y < (lastCharInLine.Bounds.Y + lastCharInLine.Bounds.Height * 0.5);
-
-                        if (diffY < verticalGapThreshold || isOverlapping)
+                        // The row it is on: the current one, or one of the few before (an element that
+                        // could not join, a badge over a title, may have started a row in between)
+                        List<TextElement>? row = null;
+                        for (int back = lines.Count - 1; back >= Math.Max(0, lines.Count - 3) && row == null; back--)
                         {
-                            currentLine.Add(currentChar);
+                            var candidate = lines[back];
+                            var last = candidate.Last();
+                            double diffY = Math.Abs(currentChar.CenterY - last.CenterY);
+                            bool isOverlapping = currentChar.Bounds.Y < (last.Bounds.Y + last.Bounds.Height * 0.5);
+                            if ((diffY < verticalGapThreshold || isOverlapping) && !IsSeparateItem(candidate, currentChar))
+                                row = candidate;
+                        }
+
+                        if (row != null)
+                        {
+                            row.Add(currentChar);
                         }
                         else
                         {
@@ -697,6 +742,14 @@ namespace RSTGameTranslation
                         double textHeight = (word.Bounds.Height + previousWord.Bounds.Height) / 2.0;
                         bool labelGap = !isVertical && textHeight > 0 &&
                                         gap > textHeight * RSTGameTranslation.Layout.LineGaps.MaxWordGapEm;
+                        // A known game: one of its labels set a little apart (a "Current" badge beside a
+                        // name) is its own item; the spaces of a sentence are narrower
+                        if (!labelGap && !isVertical && GameDictionaries.Active != null)
+                        {
+                            double taller = Math.Max(word.Bounds.Height, previousWord.Bounds.Height);
+                            labelGap = taller > 0 && gap >= taller * RSTGameTranslation.Layout.LineGaps.MinLabelGapEm &&
+                                       (GameDictionaries.IsKnownLabel(previousWord.Text) || GameDictionaries.IsKnownLabel(word.Text));
+                        }
 
                         if (crossesBubbles || labelGap || gap > largeHorizontalGapThreshold || gap > (averageCharSize * 10))
                         {
@@ -1251,10 +1304,7 @@ namespace RSTGameTranslation
         {
             if (GameDictionaries.Active == null)
                 return paragraphs;
-            static bool Known(string text) =>
-                GameDictionaries.TryTranslate(text, out _) || GameDictionaries.IsKept(text) ||
-                RSTGameTranslation.Layout.NumericText.HasNoWords(text) ||
-                RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true;
+            static bool Known(string text) => GameDictionaries.IsKnownLabel(text);
             var result = new List<TextElement>();
             foreach (var paragraph in paragraphs)
             {

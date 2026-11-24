@@ -33,3 +33,39 @@ public class LineGapsTests
         Assert.Single(LineGaps.Split(words));
     }
 }
+
+public class LabelSplitTests
+{
+    private static bool IsLabel(string text) => text is "Current" or "Go" or "Claim";
+
+    [Fact]
+    public void A_badge_beside_a_name_is_split_off()
+    {
+        // "Current" (9 px badge) 12 px before "Lily" (14 px), read as one line
+        var words = new (double, double, double, double)[] { (99, 96, 34, 11), (145, 94, 22, 16) };
+        Assert.Equal(1, LineGaps.LabelSplit(words, new[] { "Current", "Lily" }, IsLabel));
+    }
+
+    [Fact]
+    public void A_sentence_starting_with_a_label_word_stays_whole()
+    {
+        // "Go now." with a normal space
+        var words = new (double, double, double, double)[] { (0, 0, 22, 18), (27, 2, 40, 16) };
+        Assert.Equal(-1, LineGaps.LabelSplit(words, new[] { "Go", "now." }, IsLabel));
+    }
+
+    [Fact]
+    public void A_short_word_after_a_label_word_stays_whole()
+    {
+        // "Go on." : "on." measures only its x-height
+        var words = new (double, double, double, double)[] { (0, 0, 22, 17), (27, 5, 22, 10) };
+        Assert.Equal(-1, LineGaps.LabelSplit(words, new[] { "Go", "on." }, IsLabel));
+    }
+
+    [Fact]
+    public void No_label_no_split()
+    {
+        var words = new (double, double, double, double)[] { (0, 0, 60, 16), (80, 0, 60, 16) };
+        Assert.Equal(-1, LineGaps.LabelSplit(words, new[] { "Boss", "Challenge" }, IsLabel));
+    }
+}

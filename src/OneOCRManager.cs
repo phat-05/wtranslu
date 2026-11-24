@@ -730,8 +730,21 @@ namespace RSTGameTranslation
                         double lineW = Math.Max(Math.Abs(line.X2 - line.X1), Math.Abs(line.X3 - line.X4));
                         double lineH = Math.Max(Math.Abs(line.Y4 - line.Y1), Math.Abs(line.Y3 - line.Y2));
                         if (lineW > lineH)
-                            groups = RSTGameTranslation.Layout.LineGaps.Split(
-                                wordBoxes.Select(w => ((double)w.box[0], (double)w.box[1], (double)w.box[2], (double)w.box[3])).ToList());
+                        {
+                            var boxes = wordBoxes.Select(w => ((double)w.box[0], (double)w.box[1], (double)w.box[2], (double)w.box[3])).ToList();
+                            groups = RSTGameTranslation.Layout.LineGaps.Split(boxes);
+                            // A known game: one of its labels set a little apart at either end (a "Current"
+                            // badge beside a name) is an item of its own
+                            if (groups.Count == 1 && GameDictionaries.Active != null)
+                            {
+                                var ordered = groups[0];
+                                int cut = RSTGameTranslation.Layout.LineGaps.LabelSplit(
+                                    ordered.Select(i => boxes[i]).ToList(), ordered.Select(i => wordBoxes[i].text).ToList(),
+                                    GameDictionaries.IsKnownLabel, line.Text.Contains(' ') ? " " : "");
+                                if (cut > 0)
+                                    groups = new List<List<int>> { ordered.Take(cut).ToList(), ordered.Skip(cut).ToList() };
+                            }
+                        }
                     }
                     if (groups.Count > 1)
                     {
