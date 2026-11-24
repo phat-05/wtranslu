@@ -108,7 +108,7 @@ namespace RSTGameTranslation.Layout
                 "Zhezhi", "Xiangli Yao", "Shorekeeper", "The Shorekeeper", "Camellya", "Carlotta", "Roccia", "Phoebe",
                 "Brant", "Cantarella", "Zani", "Ciaccona", "Cartethyia", "Lupa", "Phrolova", "Augusta", "Iuno", "Galbrena",
                 "Qiuyuan", "Chisa", "Buling", "Lynae", "Mornye", "Scar", "Magistrate", "Tethys", "Lollo", "Geshu Lin",
-                "Yangyang & Rover", "Echo", "Sentinel", "Jué", "Jue",
+                "Yangyang & Rover", "Echo", "Sentinel", "Jué", "Jue", "Lily",
             },
             Terms = new[]
             {
