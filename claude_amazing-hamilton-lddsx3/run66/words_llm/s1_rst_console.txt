@@ -1,0 +1,460 @@
+[Automation] Config override source_language
+[Automation] Config override target_language
+[Automation] Config override ocr_method
+[Automation] Config override translation_service
+[Automation] Config override ollama_model
+[Automation] Config override font_size_from_line_height
+[Automation] Config override text_style_from_game
+[Automation] Config override game_fonts
+[Automation] Config override word_colors
+[Automation] Config override auto_match_font
+ConfigManager.GetValue: Key 'dark_mode' not found, returning default value: 'false'
+Fetching version info from: https://raw.githubusercontent.com/phat-05/wtranslu/refs/heads/main/media/latest_version_checker.json
+ConfigManager.GetValue: Key 'chatbox_display_mode' not found, returning default value: '0'
+Applied ChatBox styling: Font=Segoe UI, Size=15, Color=#FFFFFFFF, BG=#FF000000, Window Opacity=1, BG Opacity=0.35, Outline=#FF000000
+MainWindow constructor: Setting _isInitializing to true
+Error getting console mode: 6
+﻿Console output initialized. Toggle visibility with the Log button.
+Note: Console input is disabled to prevent application freeze.
+MonitorWindow constructor: Setting _isInitializing to true
+MonitorWindow constructor started
+MonitorWindow constructor completed
+Exclude MonitorWindow from capture success
+MonitorWindow set to be excluded from screen capture
+MonitorWindow click-through enabled
+MonitorWindow_Loaded: Starting initialization
+MonitorWindow: Got DPI scale: 1.00x
+MonitorWindow initialization complete
+Parsed hotkey for Start/Stop: ALT+G -> Modifiers: 1, VK: 71
+Parsed hotkey for Overlay: ALT+F -> Modifiers: 1, VK: 70
+Parsed hotkey for ChatBox: ALT+C -> Modifiers: 1, VK: 67
+Parsed hotkey for Setting: ALT+P -> Modifiers: 1, VK: 80
+ConfigManager.GetValue: Key 'hotkey_log' not found, returning default value: 'ALT+L'
+Parsed hotkey for Log: ALT+L -> Modifiers: 1, VK: 76
+Parsed hotkey for Select Area: ALT+Q -> Modifiers: 1, VK: 81
+Parsed hotkey for Clear Areas: ALT+R -> Modifiers: 1, VK: 82
+Parsed hotkey for Clear Selected Area: ALT+H -> Modifiers: 1, VK: 72
+Parsed hotkey for Show Area: ALT+B -> Modifiers: 1, VK: 66
+Parsed hotkey for Audio Service: ALT+K -> Modifiers: 1, VK: 75
+Parsed hotkey for Swap Languages: ALT+V -> Modifiers: 1, VK: 86
+Parsed hotkey for Retry Translation: ALT+T -> Modifiers: 1, VK: 84
+Parsed hotkey for Select Exclude Region: ALT+X -> Modifiers: 1, VK: 88
+ConfigManager.GetValue: Key 'hotkey_game_mode' not found, returning default value: 'ALT+M'
+Parsed hotkey for Game Mode: ALT+M -> Modifiers: 1, VK: 77
+Global keyboard hook initialized successfully
+ConfigManager.GetValue: Key 'gamepad_hotkey_start_stop' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_overlay' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_chatbox' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_Show Area' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_audio_service' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_swap_languages' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_retry_translation' not found, returning default value: ''
+ConfigManager.GetValue: Key 'gamepad_hotkey_game_mode' not found, returning default value: ''
+ConfigManager.GetValue: Key 'exclude_regions' not found, returning default value: ''
+Loaded 0 exclude regions from config
+Gamepad polling started
+ConfigManager.GetValue: Key 'show_exclude_regions' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'GamepadHotKeyEnable' not found, returning default value: 'false'
+Loaded 0 exclude regions from config
+Received JSON: {
+    "name":"Real Time Game Translation",
+    "latest_version":6.5,
+    "message":"Download V{VERSION_STRING} now from github?"
+}
+
+Deserialized version: 6.5, name: Real Time Game Translation, message: Download V{VERSION_STRING} now from github?
+Registered Start/Stop hotkey successfully
+Registered Overlay hotkey successfully
+Registered ChatBox hotkey successfully
+Registered Setting hotkey successfully
+Registered Log hotkey successfully
+Registered Select Area hotkey successfully
+Registered Clear Areas hotkey successfully
+Registered Clear Selected Area hotkey successfully
+Registered Show Area hotkey successfully
+Registered Audio Service hotkey successfully
+Registered Swap Languages hotkey successfully
+Registered Retry Translation hotkey successfully
+Registered Select Exclude Region hotkey successfully
+Registered Game Mode hotkey successfully
+SettingsWindow constructor: Setting _isInitializing to true
+SettingsWindow.TranslationServiceComboBox_SelectionChanged called (isInitializing: True)
+Skipping translation service change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Microsoft legacy signature mode set to: True
+Microsoft legacy signature mode changed: True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Skipping OCR method change during initialization
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Set Overlay Background enabled: True
+Auto set overlay background color set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Show icon signal enabled: True
+Show icon signal set to True
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Auto Merge Overlapping Text enabled: True
+Auto merge overlapping text set to True
+Screen 0: DISPLAY1 - Generic PnP Monitor, 1024x768, Primary: True
+Loaded 1 screens
+ConfigManager.GetValue: Key 'audio_processing_provider' not found, returning default value: 'Whisper'
+ConfigManager.GetValue: Key 'tts_volume' not found, returning default value: '100'
+Found Windows UWP TTS voice: Microsoft David (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_DavidM
+Found Windows UWP TTS voice: Microsoft Zira (en-US, Female, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_ZiraM
+Found Windows UWP TTS voice: Microsoft Mark (en-US, Male, UWP) - HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices\Tokens\MSTTS_V110_enUS_MarkM
+Found SAPI TTS voice: Microsoft David Desktop (English (United States), Male, SAPI) - Microsoft David Desktop
+Found SAPI TTS voice: Microsoft Zira Desktop (English (United States), Female, SAPI) - Microsoft Zira Desktop
+Initialized 5 Windows TTS voices in total
+Selected default system voice: Microsoft David Desktop (English (United States), Male, SAPI)
+Loaded 5 Windows TTS voices
+Logic initialized
+Loaded Gemini API key: Set
+Loaded LLM prompt: 1628 chars
+Using OneOCR (built-in)
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+MainWindow_Loaded: Loading OCR method from config: 'OneOCR'
+MainWindow.SetOcrMethod called with method: OneOCR (isInitializing: True)
+Setting OCR method during initialization: OneOCR
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+=== Configuration Test ===
+API Key: Set - <you...
+LLM Prompt: Set - 1628 chars
+OCR Method: OneOCR
+Translation Service: Ollama
+First 100 characters of LLM Prompt:
+You are an expert video game localizer. Translate the source_language text in the JSON below into ta...
+=========================
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Language interface set to: en
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Added screen 0: Screen 1 (1024x768) - Primary
+Screen list loaded. Selected index: 0
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Audio service auto-translate enabled: False
+MainWindow initialization complete. Settings changes will now be saved.
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+Ensuring config OCR method is preserved: OneOCR
+ConfigManager.SetOcrMethod called with method: OneOCR
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+OCR method set to OneOCR and saved to config
+Loading language settings from config: Source=en, Target=vi
+Set source language to en
+Set target language to vi
+Added screen 0: Screen 1 (1024x768) - Primary
+Saved config to D:\a\wtranslu\wtranslu\app\config.txt
+Selected screen index set to: 0
+Screen selection changed to index: 0
+DpiHelper: DPI cache invalidated
+Screen list loaded. Selected index: 0
+[Automation] Waiting for window 'MockGame Dialogue Test'
+Windows Graphics Capture stopped
+D3D11: multithread protection enabled
+WGC: Yellow capture border disabled via IGraphicsCaptureSession3
+Windows Graphics Capture started successfully
+MonitorWindow set to be included in screen capture
+Selected window: MockGame Dialogue Test (Handle: 655722)
+Creating new MonitorWindow instance...
+MonitorWindow setup complete
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetValue: Key 'translation_cache_enabled' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'image_text_cache_enabled' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_persistent' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'current_game_profile' not found, returning default value: ''
+Image cache: MockGame.en.OneOCR.images (0 entries)
+OCR pipeline initialized successfully
+Loaded block detection scale from config: 3
+Loaded block detection settle time from config: 0.2 seconds
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 04:32:55.683 +0ms] 1. New text from OCR: OCR took 647 ms; waiting 0.20s for it to settle: 'X MockGame Dialogue Test Chapter 1: The …'
+ConfigManager.GetValue: Key 'translation_prefetch' not found, returning default value: 'true'
+Translation cache: D:\a\wtranslu\wtranslu\app\Cache\MockGame.en-vi.jsonl (0 entries)
+ConfigManager.GetValue: Key 'translation_cache_fuzzy' not found, returning default value: 'true'
+ConfigManager.GetValue: Key 'translation_cache_fuzzy_threshold' not found, returning default value: '0.90'
+OCR processing completed in 664ms
+[OCR timing 04:32:55.697 +13ms] 2a. Prefetch request: 5 block(s)
+[Automation] Translation started
+[Automation] 27 fonts with Vietnamese letters: Arial, Calibri, Cambria, Cambria Math, Candara, Cascadia Code, Cascadia Mono, Consolas, Constantia, Corbel, Courier New, Microsoft Sans Serif, Palatino Linotype, Sans Serif Collection, Segoe UI, Segoe UI Variable Display, Segoe UI Variable Small, Segoe UI Variable Text, Sitka Banner, Sitka Display, Sitka Heading, Sitka Small, Sitka Subheading, Sitka Text, Tahoma, Times New Roman, Verdana
+Sending request to Ollama API at: http://localhost:11434/api/generate
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 04:32:55.958 +274ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+Font matching candidates: Segoe UI, Arial, Tahoma, Times New Roman, Cambria, Palatino Linotype, Consolas, Courier New; left out: Bahnschrift (no Vietnamese), Georgia (no Vietnamese), Bahnschrift Condensed (not installed)
+OCR JSON processing took 264 ms
+[OCR timing 04:32:56.224 +541ms] 3a. Waiting for the prefetch of this text
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+[WarmUp] Ollama: model 'qwen2.5:3b' loaded in 2039 ms (200)
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 7056ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 845ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 790ms
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 817ms
+Skipping OCR results - waiting for translation to finish
+Log files will be saved in: D:\a\wtranslu\wtranslu\app\
+Attempting to parse nested JSON: {"text_blocks":[{"id":"prefetch_0","text":""},{"id":"prefetch_1","text":"MockGame Đạo Diễn Kiểm Tra"},{"id":"prefetch_2","text":"Chương 1: Cảng Cũ"},{"id":"prefetch_3","text":"Thuyền长 Mira"},{"id":"prefetch_4","text":"Tìm kiếm khóa đỏ trước khi nước chuyển hướng."}]}
+Found structured JSON with text_blocks - keeping entire JSON structure
+LLM reply logged to D:\a\wtranslu\wtranslu\app\last_llm_reply_received.txt
+[OCR timing 04:33:15.646 +19962ms] 2b. Prefetch done: 19949 ms, 4 translation(s) cached
+Translation: 2 block(s) in 1 request(s), 3 from cache
+[OCR timing 04:33:15.796 +20113ms] 3. Translation request: Ollama (qwen2.5:3b), 1 request(s), 40 chars, 3 block(s) from cache
+Sending request to Ollama API at: http://localhost:11434/api/generate
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 2334ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 824ms
+Attempting to parse nested JSON: {"text_blocks":[{"id":"text_0","text":""},{"id":"text_4","text":"Tìm <c1>điều khóa đỏ</c1> trước khi sóng chuyển hướng."}]}
+Found structured JSON with text_blocks - keeping entire JSON structure
+Processing structured JSON translation
+Found 2 text blocks in translated JSON
+Target language: ----------------------------vi
+LLM reply logged to D:\a\wtranslu\wtranslu\app\last_llm_reply_received.txt
+Updated text object text_4 with translation
+Skipping OCR results - waiting for translation to finish
+[OCR timing 04:33:23.363 +27679ms] 4. Translation received: 7567 ms
+Translation: retrying 1 untranslated block(s) one by one
+Sending request to Ollama API at: http://localhost:11434/api/generate
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 969ms
+Attempting to parse nested JSON: {"text_blocks":[{"id":"text_0","text":"X"}]}
+Found structured JSON with text_blocks - keeping entire JSON structure
+Processing structured JSON translation
+Found 1 text blocks in translated JSON
+Target language: ----------------------------vi
+LLM reply logged to D:\a\wtranslu\wtranslu\app\last_llm_reply_received.txt
+Updated text object text_0 with translation
+[OCR timing 04:33:26.225 +30541ms] 4b. Missing blocks retried: 1 block(s)
+Typed-out line completed: replacing its half-typed history entry
+Translation took 30009 ms
+[OCR timing 04:33:26.234 +30551ms] 5. Translation shown: translation step took 30009 ms
+Right-aligned line at the right edge: (931,13) of 962 'X'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 04:33:26.479 +0ms] 1. New text from OCR: OCR took 2 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+[OCR timing 04:33:26.480 +0ms] 2a. Prefetch request: 3 block(s)
+Sending request to Ollama API at: http://localhost:11434/api/generate
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 04:33:26.831 +352ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 777 ms
+[OCR timing 04:33:27.591 +1112ms] 3a. Waiting for the prefetch of this text
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 831ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 816ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Attempting to parse nested JSON: {"text_blocks":[{"id":"prefetch_0","text":"Tôi- MockGame Test Đối thoại"},{"id":"prefetch_1","text":"Người già đánh cá"},{"id":"prefetch_2","text":"Cửa màu xanh chỉ mở cho ngọn đèn xanh."}]}
+Found structured JSON with text_blocks - keeping entire JSON structure
+[OCR timing 04:33:34.083 +7604ms] 2b. Prefetch done: 7603 ms, 3 translation(s) cached
+LLM reply logged to D:\a\wtranslu\wtranslu\app\last_llm_reply_received.txt
+Translation: 1 block(s) in 1 request(s), 4 from cache
+[OCR timing 04:33:34.095 +7616ms] 3. Translation request: Ollama (qwen2.5:3b), 1 request(s), 47 chars, 4 block(s) from cache
+Sending request to Ollama API at: http://localhost:11434/api/generate
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 4447ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 823ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Attempting to parse nested JSON: {"text_blocks":[{"id":"text_4","text":"Cửa <c1>xanh</c1> chỉ mở cho <c2>ánh đèn xanh</c2>."}] }
+Found structured JSON with text_blocks - keeping entire JSON structure
+Processing structured JSON translation
+Found 1 text blocks in translated JSON
+Target language: ----------------------------vi
+LLM reply logged to D:\a\wtranslu\wtranslu\app\last_llm_reply_received.txt
+Updated text object text_4 with translation
+[OCR timing 04:33:41.911 +15431ms] 4. Translation received: 7815 ms
+Typed-out line completed: replacing its half-typed history entry
+Skipping translation entry already shown recently
+Translation took 14319 ms
+[OCR timing 04:33:41.911 +15432ms] 5. Translation shown: translation step took 14319 ms
+Right-aligned line at the right edge: (931,13) of 962 'X'
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 04:33:41.978 +0ms] 1. New text from OCR: OCR took 2 ms; waiting 0.20s for it to settle: 'I- MockGame Dialogue Test X Chapter 1: T…'
+[OCR timing 04:33:41.979 +0ms] 2a. Prefetch request: 2 block(s)
+Sending request to Ollama API at: http://localhost:11434/api/generate
+Filtered out 0 elements with confidence < 0.1
+Filtered out 0 lines with confidence < 0.1
+New paragraph: Line spacing exceeded threshold
+New paragraph: Large gap detected
+New paragraph: Line spacing exceeded threshold
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+ConfigManager.GetOcrMethod() returning: 'OneOCR'
+[OCR timing 04:33:42.326 +347ms] 2. Text settled
+Character-level processing (scale=3.00): 6 characters → 5 blocks
+All text objects cleared
+OCR JSON processing took 1056 ms
+[OCR timing 04:33:43.400 +1421ms] 3a. Waiting for the prefetch of this text
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 1606ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 810ms
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Attempting to parse nested JSON: {"text_blocks":[{"id":"prefetch_0","text":"Bạnngười Hạm Binh Trẻ"},{"id":"prefetch_1","text":"Hỏi Người Chỉ Huy Mira về Ngọc Quyết Bão T/framework"}]}
+Found structured JSON with text_blocks - keeping entire JSON structure
+[OCR timing 04:33:49.234 +7255ms] 2b. Prefetch done: 7255 ms, 2 translation(s) cached
+LLM reply logged to D:\a\wtranslu\wtranslu\app\last_llm_reply_received.txt
+Translation: 1 block(s) in 1 request(s), 4 from cache
+[OCR timing 04:33:49.244 +7265ms] 3. Translation request: Ollama (qwen2.5:3b), 1 request(s), 41 chars, 4 block(s) from cache
+Sending request to Ollama API at: http://localhost:11434/api/generate
+LLM request logged to D:\a\wtranslu\wtranslu\app\last_llm_request_sent.txt
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+Skipping OCR results - waiting for translation to finish
+OCR processing completed in 3067ms
+GraphicsCaptureItem closed (target window gone)
+Windows Graphics Capture stopped
+Capture position changed by (-31998, -31950). Text overlays updated.
+MonitorWindow set to be excluded from screen capture
+Attempting to parse nested JSON: {"text_blocks":[{"id":"text_4","text":"Hỏi <c1>Thuyền trưởng Mira</c1> về <c2>Quả cầu Bão táp.</c2>\n"}]}
+Found structured JSON with text_blocks - keeping entire JSON structure
+Processing structured JSON translation
+Found 1 text blocks in translated JSON
+Target language: ----------------------------vi
+Updated text object text_4 with translation
+[OCR timing 04:33:57.431 +15453ms] 4. Translation received: 8187 ms
+LLM reply logged to D:\a\wtranslu\wtranslu\app\last_llm_reply_received.txt
+Skipping translation entry already shown recently
+Typed-out line completed: replacing its half-typed history entry
+Translation took 14031 ms
+[OCR timing 04:33:57.432 +15453ms] 5. Translation shown: translation step took 14031 ms
+Logic finalized
+All text objects cleared
+Monitor window force closed
+Global keyboard hook removed
+ConfigManager.GetValue: Key 'force_cursor_visible' not found, returning default value: 'true'
+Gamepad polling stopped
+MouseManager initialized. Force cursor visible: True
+Logic finalized
+All text objects cleared
+Captured window no longer exists, reverting to normal capture mode
+ChatBox window closing intercepted - hiding instead

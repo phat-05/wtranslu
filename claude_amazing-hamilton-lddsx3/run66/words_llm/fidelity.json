@@ -1,0 +1,129 @@
+{
+ "label": "claude/amazing-hamilton-lddsx3 coloured words, Ollama qwen2.5:3b",
+ "summary": {
+  "size": 0.821,
+  "color": 1.0,
+  "gradient": 1.0,
+  "effect": 1.0,
+  "bold": 1.0,
+  "italic": 1.0,
+  "font": 1.0,
+  "align": 1.0,
+  "overall": 0.978,
+  "elements": 4
+ },
+ "rows": [
+  {
+   "style": "title",
+   "text": "Chapter 1: The Old Harbor",
+   "overlay": {
+    "t": 1795494814093,
+    "size": 30.9,
+    "source": "Chapter 1: The Old Harbor",
+    "shown": "Chương 1: Cảng Cũ",
+    "family": "Cambria",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFD678",
+    "effect": "Shadow",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.97,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.99625
+  },
+  {
+   "style": "speaker",
+   "text": "Old Fisherman",
+   "overlay": {
+    "t": 1795494814095,
+    "size": 19.0,
+    "source": "Old Fisherman",
+    "shown": "Người già đánh cá",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.7916666666666666,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9739583333333334
+  },
+  {
+   "style": "speaker",
+   "text": "Young Sailor",
+   "overlay": {
+    "t": 1795494834894,
+    "size": 13.2,
+    "source": "Young Sailor",
+    "shown": "Bạnngười Hạm Binh Trẻ",
+    "family": "Segoe UI",
+    "weight": "Bold",
+    "style": "Normal",
+    "fill": "#FFC83C",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.5499999999999999,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.94375
+  },
+  {
+   "style": "dialogue",
+   "text": "Ask Captain Mira about the Storm Crystal.",
+   "overlay": {
+    "t": 1795494834895,
+    "size": 25.3,
+    "source": "Ask Captain Mira about the Storm Crystal.",
+    "shown": "Ask Captain Mira about the Storm Crystal.",
+    "family": "Tahoma",
+    "weight": "Normal",
+    "style": "Normal",
+    "fill": "#FFFFFF",
+    "effect": "None",
+    "align": "Left"
+   },
+   "parts": 1,
+   "scores": {
+    "size": 0.9730769230769231,
+    "color": 1.0,
+    "gradient": 1.0,
+    "effect": 1.0,
+    "bold": 1.0,
+    "italic": 1.0,
+    "font": 1.0,
+    "align": 1.0
+   },
+   "total": 0.9966346153846154
+  }
+ ]
+}
