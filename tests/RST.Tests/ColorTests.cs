@@ -57,6 +57,20 @@ public class TextColorAnalyzerTests
     }
 
     [Fact]
+    public void Dark_text_on_a_badge_reads_dark_on_the_badge()
+    {
+        // "Limited Time Early Access": a pale yellow badge on a dark card, dark letters, the ring
+        // around the box mostly outside the badge
+        var c = new Canvas(Navy);
+        var badge = new Rgb(0xF3, 0xDE, 0x8A);
+        c.Rect(16, 18, 268, 44, badge);
+        Letters(c, _ => new Rgb(0x22, 0x1E, 0x16));
+        var s = Analyze(c);
+        Assert.True(s.Fill.DistanceTo(new Rgb(0x22, 0x1E, 0x16)) < 40, s.Fill.ToString());
+        Assert.True(s.Background.DistanceTo(badge) < 30, s.Background.ToString());
+    }
+
+    [Fact]
     public void Outline_is_detected()
     {
         var c = new Canvas(Grey);
