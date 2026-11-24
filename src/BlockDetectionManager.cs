@@ -1296,10 +1296,7 @@ namespace RSTGameTranslation
         {
             if (GameDictionaries.Active == null)
                 return paragraphs;
-            static bool Known(string text) =>
-                GameDictionaries.TryTranslate(text, out _) || GameDictionaries.IsKept(text) ||
-                RSTGameTranslation.Layout.NumericText.HasNoWords(text) ||
-                RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true;
+            static bool Known(string text) => GameDictionaries.IsKnownLabel(text);
             var result = new List<TextElement>();
             foreach (var paragraph in paragraphs)
             {

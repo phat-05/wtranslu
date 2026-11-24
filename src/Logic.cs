@@ -3473,6 +3473,9 @@ namespace RSTGameTranslation
             return (result, boundsResult);
         }
 
+        // Known game: blocks whose font sizes differ more than this are separate items
+        private const double MaxMergeFontRatio = 1.15;
+
         /// <summary>
         /// Checks if two text blocks physically overlap (intersect) with each other
         /// </summary>
@@ -3489,6 +3492,17 @@ namespace RSTGameTranslation
             // Menu items stay one per line, as the game shows them
             if (a.ListItem || b.ListItem)
                 return false;
+
+            // A known game's menus: a title touching its subtitle, a badge over a title, a small
+            // "Current" beside a name are separate items. Not joined when either is a label the game's
+            // dictionary knows, or when their letters are of clearly different sizes
+            if (RSTGameTranslation.Layout.GamePresets.Active != null)
+            {
+                if (GameDictionaries.IsKnownLabel(a.Text) || GameDictionaries.IsKnownLabel(b.Text))
+                    return false;
+                if (a.FontPx > 0 && b.FontPx > 0 && Math.Max(a.FontPx, b.FontPx) / Math.Min(a.FontPx, b.FontPx) > MaxMergeFontRatio)
+                    return false;
+            }
 
             // Larger threshold to better detect adjacent/overlapping text blocks
             double overlapThreshold = 5.0; // pixels
