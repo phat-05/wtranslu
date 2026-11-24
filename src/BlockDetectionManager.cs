@@ -742,6 +742,14 @@ namespace RSTGameTranslation
                         double textHeight = (word.Bounds.Height + previousWord.Bounds.Height) / 2.0;
                         bool labelGap = !isVertical && textHeight > 0 &&
                                         gap > textHeight * RSTGameTranslation.Layout.LineGaps.MaxWordGapEm;
+                        // A known game: one of its labels set a little apart (a "Current" badge beside a
+                        // name) is its own item; the spaces of a sentence are narrower
+                        if (!labelGap && !isVertical && GameDictionaries.Active != null)
+                        {
+                            double taller = Math.Max(word.Bounds.Height, previousWord.Bounds.Height);
+                            labelGap = taller > 0 && gap >= taller * RSTGameTranslation.Layout.LineGaps.MinLabelGapEm &&
+                                       (GameDictionaries.IsKnownLabel(previousWord.Text) || GameDictionaries.IsKnownLabel(word.Text));
+                        }
 
                         if (crossesBubbles || labelGap || gap > largeHorizontalGapThreshold || gap > (averageCharSize * 10))
                         {
