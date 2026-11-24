@@ -432,6 +432,31 @@ public class TermGuardTests
         Assert.Empty(TermGuard.Protect("Echoing roverS", Terms).Map);
     }
 
+    private static readonly Dictionary<string, string> Glossary = new() { ["Resonator"] = "Cộng hưởng giả", ["Resonators"] = "Cộng hưởng giả" };
+
+    [Fact]
+    public void Glossary_terms_come_back_in_their_translation()
+    {
+        var p = TermGuard.Protect("Focus Resonator", Terms);
+        Assert.Equal("Focus QZX1", p.Text);
+        Assert.Equal("Cộng hưởng giả tiêu điểm", TermGuard.Restore("QZX1 tiêu điểm", p.Map, Glossary));
+        // Kept terms stay as they are
+        var q = TermGuard.Protect("The Resonators gathered at Jinzhou.", Terms);
+        Assert.Equal("Cộng hưởng giả tập trung ở Jinzhou.", TermGuard.Restore("QZX1 tập trung ở QZX2.", q.Map, Glossary));
+    }
+
+    [Fact]
+    public void A_translation_that_lost_a_term_is_told_apart()
+    {
+        // Cached before the glossary: "Bộ cộng hưởng tiêu điểm" for "Focus Resonator"
+        Assert.False(TermGuard.KeepsTerms("Focus Resonator", "Bộ cộng hưởng tiêu điểm", Terms, Glossary));
+        Assert.True(TermGuard.KeepsTerms("Focus Resonator", "Cộng hưởng giả mục tiêu", Terms, Glossary));
+        Assert.False(TermGuard.KeepsTerms("Huanglong is far", "Hoàng Long ở xa", new[] { "Huanglong" }));
+        Assert.True(TermGuard.KeepsTerms("Then we leave now.", "Vậy thì đi thôi.", Terms, Glossary));
+        // "Tacet Discord" found, "Echo" inside nothing else
+        Assert.True(TermGuard.KeepsTerms("The Tacet Discord hears your Echo", "Tacet Discord nghe thấy Echo của bạn", Terms, Glossary));
+    }
+
     [Fact]
     public void Text_without_terms_is_untouched()
     {

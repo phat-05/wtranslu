@@ -80,7 +80,21 @@ namespace RSTGameTranslation
             }
             bool fuzzy = ConfigManager.Instance.IsTranslationCacheFuzzyEnabled();
             double threshold = ConfigManager.Instance.GetTranslationCacheFuzzyThreshold();
-            return store.TryGet(text, service, fuzzy, threshold, out translation, out match, out similarity);
+            if (!store.TryGet(text, service, fuzzy, threshold, out translation, out match, out similarity))
+                return false;
+            // Translated before the game's terms were kept (or with an older glossary): again. Only for
+            // the services whose translations always keep them, or an AI's would be asked over and over
+            var (terms, glossary) = TermGuardTranslationService.Guards(ConfigManager.Instance.GetCurrentTranslationService())
+                ? TermGuardTranslationService.ActiveTerms()
+                : (Array.Empty<string>(), null);
+            if (terms.Count > 0 &&
+                !RSTGameTranslation.Layout.TermGuard.KeepsTerms(RSTGameTranslation.Layout.ColorMarkup.Strip(text),
+                                                               RSTGameTranslation.Layout.ColorMarkup.Strip(translation), terms, glossary))
+            {
+                translation = "";
+                return false;
+            }
+            return true;
         }
 
         public void Set(string text, string translation)

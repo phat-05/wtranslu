@@ -20,6 +20,7 @@ namespace RSTGameTranslation.Layout
     ///   "entries":  whole texts, matched ignoring case, spaces, line breaks and a trailing colon
     ///   "patterns": texts with placeholders: {n} a number (180, 3175/12000, 59.7%, 1,200),
     ///               {t} a duration (11h 59m), {x} any words (a name)
+    ///   "terms":    game terms and the translation players use, kept inside every translation
     /// </summary>
     public sealed class GameDictionary
     {
@@ -29,13 +30,27 @@ namespace RSTGameTranslation.Layout
 
         public int Count => _entries.Count + _patterns.Count;
 
+        /// <summary>
+        /// Game terms with the one translation players use ("Resonator" -> "Cộng hưởng giả"): every
+        /// translation shows the term so, inside sentences too (see TermGuard). Exact case.
+        /// </summary>
+        public IReadOnlyDictionary<string, string> Glossary { get; }
+
         private const string Number = @"[+\-]?\d[\d.,:/%]*";
         private const string Duration = @"(?:\d+\s*[dhms]\s*)+";
 
         public GameDictionary(IEnumerable<KeyValuePair<string, string>> entries,
                               IEnumerable<KeyValuePair<string, string>> patterns,
-                              IEnumerable<string> keep)
+                              IEnumerable<string> keep,
+                              IEnumerable<KeyValuePair<string, string>>? glossary = null)
         {
+            var terms = new Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var (term, translation) in glossary ?? Enumerable.Empty<KeyValuePair<string, string>>())
+            {
+                if (!string.IsNullOrWhiteSpace(term) && !string.IsNullOrWhiteSpace(translation))
+                    terms[term.Trim()] = translation.Trim();
+            }
+            Glossary = terms;
             foreach (var (source, translation) in entries)
             {
                 string key = Normalize(source);
@@ -74,18 +89,20 @@ namespace RSTGameTranslation.Layout
         /// </summary>
         public static GameDictionary Parse(string json, string? playerJson = null)
         {
-            var (entries, patterns, keep) = Read(json);
+            var (entries, patterns, keep, terms) = Read(json);
             if (!string.IsNullOrWhiteSpace(playerJson))
             {
-                var (playerEntries, playerPatterns, playerKeep) = Read(playerJson);
+                var (playerEntries, playerPatterns, playerKeep, playerTerms) = Read(playerJson);
                 entries.AddRange(playerEntries);
                 patterns.InsertRange(0, playerPatterns);
                 keep.AddRange(playerKeep);
+                terms.AddRange(playerTerms);
             }
-            return new GameDictionary(entries, patterns, keep);
+            return new GameDictionary(entries, patterns, keep, terms);
         }
 
-        private static (List<KeyValuePair<string, string>> Entries, List<KeyValuePair<string, string>> Patterns, List<string> Keep) Read(string json)
+        private static (List<KeyValuePair<string, string>> Entries, List<KeyValuePair<string, string>> Patterns, List<string> Keep,
+                        List<KeyValuePair<string, string>> Terms) Read(string json)
         {
             using var doc = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip, AllowTrailingCommas = true });
             var root = doc.RootElement;
@@ -97,7 +114,7 @@ namespace RSTGameTranslation.Layout
             var keep = root.TryGetProperty("keep", out var k) && k.ValueKind == JsonValueKind.Array
                 ? k.EnumerateArray().Where(v => v.ValueKind == JsonValueKind.String).Select(v => v.GetString()!).ToList()
                 : new List<string>();
-            return (Pairs("entries"), Pairs("patterns"), keep);
+            return (Pairs("entries"), Pairs("patterns"), keep, Pairs("terms"));
         }
 
         /// <summary>Lowercase, one space between words (line breaks too), no trailing colon or dots of

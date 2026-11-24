@@ -35,6 +35,8 @@ namespace RSTGameTranslation.Layout
         public string[] Terms { get; init; } = Array.Empty<string>();
         // What AI translators are told about the game when the user wrote nothing of their own
         public string GameInfo { get; init; } = "";
+        // Font of the overlay when the player chose none for the game (with every Vietnamese letter)
+        public string Font { get; init; } = "";
         // Config values that suit the game (key=value), applied for this session
         public Dictionary<string, string> Settings { get; init; } = new();
         // Shown once when the game is found (how to set it up for the overlay)
@@ -112,14 +114,18 @@ namespace RSTGameTranslation.Layout
             {
                 "Resonator", "Resonators", "Tacet Discord", "Tacet Discords", "Tacet Field", "Tacet Fields",
                 "Echo", "Echoes", "Waveplate", "Waveplates", "Forte", "Sonata", "Union Level", "Data Bank",
-                "Solaris-3", "Jinzhou", "Huanglong", "Rinascita", "Lahai-Roi", "Black Shores", "Mt. Firmament",
+                "Solaris-3", "Jinzhou", "Huanglong", "Mengzhou", "Rinascita", "Ragunna", "Septimont", "Lahai-Roi",
+                "Black Shores", "Mt. Firmament",
                 "Threnodian", "Fractsidus", "Waveworn",
             },
             GameInfo = "Wuthering Waves, an open-world action RPG by Kuro Games set on Solaris-3. The player character is " +
                        "the Rover. Keep character names (Rover, Yangyang, Chixia, Jiyan, Jinhsi, Changli, Camellya, " +
-                       "Carlotta, Phoebe, Cartethyia...), place names (Jinzhou, Huanglong, Rinascita, Black Shores) and " +
-                       "game terms (Resonator, Echo, Tacet Discord, Tacet Field, Waveplate, Forte, Union Level, Data " +
-                       "Bank, Sonata) as they are. Dialogue is spoken and story-driven: keep it natural and concise.",
+                       "Carlotta, Phoebe, Cartethyia...), place names (Jinzhou, Huanglong, Mengzhou, Rinascita, Black Shores) and " +
+                       "game terms (Echo, Tacet Discord, Tacet Field, Waveplate, Forte, Union Level, Data " +
+                       "Bank, Sonata) as they are. Menus and buttons: short, the length of the original. Dialogue is " +
+                       "spoken and story-driven: keep it natural and concise.",
+            // The game's interface is a clean sans-serif; matched text by text, short labels came out serif
+            Font = "Segoe UI",
             Settings = new()
             {
                 // Lines type out letter by letter: wait for each line to finish before translating
