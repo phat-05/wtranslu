@@ -856,7 +856,9 @@ namespace RSTGameTranslation
             // Only numbers, timers and symbols (3175/12000, 59.7%, 11:59), a known game's character name
             // on its own line, or only stats, abbreviations and numbers (Lv. 70, ATK 312, Crit Rate):
             // nothing to translate, the game's own text stays visible
+            // Mostly letters of another script than the game's (decorations misread by OCR): noise
             if (RSTGameTranslation.Layout.NumericText.HasNoWords(text) ||
+                RSTGameTranslation.Layout.ScriptFilter.IsForeignScript(text, ConfigManager.Instance.GetSourceLanguage()) ||
                 RSTGameTranslation.Layout.GamePresets.Active?.IsKeptAsIs(text) == true || GameDictionaries.IsKept(text))
                 return (true, string.Empty);
 
