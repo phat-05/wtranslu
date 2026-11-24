@@ -1,0 +1,180 @@
+{
+  "summary": {
+    "label": "claude/amazing-hamilton-lddsx3 style scenario, features off",
+    "all": {
+      "n": 11,
+      "missing": 0,
+      "mean_ms": 1250,
+      "median_ms": 988,
+      "min_ms": 709,
+      "max_ms": 2857,
+      "ocr_runs": 34,
+      "translation_requests": 0,
+      "from_cache": 11,
+      "image_cache_hits": 169
+    },
+    "first_time_lines": {
+      "n": 11,
+      "missing": 0,
+      "mean_ms": 1250,
+      "median_ms": 988,
+      "min_ms": 709,
+      "max_ms": 2857,
+      "ocr_runs": 34,
+      "translation_requests": 0,
+      "from_cache": 11,
+      "image_cache_hits": 169
+    },
+    "repeated_lines": {
+      "n": 0
+    },
+    "per_session": {
+      "s1": {
+        "n": 11,
+        "missing": 0,
+        "mean_ms": 1250,
+        "median_ms": 988,
+        "min_ms": 709,
+        "max_ms": 2857,
+        "ocr_runs": 34,
+        "translation_requests": 0,
+        "from_cache": 11,
+        "image_cache_hits": 169
+      }
+    }
+  },
+  "lines": [
+    {
+      "session": "s1",
+      "step": 0,
+      "cycle": 0,
+      "text": "Chapter 2: The Lighthouse",
+      "latency_ms": 2857,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 7,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 1,
+      "cycle": 0,
+      "text": "Find the red key before the tide turns.",
+      "latency_ms": 2610,
+      "ocr_runs": 2,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 18,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 2,
+      "cycle": 0,
+      "text": "Continue / Load Game / Settings / Quit",
+      "latency_ms": 1046,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 17,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 3,
+      "cycle": 0,
+      "text": "QUEST COMPLETE: THE LIGHTHOUSE KEEPER",
+      "latency_ms": 1293,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 14,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 4,
+      "cycle": 0,
+      "text": "The storm is coming. Hold on to the mast!",
+      "latency_ms": 865,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 17,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 5,
+      "cycle": 0,
+      "text": "Tip: press Space to skip the cutscene.",
+      "latency_ms": 709,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 17,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 6,
+      "cycle": 0,
+      "text": "Lv.70  776,256  2026-11-15 14:39:01 HD",
+      "latency_ms": 779,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 15,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 7,
+      "cycle": 0,
+      "text": "The Lighthouse Awakens",
+      "latency_ms": 988,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 8,
+      "cycle": 0,
+      "text": "The tide rises with the moon. / Every sailor knows its song.",
+      "latency_ms": 764,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 17,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 9,
+      "cycle": 0,
+      "text": "The blue door opens only for the green lantern.",
+      "latency_ms": 831,
+      "ocr_runs": 3,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 16,
+      "rst_crashed": false
+    },
+    {
+      "session": "s1",
+      "step": 10,
+      "cycle": 0,
+      "text": "Captain, the merchant wants twelve gold coins for the map.",
+      "latency_ms": 1011,
+      "ocr_runs": 4,
+      "translation_requests": 0,
+      "served_from_cache": true,
+      "image_cache_hits": 15,
+      "rst_crashed": false
+    }
+  ]
+}
